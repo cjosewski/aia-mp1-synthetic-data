@@ -3,6 +3,20 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
+## Start here: review the five saved answers
+
+Use the **[step-by-step human-review runbook](docs/RUNBOOK.md)**. It explains what
+you are evaluating, how to enter Ubuntu from Windows, how to apply each of the six
+criteria, when labels are saved, and how to pause, resume or correct a mistake.
+
+For this exercise you read and score the saved model-generated answers. You do not
+need Herd running, API credentials, or a new clone. Finish by verifying five saved
+reviews, or reporting the items you could not judge. Failed answers are valid review
+results; you are not trying to make every answer pass.
+
+The rest of this README is the developer/setup and command reference. Start with
+the runbook if your task is the prepared human review.
+
 Generate engineering-code Q&A items, preserve structural-gate evidence, collect authentic human labels, run an independent local judge and measure per-dimension agreement. These stages of P1-03 / Mini Project 1 run independently against saved artifacts.
 
 Assessed collection, full charts and prompt-correction comparisons remain later work. Chad reported assignment acceptance and approved the labeling/judge plan on November 9, 2026; this is separate from measured pipeline results. See the [SDD](docs/SDD-P1-03.md), [requirements and source decisions](docs/requirements.md) and [iteration log](ITERATION_LOG.md).
@@ -11,12 +25,12 @@ Assessed collection, full charts and prompt-correction comparisons remain later 
 
 - WSL2 Ubuntu for Python work.
 - Python 3.12 selected by `.python-version`; the bootstrap installs it when needed.
-- An already configured local OpenAI-compatible endpoint and served model for generation. Offline tests do not need a model.
-- An API credential supplied through the supported environment or credential-file configuration, never committed to Git.
+- For generation/judging: an already configured local OpenAI-compatible endpoint and served model. Human labeling and offline tests do not need a model.
+- For generation/judging: an API credential supplied through the supported environment or credential-file configuration, never committed to Git.
 
 Chad approved this slice on November 9, 2026 and reported instructor permission to start after completing Courses 1–4. Courses 5–8 and their exercises remain pending; he expects to finish them within a week. The early start does not waive the remaining course work or approve a benchmark substitution.
 
-## Quickstart
+## Developer setup and new generation runs
 
 Clone the repository in WSL2 Ubuntu, or use the existing workspace checkout:
 
@@ -72,40 +86,13 @@ An interrupted or incomplete run can be resumed by adding `--resume` to the orig
 
 ## Human labeling and judge calibration
 
-The commands below use **Bash inside WSL Ubuntu**. Windows Terminal can host
-PowerShell or Command Prompt; those shells do not understand `export` or `source`.
+For the prepared five-item review, follow the
+[operator runbook](docs/RUNBOOK.md). It contains the exact Windows/Ubuntu commands,
+the six review criteria, expected output, completion checks and amendment procedure.
 
-For the existing workstation checkout, first run this in **PowerShell or Command
-Prompt**, from any directory:
-
-```text
-wsl.exe -d Ubuntu --cd /mnt/d/_Repos/_AIA/aia-mp1-synthetic-data --exec bash
-```
-
-This opens Ubuntu Bash in the project directory. At the new Linux prompt, run
-these three lines to start the prepared five-item diagnostic queue (including
-both original gate rejections):
-
-```bash
-export AIA_MP1_TOOLS="$HOME/.local/share/aia-mp1-tools"
-source tools/environment.sh
-uv run --locked python -m aia_mp1 label --assessment-id smoke-review-20261110T035628Z --reviewer "Chad Josewski"
-```
-
-If already in Ubuntu Bash, first use
-`cd /mnt/d/_Repos/_AIA/aia-mp1-synthetic-data`, then run the three lines above.
-After quitting the labeler, `exit` returns to your Windows shell. The queue can
-be reviewed offline; Herd is only needed for model generation/judging.
-
-The labeler displays each complete item and the frozen rubric. Enter `0` for fail,
-`1` for pass, `s` to skip the item or `q` to quit. A skipped/partial item stays
-unresolved; rerunning resumes at incomplete items. No judge suggestions appear.
-The queue currently has **zero human labels**. Check progress with `label-status
---assessment-id smoke-review-20261110T035628Z`.
-
-That queue and its source run are local workstation evidence, excluded from Git.
-A fresh clone must first generate and gate its own run, then create a new queue
-with the command below; the recorded smoke ID is not bundled sample data.
+The queue and source run are local workstation evidence, excluded from Git. A
+fresh clone must generate/gate its own run or receive the complete retained
+evidence before it can review that queue. Human labeling works offline.
 
 To create a new diagnostic queue from an existing completed, gated run:
 
@@ -113,18 +100,12 @@ To create a new diagnostic queue from an existing completed, gated run:
 uv run --locked python -m aia_mp1 assessment --run-id RUN_ID --assessment-id NEW_ID --label-count 5
 ```
 
-Selections are deterministic and stratified by category. `--purpose baseline` or
-`--purpose corrected` requires an assessed source-run purpose, permitted sources,
-a passed gate, at least 50 retained items, at least 20 selected labels and >=95%
-initial schema validity. Current generation is smoke-only, so these flags cannot
-promote existing smoke runs. Multi-batch assessed collection is later work.
+Selections are deterministic and stratified by category. Assessed baseline/corrected
+queues require a qualified source run; current smoke generation cannot be promoted
+by changing the purpose flag. See the [requirements](docs/requirements.md).
 
-For an explicit human amendment, obtain the current label ID from `label-status`,
-then use `label --assessment-id ID --reviewer NAME --item-id ITEM --decisions
-1 0 1 1 1 0 --supersedes CURRENT_LABEL_ID --notes "Reason/reference"` with the
-human's actual six decisions in D1–D6 order. These are syntax examples, not labels
-to apply. Prior records remain intact. Damaged, missing or uncheckpointed label
-ledgers fail for inspection instead of being silently reset.
+The following commands are the later judge/comparison reference. They are not
+prerequisites for completing your human review.
 
 Use `config/judge.example.json` for judge settings. The ignored
 `config/judge.local.json` was prepared from the existing local endpoint and

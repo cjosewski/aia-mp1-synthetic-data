@@ -1,6 +1,6 @@
 # MP1 synthetic data and evaluation
 
-This repository owns the implementation, [SDD](docs/SDD-P1-03.md) and technical runbook for P1-03 / Mini Project 1. Program coordination and the live checklist remain in private `aia-plan` / issue #4. Read `docs/requirements.md`, the SDD and `README.md` before changing behavior.
+This repository owns the implementation, [SDD](docs/SDD-P1-03.md) and [operator runbook](docs/RUNBOOK.md) for P1-03 / Mini Project 1. The runbook owns the step-by-step human-review procedure; `README.md` provides the entry point and developer/CLI reference. Program coordination and the live checklist remain in private `aia-plan` / issue #4. Read `docs/requirements.md`, the SDD, runbook and `README.md` before changing behavior.
 
 ## Current boundary
 
