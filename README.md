@@ -1,5 +1,8 @@
 # MP1 synthetic data and evaluation
 
+Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
+Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
+
 Generate engineering-code Q&A items, preserve structural-gate evidence, collect authentic human labels, run an independent local judge and measure per-dimension agreement. These stages of P1-03 / Mini Project 1 run independently against saved artifacts.
 
 Assessed collection, full charts and prompt-correction comparisons remain later work. Chad reported assignment acceptance and approved the labeling/judge plan on November 9, 2026; this is separate from measured pipeline results. See the [SDD](docs/SDD-P1-03.md), [requirements and source decisions](docs/requirements.md) and [iteration log](ITERATION_LOG.md).
@@ -15,7 +18,14 @@ Chad approved this slice on November 9, 2026 and reported instructor permission 
 
 ## Quickstart
 
-Open WSL2 Ubuntu at this repository's root and bootstrap the locked environment:
+Clone the repository in WSL2 Ubuntu, or use the existing workspace checkout:
+
+```bash
+git clone https://github.com/cjosewski/aia-mp1-synthetic-data.git
+cd aia-mp1-synthetic-data
+```
+
+From the repository root, bootstrap the locked environment:
 
 ```bash
 bash tools/bootstrap.sh
@@ -76,6 +86,10 @@ The labeler displays each complete item and the frozen rubric. Enter `0` for fai
 unresolved; rerunning resumes at incomplete items. No judge suggestions appear.
 The queue currently has **zero human labels**. Check progress with `label-status
 --assessment-id smoke-review-20261110T035628Z`.
+
+That queue and its source run are local workstation evidence, excluded from Git.
+A fresh clone must first generate and gate its own run, then create a new queue
+with the command below; the recorded smoke ID is not bundled sample data.
 
 To create a new diagnostic queue from an existing completed, gated run:
 

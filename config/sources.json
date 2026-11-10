@@ -1,0 +1,26 @@
+{
+  "schema_version": "1",
+  "sources": [
+    {
+      "id": "personal-task-briefs-v1",
+      "kind": "standalone_personal_prompt",
+      "path": "prompts/generator-v1.md",
+      "version": "1",
+      "recorded_at": "2026-11-09",
+      "permission_status": "approved_for_local_smoke",
+      "allowed_uses": ["local_smoke_generation"],
+      "not_ground_truth": true,
+      "third_party_content_ingested": false,
+      "description": "An original generic engineering-task prompt authored for this repository's local runtime smoke test. It is not an external documentation corpus or independent factual reference.",
+      "publication_permission": "owner_authorized_private_repository_publication_2026-11-09"
+    }
+  ],
+  "pending_sources": [],
+  "external_source_policy": "Before ingestion, record source URL, version or revision, retrieval date, license or terms and permitted use. Public access alone does not establish corpus permission.",
+  "benchmark_adaptation": {
+    "course_reference": "dipenbhuva/home-diy-repair-qa",
+    "purpose": "distribution_reference_only",
+    "engineering_replacement": "pending_instructor_disposition",
+    "downloaded_or_ingested": false
+  }
+}

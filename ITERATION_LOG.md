@@ -1,0 +1,16 @@
+# Iteration log
+
+Record one entry for each generator or judge prompt change. Link measured results to immutable run artifacts; an unmeasured hypothesis is not a successful experiment.
+
+| Date | Change | Hypothesis | Result | Decision | Next step |
+| --- | --- | --- | --- | --- | --- |
+| 2026-11-09 | Add `judge-v1.md` with independent rubric instructions, strict D1–D6 decisions and short justifications; generator prompt unchanged | A separately prompted judge can produce auditable decisions for comparison with authentic human reviews | 166 offline tests pass. Live readiness probe at 2026-11-10 03:56:28 UTC timed out from WSL before any judge call; no model-quality or agreement result | Preserve the unmeasured prompt and diagnostic queue; owner reports assignment acceptance and approves this implementation slice | Collect real human labels; run the bounded diagnostic judge when the configured endpoint is reachable |
+| 2026-11-09 | Initialize `generator-v1.md`, the canonical seven-field contract and engineering rubric record | Explicit task context, real API requirements, concrete precautions and distinct tips will provide a useful first generation baseline | Not yet measured; no model or quality outcome claimed | Use this revision for the approved first-slice local smoke test | Run offline checks, then an available local model; retain raw attempts and gate results |
+
+The November 9 early-start approval does not change the benchmark-adaptation question or replace human labeling, judge calibration, measured correction and coaching review. The first five-item smoke run is separate from the assessed baseline.
+
+Implementation checkpoint, November 9: 114 offline tests, Ruff lint/format and CLI help checks passed in WSL2 Python 3.12.16. No generator prompt correction is supported by that result. The default local endpoint refused both health and model-list requests, so the model smoke run remains pending. Verification and probe receipts are in workspace `artifacts/evidence/P1-03/kickoff-20261109/`. Next step: use an available local Herd model with the documented configuration and run five items before assessed data collection.
+
+Readiness follow-up, November 9 at 17:03 EST: Windows health and authenticated model-list requests both passed (HTTP 200; Qwen3-30B-A3B-Q4_K_M). WSL2 localhost refused connections and its Windows host gateway timed out. No generation ran and no prompt/settings changes were made. The smoke blocker is now specifically WSL-to-Windows connectivity; receipts are in workspace `artifacts/evidence/P1-03/herd-ready-20261109/`.
+
+Live smoke, November 9 at 17:27 EST: owner-approved WSL restart applied mirrored networking; authenticated loopback access passed and anonymous model access was rejected. `smoke-herd-20261109T222724Z` used unchanged `generator-v1.md`, Qwen3-30B-A3B-Q4_K_M, temperature 0.6, 4096 tokens and a 120-second timeout. All five first attempts were schema-valid (5/5), with no retries or duplicates. The independent gate retained 3/5 and rejected two on D2; its batch result is failed. This is smoke evidence, not an assessed baseline or human quality judgment. Preserve the original run and review the D2 results before a later prompt experiment. Raw evidence: workspace `artifacts/evidence/P1-03/smoke-herd-20261109T222724Z/`.

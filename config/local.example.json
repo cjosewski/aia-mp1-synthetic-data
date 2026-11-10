@@ -1,0 +1,16 @@
+{
+  "base_url": "http://127.0.0.1:8080/v1",
+  "model": "REPLACE_WITH_SERVED_MODEL_ID",
+  "api_key_env": "AIA_MP1_API_KEY",
+  "api_key_file": null,
+  "mode": "json",
+  "temperature": 0.6,
+  "timeout_seconds": 60,
+  "max_tokens": 1600,
+  "max_attempts": 3,
+  "artifact_root": "../artifacts/evidence/P1-03",
+  "prompt_path": "prompts/generator-v1.md",
+  "prompt_variant": "baseline",
+  "sources_path": "config/sources.json",
+  "source_refs": ["personal-task-briefs-v1"]
+}
