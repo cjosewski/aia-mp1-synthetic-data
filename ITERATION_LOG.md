@@ -14,3 +14,18 @@ Implementation checkpoint, November 9: 114 offline tests, Ruff lint/format and C
 Readiness follow-up, November 9 at 17:03 EST: Windows health and authenticated model-list requests both passed (HTTP 200; Qwen3-30B-A3B-Q4_K_M). WSL2 localhost refused connections and its Windows host gateway timed out. No generation ran and no prompt/settings changes were made. The smoke blocker is now specifically WSL-to-Windows connectivity; receipts are in workspace `artifacts/evidence/P1-03/herd-ready-20261109/`.
 
 Live smoke, November 9 at 17:27 EST: owner-approved WSL restart applied mirrored networking; authenticated loopback access passed and anonymous model access was rejected. `smoke-herd-20261109T222724Z` used unchanged `generator-v1.md`, Qwen3-30B-A3B-Q4_K_M, temperature 0.6, 4096 tokens and a 120-second timeout. All five first attempts were schema-valid (5/5), with no retries or duplicates. The independent gate retained 3/5 and rejected two on D2; its batch result is failed. This is smoke evidence, not an assessed baseline or human quality judgment. Preserve the original run and review the D2 results before a later prompt experiment. Raw evidence: workspace `artifacts/evidence/P1-03/smoke-herd-20261109T222724Z/`.
+
+November 10 implementation checkpoint: Chad approved the assessed-collection plan.
+Added `generator-assessed-v1.md` to use explicit task/reference context. Hypothesis:
+versioned context will make API and installation claims auditable. No live assessed
+generation has measured that hypothesis. The original generator prompt and diagnostic
+artifacts are preserved. Five independent diagnostic labels and judge responses were
+completed; agreement-001 recorded 60% D1–D4 and 100% D5–D6. Owner-approved amendments
+produce a separate 100% post-review report. New assessed reports freeze blind labels
+before judging and keep later adjudication separate. Next: finish source clearance
+and model qualification, collect a real baseline, then obtain 20 blind human reviews.
+
+Verification for this implementation: 185 offline tests passed, Ruff check/format
+passed and all new CLI help paths passed. The diagnostic label/judge status commands
+still report five completed items. Receipt: workspace
+`artifacts/evidence/P1-03/assessed-implementation-20261110T163211Z/`.

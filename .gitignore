@@ -11,6 +11,8 @@ build/
 !.env.example
 config/local.json
 config/judge.local.json
+config/assessed.local.json
+config/judge-assessed.local.json
 data/*
 labels/*
 traces/*

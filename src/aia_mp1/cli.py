@@ -7,6 +7,7 @@ from pathlib import Path
 
 from pydantic import ValidationError
 
+from . import collection_cli
 from .config import load_config, load_inputs
 from .evaluation_cli import add_commands, run_command
 from .gate import evaluate_gate
@@ -21,7 +22,9 @@ def parser() -> argparse.ArgumentParser:
         description="MP1 generation, human review and local judge calibration"
     )
     commands = result.add_subparsers(dest="command", required=True)
-    generate = commands.add_parser("generate", help="generate a bounded, audited local smoke batch")
+    generate = commands.add_parser(
+        "generate", help="generate a bounded batch; smoke is the default"
+    )
     generate.add_argument("--config", type=Path, required=True)
     generate.add_argument("--count", type=int, default=5)
     generate.add_argument("--run-id", required=True)
@@ -32,6 +35,7 @@ def parser() -> argparse.ArgumentParser:
     gate.add_argument("--run-id", required=True)
     gate.add_argument("--artifact-root", type=Path, default=Path("../artifacts/evidence/P1-03"))
     add_commands(commands)
+    collection_cli.add_commands(commands)
     return result
 
 
@@ -119,6 +123,10 @@ def _gate_run(directory: Path, run_id: str) -> dict:
 def main(argv: list[str] | None = None) -> int:
     args = parser().parse_args(argv)
     try:
+        if args.command in collection_cli.COMMANDS:
+            result, exit_code = collection_cli.run_command(args)
+            print(json.dumps(result, indent=2, ensure_ascii=False))
+            return exit_code
         if args.command not in {"generate", "gate"}:
             result, exit_code = run_command(args)
             print(json.dumps(result, indent=2, ensure_ascii=False))

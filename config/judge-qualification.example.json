@@ -1,0 +1,17 @@
+{
+  "schema_version": "1",
+  "selected_by": "",
+  "selected_at": "",
+  "model": "replace-with-exact-served-judge-id",
+  "model_identity": "replace-with-upstream-model-and-revision",
+  "generator_model_identity": "replace-with-pinned-generator-identity",
+  "model_sha256": "",
+  "stronger_model_basis": "",
+  "settings": {
+    "mode": "json",
+    "temperature": 0.1,
+    "max_tokens": 4096,
+    "timeout_seconds": 120.0
+  },
+  "evidence": []
+}

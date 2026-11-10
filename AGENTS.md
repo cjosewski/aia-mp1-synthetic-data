@@ -1,10 +1,18 @@
 # MP1 synthetic data and evaluation
 
-This repository owns the implementation, [SDD](docs/SDD-P1-03.md) and [operator runbook](docs/RUNBOOK.md) for P1-03 / Mini Project 1. The runbook owns the step-by-step human-review procedure; `README.md` provides the entry point and developer/CLI reference. Program coordination and the live checklist remain in private `aia-plan` / issue #4. Read `docs/requirements.md`, the SDD, runbook and `README.md` before changing behavior.
+This repository owns the implementation, [SDD](docs/SDD-P1-03.md) and [operator runbook](docs/RUNBOOK.md) for P1-03 / Mini Project 1. The diagnostic runbook owns its five-item review; the assessed runbook owns the new cohort procedure; `README.md` provides the entry point and developer/CLI reference. Program coordination and the live checklist remain in private `aia-plan` / issue #4. Read `docs/requirements.md`, the SDD, runbook and `README.md` before changing behavior.
 
 ## Current boundary
 
-On November 9, 2026 Chad stated, "The assignment has been accepted. The plan is approved. Go." Record assignment acceptance as owner-reported. The approved next slice adds immutable assessment snapshots, authentic human labeling, independently prompted local judging and calibration reports to generation/gating. Multi-batch assessed collection, full analysis/charts and generator correction remain subsequent work. Owner-reported acceptance does not fabricate missing labels or model measurements. Courses 5–8 and their exercises remain separately pending.
+On November 10 Chad approved `docs/assessed-collection-plan.md` with "Approved. Go."
+The assessed source/collection/cohort and frozen blind-reference workflow is now
+implemented. `docs/ASSESSED-RUNBOOK.md` owns its operating instructions;
+`docs/SOURCE-READINESS.md` records outstanding source/model prerequisites. Live
+assessed collection and calibration remain unmeasured until those prerequisites
+and authentic human reviews exist. The earlier five-item diagnostic is complete;
+post-feedback amendments are separate from independent agreement.
+
+On November 9, 2026 Chad stated, "The assignment has been accepted. The plan is approved. Go." Record assignment acceptance as owner-reported. That earlier slice added immutable assessment snapshots, authentic human labeling, independently prompted local judging and calibration reports to generation/gating. The November 10 slice adds assessed collection software; full analysis/charts and generator correction remain subsequent work. Owner-reported acceptance does not fabricate missing labels or model measurements. Courses 5–8 and their exercises remain separately pending.
 
 ## Implementation rules
 

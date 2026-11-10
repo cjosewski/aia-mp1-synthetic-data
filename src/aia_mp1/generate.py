@@ -95,6 +95,18 @@ def validate_evidence(manifest, directory, starts, attempts, records):
             raise ValueError("trace identity changed within a slot")
         event_ids[event["attempt_id"]] = event
         slots.setdefault(slot, []).append(event)
+        if manifest["purpose"] != "smoke":
+            from .sources import context_for, validate_pack
+
+            pack = validate_pack(manifest["source_manifest"])
+            context = context_for(pack, event["category"], slot // len(CATEGORIES))
+            if event.get("reference_context") != context:
+                raise ValueError("assessed request reference context differs")
+            if event["input"][-1]["content"] != json.dumps(
+                {"request": event["request"], "untrusted_reference_context": context},
+                ensure_ascii=False,
+            ):
+                raise ValueError("assessed request does not contain its frozen context")
     completed_ids = set()
     successful = {}
     for attempt in attempts:
@@ -128,6 +140,11 @@ def validate_evidence(manifest, directory, starts, attempts, records):
                 if record[key] != attempt[key]:
                     raise ValueError("successful payload provenance differs from its attempt")
             successful[record["item_id"]] = record
+            if manifest["purpose"] != "smoke" and (
+                record.get("reference_context") != start["reference_context"]
+                or record["source_refs"] != start["reference_context"]["task"]["source_refs"]
+            ):
+                raise ValueError("generated reference provenance differs from request")
         elif attempt.get("record") is not None:
             raise ValueError("failed attempt contains a successful payload")
     for record in records:
@@ -148,6 +165,12 @@ def generate_run(
 ) -> dict:
     if type(count) is not int or count < 5 or count > 500 or count % 5:
         raise ValueError("count must be a multiple of five between 5 and 500")
+    if config.purpose != "smoke":
+        from .sources import validate_pack
+
+        validate_pack(sources)
+        if not config.model_identity or not config.model_sha256:
+            raise ValueError("assessed generation requires pinned model identity")
     directory = run_directory(Path(config.artifact_root), run_id)
     identity = implementation_identity()
     fingerprint = digest(
@@ -176,7 +199,7 @@ def generate_run(
         manifest = {
             "schema_version": "1",
             "run_id": run_id,
-            "purpose": "smoke",
+            "purpose": config.purpose,
             "status": "running",
             "created_at": now(),
             "count": count,
@@ -195,6 +218,9 @@ def generate_run(
             "artifacts_sha256": artifact_hashes(directory),
         }
         write_checkpoint(directory / "manifest.json", manifest)
+        if config.purpose != "smoke":
+            with (directory / "prompt.md").open("x", encoding="utf-8") as stream:
+                stream.write(prompt)
 
     # Exclusive lock prevents interleaved append records from concurrent resumes.
     lock = directory / ".generation.lock"
@@ -245,6 +271,16 @@ def generate_run(
                         ),
                     },
                 ]
+                context = None
+                request = messages[-1]["content"]
+                if config.purpose != "smoke":
+                    from .sources import context_for
+
+                    context = context_for(sources, category, slot // len(CATEGORIES))
+                    messages[-1]["content"] = json.dumps(
+                        {"request": request, "untrusted_reference_context": context},
+                        ensure_ascii=False,
+                    )
                 start = {
                     "event": "attempt_started",
                     "timestamp": now(),
@@ -262,13 +298,16 @@ def generate_run(
                     "prompt_hash": digest(prompt),
                     "input": messages,
                 }
+                if context is not None:
+                    start |= {"reference_context": context, "request": request}
                 append_record(directory / "events.jsonl", start)
                 starts.append(start)
                 manifest["artifacts_sha256"] = artifact_hashes(directory)
                 write_checkpoint(directory / "manifest.json", manifest)
                 result = client.generate(messages)
                 record = None
-                if result.item is not None:
+                model_matches = config.purpose == "smoke" or result.response_model == config.model
+                if result.item is not None and model_matches:
                     record = GeneratedItem(
                         run_id=run_id,
                         trace_id=trace_id,
@@ -279,15 +318,20 @@ def generate_run(
                         prompt_variant=config.prompt_variant,
                         prompt_hash=digest(prompt),
                         model=result.response_model or config.model,
-                        source_refs=config.source_refs,
+                        source_refs=context["task"]["source_refs"]
+                        if context
+                        else config.source_refs,
+                        reference_context=context,
                         item=result.item,
                     ).model_dump(mode="json")
                 attempt = start | {
                     "event": "attempt_completed",
                     "completed_at": now(),
                     "raw_response": result.raw_response,
-                    "error": result.error,
-                    "error_type": result.error_type,
+                    "error": result.error
+                    if model_matches
+                    else "reported generator model differs from selected model",
+                    "error_type": result.error_type if model_matches else "ModelIdentityMismatch",
                     "response_model": result.response_model,
                     "schema_valid": record is not None,
                     "record": record,

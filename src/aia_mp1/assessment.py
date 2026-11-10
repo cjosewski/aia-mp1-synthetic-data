@@ -216,6 +216,8 @@ def load_assessment(root: Path, assessment_id: str) -> tuple[Path, dict, list[di
         {k: v for k, v in manifest.items() if k != "manifest_sha256"}
     ):
         raise ValueError("assessment manifest identity changed")
+    if manifest.get("source_type") == "cohort":
+        return _load_cohort_assessment(root, directory, manifest)
     source, source_records, gate, hashes = source_snapshot(root, manifest["source_run_id"])
     if hashes != manifest["source_files_sha256"]:
         raise ValueError("assessment source evidence changed")
@@ -254,3 +256,87 @@ def item_identity(manifest: dict, record: dict) -> dict:
         "rubric_version": manifest["rubric_version"],
         "rubric_sha256": manifest["rubric_sha256"],
     }
+
+
+def create_cohort_assessment(
+    root: Path, cohort_id: str, assessment_id: str, rubric_path: Path, *, seed: str = "mp1-v1"
+) -> dict:
+    from .cohort import load_cohort
+
+    cohort = load_cohort(root, cohort_id)
+    directory = assessment_directory(root, assessment_id)
+    rubric_text = read_text(rubric_path)
+    rubric = json.loads(rubric_text)
+    validate_rubric(rubric)
+    records = cohort["summary"]["members"]
+    data = "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in records)
+    settings = cohort["identity"]["settings"]
+    manifest = {
+        "schema_version": "2",
+        "source_type": "cohort",
+        "assessment_id": assessment_id,
+        "created_at": now(),
+        "purpose": settings["purpose"],
+        "assessment_eligible": True,
+        "cohort_id": cohort_id,
+        "cohort_sha256": cohort["sha256"],
+        "generator_model": settings["model"],
+        "generator_temperature": settings["temperature"],
+        "generator_model_identity": settings["model_identity"],
+        "generator_model_sha256": settings["model_sha256"],
+        "reference_pack_sha256": digest(cohort["identity"]["sources"]),
+        "population_ids": [r["item_id"] for r in records],
+        "selected_ids": select_items(records, 20, seed),
+        "selection": {"algorithm": "sha256-stratified-round-robin-v1", "seed": seed, "count": 20},
+        "rubric_version": rubric["version"],
+        "rubric_sha256": digest(rubric_text),
+        "data_sha256": digest(data),
+        "implementation": implementation_identity(),
+    }
+    manifest["manifest_sha256"] = digest(manifest)
+    directory.mkdir(parents=True, exist_ok=False)
+    (directory / "data.jsonl").write_text(data, encoding="utf-8")
+    (directory / "rubric.json").write_text(rubric_text, encoding="utf-8")
+    (directory / "human-labels.jsonl").touch(exist_ok=False)
+    save_new(
+        directory / "labels-checkpoint.json",
+        {
+            "assessment_sha256": manifest["manifest_sha256"],
+            "ledger_sha256": digest(""),
+            "count": 0,
+        },
+    )
+    save_new(directory / "manifest.json", manifest)
+    return manifest
+
+
+def _load_cohort_assessment(root: Path, directory: Path, manifest: dict):
+    from .cohort import load_cohort
+
+    cohort = load_cohort(root, manifest["cohort_id"])
+    settings = cohort["identity"]["settings"]
+    records = read_records(directory / "data.jsonl")
+    rubric_text = read_text(directory / "rubric.json")
+    rubric = json.loads(rubric_text)
+    validate_rubric(rubric)
+    selection = manifest["selection"]
+    if (
+        manifest["cohort_sha256"] != cohort["sha256"]
+        or records != cohort["summary"]["members"]
+        or manifest["data_sha256"] != digest(read_text(directory / "data.jsonl"))
+        or manifest["rubric_sha256"] != digest(rubric_text)
+        or manifest["rubric_version"] != rubric["version"]
+        or manifest["purpose"] != settings["purpose"]
+        or manifest["assessment_eligible"] is not True
+        or manifest["generator_model"] != settings["model"]
+        or manifest["generator_temperature"] != settings["temperature"]
+        or manifest["generator_model_identity"] != settings["model_identity"]
+        or manifest["generator_model_sha256"] != settings["model_sha256"]
+        or manifest["reference_pack_sha256"] != digest(cohort["identity"]["sources"])
+        or manifest["population_ids"] != [r["item_id"] for r in records]
+        or selection["count"] != 20
+        or selection["algorithm"] != "sha256-stratified-round-robin-v1"
+        or manifest["selected_ids"] != select_items(records, 20, selection["seed"])
+    ):
+        raise ValueError("cohort assessment content, selection or eligibility changed")
+    return directory, manifest, records, rubric

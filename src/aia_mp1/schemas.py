@@ -64,4 +64,5 @@ class GeneratedItem(BaseModel):
     prompt_hash: NonBlank
     model: NonBlank
     source_refs: list[NonBlank]
+    reference_context: dict | None = Field(default=None, exclude_if=lambda v: v is None)
     item: QAItem

@@ -82,6 +82,13 @@ def calibration_report(root: Path, assessment_id: str, judge_run_id: str, report
     target = run_directory(report_root, report_id)
     with exclusive(parent), exclusive(judge_dir):
         labels = load_labels(parent, assessment, records)
+        current_labels = labels
+        reference = None
+        if assessment["assessment_eligible"]:
+            from .human_reference import load_reference
+
+            reference = load_reference(parent, assessment, records)
+            labels = reference["labels"]
         judge_manifest, events, attempts, results = validate_judge(
             judge_dir, assessment, records, rubric
         )
@@ -102,6 +109,10 @@ def calibration_report(root: Path, assessment_id: str, judge_run_id: str, report
             and len(reported_models) == 1
         )
         reasons = []
+        if reference and any(
+            current_labels[k]["label_id"] != labels[k]["label_id"] for k in labels
+        ):
+            reasons.append("human_reference_amended_after_freeze")
         if not assessment["assessment_eligible"]:
             reasons.append("diagnostic_assessment")
         if (
@@ -154,6 +165,15 @@ def calibration_report(root: Path, assessment_id: str, judge_run_id: str, report
             "categories": segments,
             "category_counts": category_counts,
             "implementation": implementation_identity(),
+            "agreement_basis": "frozen_blind_reference"
+            if reference
+            else "diagnostic_effective_labels",
+            "human_reference_sha256": reference["sha256"] if reference else None,
+            "adjudication_summary": agreement(
+                records, assessment["selected_ids"], current_labels, judgments
+            )
+            if reference
+            else None,
         }
         target.mkdir(parents=True, exist_ok=False)
         save_new(target / "report.json", report)

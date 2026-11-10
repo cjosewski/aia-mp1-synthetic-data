@@ -16,6 +16,12 @@ The adopted 26-hour reference and November 10–14 window remain owned by `aia-p
 
 The approved slice covers a local repository, seven-field schema, generation through a configured local OpenAI-compatible model, bounded retries, attempt traces, independently runnable structural gating, offline tests and a five-item smoke run when a model is available. It ends with test evidence and an actual smoke result or a concrete endpoint blocker.
 
+November 10: Chad approved the assessed-collection plan. Source packs, bounded
+collection, cohort assessments and independent human-reference freezing are now
+implemented. A production source pack, qualified stronger judge and live assessed
+measurements remain pending. The five-item diagnostic and post-review amendments
+are preserved separately; they do not certify assessed calibration.
+
 At kickoff, human labeling, LLM judging, judge calibration, analysis charts and generator correction were subsequent work. The continuation implements the first three workflows; full analysis/charts and generator correction remain later work. The structural gate cannot establish six-dimensional quality or supply missing assessment evidence.
 
 ## Payload and categories

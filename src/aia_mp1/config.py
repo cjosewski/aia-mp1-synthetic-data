@@ -3,6 +3,7 @@
 import ipaddress
 import json
 import os
+import re
 from pathlib import Path
 from typing import Annotated, Literal
 from urllib.parse import urlsplit
@@ -24,6 +25,10 @@ class RunConfig(BaseModel):
 
     base_url: Nonblank
     model: Nonblank
+    purpose: Literal["smoke", "baseline", "corrected"] = "smoke"
+    reference_pack_path: Nonblank | None = None
+    model_identity: Nonblank | None = None
+    model_sha256: Nonblank | None = None
     api_key_env: Nonblank | None = "AIA_MP1_API_KEY"
     api_key_file: Nonblank | None = None
     mode: Literal["json", "tools"] = "json"
@@ -66,6 +71,8 @@ class RunConfig(BaseModel):
             raise ValueError("set exactly one of api_key_env and api_key_file")
         if len(set(self.source_refs)) != len(self.source_refs):
             raise ValueError("source_refs must be unique")
+        if self.model_sha256 is not None and not re.fullmatch("[a-f0-9]{64}", self.model_sha256):
+            raise ValueError("model_sha256 must be a lowercase SHA-256 checksum")
         return self
 
     @field_validator("artifact_root")
@@ -102,6 +109,13 @@ def load_inputs(config: RunConfig) -> tuple[str, dict]:
     prompt = Path(config.prompt_path).read_text(encoding="utf-8")
     if "{category}" not in prompt:
         raise ValueError("generator prompt must include {category}")
+    if config.purpose != "smoke":
+        from .sources import load_pack
+
+        if not config.reference_pack_path or not config.model_identity or not config.model_sha256:
+            raise ValueError("assessed generation requires reference pack and model identity")
+        pack = load_pack(Path(config.reference_pack_path))
+        return prompt, pack
     sources = json.loads(Path(config.sources_path).read_text(encoding="utf-8"))
     if not isinstance(sources, dict):
         raise ValueError("sources manifest must be a JSON object")

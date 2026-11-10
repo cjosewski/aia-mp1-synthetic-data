@@ -1,6 +1,6 @@
 """Strict human and judge contracts; neither accepts missing dimensions as passes."""
 
-from typing import Annotated
+from typing import Annotated, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -53,3 +53,9 @@ class HumanLabel(BaseModel):
     decisions: Decisions
     notes: str = ""
     supersedes_label_id: NonBlank | None = None
+    review_stage: Literal["blind", "post_review", "unknown"] | None = Field(
+        default=None, exclude_if=lambda v: v is None
+    )
+    consulted_report_ids: list[NonBlank] | None = Field(
+        default=None, exclude_if=lambda v: v is None
+    )

@@ -57,9 +57,20 @@ def record_label(
     *,
     notes: str = "",
     supersedes: str | None = None,
+    review_stage: str | None = None,
+    consulted_report_ids: list[str] | None = None,
 ) -> dict:
     directory, manifest, records, _ = load_assessment(root, assessment_id)
     with exclusive(directory):
+        if manifest["assessment_eligible"]:
+            if (directory / "human-reference.json").exists():
+                if review_stage == "blind":
+                    raise ValueError(
+                        "amendments after reference freeze must disclose post-review context"
+                    )
+                review_stage = "post_review"
+            elif review_stage is None:
+                review_stage = "unknown"
         effective = load_labels(directory, manifest, records)
         if item_id not in manifest["selected_ids"]:
             raise ValueError("item is not in the frozen human-review selection")
@@ -75,6 +86,8 @@ def record_label(
             decisions=Decisions.model_validate(decisions),
             notes=notes,
             supersedes_label_id=supersedes,
+            review_stage=review_stage,
+            consulted_report_ids=consulted_report_ids,
         ).model_dump(mode="json")
         path = directory / "human-labels.jsonl"
         ledger = read_records(path)
@@ -110,7 +123,13 @@ def label_status(root: Path, assessment_id: str) -> dict:
 
 
 def interactive_label(
-    root: Path, assessment_id: str, reviewer: str, *, input_fn=input, output=print
+    root: Path,
+    assessment_id: str,
+    reviewer: str,
+    *,
+    input_fn=input,
+    output=print,
+    review_stage: str | None = None,
 ) -> dict:
     _, manifest, records, rubric = load_assessment(root, assessment_id)
     pending = label_status(root, assessment_id)["pending_item_ids"]
@@ -118,6 +137,8 @@ def interactive_label(
     output("Human review: 0=fail, 1=pass, s=skip item, q=quit. No model scores are shown.")
     for item_id in pending:
         output(json.dumps({"item_id": item_id, "item": by_id[item_id]["item"]}, indent=2))
+        if by_id[item_id].get("reference_context"):
+            output(json.dumps({"reference_context": by_id[item_id]["reference_context"]}, indent=2))
         decisions, skip = {}, False
         for dimension in rubric["dimensions"]:
             output(
@@ -145,6 +166,14 @@ def interactive_label(
             except EOFError:
                 return label_status(root, assessment_id)
             if set(decisions) == set(DIMENSIONS):
-                record_label(root, assessment_id, item_id, decisions, reviewer, notes=notes)
+                record_label(
+                    root,
+                    assessment_id,
+                    item_id,
+                    decisions,
+                    reviewer,
+                    notes=notes,
+                    review_stage=review_stage,
+                )
                 output(f"Saved {item_id}")
     return label_status(root, assessment_id)

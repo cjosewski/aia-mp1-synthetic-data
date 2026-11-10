@@ -5,15 +5,19 @@ from pathlib import Path
 
 import httpx
 import pytest
+from assessed_fixtures import GoodClient, fixture_config, qualified_judge
 from pydantic import ValidationError
 from test_generation import FakeClient, execute
 from test_model_client import KEY, completion
 
-from aia_mp1.assessment import create_assessment, load_assessment
+from aia_mp1.assessment import create_assessment, create_cohort_assessment, load_assessment
 from aia_mp1.calibration import agreement, calibration_report
 from aia_mp1.cli import gate_run, main
+from aia_mp1.cohort import freeze_cohort
+from aia_mp1.collection import collect
 from aia_mp1.config import RunConfig
 from aia_mp1.evaluation_schemas import DIMENSIONS, Decisions, Judgment
+from aia_mp1.human_reference import freeze_reference
 from aia_mp1.judge import JudgeConfig, judge_run, judge_status
 from aia_mp1.labels import interactive_label, label_status, record_label
 from aia_mp1.model_client import AttemptResult, InstructorClient
@@ -75,7 +79,11 @@ def label_all(root, manifest, decisions=None):
             decisions or dict.fromkeys(DIMENSIONS, 1),
             "Synthetic test reviewer",
             notes="Synthetic test only",
+            review_stage="blind" if manifest["assessment_eligible"] else None,
         )
+
+    if manifest["assessment_eligible"]:
+        freeze_reference(root, "diagnostic", "Synthetic test reviewer", declare_blind=True)
 
 
 @pytest.mark.parametrize("value", [True, False, "1", 1.0, -1, 2, None])
@@ -445,37 +453,12 @@ def test_judge_config_preserves_bounds(changes):
 
 @pytest.fixture
 def assessed_queue(tmp_path):
-    # Entirely synthetic fixture for the future assessed-generation contract.
-    # Production generation still emits smoke-only evidence; never promote real runs.
-    root = tmp_path / "evidence"
-    config = RunConfig(
-        base_url="http://127.0.0.1:8080/v1", model="generator", artifact_root=str(root)
-    )
-    execute(config, count=50)
-    path = root / "test-run/manifest.json"
-    source = json.loads(path.read_text())
-    source["purpose"] = "baseline"
-    source["source_manifest"] = {
-        "sources": [{"id": "personal-task-briefs-v1", "allowed_uses": ["assessed_generation"]}]
-    }
-    path.write_text(json.dumps(source))
-    gate_run(root, "test-run")
-    manifest = create_assessment(
-        root,
-        "test-run",
-        "diagnostic",
-        REPO / "config/rubric.json",
-        purpose="baseline",
-        label_count=20,
-    )
-    judge_config = JudgeConfig(
-        base_url=config.base_url,
-        model="distinct-judge",
-        artifact_root=str(root),
-        prompt_path=str(REPO / "prompts/judge-v1.md"),
-        stronger_model_basis="Synthetic test selection, not a model measurement",
-    )
-    return root, manifest, judge_config
+    config = fixture_config(tmp_path)
+    root = Path(config.artifact_root)
+    collect(config, "baseline", GoodClient())
+    freeze_cohort(root, "baseline", "frozen")
+    manifest = create_cohort_assessment(root, "frozen", "diagnostic", REPO / "config/rubric.json")
+    return root, manifest, qualified_judge(tmp_path, config)
 
 
 def test_eligible_calibration_requires_complete_selection_and_freezes_receipt(assessed_queue):
@@ -499,18 +482,21 @@ def test_eligible_calibration_requires_complete_selection_and_freezes_receipt(as
     assert saved == report
     changed = calibration_report(root, "diagnostic", "judged", "amended")
     assert changed["human_ledger_sha256"] != report["human_ledger_sha256"]
-    assert changed["summary"]["dimensions"]["D1"]["matching"] == 19
+    assert changed["summary"]["dimensions"]["D1"]["matching"] == 20
+    assert changed["adjudication_summary"]["dimensions"]["D1"]["matching"] == 19
+    assert "human_reference_amended_after_freeze" in changed["readiness_reasons"]
 
 
 def test_missing_one_label_prevents_readiness_despite_perfect_observed_agreement(assessed_queue):
     root, manifest, config = assessed_queue
     for item in manifest["selected_ids"][:-1]:
         record_label(root, "diagnostic", item, dict.fromkeys(DIMENSIONS, 1), "Synthetic reviewer")
-    judge_run(root, "diagnostic", "judged", config, FakeJudge())
-    report = calibration_report(root, "diagnostic", "judged", "incomplete")
-    assert report["status"] == "pending"
-    assert report["summary"]["dimensions"]["D1"]["agreement"] == 1
-    assert report["summary"]["dimensions"]["D1"]["missing"] == 1
+    client = FakeJudge()
+    with pytest.raises(OSError):
+        judge_run(root, "diagnostic", "judged", config, client)
+    assert client.calls == 0
+    with pytest.raises(ValueError, match="20"):
+        freeze_reference(root, "diagnostic", "Synthetic reviewer", declare_blind=True)
 
 
 def test_assessed_judge_refuses_same_model_before_calls(assessed_queue):
@@ -518,7 +504,11 @@ def test_assessed_judge_refuses_same_model_before_calls(assessed_queue):
     client = FakeJudge()
     with pytest.raises(ValueError, match="distinct"):
         judge_run(
-            root, "diagnostic", "same", config.model_copy(update={"model": "generator"}), client
+            root,
+            "diagnostic",
+            "same",
+            config.model_copy(update={"model": "actual-local-model"}),
+            client,
         )
     assert client.calls == 0
 
@@ -536,3 +526,42 @@ def test_judge_reply_revealing_generator_alias_prevents_calibration(assessed_que
     report = calibration_report(root, "diagnostic", "alias", "model-check")
     assert report["status"] == "pending"
     assert "stronger_judge_selection_not_established" in report["readiness_reasons"]
+
+
+def test_assessed_judge_version_budget_and_qualification_evidence(assessed_queue):
+    root, manifest, config = assessed_queue
+    label_all(root, manifest)
+    for number in range(3):
+        judge_run(root, "diagnostic", f"version-{number}", config, FakeJudge())
+    client = FakeJudge()
+    with pytest.raises(ValueError, match="three run versions"):
+        judge_run(root, "diagnostic", "fourth", config, client)
+    assert client.calls == 0
+    receipt = json.loads(Path(config.qualification_path).read_text())
+    evidence = Path(config.qualification_path).parent / receipt["evidence"][0]["path"]
+    evidence.write_text("Changed synthetic comparison")
+    with pytest.raises(ValueError, match="qualification evidence changed"):
+        judge_run(root, "diagnostic", "changed-evidence", config, client)
+    assert client.calls == 0
+
+
+def test_post_feedback_agreement_cannot_replace_frozen_failing_labels(assessed_queue):
+    root, manifest, config = assessed_queue
+    label_all(root, manifest, dict.fromkeys(DIMENSIONS, 0))
+    judge_run(root, "diagnostic", "judged", config, FakeJudge())
+    before = calibration_report(root, "diagnostic", "judged", "independent")
+    for item_id in manifest["selected_ids"]:
+        record_label(
+            root,
+            "diagnostic",
+            item_id,
+            dict.fromkeys(DIMENSIONS, 1),
+            "Synthetic test reviewer",
+            supersedes=before["effective_label_ids"][item_id],
+            consulted_report_ids=["independent"],
+        )
+    after = calibration_report(root, "diagnostic", "judged", "adjudicated")
+    assert after["status"] == "pending"
+    assert all(d["agreement"] == 0 for d in after["summary"]["dimensions"].values())
+    assert all(d["agreement"] == 1 for d in after["adjudication_summary"]["dimensions"].values())
+    assert after["human_reference_sha256"] == before["human_reference_sha256"]

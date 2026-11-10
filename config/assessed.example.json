@@ -1,0 +1,18 @@
+{
+  "base_url": "http://127.0.0.1:8080/v1",
+  "model": "replace-with-exact-served-generator-id",
+  "model_identity": null,
+  "model_sha256": null,
+  "purpose": "baseline",
+  "reference_pack_path": "../artifacts/evidence/P1-03/references/engineering-v1.json",
+  "api_key_env": "AIA_MP1_API_KEY",
+  "api_key_file": null,
+  "mode": "json",
+  "temperature": 0.6,
+  "timeout_seconds": 120.0,
+  "max_tokens": 4096,
+  "max_attempts": 2,
+  "artifact_root": "../artifacts/evidence/P1-03",
+  "prompt_path": "prompts/generator-assessed-v1.md",
+  "prompt_variant": "assessed-baseline-v1"
+}

@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.2, November 9, 2026 |
-| Status | Design and implementation checkpoint for the approved labeling/judge slice; later stages distinguished below |
+| Revision | 0.3, November 10, 2026 |
+| Status | Assessed collection and independent human-reference software implemented; live assessed evidence pending source/model prerequisites |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
@@ -132,13 +132,15 @@ labeling displays the item and rubric without suggested model scores.
 | Component | Responsibility | Current state |
 | --- | --- | --- |
 | [schemas.py](../src/aia_mp1/schemas.py) | Canonical payload and generated-item envelope | Implemented |
-| [config.py](../src/aia_mp1/config.py) | Local endpoint, credential source, source permission and generation settings | Implemented for smoke |
+| [config.py](../src/aia_mp1/config.py) | Local endpoint, credential source, source permission and generation settings | Implemented for smoke and explicitly assessed source packs |
 | [model_client.py](../src/aia_mp1/model_client.py) | Bounded structured model call, raw response capture and redaction | Implemented for generation |
-| [generate.py](../src/aia_mp1/generate.py), [tracing.py](../src/aia_mp1/tracing.py) | Attempts, checkpoints, identity and resume validation | Implemented for smoke |
+| [generate.py](../src/aia_mp1/generate.py), [tracing.py](../src/aia_mp1/tracing.py) | Attempts, checkpoints, identity and resume validation | Implemented for smoke and explicitly assessed source packs |
 | [gate.py](../src/aia_mp1/gate.py), [cli.py](../src/aia_mp1/cli.py) | Saved-data gate and CLI | Implemented for kickoff checks |
-| [assessment.py](../src/aia_mp1/assessment.py), [evaluation_schemas.py](../src/aia_mp1/evaluation_schemas.py), [labels.py](../src/aia_mp1/labels.py) | Single-run assessment snapshots, review contracts and human CLI | Implemented; multi-batch cohort assembly remains later work |
-| [judge.py](../src/aia_mp1/judge.py), [calibration.py](../src/aia_mp1/calibration.py) | Audited judge execution and agreement reports | Implemented; authentic labels and live judge measurements pending |
-| Cohort assembly, `analysis.py`, `iteration.py` | Assessed collection, full comparison/charts and iteration controls | Proposed subsequent slice |
+| [assessment.py](../src/aia_mp1/assessment.py), [evaluation_schemas.py](../src/aia_mp1/evaluation_schemas.py), [labels.py](../src/aia_mp1/labels.py) | Single-run assessment snapshots, review contracts and human CLI | Implemented for legacy single-run and multi-batch cohort inputs |
+| [judge.py](../src/aia_mp1/judge.py), [calibration.py](../src/aia_mp1/calibration.py) | Audited judge execution and agreement reports | Implemented; five-item diagnostic measured; assessed evidence pending |
+| [collection.py](../src/aia_mp1/collection.py), [cohort.py](../src/aia_mp1/cohort.py), [sources.py](../src/aia_mp1/sources.py) | Permission-checked contexts, bounded collection and immutable cohorts | Implemented |
+| [human_reference.py](../src/aia_mp1/human_reference.py), [qualification.py](../src/aia_mp1/qualification.py) | Blind-label freeze and attributed judge selection evidence | Implemented |
+| `analysis.py`, `iteration.py` | Full comparison/charts and Phase B controls | Subsequent slice |
 
 Run Python, dependency management and tests in WSL2 Ubuntu. The existing locked
 environment uses Python 3.12; [pyproject.toml](../pyproject.toml) and
@@ -175,22 +177,29 @@ keeps the course payload at exactly seven fields. Request/attempt ledgers hold
 timestamps, raw responses and errors; the manifest records configuration, source
 snapshot, code hashes and dependency versions.
 
-### 4.2 Cohort and assessment — implemented for single-run input
+### 4.2 Cohort and assessment — implemented
 
-The current `assessment` command freezes a single validated run. Its manifest
-contains the source file hashes, population/selection, generator settings, rubric
-and code identity. The generalized multi-batch cohort contract below remains the
-design for subsequent collection work.
+The `assessment` command accepts either a legacy single run or a frozen cohort.
+Version 2 cohort assessments bind the cohort hash, reference pack, pinned generator
+identity/checksum, 50-item population, seeded 20-item selection, rubric and code.
+Legacy diagnostic manifests remain readable without rewriting evidence.
 
-A cohort manifest names `cohort_id`, `purpose` (`diagnostic`, `baseline` or
-`corrected`), ordered member references, payload hashes, source run/gate hashes,
-category counts, selection policy, rubric identity, creation time and code identity.
-Every reference includes run/item/trace identity; a member cannot come from an
-unvalidated or altered source run. Baseline/corrected purpose requires assessed
-source clearance and cohort readiness; relabeling a smoke run does not qualify it.
+A collection checkpoint freezes sources, grounded prompt, generator settings,
+implementation and gate rule identity before calls. It allows five 50-slot batches
+and two attempts per slot. Stable batch/slot ordering fills ten items per category;
+all rejected, duplicate and surplus items remain accounted for. Each batch and the
+aggregate must meet 95% initial schema validity; unknown requests prevent freezing.
+
+The cohort manifest wraps its collection identity and frozen summary. These bind
+the baseline/corrected purpose, ordered member records (run/item/trace/payload),
+source batch file hashes, category counts, stable selection decisions, source pack,
+generator settings, gate rules, creation time and code identity. The subsequent
+assessment binds the rubric and human selection. A member cannot come from
+unvalidated/altered evidence. Failed batch quotas remain failed even when the
+aggregate cohort qualifies; smoke inputs cannot be promoted.
 
 The human-review selection records a deterministic seed, algorithm/version and
-selected IDs before labeling or judging. The proposed 20-item sample is stratified
+selected IDs before labeling or judging. The implemented 20-item sample is stratified
 four per category. Additional samples use a recorded allocation. This is a local
 sampling policy, not an inferred course mandate. Diagnostic selections can include
 gate-rejected items, but cannot enter assessed cohort metrics by accident.
@@ -213,6 +222,14 @@ atomic `labels-checkpoint.json` with the assessment identity, ledger hash and re
 count. A missing ledger, shortened prefix or append not committed to the checkpoint
 fails for inspection. It is not silently repaired or treated as an empty review set.
 
+For assessed cohorts, `human-reference.json` freezes complete explicitly blind
+reviews before any judge run. It pins the original ledger prefix, effective IDs,
+reviewer declaration, rubric and source pack. New optional review-stage/consulted-
+report fields leave old label serialization unchanged. Subsequent amendments appear
+in a separate adjudication summary and leave readiness pending; they never replace
+the independent comparison. The reviewer's declaration is recorded, not inferred
+from timestamps.
+
 ### 4.4 Judge result — implemented
 
 The model returns exactly D1–D6, each with a binary decision and short justification.
@@ -233,7 +250,8 @@ Raw evidence is outside Git under workspace `artifacts/evidence/P1-03/`.
 | Location | Contents |
 | --- | --- |
 | `<run-id>/` — existing | `manifest.json`, `events.jsonl`, `attempts.jsonl`, `data.jsonl`, `gate-report.json`, `gate-items.jsonl` |
-| `assessments/<assessment-id>/` — implemented | Frozen single-run assessment/selection, human-label ledger/checkpoint, judge runs and calibration reports |
+| `assessments/<assessment-id>/` — implemented | Frozen run/cohort assessment, human-label ledger/checkpoint, blind human-reference snapshot, judge runs and calibration reports |
+| `collections/<collection-id>/`, `cohorts/<cohort-id>/` — implemented | Frozen inputs/budget, ordered batch evidence and immutable cohort membership |
 | `comparisons/<comparison-id>/` — proposed | Frozen comparison specification, separate baseline/corrected JSONL exports, metrics, plotted tables, `visualizations/` and evidence index |
 
 The repository's `data/`, `labels/`, `traces/` and `visualizations/` are documented
@@ -243,8 +261,9 @@ can retain the assignment's directory names within the external evidence root.
 Existing commands are `generate --config ... --count ... --run-id ... [--resume]`
 and `gate --run-id ... [--artifact-root ...]`, described in the README. Implemented
 independent assessment commands are `assessment`, `label`, `label-status`, `judge`,
-`judge-status` and `calibrate`; see the README for their exact arguments. `cohort`,
-`analyze` and `compare` remain proposed interfaces, not working commands.
+`judge-status` and `calibrate`. Assessed commands add `source-check`, `collect`,
+`collection-status`, `cohort`, `cohort-status` and `freeze-human-reference`; see
+[the assessed runbook](ASSESSED-RUNBOOK.md). `analyze` and `compare` remain subsequent interfaces.
 Each assessment command accepts explicit artifact identity and validates inputs before any
 write. New-output commands refuse collisions; resume is only for unfinished work
 with identical settings and identities. Reports include machine-readable JSON.
@@ -265,9 +284,10 @@ quality; retry within the configured budget and keep parent-attempt lineage.
 Checkpoint durable evidence after progress. Interrupted runs can resume only with
 matching original inputs and remaining attempts; a completed or gated run is frozen.
 
-Existing manifests always say `purpose: smoke` and current source loading permits
-only smoke generation. Assessed generation requires an explicit future contract
-extension and permission validation; a count of 50 alone does not activate it.
+Smoke remains the default. Assessed generation explicitly selects baseline/corrected
+purpose, a cleared reference pack and pinned model identity/checksum. Actual task/
+reference context enters every request and its item envelope; changed inputs prevent
+resume. A count of 50 alone never promotes smoke evidence.
 
 ### 5.2 Gate and assemble a cohort
 
@@ -282,7 +302,7 @@ limitations. Keep the existing smoke result unchanged. A revised gate gets a new
 version and separate replay artifacts. Freeze the same gate/selection policy for
 baseline and corrected cohorts; do not select a rule because it improves a score.
 
-Proposed assessed collection assembles at least 50 retained items, initially ten
+Implemented assessed collection assembles at least 50 retained items, initially ten
 per category, from bounded generation batches. Preserve all rejected items and
 cross-batch duplicate decisions. Regenerate deficits through new run IDs with the
 same frozen generator variant; exhausted collection stops as incomplete. Set the
@@ -336,6 +356,12 @@ dimension. The receipt freezes effective labels, selection, rubric, judge prompt
 model/settings and report hashes. Five-item smoke agreement is diagnostic only.
 Agreement on the tuning sample is calibration evidence, not independent
 generalization; identify any held-out evaluation separately.
+
+Assessed judging requires the blind reference, a distinct pinned model and a
+qualification receipt with owner basis, matching settings and hashed evidence.
+The initial cap is three judge runs, two attempts/item each. A reported model
+mismatch remains a failed attempt. The calibrated receipt binds the independent
+human-reference hash; any post-freeze amendment leaves readiness pending.
 
 ### 5.6 Phase B — correct and compare
 
@@ -548,3 +574,5 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | --- | --- | --- |
 | 0.1 | 2026-11-09 | Initial full-project SDD: requirement traceability, architecture, proposed assessment contracts, all six stages, measurement rules, failure handling, delivery evidence and open decisions |
 | 0.2 | 2026-11-09 | Owner-reported assignment acceptance and plan approval; implemented assessment/label/judge/calibration contracts, 166-test checkpoint, immutable diagnostic queue and bounded endpoint blocker |
+
+| 0.3 | 2026-11-10 | Approved assessed collection: grounded source packs, bounded multi-batch cohorts, blind-reference freeze, model qualification, CLI/runbook and preserved diagnostic evidence; live corpus/model prerequisites remain open |

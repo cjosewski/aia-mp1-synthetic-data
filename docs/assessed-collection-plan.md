@@ -1,9 +1,9 @@
 # P1-03 assessed collection and baseline calibration plan
 
 Prepared November 10, 2026 against implementation commit `e408f91`.
-Status: proposed implementation plan, prepared at Chad's request. The instruction
-“Go” authorized preparing this plan following the completed diagnostic review.
-This document does not mark the proposed code or assessed measurements complete.
+Status: approved November 10, 2026. Chad stated “Approved. Go.” Software implementation
+and verification are recorded in the SDD and assessed runbook; live collection
+requires the source/model prerequisites and authentic reviews described below.
 
 ## Outcome and scope
 
@@ -45,7 +45,7 @@ issue and older handoff still describe earlier progress; their historical text
 does not override the new local evidence. No board state, dates or estimates are
 changed by this plan.
 
-## Decisions proposed for approval
+## Approved implementation decisions
 
 ### Collection policy
 
@@ -322,7 +322,6 @@ corrected comparison must preserve sources, gate, rubric and judge identity; a
 post-review 100% score does not authorize generator correction by itself.
 Source: [SDD §5.6](SDD-P1-03.md#56-phase-b--correct-and-compare).
 
-Implementation approval is the next gate, under the workspace instruction
-“Plan-mode approval precedes multi-file changes.” This plan preparation does not
+Implementation approval was granted November 10. This approval does not
 change the approved schedule, claim new instructor decisions, select a model on
 Chad's behalf, start assessed generation or require another human labeling session.

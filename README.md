@@ -6,9 +6,10 @@ Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/iss
 The five-item diagnostic review and judge comparison are complete as of November
 10. Independent agreement was 60% for D1–D4 and 100% for D5–D6; Chad's later
 acceptance of the eight disagreements is preserved separately as post-review
-agreement. The next proposed slice is the **[assessed collection and baseline
-calibration plan](docs/assessed-collection-plan.md)**. It is ready for review;
-assessed collection has not started.
+agreement. The **[assessed collection plan](docs/assessed-collection-plan.md)** is approved
+and its software is implemented. Follow the **[assessed runbook](docs/ASSESSED-RUNBOOK.md)**
+for the new commands. [Source/model readiness](docs/SOURCE-READINESS.md) remains
+explicit; live assessed collection has not started.
 
 ## Start here: review the five saved answers
 
@@ -26,7 +27,7 @@ the runbook if your task is the prepared human review.
 
 Generate engineering-code Q&A items, preserve structural-gate evidence, collect authentic human labels, run an independent local judge and measure per-dimension agreement. These stages of P1-03 / Mini Project 1 run independently against saved artifacts.
 
-Assessed collection, full charts and prompt-correction comparisons remain later work. Chad reported assignment acceptance and approved the labeling/judge plan on November 9, 2026; this is separate from measured pipeline results. See the [SDD](docs/SDD-P1-03.md), [requirements and source decisions](docs/requirements.md) and [iteration log](ITERATION_LOG.md).
+Assessed collection tooling is implemented; live assessed data, full charts and prompt-correction comparisons remain pending. Chad reported assignment acceptance and approved the labeling/judge plan on November 9, 2026; this is separate from measured pipeline results. See the [SDD](docs/SDD-P1-03.md), [requirements and source decisions](docs/requirements.md) and [iteration log](ITERATION_LOG.md).
 
 ## Prerequisites
 
@@ -108,8 +109,9 @@ uv run --locked python -m aia_mp1 assessment --run-id RUN_ID --assessment-id NEW
 ```
 
 Selections are deterministic and stratified by category. Assessed baseline/corrected
-queues require a qualified source run; current smoke generation cannot be promoted
-by changing the purpose flag. See the [requirements](docs/requirements.md).
+queues require a qualified source run/cohort. Smoke evidence cannot be promoted
+by changing its purpose flag. New assessed collection uses the separate source-pack
+and cohort path in the assessed runbook. See the [requirements](docs/requirements.md).
 
 The following commands are the later judge/comparison reference. They are not
 prerequisites for completing your human review.
@@ -130,9 +132,17 @@ uv run --locked python -m aia_mp1 calibrate --assessment-id smoke-review-2026111
 ```
 
 The November 9 local check (03:56:28 UTC November 10) timed out connecting from
-WSL before a judge request, so `judge-v1-smoke` has **not** been created. The judge
-command above is ready for a reachable endpoint. No service/settings were changed.
+WSL before any judge request. This historical blocker was resolved November 10:
+`judge-v1-smoke` is now complete with five valid first attempts. Its ID and
+`agreement-001` already exist and must not be reused. The commands above document
+that completed diagnostic; use fresh IDs for new work.
 Receipt: workspace `artifacts/evidence/P1-03/labeling-judge-20261110T035628Z/`.
+
+November 10 assessed implementation: **185 offline tests passed**, plus Ruff and
+new CLI help checks. The original smoke/diagnostic files remain unchanged. The
+software now supports permission-checked source contexts, bounded collection,
+immutable cohorts and a blind human-reference freeze before assessed judging.
+Live prerequisites and limits are in [source readiness](docs/SOURCE-READINESS.md).
 
 Each judge call has a durable start and raw completion/error. `--resume` uses only
 the original settings, prompt, code and remaining attempt budget. A started request

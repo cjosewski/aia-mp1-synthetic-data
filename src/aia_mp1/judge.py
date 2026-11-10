@@ -35,6 +35,7 @@ class JudgeConfig(RunConfig):
     prompt_path: NonBlank = "prompts/judge-v1.md"
     prompt_variant: NonBlank = "judge-v1"
     stronger_model_basis: NonBlank | None = None
+    qualification_path: NonBlank | None = None
 
 
 def judge_directory(assessment_dir: Path, judge_run_id: str) -> Path:
@@ -45,11 +46,14 @@ def judge_directory(assessment_dir: Path, judge_run_id: str) -> Path:
 
 
 def messages_for(prompt: str, rubric: dict, record: dict) -> list[dict]:
+    content = {"untrusted_item": record["item"]}
+    if record.get("reference_context"):
+        content["untrusted_reference_context"] = record["reference_context"]
     return [
         {"role": "system", "content": prompt + "\nRubric:\n" + json.dumps(rubric)},
         {
             "role": "user",
-            "content": json.dumps({"untrusted_item": record["item"]}, ensure_ascii=False),
+            "content": json.dumps(content, ensure_ascii=False),
         },
     ]
 
@@ -62,6 +66,12 @@ def validate_judge(directory: Path, assessment: dict, records: list[dict], rubri
         raise ValueError("judge run identity differs")
     if manifest["fingerprint"] != digest(manifest["identity"]):
         raise ValueError("judge settings identity changed")
+    if assessment["assessment_eligible"]:
+        from .human_reference import load_reference
+
+        reference = load_reference(directory.parent.parent, assessment, records)
+        if manifest["identity"].get("human_reference_sha256") != reference["sha256"]:
+            raise ValueError("judge independent human reference differs")
     if manifest["identity"]["assessment_sha256"] != assessment["manifest_sha256"]:
         raise ValueError("judge fingerprint has a different assessment")
     prompt = read_text(directory / "prompt.md")
@@ -148,24 +158,40 @@ def judge_run(
         "prompt_sha256": digest(prompt),
         "implementation": implementation_identity(),
     }
+    if assessment["assessment_eligible"]:
+        from .human_reference import load_reference
+        from .qualification import validate_qualification
+
+        reference = load_reference(parent, assessment, records)
+        qualification = validate_qualification(config, assessment)
+        if config.max_attempts != 2:
+            raise ValueError("assessed judge budget is two attempts per item")
+        identity |= {"human_reference_sha256": reference["sha256"], "qualification": qualification}
     directory = judge_directory(parent, judge_run_id)
     if not resume:
-        directory.mkdir(parents=True, exist_ok=False)
-        for name in ("events.jsonl", "attempts.jsonl"):
-            (directory / name).touch(exist_ok=False)
-        with (directory / "prompt.md").open("x", encoding="utf-8", newline="\n") as stream:
-            stream.write(prompt)
-        manifest = {
-            "schema_version": "1",
-            "judge_run_id": judge_run_id,
-            "assessment_sha256": assessment["manifest_sha256"],
-            "created_at": now(),
-            "status": "running",
-            "identity": identity,
-            "fingerprint": digest(identity),
-            "artifacts_sha256": artifact_hashes(directory),
-        }
-        save_new(directory / "manifest.json", manifest)
+        with exclusive(parent):
+            if (
+                assessment["assessment_eligible"]
+                and (parent / "judges").exists()
+                and len(list((parent / "judges").iterdir())) >= 3
+            ):
+                raise ValueError("assessed judge budget is three run versions")
+            directory.mkdir(parents=True, exist_ok=False)
+            for name in ("events.jsonl", "attempts.jsonl"):
+                (directory / name).touch(exist_ok=False)
+            with (directory / "prompt.md").open("x", encoding="utf-8", newline="\n") as stream:
+                stream.write(prompt)
+            manifest = {
+                "schema_version": "1",
+                "judge_run_id": judge_run_id,
+                "assessment_sha256": assessment["manifest_sha256"],
+                "created_at": now(),
+                "status": "running",
+                "identity": identity,
+                "fingerprint": digest(identity),
+                "artifacts_sha256": artifact_hashes(directory),
+            }
+            save_new(directory / "manifest.json", manifest)
     with exclusive(directory):
         manifest, events, attempts, successful = validate_judge(
             directory, assessment, records, rubric
@@ -199,7 +225,11 @@ def judge_run(
                     write_checkpoint(directory / "manifest.json", manifest)
                     result = client.generate(messages)
                     judgment = None
-                    if result.item is not None:
+                    model_matches = (
+                        not assessment["assessment_eligible"]
+                        or result.response_model == config.model
+                    )
+                    if result.item is not None and model_matches:
                         judgment = Judgment.model_validate(
                             result.item.model_dump(mode="json")
                         ).model_dump(mode="json")
@@ -208,8 +238,12 @@ def judge_run(
                         "valid": judgment is not None,
                         "judgment": judgment,
                         "raw_response": result.raw_response,
-                        "error": result.error,
-                        "error_type": result.error_type,
+                        "error": result.error
+                        if model_matches
+                        else "reported judge model differs from selected model",
+                        "error_type": result.error_type
+                        if model_matches
+                        else "ModelIdentityMismatch",
                         "response_model": result.response_model,
                     }
                     append_record(directory / "attempts.jsonl", attempt)

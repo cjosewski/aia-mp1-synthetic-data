@@ -11,3 +11,6 @@ uv run --locked ruff check .
 uv run --locked ruff format --check .
 uv run --locked python -m pytest -q
 uv run --locked python -m aia_mp1 --help
+for command in source-check collect collection-status cohort cohort-status assessment freeze-human-reference; do
+  uv run --locked python -m aia_mp1 "$command" --help
+done
