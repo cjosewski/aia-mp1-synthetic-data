@@ -72,14 +72,30 @@ An interrupted or incomplete run can be resumed by adding `--resume` to the orig
 
 ## Human labeling and judge calibration
 
-From the repository root in WSL, reuse the persistent environment and start the
-prepared five-item diagnostic queue (including both original gate rejections):
+The commands below use **Bash inside WSL Ubuntu**. Windows Terminal can host
+PowerShell or Command Prompt; those shells do not understand `export` or `source`.
+
+For the existing workstation checkout, first run this in **PowerShell or Command
+Prompt**, from any directory:
+
+```text
+wsl.exe -d Ubuntu --cd /mnt/d/_Repos/_AIA/aia-mp1-synthetic-data --exec bash
+```
+
+This opens Ubuntu Bash in the project directory. At the new Linux prompt, run
+these three lines to start the prepared five-item diagnostic queue (including
+both original gate rejections):
 
 ```bash
 export AIA_MP1_TOOLS="$HOME/.local/share/aia-mp1-tools"
 source tools/environment.sh
 uv run --locked python -m aia_mp1 label --assessment-id smoke-review-20261110T035628Z --reviewer "Chad Josewski"
 ```
+
+If already in Ubuntu Bash, first use
+`cd /mnt/d/_Repos/_AIA/aia-mp1-synthetic-data`, then run the three lines above.
+After quitting the labeler, `exit` returns to your Windows shell. The queue can
+be reviewed offline; Herd is only needed for model generation/judging.
 
 The labeler displays each complete item and the frozen rubric. Enter `0` for fail,
 `1` for pass, `s` to skip the item or `q` to quit. A skipped/partial item stays
