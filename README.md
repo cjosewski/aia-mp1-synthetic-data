@@ -3,6 +3,13 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
+The five-item diagnostic review and judge comparison are complete as of November
+10. Independent agreement was 60% for D1–D4 and 100% for D5–D6; Chad's later
+acceptance of the eight disagreements is preserved separately as post-review
+agreement. The next proposed slice is the **[assessed collection and baseline
+calibration plan](docs/assessed-collection-plan.md)**. It is ready for review;
+assessed collection has not started.
+
 ## Start here: review the five saved answers
 
 Use the **[step-by-step human-review runbook](docs/RUNBOOK.md)**. It explains what
