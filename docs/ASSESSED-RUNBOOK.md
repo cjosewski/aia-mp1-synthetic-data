@@ -4,8 +4,9 @@ Use this procedure for a new assessed baseline after its source pack is prepared
 The original five-item exercise remains in [RUNBOOK.md](RUNBOOK.md). Its two
 reports are preserved; its post-review agreement cannot qualify this baseline.
 
-**Current handoff:** the software is implemented. A cleared 50-task reference
-pack and selected stronger judge have not yet been supplied. No assessed baseline
+**Current handoff:** the software is implemented and a [50-task reference draft](REFERENCE-PACK-REVIEW.md)
+is prepared for source-use review. It is not cleared; a stronger judge has not
+been selected. No assessed baseline
 or 20-item review queue exists. You do not need to label anything now. The example
 configuration deliberately fails until real source/model decisions are filled in.
 
@@ -38,6 +39,11 @@ at `../artifacts/evidence/P1-03/references/engineering-v1.json`. The metadata sh
 starts at [reference-pack.example.json](../config/reference-pack.example.json);
 that pending template is not a valid corpus and must not be marked approved
 without actual evidence. See [SOURCE-READINESS.md](SOURCE-READINESS.md).
+
+The prepared review draft and its readable task list are described in
+[REFERENCE-PACK-REVIEW.md](REFERENCE-PACK-REVIEW.md). Its approval fields remain
+empty intentionally. Do not rename it to the approved path or fill those fields
+until the actual source-use decision is recorded.
 
 The pack must include ten distinct task briefs for each of the five categories.
 Each task has exactly `id`, `brief`, `category`, `source_refs`. Each source has:

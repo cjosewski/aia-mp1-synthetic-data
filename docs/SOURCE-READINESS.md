@@ -7,18 +7,23 @@ to assessed status.
 
 ## Source review
 
-| Category / candidate | Evidence inspected | Remaining work before pack approval |
-| --- | --- | --- |
-| GIS — QGIS | The [3.40 PyQGIS introduction](https://docs.qgis.org/3.40/en/docs/pyqgis_developer_cookbook/intro.html) identifies GFDL 1.3-or-later for the document and snippets; it also marks that version end-of-life | Select the intended supported installation/version, pin excerpts and attribution/license material; map ten task briefs |
-| AEC — IfcOpenShell / Dynamo; issue also names Revit | [IfcOpenShell's introduction](https://docs.ifcopenshell.org/introduction.html) and [v0.8.0 COPYING](https://github.com/IfcOpenShell/IfcOpenShell/blob/v0.8.0/COPYING) provide starting evidence, not verified coverage of every documentation page | Resolve document-specific terms/version and disposition of Revit/ArcPy source requirements before claiming a substitution complete |
-| Structural — OpenSees | The official [documentation license page](https://opensees.github.io/OpenSeesDocumentation/developer/license.html) includes use restrictions and notice obligations | Resolve the actual permitted coursework and downstream reuse scope; public access does not establish unrestricted corpus/export permission |
-| CAD — FreeCAD | The project's [license page](https://github.com/FreeCAD/FreeCAD-documentation/blob/main/wiki/License.md) distinguishes CC-BY-3.0 documentation from the application license; this mirror is archived | Pin the API/software revision and current source, retain attribution and verify each selected page's terms |
-| Simulation — open nonmedical numerical simulation | No exact versioned reference set selected yet | Select the target, verify documentation terms/installation assumptions, then map ten task briefs |
+The [prepared reference-pack review](REFERENCE-PACK-REVIEW.md) now identifies exact
+sources, licenses and revisions for ArcPy, Revit, OpenSeesPy, FreeCAD and SciPy.
+It preserves the named ArcPy/Revit/OpenSees topics. The earlier QGIS/IfcOpenShell
+alternatives are not used in this draft.
 
-These are findings and remaining tasks, not blanket legal conclusions or approvals.
-No retrieved API text has been copied into the production corpus. Each admitted
-source needs the metadata described in [the assessed runbook](ASSESSED-RUNBOOK.md).
-An incomplete category blocks assessed collection, but not offline software tests.
+External receipt `references/preparation-20261110/` contains 50 distinct task
+briefs (ten per category), five authored reference summaries, installation
+assumptions and 28 source/license artifacts with hashes. The draft is intentionally
+unapproved: owner source-use approval is not inferred from software approval.
+The concrete proposal is local, noncommercial coursework with notices retained;
+OpenSees' narrower documentation terms require the use-scope decision recorded
+in that review. No unrestricted downstream corpus/export permission is claimed.
+
+The source-check CLI refuses the pending draft. It has not entered a production
+collection. Reference versions are explicit targets; local installation and
+engineering execution have not been verified. Review the source-use proposal,
+then promote a separately versioned approved pack and complete generator preflight.
 
 The engineering benchmark question remains explicit. Owner-reported assignment
 acceptance is preserved; it is not an undocumented waiver of that specific question.
@@ -42,7 +47,7 @@ Synthetic test receipts confer no qualification on real models.
 
 ## Current next action
 
-Finish the versioned source pack and source-scope disposition, then record actual
-use approval. Baseline collection can follow that gate; stronger-judge qualification
+Record the source-use decision against the prepared 50-task draft, then validate
+the approved pack and pin the generator. Baseline collection can follow those gates; stronger-judge qualification
 can proceed alongside human baseline review. Freeze the 20 independent human
 reviews before any assessed judge run.
