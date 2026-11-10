@@ -4,11 +4,12 @@ Use this procedure for a new assessed baseline after its source pack is prepared
 The original five-item exercise remains in [RUNBOOK.md](RUNBOOK.md). Its two
 reports are preserved; its post-review agreement cannot qualify this baseline.
 
-**Current handoff:** the software is implemented and a [50-task reference draft](REFERENCE-PACK-REVIEW.md)
-is prepared for source-use review. It is not cleared; a stronger judge has not
-been selected. No assessed baseline
-or 20-item review queue exists. You do not need to label anything now. The example
-configuration deliberately fails until real source/model decisions are filled in.
+**Current handoff:** [baseline collection is complete](BASELINE-CHECKPOINT.md).
+The frozen 50-item cohort and `baseline-review-001` queue already exist. Chad
+has 20 blind reviews to complete. Open Ubuntu using Step 1, then proceed directly
+to Step 6; do not rerun collection or queue-creation Steps 4–5. A stronger judge
+still needs selection/qualification. The committed example configuration remains
+a template; actual settings are in ignored `config/assessed.local.json`.
 
 ## 1. Open Ubuntu and check the environment
 
@@ -40,10 +41,10 @@ starts at [reference-pack.example.json](../config/reference-pack.example.json);
 that pending template is not a valid corpus and must not be marked approved
 without actual evidence. See [SOURCE-READINESS.md](SOURCE-READINESS.md).
 
-The prepared review draft and its readable task list are described in
+The original review draft and readable task list are described in
 [REFERENCE-PACK-REVIEW.md](REFERENCE-PACK-REVIEW.md). Its approval fields remain
-empty intentionally. Do not rename it to the approved path or fill those fields
-until the actual source-use decision is recorded.
+empty intentionally. Chad's approval is recorded in a separate approved pack
+and receipt; use that approved path and preserve the historical draft.
 
 The pack must include ten distinct task briefs for each of the five categories.
 Each task has exactly `id`, `brief`, `category`, `source_refs`. Each source has:

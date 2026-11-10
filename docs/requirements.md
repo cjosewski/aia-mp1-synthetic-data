@@ -18,8 +18,12 @@ The approved slice covers a local repository, seven-field schema, generation thr
 
 November 10: Chad approved the assessed-collection plan. Source packs, bounded
 collection, cohort assessments and independent human-reference freezing are now
-implemented. A production source pack, qualified stronger judge and live assessed
-measurements remain pending. The five-item diagnostic and post-review amendments
+implemented. Chad subsequently approved the concrete 50-task reference pack for
+local noncommercial coursework; [the decision record](REFERENCE-PACK-REVIEW.md)
+identifies its scope and hashes. The [baseline checkpoint](BASELINE-CHECKPOINT.md)
+records 200 valid initial responses, a frozen balanced 50-item cohort and a
+20-item blind review queue. Authentic reviews, a qualified stronger judge and
+six-dimensional assessed measurements remain pending. The five-item diagnostic and post-review amendments
 are preserved separately; they do not certify assessed calibration.
 
 At kickoff, human labeling, LLM judging, judge calibration, analysis charts and generator correction were subsequent work. The continuation implements the first three workflows; full analysis/charts and generator correction remain later work. The structural gate cannot establish six-dimensional quality or supply missing assessment evidence.

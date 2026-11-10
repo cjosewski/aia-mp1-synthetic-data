@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.3, November 10, 2026 |
-| Status | Assessed collection and independent human-reference software implemented; live assessed evidence pending source/model prerequisites |
+| Revision | 0.4, November 10, 2026 |
+| Status | Approved sources and verified generator; 50-item baseline cohort frozen after 200 valid first responses; 20 blind reviews and qualified judge pending |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
@@ -39,7 +39,7 @@ six dimensions, libraries, stages and thresholds recorded in the sources.
 | [Requirements record](requirements.md) | November 9 portal reconciliation of schema, rubric and success criteria; lower visualization/example-log sections were not independently reread |
 | [Issue #4](https://github.com/cjosewski/aia-plan/issues/4) | Live execution checklist, re-theme, stronger judge selection and deliverables; read November 9 for this SDD |
 | [Rubric](../config/rubric.json) | Machine-readable anchors and thresholds, `engineering-v1`; adaptation acceptance remains pending |
-| [Source manifest](../config/sources.json) | Current permission record; only standalone local smoke input is cleared |
+| [Source manifest](../config/sources.json) / [assessed source decision](REFERENCE-PACK-REVIEW.md) | Smoke manifest stays separate; external engineering-v1 pack approved November 10 for local noncommercial assessed coursework |
 | [Program source record](https://github.com/cjosewski/aia-plan/blob/main/docs/research/track-program-requirements.md) | Dated generic Evidence Pack requirements; not a newly verified assignment template |
 | [P1-03 checkpoint](https://github.com/cjosewski/aia-plan/blob/main/docs/progress/P1-03.md) | Authorization, observations and retained evidence; not a second live checklist |
 
@@ -458,8 +458,11 @@ Only licensed open or standalone personal material may enter generation/referenc
 data. Public availability is insufficient. External records require URL,
 version/revision, retrieval date, license/terms, allowed uses and publication
 disposition. D3 ground truth needs actual versioned engineering references, not
-the generator's confidence. The current source manifest supplies no such ground
-truth and authorizes smoke use only.
+the generator's confidence. The smoke source manifest authorizes smoke use only.
+The external engineering-v1 pack now supplies versioned references under Chad's
+November 10 local noncommercial coursework approval; it does not certify every
+reference fact or authorize public/commercial corpus export. See the
+[source decision](REFERENCE-PACK-REVIEW.md) for immutable draft/approved identities.
 
 Exclude employer/client material, proprietary physiology and medical simulation.
 Credential values, authorization headers and credential-file contents must not be
@@ -556,7 +559,7 @@ claimed. This SDD did not rerun those tests or models; the
 | --- | --- | --- | --- |
 | MP1-D01 | Engineering benchmark replacement/requirement and adaptation disposition | Instructor, via Chad | Unqualified assignment acceptance |
 | MP1-D02 | Exact-80% improvement equality | Instructor | Acceptance of an equality-boundary result; conservative >80% remains the design rule |
-| MP1-D03 | Versioned engineering reference set and permission for assessed use/export | Chad | Assessed collection and factual reference claims |
+| MP1-D03 | Engineering-v1 source pack approved November 10 for local noncommercial coursework; public/commercial export remains outside approval | Chad | Local assessed-source prerequisite resolved; downstream export and engineering runtime verification remain separate |
 | MP1-D04 | Stronger judge model and supported settings; hosted change only if separately approved | Chad | Assessed judge/model checklist completion |
 | MP1-D05 | Assessed gate version, bounded collection policy and source-purpose extension | Chad through implementation-plan review | M3 collection; current smoke semantics cannot be relabeled |
 | MP1-D06 | Next-slice plan approved November 9; this SDD records its implementation and later design | Chad | Resolved for M2; later slices remain separately scoped |
@@ -576,3 +579,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.2 | 2026-11-09 | Owner-reported assignment acceptance and plan approval; implemented assessment/label/judge/calibration contracts, 166-test checkpoint, immutable diagnostic queue and bounded endpoint blocker |
 
 | 0.3 | 2026-11-10 | Approved assessed collection: grounded source packs, bounded multi-batch cohorts, blind-reference freeze, model qualification, CLI/runbook and preserved diagnostic evidence; live corpus/model prerequisites remain open |
+| 0.4 | 2026-11-10 | Actual source-use approval, approved pack, upstream-matched generator and preflight; four-batch baseline qualified, 50-item cohort frozen and 20-item blind review queue created; see BASELINE-CHECKPOINT.md |
