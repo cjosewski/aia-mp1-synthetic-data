@@ -142,6 +142,7 @@ labeling displays the item and rubric without suggested model scores.
 | [human_reference.py](../src/aia_mp1/human_reference.py), [qualification.py](../src/aia_mp1/qualification.py) | Blind-label freeze and attributed judge selection evidence | Implemented |
 | `analysis.py`, `iteration.py` | Full comparison/charts and Phase B controls | Subsequent slice |
 | [evidence_judge.py](../src/aia_mp1/evidence_judge.py) | Experimental citation validation and projection to the existing judge result | Development-only v5; offline verified, live screen produced no accepted judgments |
+| [compact_evidence.py](../src/aia_mp1/compact_evidence.py) | Shared citations and short references using the same canonical projection | Development-only v6; five-case feasibility check stopped on output-format failures |
 
 Run Python, dependency management and tests in WSL2 Ubuntu. The existing locked
 environment uses Python 3.12; [pyproject.toml](../pyproject.toml) and
@@ -252,6 +253,13 @@ to the existing Judgment. Raw evidence remains in the attempt record. Invalid
 citations consume attempts; no output is repaired or converted to default scores.
 These checks establish traceability, not semantic correctness. The production
 judge command and assessed defaults continue to use their existing contract.
+
+The separate [v6 compact contract](JUDGE-COMPACT-PROTOCOL.md) stores quotes once
+and uses zero-based references per dimension. Short aliases map deterministically
+to the same original fields. Bounds, exact substrings, namespace/anchor ownership
+and index consistency are validated before projection. This remains an experiment:
+the five-case feasibility check accepted no outputs, and no assessed interface or
+default changed. Shared transport validation retains the v5 contract as well.
 
 ### 4.5 Storage and commands
 
@@ -591,3 +599,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.3 | 2026-11-10 | Approved assessed collection: grounded source packs, bounded multi-batch cohorts, blind-reference freeze, model qualification, CLI/runbook and preserved diagnostic evidence; live corpus/model prerequisites remain open |
 | 0.4 | 2026-11-10 | Actual source-use approval, approved pack, upstream-matched generator and preflight; four-batch baseline qualified, 50-item cohort frozen and 20-item blind review queue created; see BASELINE-CHECKPOINT.md |
 | 0.5 | 2026-11-13 | Development-only evidence contract and canonical projection; 234 offline tests, bounded Mac feasibility failure with zero accepted judgments; assessed contract/defaults and frozen references unchanged |
+| 0.6 | 2026-11-13 | Compact shared-citation contract and 267 offline checks; bounded five-case Mac check stopped on quote-length violations with zero accepted judgments; no calibration or default change |

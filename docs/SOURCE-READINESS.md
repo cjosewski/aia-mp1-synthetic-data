@@ -171,3 +171,10 @@ separate Mac screen stopped after two unsuccessful attempts on the first item
 coverage, ten unresolved, agreement undefined. The evidence is retained and the
 dedicated server stopped. Simplify and test protocol feasibility before further
 quality screening; stronger-model readiness and assessed calibration remain open.
+
+V6's shared-citation format passed 267 offline checks but its five-category
+feasibility run stopped after two quote-length schema failures on the first case.
+Both responses finished within the unchanged token budget. Coverage is 0/5,
+agreement undefined; four selected cases were not attempted. This is an output
+format blocker, not a technical-quality result. The next design uses supplied
+passage IDs; no new human review or assessed judging is required at this checkpoint.

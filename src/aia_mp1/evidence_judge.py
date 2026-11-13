@@ -146,7 +146,7 @@ def _unique_keys(pairs):
     return result
 
 
-def parse_evidence(raw: dict) -> EvidenceJudgment:
+def completion_json(raw: dict) -> dict:
     """Require complete, plain JSON and preserve the original raw response separately."""
     if not isinstance(raw, dict) or not isinstance(raw.get("choices"), list):
         raise ValueError("expected a chat completion with choices")
@@ -159,7 +159,11 @@ def parse_evidence(raw: dict) -> EvidenceJudgment:
     if not isinstance(message, dict) or not isinstance(message.get("content"), str):
         raise ValueError("evidence response must contain a text message")
     text = message["content"]
-    return EvidenceJudgment.model_validate(json.loads(text, object_pairs_hook=_unique_keys))
+    return json.loads(text, object_pairs_hook=_unique_keys)
+
+
+def parse_evidence(raw: dict) -> EvidenceJudgment:
+    return EvidenceJudgment.model_validate(completion_json(raw))
 
 
 class EvidenceClient:
@@ -170,9 +174,11 @@ class EvidenceClient:
     The caller owns starts, retry budgets, immutable persistence and reporting.
     """
 
-    def __init__(self, client, rubric: dict):
+    def __init__(self, client, rubric: dict, *, parser=parse_evidence, validator=validate_evidence):
         self.client = client
         self.rubric = rubric
+        self.parser = parser
+        self.validator = validator
 
     def generate(self, messages: list[dict]) -> AttemptResult:
         if len(messages) != 2 or [m["role"] for m in messages] != ["system", "user"]:
@@ -183,10 +189,10 @@ class EvidenceClient:
         if result.item is None:
             return result
         try:
-            report = parse_evidence(result.raw_response)
+            report = self.parser(result.raw_response)
             if report.model_dump() != result.item.model_dump():
                 raise ValueError("parsed evidence differs from raw response")
-            judgment = validate_evidence(report, content, self.rubric)
+            judgment = self.validator(report, content, self.rubric)
         except (ValueError, TypeError, KeyError, IndexError):
             return AttemptResult(
                 item=None,

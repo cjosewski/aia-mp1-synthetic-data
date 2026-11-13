@@ -1,5 +1,66 @@
 # Judge qualification — November 13 checkpoint
 
+The v6 compact-citation feasibility check stopped after two output-contract
+failures on the first of five selected cases. **Coverage is 0/5 and agreement is
+undefined.** Both responses finished within the token limit; their quotes exceeded
+the protocol's 160-character bound. No accepted judgment, quality improvement or
+calibration result is claimed. Qualification and assessed judging remain pending.
+
+## GPT-OSS judge-v6 compact-format results
+
+Following Chad's "Go", the [compact protocol](JUDGE-COMPACT-PROTOCOL.md) introduced
+a shared citation table, short path aliases and numeric references per dimension.
+It removes repeated quote objects and the v5 search-declaration fields while
+retaining exact-text, citation-role, strict-score and canonical-projection checks.
+This changed the prompt and response schema together. It did not change the
+rubric, adopted reviews, generator or assessed judge defaults.
+
+The selection was frozen before inference: qualification-v1-01 through -05,
+the first existing example in each of the five categories. User messages stayed
+identical to their prior versions. Archived comparisons were independently
+recomputed on these same five cases, with full ten-case results preserved.
+The package passed 245 project and 22 portable tests, lint, formatting, shell
+syntax, reference/input hashes and comparison-accounting checks.
+
+| Measure | Observed result |
+| --- | --- |
+| New requests / ceiling | 2 / 10 |
+| Initial items started | 1 / 5 |
+| Initial schema-valid / citation-accepted | 0 / 1 started for both |
+| Retry recoveries | 0 |
+| Accepted / unresolved cases | 0 / 5; four never attempted |
+| Criterion comparisons / agreement | 0 / undefined |
+| Attempt 1 | 23.1 seconds; 2,574 completion tokens; finish `stop` |
+| Attempt 2 | 20.9 seconds; 2,564 completion tokens; finish `stop` |
+| Unknown outcomes | 0 |
+| Documented cumulative starts | 77 |
+
+Attempt 1 supplied three quotes longer than 160 characters (181, 198 and 194);
+attempt 2 supplied two (198 and 194). Both raw responses were retained with
+validation errors and null canonical judgments. The automatic two-consecutive-
+failure rule stopped the phase. These are failures of a local output-format
+constraint, not assignment criterion failures, transport timeouts or proof of
+poor technical judgment. The judge's quality on this subset remains unmeasured.
+No quote was shortened, validator relaxed or rejected output scored after the run.
+
+Return `MP1-results-2026-11-13T203059865919+0000.zip` has SHA-256
+`d588e6d07a36c3574af541dff8c2783825668f0d13331dd4b4be4fc58dcf622d`.
+The audit at `qualification/gptoss-v6-return-review-20261113/` verifies the frozen
+package/reference, unchanged Mac model/runtime, two attempt lineages, raw schema
+rejection, null projections, stop rule, exact coverage accounting and seven report
+rows. Remote and received hashes match. The owned server stopped before export;
+port 8081 had no listener afterward. No desktop control or Herd settings changed.
+The NAS archive is
+`MP1-handoff/completed-runs/gptoss-v6-2026-11-13T203059865919+0000/`.
+
+Next, design supplied passage IDs that the model can cite without copying text.
+Resolve the IDs to frozen text in the application and continue to audit relevance.
+That is an unmeasured new protocol, not permission to reinterpret v6. No further
+model request or extension to the other five cases followed this audit. No new
+human review is required now.
+
+## Prior v5 checkpoint
+
 The v5 evidence protocol is implemented, but its bounded Mac screen stopped after
 two unsuccessful attempts on the first item. **Coverage is 0/10 and agreement is
 undefined.** The first response was truncated at 4,096 output tokens; the retry
