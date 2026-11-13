@@ -7,11 +7,22 @@ known cases; this does not establish qualification. The generator, prior measure
 prompts, rubric, cohort and human references remain unchanged. Do not rerun a
 completed package or advance to assessed judging.
 
-The [post-result review runbook](JUDGE-V3-REVIEW-RUNBOOK.md) now guides Chad through
-the five disagreements across three cases. The NAS folder
-`MP1-handoff/MP1-JUDGE-V3-REVIEW-20261113/` contains a packet assembled from the
-frozen evidence and a blank `MY-REVIEW.md`. This disclosed adjudication is separate
-from fresh blind confirmation. No new human ratings have been supplied or inserted.
+Chad completed the [post-result review](JUDGE-V3-REVIEW-RUNBOOK.md) on November 13.
+All five explicit ratings reaffirm the frozen reference: the three false
+approvals and two false rejections remain. He assessed three v3 explanations as
+partly supported and two as unsupported. His assistance declaration is `NONE`,
+retained as self-reported; the disclosed model/reference exposure makes this
+adjudication separate from fresh blind confirmation.
+
+The submitted file was retrieved from the Mac's Documents folder, validated and
+preserved with SHA-256
+`05c3829f35f7a81a9a87c2ac6d530238d22b0f91d95afe3cf46f91b71e4c1320`.
+The external receipt is `qualification/judge-v3-adjudication-20261113/`;
+the NAS review folder includes the completed sheet and `submissions/review-001/`.
+No frozen label was amended, and the 55/60 result remains unchanged. The next
+design work should address the confirmed API-owner/return-interface checks,
+task-specific safeguards and context/correctness distinction. No new prompt or
+model run was created while recording this review.
 
 ## GPT-OSS judge-v3 returned results
 
@@ -60,8 +71,9 @@ by exchanging a false rejection for a false approval. Two D5 false rejections
 remain, and matching scores can still have weak explanations.
 
 Retain v3 as development evidence rather than promote it to the assessed judge.
-Review these safety/API regressions before selecting a frozen candidate for fresh
-blind confirmation. No further iteration or model request followed this run.
+The human review above confirms these safety/API regressions. Address them before
+selecting a frozen candidate for fresh blind confirmation. No further iteration
+or model request followed this run.
 The NAS archive is `MP1-handoff/completed-runs/gptoss-v3-2026-11-13T174104724949+0000/`.
 
 ## GPT-OSS Mac returned results

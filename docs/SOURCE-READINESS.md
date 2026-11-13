@@ -148,3 +148,10 @@ both human-failing API cases and a safety failure is newly approved. The frozen
 rubric/references remain unchanged; v3 is measured development evidence, not a
 qualified judge or an automatic default change. Review the regressions before
 fresh blind confirmation and assessed calibration.
+
+Chad's subsequent five-decision post-result review reaffirms every frozen rating
+and confirms the remaining three false approvals/two false rejections. No label
+amendment or metric change followed. This disclosed review is not fresh blind
+confirmation; stronger-judge qualification remains pending targeted correction
+and independent evidence. The completed response and attribution are preserved
+outside Git and on the NAS.

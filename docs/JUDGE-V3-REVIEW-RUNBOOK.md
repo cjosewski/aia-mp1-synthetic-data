@@ -1,5 +1,10 @@
 # Review runbook — GPT-OSS judge-v3 disagreements
 
+**Completed November 13:** Chad submitted all five review blocks and reaffirmed
+the frozen reference ratings. See [the recorded outcome](JUDGE-QUALIFICATION-RESULTS.md).
+The procedure below is retained for the record; do not repeat this review.
+Any later correction should be supplied as a new version of the response sheet.
+
 **Your task:** review five disputed rubric decisions across three saved technical
 answers. Decide whether each judge decision and its explanation are supported by
 the original task, complete answer and frozen rubric. Record your own assessment
