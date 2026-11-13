@@ -60,9 +60,9 @@ separate requirements.
 
 ## Next work item
 
-Freeze this usable passage format and prepare a controlled candidate comparison.
-The next candidate must have verified local availability, model identity and a
-recorded selection basis; preserve the protocol, tasks, rubric and references.
-Judge evidence use and API-owner accuracy as well as label agreement. This is a
-proposed model comparison, not a stronger-judge selection or a new inference run.
-Further formatting changes are not supported by this successful format check.
+The subsequent [fixed-format candidate comparison](JUDGE-MODEL-COMPARISON.md)
+tested the pinned Llama model on these same five cases. It accepted all first
+attempts but matched only 23/30 ratings, with six false approvals and one false
+rejection. Neither candidate qualifies. Keep this usable format frozen while
+preparing another distinct candidate's availability, identity, capacity and
+selection basis. Further formatting changes are not supported by these results.

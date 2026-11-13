@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.4, November 10, 2026 |
-| Status | Approved sources and verified generator; 50-item baseline cohort frozen after 200 valid first responses; 20 blind reviews and qualified judge pending |
+| Revision | 0.8, November 13, 2026 |
+| Status | Approved sources, 50-item baseline cohort and 20-item human reference frozen; judge development comparisons ongoing; qualified judge and assessed calibration pending |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
@@ -612,3 +612,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.5 | 2026-11-13 | Development-only evidence contract and canonical projection; 234 offline tests, bounded Mac feasibility failure with zero accepted judgments; assessed contract/defaults and frozen references unchanged |
 | 0.6 | 2026-11-13 | Compact shared-citation contract and 267 offline checks; bounded five-case Mac check stopped on quote-length violations with zero accepted judgments; no calibration or default change |
 | 0.7 | 2026-11-13 | Supplied-passage contract, exact text resolution and 288 offline checks; separate bounded five-case experiment, with results in JUDGE-QUALIFICATION-RESULTS.md; no assessed default change |
+| 0.8 | 2026-11-13 | Fixed V7 candidate comparison under JUDGE-MODEL-COMPARISON.md; byte-identical messages/validation with model-specific native templates; results and advancement decision owned by JUDGE-QUALIFICATION-RESULTS.md |

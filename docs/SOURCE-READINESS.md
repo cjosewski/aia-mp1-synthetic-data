@@ -186,3 +186,12 @@ is feasible on this small known sample, but evidence-use defects and the confirm
 API miss keep qualification pending. Freeze the format for a controlled candidate
 comparison after verifying model availability/basis. No new candidate selection,
 fresh blind confirmation or assessed inference follows this check.
+
+The next owner-authorized fixed-V7 comparison verified the already available
+Llama weights and native runtime on the same Mac. It completed five first-attempt
+judgments but matched only 23/30 ratings, with six false approvals and one false
+rejection. D1 and D6 are 3/5, and safety/API defects are approved. GPT-OSS's same
+five cases remain at 27/30. Neither model qualifies; preserve the working format
+and prepare another distinct candidate's identity, local capacity and selection
+basis before a further experiment. No new candidate was downloaded or selected,
+and no assessed inference or additional human review follows this result.

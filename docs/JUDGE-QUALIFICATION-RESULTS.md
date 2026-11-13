@@ -1,10 +1,76 @@
 # Judge qualification — November 13 checkpoint
 
-The v7 supplied-passage format completed **five valid first attempts and 27/30
-agreement (90%)**, with one API false approval and two context false rejections.
-The format is feasible on these five known cases, but judge qualification remains
-pending: D5 is 3/5 and the confirmed API-owner error is approved. Exact citations
-do not establish reliable use of the evidence. No assessed judging has started.
+The fixed V7 comparison completed with **Llama 23/30 agreement (76.7%) versus
+GPT-OSS 27/30 (90%)** on the same five known cases. Both accepted every first
+attempt. Llama falsely approved six criteria, including safety and API defects;
+GPT-OSS falsely approved one API criterion. Neither model qualifies, and no
+assessed judging has started. Working citation formatting does not establish
+reliable use of evidence.
+
+## Llama versus GPT-OSS with fixed V7
+
+Chad's next “Go” authorized the [controlled comparison](JUDGE-MODEL-COMPARISON.md).
+Llama was the previously owner-selected, locally available distinct judge
+candidate. Its pinned Q4_K_M weights, served identity and native runtime
+properties were verified against its earlier Mac receipt before requests. No
+new model download, Herd change or desktop control was needed.
+
+All five messages, passage catalogs, response schema and validation code are
+byte-identical to GPT-OSS V7. The Mac, llama.cpp build, context 16,384, one slot,
+temperature 0.1, output limit 4,096 and timeout 300 seconds are fixed. Model,
+quantization and native embedded template differ. GPT-OSS's saved run is the
+comparator; it was not rerun. Earlier prompt versions remain historical diagnostics.
+
+| Dimension / measure | Llama V7 | GPT-OSS V7 |
+| --- | ---: | ---: |
+| D1 — Completeness | 3/5 | 5/5 |
+| D2 — Safety | 4/5 | 5/5 |
+| D3 — API realism | 4/5 | 4/5 |
+| D4 — Scope | 5/5 | 5/5 |
+| D5 — Context | 4/5 | 3/5 |
+| D6 — Tips | 3/5 | 5/5 |
+| Agreement | 23/30 (76.7%) | 27/30 (90%) |
+| False approvals / rejections | 6 / 1 | 1 / 2 |
+| First-attempt acceptance | 5/5 | 5/5 |
+
+Llama gained one context match but lost five matches compared with GPT-OSS. It
+approved the incorrect Compound/Boolean-union procedure and tip, and the Revit
+procedure, ineffective safety coverage, wrong API owner and unsafe null-guard tip.
+It still rejected the clear structural-approval context because the answer was
+incorrect. D1 and D6 are 60%, and safety/API false approvals remain, so the
+predeclared development advancement condition is not met.
+
+All thirty explanations and resolved passages were reviewed. Llama cites more
+individual fields, but often repeats a rubric anchor or accepts the candidate's
+claim without checking it. Some matching failures also have misleading reasons:
+the structural safety guarantee is described as generic caution, and the false
+technical tip as generic encouragement. Four requirement citations use the task;
+26 use rubric anchors, with no source passage cited as the requirement. No human
+labels or historical scores were amended.
+
+The run used five of ten allocated requests, without retries, transport failures,
+truncation, invalid passages or unknown outcomes. Documented cumulative starts
+are 87. Requests totaled 335.5 seconds (mean 67.1, range 59.8–82.2), with 367–439
+completion tokens. These sequential durations are operational observations, not
+a hardware benchmark. Preparation passed 288 offline tests, lint, formatting,
+shell syntax and frozen-contract checks. The independent audit reproduced raw
+projections, exact passage text, attempt lineage, coverage and all nine report rows.
+
+Return `MP1-results-2026-11-13T211250375457+0000.zip` has SHA-256
+`4198b4afd8c644fe3acc71ab9c180dfad7d5e83e91ca171d480eff66692585af`.
+The external audit is `qualification/llama-v7-return-review-20261113/`.
+The complete NAS archive is
+`MP1-handoff/completed-runs/llama-v7-2026-11-13T211250375457+0000/`;
+its verification receipt checks all frozen and returned files. The owned server
+stopped before export, and port 8081 had no listener afterward. The Mac folder
+remains preserved.
+
+Do not extend this Llama screen or advance either model to assessed judging.
+Keep V7 fixed and next prepare another distinct local candidate's availability,
+identity, capacity requirements and selection basis before a new allocation.
+No such candidate was selected or downloaded here. No additional human review
+is needed now. A later promising result still needs broader development evidence,
+fresh blind confirmation and assessed calibration.
 
 ## GPT-OSS judge-v7 supplied-passage results
 
