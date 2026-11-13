@@ -7,6 +7,8 @@ Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/iss
 reviews are complete. The Fedora v1 and Mac v2 comparisons ran successfully, but
 Llama qualification remains pending. [Results and next experiment](docs/JUDGE-QUALIFICATION-RESULTS.md)
 record both measured comparisons and the remaining false approvals.
+The next bounded candidate screen has a **[new Mac runbook](docs/GPTOSS-MAC-RUNBOOK.md)**
+for GPT-OSS-20B, using the saved Mac results as comparators.
 Do not repeat the completed reviews or start assessed judging yet. Older dated
 sections below describe their original implementation checkpoints.
 

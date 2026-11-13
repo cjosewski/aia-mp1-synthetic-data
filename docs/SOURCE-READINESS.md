@@ -125,3 +125,10 @@ Llama 50/60 agreement and Qwen 51/60. Llama still falsely approves nine criteria
 and both models have D2 agreement of 7/10. Qualification remains pending. Preserve
 the measured v2 protocol and prepare a distinct candidate comparison before any
 new run; neither the aggregate scores nor faster serving authorize assessed judging.
+
+The next [Mac runbook](GPTOSS-MAC-RUNBOOK.md) prepares GPT-OSS-20B MXFP4 as a
+distinct screening candidate with verified weight provenance. It keeps judge-v2
+and the frozen cases, reuses the archived Mac comparators and allocates at most
+twenty new requests through explicit operator activation. This is preparation,
+not a model measurement or a change to Chad's recorded judge selection. Native
+compatibility, stronger-judge support and fresh blind confirmation remain pending.

@@ -7,6 +7,36 @@ The generator, both measured judge prompts, frozen rubric, cohort and human
 references remain unchanged. The next decision is a distinct candidate comparison
 under the frozen v2 development protocol, not the assessed judge run.
 
+## Prepared next candidate — GPT-OSS-20B
+
+The [Mac runbook](GPTOSS-MAC-RUNBOOK.md) prepares one GPT-OSS-20B MXFP4 screen,
+experiment `gptoss20b-mac-development-001`. Chad requested another Mac runbook;
+this is a proposed screening candidate, not a replacement owner-selected or
+qualified assessed judge. Its distinct model family, local availability and
+[documented reasoning/structured-output capabilities](https://openai.com/index/introducing-gpt-oss/)
+provide a test rationale, not evidence of stronger engineering judgment.
+
+The NAS file's full SHA-256 was verified against the
+[publisher's pinned GGUF](https://huggingface.co/ggml-org/gpt-oss-20b-GGUF/blob/b97cbb20d1995efd41dce8c4dd1ddf86e8db375b/gpt-oss-20b-MXFP4.gguf):
+`27cd6c432c7672cb812a92f611cf3ba7bbc35928262bb1e1253ff4ee6ae35901`,
+12,109,566,624 bytes. No weight conversion or fresh model download was needed.
+
+The new portable package is `qualification/MP1-GPTOSS-MAC/`, also provided as
+`MP1-GPTOSS-MAC.zip` on the private handoff share. It reuses the exact ten-case
+v2 inputs and frozen reviews, and includes the audited Mac Llama/Qwen return as
+historical comparators. Only GPT-OSS may issue new completions. The existing
+Mac/server build, one slot and context are checked; each run records its model
+template and default runtime settings. The model's native reasoning/template
+behavior differs, and this is not a randomized or repeated-seed comparison.
+
+The separate operator-activated allowance is at most twenty new starts after
+43 earlier starts, for a cumulative ceiling of 63. Attempts remain capped at two
+per item, 300 seconds and 4,096 tokens. Two consecutive unsuccessful completions
+stop the run; unknown outcomes require inspection. No live candidate request was
+made during preparation. Native model/client compatibility and judge quality
+remain unmeasured. Fresh blind confirmation and assessed calibration remain later
+gates, regardless of this development score.
+
 ## Mac v2 returned results
 
 The November 13 return passed bundle/policy/input/attempt validation. All twenty
