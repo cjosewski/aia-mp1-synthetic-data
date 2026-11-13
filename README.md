@@ -3,13 +3,12 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
-**November 13 checkpoint:** the frozen baseline reviews and ten qualification
-reviews are complete. The Fedora v1 and Mac v2 comparisons ran successfully, but
-Llama qualification remains pending. [Results and next experiment](docs/JUDGE-QUALIFICATION-RESULTS.md)
-record both measured comparisons and the remaining false approvals.
-The next bounded candidate screen has a **[new Mac runbook](docs/GPTOSS-MAC-RUNBOOK.md)**
-for GPT-OSS-20B, using the saved Mac results as comparators.
-Do not repeat the completed reviews or start assessed judging yet. Older dated
+**November 13 checkpoint:** the GPT-OSS Mac screen is complete: 52/60 agreement,
+zero false approvals and eight false rejections. D5 remains 7/10, so judge
+qualification is still pending. [Results and next experiment](docs/JUDGE-QUALIFICATION-RESULTS.md)
+record all measured comparisons and the remaining reasoning defects.
+The [Mac runbook](docs/GPTOSS-MAC-RUNBOOK.md) is retained as the completed procedure.
+Do not repeat completed runs/reviews or start assessed judging yet. Older dated
 sections below describe their original implementation checkpoints.
 
 The five-item diagnostic review and judge comparison are complete as of November

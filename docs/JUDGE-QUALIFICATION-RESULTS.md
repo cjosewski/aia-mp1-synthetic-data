@@ -1,13 +1,54 @@
 # Judge qualification — November 13 checkpoint
 
-The Fedora v1 and Mac v2 comparisons completed successfully, but **Llama remains
-unqualified as the stronger judge**. Mac v2 matches 50/60 decisions but still
-incorrectly approves nine human-failing criteria; D1 and D2 are each 7/10.
-The generator, both measured judge prompts, frozen rubric, cohort and human
-references remain unchanged. The next decision is a distinct candidate comparison
-under the frozen v2 development protocol, not the assessed judge run.
+The GPT-OSS Mac screen completed successfully: **52/60 agreement, zero false
+approvals and eight false rejections**. It detects all eighteen human-failing
+criteria in the ten known cases, but D5 agreement is 7/10. Stronger-judge
+qualification remains pending. The generator, measured prompts, rubric, cohort
+and human references remain unchanged. Do not rerun the completed handoff or
+advance to assessed judging.
 
-## Prepared next candidate — GPT-OSS-20B
+## GPT-OSS Mac returned results
+
+Return `MP1-results-2026-11-13T161049817190+0000.zip` has SHA-256
+`acc61d5382c9061a49c7830939e974e04ba124e6e11055dd5e70a02b5cd6e85d`.
+The external `qualification/gptoss-return-review-20261113/` audit validates bundle,
+policy, frozen inputs/reference, model/runtime identity, attempt lineage and
+raw/parsed judgment equality. Independent recomputation matches all three rows
+of the returned report. All ten GPT-OSS first attempts were valid; no errors,
+retries, truncation or unknown outcomes occurred. No new inference ran during review.
+
+| Dimension / measure | GPT-OSS Mac v2 | Llama Mac v2 | Qwen Mac v2 |
+| --- | ---: | ---: | ---: |
+| D1 — Completeness | 8/10 | 7/10 | 9/10 |
+| D2 — Safety | 9/10 | 7/10 | 7/10 |
+| D3 — API realism | 9/10 | 8/10 | 8/10 |
+| D4 — Scope | 10/10 | 10/10 | 10/10 |
+| D5 — Context | 7/10 | 9/10 | 8/10 |
+| D6 — Tips | 9/10 | 9/10 | 9/10 |
+| Total agreement | 52/60 (86.7%) | 50/60 (83.3%) | 51/60 (85%) |
+| False approvals | 0 | 9 | 3 |
+| False rejections | 8 | 1 | 6 |
+
+GPT-OSS gains nine matches and loses seven versus Llama; it gains six and loses
+five versus Qwen. The eight disagreements include overlooking information in the
+steps/safety/tips fields and extending procedural failures into context failures.
+Some matching decisions also have inaccurate explanations of what the payload
+contains. These are findings against the frozen reference, not revised labels.
+
+The same Mac, Python version, llama.cpp `b12110-cd959bae9`, one slot, context
+16,384 and default sampling parameters are recorded. Client settings remain
+temperature 0.1, 4,096 tokens and 300 seconds. Mean request time is 11.4 seconds
+(114.0 seconds total). Model templates/reasoning differ; this is a historical
+development comparison, not a controlled speed benchmark or independent calibration.
+
+The next proposed experiment is a general instruction revision for cross-field
+evidence coverage and independent rubric boundaries. Keep v2 and these results
+immutable; do not insert known answers or reuse the remaining allowance for a new
+experiment. Fresh blind confirmation remains necessary before qualification.
+The supplied ledgers account for 53 starts; the owner's possible separate repeat
+has not been supplied and is not included in that documented total.
+
+## GPT-OSS preparation record — completed by the return above
 
 The [Mac runbook](GPTOSS-MAC-RUNBOOK.md) prepares one GPT-OSS-20B MXFP4 screen,
 experiment `gptoss20b-mac-development-001`. Chad requested another Mac runbook;
@@ -33,9 +74,9 @@ The separate operator-activated allowance is at most twenty new starts after
 43 earlier starts, for a cumulative ceiling of 63. Attempts remain capped at two
 per item, 300 seconds and 4,096 tokens. Two consecutive unsuccessful completions
 stop the run; unknown outcomes require inspection. No live candidate request was
-made during preparation. Native model/client compatibility and judge quality
-remain unmeasured. Fresh blind confirmation and assessed calibration remain later
-gates, regardless of this development score.
+made during preparation. At that checkpoint native model/client compatibility and
+judge quality were unmeasured; the return above now supplies development evidence.
+Fresh blind confirmation and assessed calibration remain later gates.
 
 ## Mac v2 returned results
 

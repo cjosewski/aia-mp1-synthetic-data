@@ -126,9 +126,17 @@ and both models have D2 agreement of 7/10. Qualification remains pending. Preser
 the measured v2 protocol and prepare a distinct candidate comparison before any
 new run; neither the aggregate scores nor faster serving authorize assessed judging.
 
-The next [Mac runbook](GPTOSS-MAC-RUNBOOK.md) prepares GPT-OSS-20B MXFP4 as a
+The prepared [Mac runbook](GPTOSS-MAC-RUNBOOK.md) introduced GPT-OSS-20B MXFP4 as a
 distinct screening candidate with verified weight provenance. It keeps judge-v2
 and the frozen cases, reuses the archived Mac comparators and allocates at most
 twenty new requests through explicit operator activation. This is preparation,
-not a model measurement or a change to Chad's recorded judge selection. Native
-compatibility, stronger-judge support and fresh blind confirmation remain pending.
+not a model measurement or a change to Chad's recorded judge selection. At that
+preparation checkpoint native compatibility, stronger-judge support and fresh
+blind confirmation remained pending.
+
+Subsequent GPT-OSS return: native model/client operation passed with ten valid
+first attempts. Audited agreement is 52/60, with zero false approvals and eight
+false rejections; D5 is 7/10. It remains a development candidate, not a qualified
+assessed judge. Cross-field evidence and rubric-boundary defects need attention;
+the [qualification checkpoint](JUDGE-QUALIFICATION-RESULTS.md) owns the findings
+and next proposed experiment. Frozen reviews and judge-v2 remain unchanged.

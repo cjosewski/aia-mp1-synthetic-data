@@ -1,5 +1,10 @@
 # Mac runbook — GPT-OSS-20B candidate screening
 
+**Completed November 13:** the return passed audit with ten valid first attempts.
+See [results and next steps](JUDGE-QUALIFICATION-RESULTS.md). These instructions
+are retained for the record; do not start another run from this package. The
+storage/archive instructions still apply to the completed working folder.
+
 Prepared November 13, 2026 for Chad Josewski. Follow the numbered steps in order.
 Use the same Apple Silicon Mac that returned the last evaluation. All commands
 below belong in **macOS Terminal**. Leave the Linux machine available for Herd work.
