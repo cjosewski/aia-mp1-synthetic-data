@@ -1,4 +1,4 @@
-# Assessed source and model readiness — November 10, 2026
+# Assessed source and model readiness
 
 Software readiness and corpus permission are separate. The source loader requires
 a real, attributed, versioned reference pack. The existing [source manifest](../config/sources.json)
@@ -48,11 +48,25 @@ approved 4,096-token cap. Both are excluded from assessed collection metrics.
 The actual baseline uses temperature 0.6, timeout 120 seconds and two attempts
 per slot. A fresh offline verification passed 185 tests, Ruff and CLI checks.
 
-No stronger judge has been selected or qualified. Files observed in the configured
-share include Qwen3-30B-A3B, Llama-3.1-8B and GPT-OSS-20B. The approved plan names
-Qwen3-32B as another candidate to investigate. Availability and model size do not
-establish stronger engineering judgment. No model was downloaded or switched for
-this software verification.
+Chad selected **Llama-3.3-70B-Instruct** for the judge role with the instruction,
+"The model is going to be: Llama-3.3-70B-Instruct". This replaces the earlier
+Qwen3-32B candidate. Selection is recorded; stronger-judge qualification remains
+pending. Availability and model size do not establish stronger engineering judgment.
+
+The completed Q4_K_M weights are now served by Herd. The external
+`llama-preflight-20261113T011352Z/verification.json` records successful authenticated
+WSL connectivity, the exact requested/reported model identity and one successful
+structured-JSON probe (6.27 seconds, temperature 0.1, 4,096-token cap, 120-second
+timeout, no retries). This diagnostic request is excluded from qualification and
+assessed metrics. The server reports build `b12110-cd959bae9`, four slots and a
+16,384-token context per slot; its properties and chat-template hash are retained.
+
+The complete 42,520,398,816-byte file's SHA-256 is
+`32df3baccb556f9840059b2528b2dee4d3d516b24afdfb9d0c56ff5f63e3a664`,
+matching [Bartowski revision b6c5c9f](https://huggingface.co/bartowski/Llama-3.3-70B-Instruct-GGUF/blob/b6c5c9f176f3279204034e1d16d393105e95cb88/Llama-3.3-70B-Instruct-Q4_K_M.gguf).
+No model or Herd setting was changed during verification. The earlier external
+`judge-selection-llama-3.3-70b/selection.json` receipt preserves the owner instruction
+and the partial-download state observed then. Neither receipt qualifies judge quality.
 
 The qualification receipt requires the distinct upstream identity, weight checksum,
 exact served ID, owner selection/basis, settings and hashes of comparison evidence.
@@ -63,6 +77,16 @@ Synthetic test receipts confer no qualification on real models.
 Source approval and generator preflight are complete. Collection `baseline-001`
 qualified after four batches and 200 first-attempt-valid responses. The
 [baseline checkpoint](BASELINE-CHECKPOINT.md) records the frozen 50-item cohort
-and ready 20-item review queue. Chad completes those blind reviews next.
-Stronger-judge qualification can proceed alongside human baseline review. Freeze
-the 20 independent human reviews before any assessed judge run.
+and the 20-item review queue. Those reviews are now complete, including seven
+append-only amendments, and the blind human reference for `baseline-review-001`
+is frozen. Its validated SHA-256 is
+`1e555ed74a0417120ac4d16052c3082e02e8e03550c3e2e09a64eda89856e4a8`.
+
+Technical preflight is complete. The separate ten-example qualification packet
+is prepared at external `qualification/llama-vs-qwen-v1/`, with two new authored
+examples per category and blank human ratings. Follow the
+[qualification runbook](QUALIFICATION-RUNBOOK.md) to review and submit ratings.
+No qualification model comparisons have run; they await the completed, frozen
+human reference for this packet. Pin the qualified model
+and settings in the qualification receipt before any assessed judge run. Assessed
+judging and calibration remain pending; the frozen human reference is preserved.

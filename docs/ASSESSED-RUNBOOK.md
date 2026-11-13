@@ -5,10 +5,11 @@ The original five-item exercise remains in [RUNBOOK.md](RUNBOOK.md). Its two
 reports are preserved; its post-review agreement cannot qualify this baseline.
 
 **Current handoff:** [baseline collection is complete](BASELINE-CHECKPOINT.md).
-The frozen 50-item cohort and `baseline-review-001` queue already exist. Chad
-has 20 blind reviews to complete. Open Ubuntu using Step 1, then proceed directly
-to Step 6; do not rerun collection or queue-creation Steps 4–5. A stronger judge
-still needs selection/qualification. The committed example configuration remains
+The frozen 50-item cohort and `baseline-review-001` queue already exist. Chad's
+20 blind reviews are complete and frozen. The selected Llama judge has passed
+technical preflight; qualification remains pending. Continue with the
+[ten-example qualification review](QUALIFICATION-RUNBOOK.md), then Step 8 below;
+do not repeat collection or baseline review. The committed example configuration remains
 a template; actual settings are in ignored `config/assessed.local.json`.
 
 ## 1. Open Ubuntu and check the environment
@@ -177,6 +178,11 @@ Software can record your declaration; it cannot verify what you saw elsewhere.
 
 ## 8. Qualify and select the stronger judge
 
+The separate ten-example packet is ready for Chad's human review. Follow
+[QUALIFICATION-RUNBOOK.md](QUALIFICATION-RUNBOOK.md) to read the examples and submit
+ratings. No comparison requests will be made until those authentic ratings are
+complete and frozen. This packet does not reuse or amend the baseline labels.
+
 Codex prepares the comparison evidence and an external qualification receipt using
 [judge-qualification.example.json](../config/judge-qualification.example.json).
 Chad selects the model based on that evidence. The receipt records upstream and
@@ -191,8 +197,11 @@ existing credential source. Set temperature below the generator's and exactly
 two attempts per item. Match the receipt's mode, temperature, token and timeout
 settings. Preserve local-only serving; a hosted fallback needs separate scope.
 
-Chad loads the selected model in Herd. Codex verifies the endpoint and identity.
-There is no qualified stronger model selected at this checkpoint.
+Chad has loaded Llama-3.3-70B-Instruct Q4_K_M in Herd. Codex verified the endpoint,
+served identity, weight checksum and structured JSON output; see
+[source/model readiness](SOURCE-READINESS.md#model-review). The separate ten-example
+qualification comparison remains pending. Technical preflight does not establish
+stronger judgment or permit skipping that comparison.
 
 ## 9. Judge and compare
 
