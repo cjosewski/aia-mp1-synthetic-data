@@ -195,3 +195,12 @@ five cases remain at 27/30. Neither model qualifies; preserve the working format
 and prepare another distinct candidate's identity, local capacity and selection
 basis before a further experiment. No new candidate was downloaded or selected,
 and no assessed inference or additional human review follows this result.
+
+Following Chad's next “Go”, GPT-OSS-120B MXFP4 was nominated for a separate
+development screen under the [candidate protocol](GPTOSS120B-COMPARISON.md).
+The upstream/GGUF identity, license records, 63.4 GB file size and published hash
+are retained. Mac inventory confirms 128 GiB total memory and adequate disk
+space. The file was absent from both Mac and NAS, so acquisition must finish
+and pass size/hash verification before local loading. The tested package holds
+V7 fixed and allocates at most ten new starts after 87; no model-quality result
+or stronger-judge qualification is inferred from preparation or capacity estimates.

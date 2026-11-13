@@ -7,6 +7,10 @@ GPT-OSS falsely approved one API criterion. Neither model qualifies, and no
 assessed judging has started. Working citation formatting does not establish
 reliable use of evidence.
 
+The next [GPT-OSS-120B candidate screen](GPTOSS120B-COMPARISON.md) has a pinned,
+tested fixed-V7 package. Its 63.4 GB model requires verified local acquisition
+before inference. This preparation does not change the measured results below.
+
 ## Llama versus GPT-OSS with fixed V7
 
 Chad's next “Go” authorized the [controlled comparison](JUDGE-MODEL-COMPARISON.md).
