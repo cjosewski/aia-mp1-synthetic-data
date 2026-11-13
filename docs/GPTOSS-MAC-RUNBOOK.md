@@ -4,6 +4,14 @@ Prepared November 13, 2026 for Chad Josewski. Follow the numbered steps in order
 Use the same Apple Silicon Mac that returned the last evaluation. All commands
 below belong in **macOS Terminal**. Leave the Linux machine available for Herd work.
 
+**Storage clarification, November 13:** Chad confirmed that evaluations should
+run locally. The folders under the Mac's home directory are working copies.
+The shared handoff and archive location is `\\192.168.0.55\aia\MP1-handoff`
+(Finder: `smb://192.168.0.55/aia`). Keep completed folders in its `completed-runs`
+subfolder, using a separate dated folder for each run. No relocation or rerun is
+needed just because a working folder is in Home. This clarification supplements
+the original `HANDOFF.md` in the frozen ZIP; its test commands remain unchanged.
+
 ## 1. Understand this test
 
 You are testing whether **GPT-OSS-20B MXFP4** can judge the ten saved engineering
@@ -187,6 +195,21 @@ agreement denominators remain ten, with unresolved cases never counted as passes
 The export prints the full path of a new `MP1-results-<timestamp>.zip` in the
 `MP1-GPTOSS-MAC` folder. Copy that ZIP to the NAS **AIA/MP1-handoff** folder and
 send its filename. You may then stop this server with Control-C in Terminal A.
+
+After both the evaluation client and server have stopped, also preserve the
+complete working folder on the NAS:
+
+1. In Finder open the NAS **AIA/MP1-handoff/completed-runs** folder.
+2. Create a new folder named with the model and completion date/time, for example
+   `gptoss-2026-11-13-1630`. Choose a new name if it already exists.
+3. Copy the Mac's entire **MP1-GPTOSS-MAC** working folder into that new folder.
+4. Wait for the copy to finish. Keep the local folder until the returned evidence
+   has been checked. Continue executing from the local Mac copy, not the archive.
+
+If you repeated the earlier Llama/Qwen test, preserve its **MP1-JUDGE-V2-MAC**
+folder in a separate dated `llama-qwen-repeat-...` archive instead. Do not merge
+it with an earlier run or replace an earlier results ZIP. A repeat is separate
+evidence and does not count as the GPT-OSS test.
 
 If the run stops after two unsuccessful attempts, do not rerun it. Run `report`
 and `export` above and return the evidence, even if no cases resolved. If loading
