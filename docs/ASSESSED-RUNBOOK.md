@@ -8,8 +8,8 @@ reports are preserved; its post-review agreement cannot qualify this baseline.
 The frozen 50-item cohort and `baseline-review-001` queue already exist. Chad's
 20 blind reviews are complete and frozen. The selected Llama judge has passed
 technical preflight; qualification remains pending. The ten qualification reviews
-are also adopted and frozen. Llama's first qualification run stopped on repeated
-timeouts; see [current readiness](SOURCE-READINESS.md#current-next-action) before
+are also adopted and frozen. The Fedora comparison completed, but Llama's quality
+did not support qualification; see [results](JUDGE-QUALIFICATION-RESULTS.md) before
 Step 8 below. Do not repeat collection or either human review. The committed example configuration remains
 a template; actual settings are in ignored `config/assessed.local.json`.
 
@@ -181,8 +181,10 @@ Software can record your declaration; it cannot verify what you saw elsewhere.
 
 The separate ten-example reviews are adopted and frozen with their AI-assisted
 provenance retained. [QUALIFICATION-RUNBOOK.md](QUALIFICATION-RUNBOOK.md) documents
-the review procedure. The first Llama comparison stopped on timeouts; consult the
-readiness record before further requests. This packet does not reuse or amend
+the review procedure. The Fedora comparison is complete and the proposed prompt
+revision is a development diagnostic; consult the
+[results and experiment record](JUDGE-QUALIFICATION-RESULTS.md) before further
+requests. This packet does not reuse or amend
 the baseline labels.
 
 Codex prepares the comparison evidence and an external qualification receipt using
@@ -202,8 +204,9 @@ settings. Preserve local-only serving; a hosted fallback needs separate scope.
 Chad has loaded Llama-3.3-70B-Instruct Q4_K_M in Herd. Codex verified the endpoint,
 served identity, weight checksum and structured JSON output; see
 [source/model readiness](SOURCE-READINESS.md#model-review). The separate ten-example
-qualification comparison remains pending. Technical preflight does not establish
-stronger judgment or permit skipping that comparison.
+qualification comparison completed without supporting Llama as the stronger judge.
+Technical preflight and successful serving do not establish judge quality. Do not
+advance to Step 9 until the outstanding qualification requirement is met.
 
 ## 9. Judge and compare
 

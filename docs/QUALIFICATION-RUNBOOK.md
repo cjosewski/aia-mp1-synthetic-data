@@ -2,8 +2,10 @@
 
 **Current status:** Chad has personally verified and adopted all ten reviews.
 The qualification reference is frozen with the original GPT-6 secondary-evaluator
-attribution retained. Do not repeat this review. Llama's first comparison stopped
-on repeated timeouts; see [current readiness](SOURCE-READINESS.md#current-next-action).
+attribution retained. Do not repeat this review. The Fedora comparison completed,
+but does not support qualifying Llama. See the
+[results and next experiment](JUDGE-QUALIFICATION-RESULTS.md) and
+[current readiness](SOURCE-READINESS.md#current-next-action).
 The instructions below document the completed review procedure.
 
 Your task is to rate ten short technical answers using the existing D1–D6 rubric.

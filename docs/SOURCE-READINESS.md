@@ -90,16 +90,26 @@ verification are retained. These are AI-assisted, human-verified ratings, not
 unaided human ratings. The reference SHA-256 is
 `b86a7b139c1077a527f9e29a189aae41821add29e28b58f534e971e2ca81c65b`.
 
-Llama's qualification phase stopped after both permitted attempts on the first
+Llama's original Windows qualification phase stopped after both permitted attempts on the first
 example timed out at 120 seconds. A third request had already started when the
 runner was interrupted; its outcome is unknown and consumes an attempt. No valid
 judgments were captured. `runs/llama/interruption.json` retains the exact state;
-the Qwen comparison has not started. These are operational failures, not quality
+the Qwen phase had not started in that run. These are operational failures, not quality
 scores or proof of inferior judgment.
 
-`proposed-runtime-revision.json` describes a pending fresh comparison at a
-300-second timeout, at most 40 additional requests, with the same frozen reviews
-and identical settings for both models. It requires an explicit budget revision
-because the first example has exhausted its two allowed attempts. No new run or
-Herd change is authorized by that proposal alone. Assessed judging and calibration
-remain pending; the frozen baseline reference is preserved.
+Chad subsequently ran the portable Fedora comparison with explicit new-budget
+authorization: 300-second timeout, at most forty additional requests, unchanged
+frozen inputs and identical client settings for both models. Both models completed
+ten first-attempt judgments with no transport failures. The returned evidence and
+recomputed metrics passed audit on November 13. Llama matched 42/60 decisions;
+Qwen matched 48/60. Llama falsely approved fourteen human-failing criteria, so this
+evidence does not support its selection as the stronger judge. Neither pooled
+agreement nor successful JSON output establishes assessed readiness.
+
+The [qualification checkpoint](JUDGE-QUALIFICATION-RESULTS.md) owns the results,
+limitations and next experiment. Chad authorized continued work; `judge-v2` is a
+separate, unmeasured prompt revision for a bounded development comparison. It
+does not alter the original prompt or frozen packet. Fresh blind confirmation
+must follow any tuning on these known cases before claiming independent support.
+Assessed judging and calibration remain pending; the frozen baseline reference
+is preserved.
