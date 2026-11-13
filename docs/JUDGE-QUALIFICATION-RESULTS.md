@@ -3,8 +3,13 @@
 The fixed V7 screens now compare three candidates: **GPT-OSS-120B 23/30 agreement,
 GPT-OSS-20B 27/30, and Llama 23/30**, on the same five known cases. Every response
 was accepted on its first attempt, but all three models approve an API defect.
-None qualifies, and no assessed judging has started. The next proposed step is
-source-grounded claim verification before rubric scoring.
+None qualifies, and no assessed judging has started. The subsequent
+[source-grounded design](JUDGE-FACTCHECK-DESIGN.md) and two draft prompts are
+prepared. They specify a verifier/scorer workflow, explicit uncertainty and a
+single-stage control receiving identical source evidence. Implementation and
+source-bundle preparation are next; no new inference or benefit is claimed.
+Cumulative starts remain 92. The separate proposed allocation is at most 30
+new starts (ceiling 122), subject to the design's preflight and stop conditions.
 
 ## GPT-OSS-120B with fixed V7
 

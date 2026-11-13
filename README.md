@@ -13,9 +13,12 @@ audit. No assessed judge run has started.
 reaffirms all five frozen ratings. The three false approvals and two false
 rejections remain in the v3 record; no historical labels or metrics changed.
 V4 remains at 52/60 over ten cases; v5/v6 produced no accepted judgments. On the
-same five cases used for v7, v4 matched 26/30. Next is design of a separate
-source-grounded claim-verification stage before rubric scoring, preserving the
-working output format and frozen human references.
+same five cases used for v7, v4 matched 26/30. The
+[source-grounded judge design](docs/JUDGE-FACTCHECK-DESIGN.md) now specifies claim
+verification, explicit unresolved outcomes and a matched single-stage control.
+Draft prompts are prepared; implementation and measurements remain pending.
+Next implement offline contracts, lineage checks and paired reporting. The proposed
+30-request experiment has not started; cumulative starts remain 92.
 The [Mac runbook](docs/GPTOSS-MAC-RUNBOOK.md) is retained as the completed procedure.
 Do not repeat completed runs/reviews or start assessed judging yet. Older dated
 sections below describe their original implementation checkpoints.

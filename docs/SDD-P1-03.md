@@ -2,7 +2,7 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.8, November 13, 2026 |
+| Revision | 0.9, November 13, 2026 |
 | Status | Approved sources, 50-item baseline cohort and 20-item human reference frozen; judge development comparisons ongoing; qualified judge and assessed calibration pending |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
@@ -271,6 +271,25 @@ text, augmented messages and catalogs are bound by the experiment manifest.
 This removes generated-quote formatting constraints, not the need to assess
 whether a cited passage actually supports its rating. Assessed defaults remain
 unchanged.
+
+#### 4.4.1 Source-grounded verification — proposed
+
+The [V8 design](JUDGE-FACTCHECK-DESIGN.md) separates claim verification from rubric
+scoring. A typed reference bundle distinguishes task requirements, authored
+summaries, primary excerpts and rubric anchors. Stage A records supported,
+contradicted or insufficient findings; Stage B must address each finding against
+original evidence. Material uncertainty prevents canonical projection. Every
+stage binds the item, sources, runtime and accepted predecessor by hash.
+
+A single-stage V7 control receives the same augmented evidence as the two-stage
+treatment. This distinguishes workflow effects from added source coverage.
+The proposed five-case experiment has 15 nominal requests and a separate maximum
+of 30 new starts after 92; it is not launched by this design checkpoint. Strict
+schemas, offline accounting tests, source clearance and package freeze precede
+execution. Draft prompts do not change assessed commands. Model findings are
+untrusted assessments, not human labels or proof of technical truth; successful
+known-case development would still require fresh blind confirmation and assessed
+calibration. The linked design owns contracts, acceptance criteria and stop rules.
 
 ### 4.5 Storage and commands
 
@@ -613,3 +632,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.6 | 2026-11-13 | Compact shared-citation contract and 267 offline checks; bounded five-case Mac check stopped on quote-length violations with zero accepted judgments; no calibration or default change |
 | 0.7 | 2026-11-13 | Supplied-passage contract, exact text resolution and 288 offline checks; separate bounded five-case experiment, with results in JUDGE-QUALIFICATION-RESULTS.md; no assessed default change |
 | 0.8 | 2026-11-13 | Fixed V7 candidate comparison under JUDGE-MODEL-COMPARISON.md; byte-identical messages/validation with model-specific native templates; results and advancement decision owned by JUDGE-QUALIFICATION-RESULTS.md |
+| 0.9 | 2026-11-13 | Proposed source-grounded verifier/scorer contracts, explicit unresolved handling and matched evidence control; draft prompts prepared, implementation and experiment unmeasured; no assessed default or frozen-reference changes |

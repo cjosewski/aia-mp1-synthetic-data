@@ -213,3 +213,11 @@ no stronger-judge qualification follows. Complete provenance, attempts and audit
 are archived; the server stopped. Next design source-grounded claim verification
 before rubric scoring under a separate protocol, preserving all frozen references.
 No further human review or assessed inference is needed at this checkpoint.
+
+The subsequent [V8 design](JUDGE-FACTCHECK-DESIGN.md) and draft verifier/scorer
+prompts are prepared. Existing source summaries are explicitly distinguished from
+primary excerpts. Before execution, prepare a permission-cleared excerpt bundle,
+record coverage gaps and verify hashes/context fit; absent source evidence must
+remain insufficient. Offline contracts, lineage/accounting and paired reporting
+are next. This design introduces no new inference or qualified judge; the proposed
+30-request allocation remains unactivated and documented starts remain 92.

@@ -72,3 +72,8 @@ matched 23/30 ratings, with five false approvals and two false rejections. It
 does not qualify. Next design source-grounded claim verification before rubric
 scoring under a separate experiment; the working passage format and human
 references remain preserved. See the current qualification checkpoint.
+
+The [V8 design](JUDGE-FACTCHECK-DESIGN.md) now records the proposed verifier/scorer
+contracts and a single-stage control with identical source material. Draft prompts
+are prepared; offline implementation and source-bundle preparation are next.
+No additional inference has started.
