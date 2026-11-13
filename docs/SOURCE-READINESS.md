@@ -113,3 +113,9 @@ does not alter the original prompt or frozen packet. Fresh blind confirmation
 must follow any tuning on these known cases before claiming independent support.
 Assessed judging and calibration remain pending; the frozen baseline reference
 is preserved.
+
+Chad moved the development evaluation to the Mac while Linux handles Herd updates.
+Use the Mac handoff identified in the qualification checkpoint. It preserves GGUF
+weight pins through standalone llama.cpp/Metal and replaces the unstarted Fedora
+v2 package without adding a request budget. Platform/runtime differences mean
+comparison with Fedora v1 cannot isolate the effect of the prompt change.

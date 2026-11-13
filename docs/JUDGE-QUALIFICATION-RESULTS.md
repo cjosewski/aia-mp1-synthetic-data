@@ -69,13 +69,34 @@ professional-review requirement.
 
 Chad instructed, "Document these findings and go on next steps." Prepare one
 bounded development comparison of `judge-v2` against the original ten cases,
-using the same frozen input/reference content, model pins and runtime settings.
-Only the judge instruction changes. Use new artifact identities and retain both
+using the same frozen input/reference content, model pins and client generation
+settings. The initial Fedora plan changed only the judge instruction; the later
+Mac direction below additionally changes platform/runtime. Use new artifact identities and retain both
 models' raw attempts; at most two attempts per case/model, forty new requests
 total. Stop a phase after two consecutive timeouts. Unknown outcomes consume their
 attempt and require inspection before resuming. Record authorization in the new
 experiment policy; neither this experiment nor its unused budget authorizes a
 further prompt version or the assessed judge run.
+
+### Execution moved to the Mac
+
+Chad subsequently reserved Linux for necessary Herd updates and directed this
+evaluation to the Mac. Use `MP1-JUDGE-V2-MAC`, replacing the unstarted Fedora v2
+handoff within the same forty-request allocation. If any Fedora v2 requests have
+already started, reconcile those records before starting Mac requests; the move
+does not grant an additional budget.
+
+The checked-in Herd Mac backend uses MLX. The Mac handoff therefore uses a separate
+local llama.cpp/Metal server with the same pinned GGUF files, native Apple Silicon
+Python, port 8081, context 16,384 and one request slot. It does not change Herd
+services or silently substitute converted weights. The handoff records the actual
+Mac runtime/build and preserves the original Fedora evidence.
+
+Both models must use the same Mac, server build and launch flags. Comparisons with
+Fedora v1 now vary platform/runtime as well as prompt, so apparent improvement
+cannot be attributed solely to `judge-v2`. The within-Mac model comparison and
+agreement with the fixed reference remain development diagnostics. Native Mac
+execution and model-quality outcomes are unmeasured until returned evidence exists.
 
 These cases have informed the prompt change, so the new results are **development
 diagnostics**, not an independent qualification result. Compare first-attempt
@@ -103,6 +124,9 @@ Raw evidence is excluded from Git under workspace `artifacts/evidence/P1-03/`:
 - Review, reproducible audit and file hashes: `qualification/return-review-20261113/`.
 - Frozen original packet/adoption: `qualification/llama-vs-qwen-v1/`.
 - Portable original code and packet: `qualification/MP1-LINUX-HANDOFF/`.
+- Current development handoff: `qualification/MP1-JUDGE-V2-MAC/HANDOFF.md`;
+  its ZIP is also in the private NAS `AIA/MP1-handoff/` folder.
+- Superseded, preserved Fedora development handoff: `qualification/MP1-JUDGE-V2-DEVELOPMENT/`.
 
 The ten-review reference remains
 `b86a7b139c1077a527f9e29a189aae41821add29e28b58f534e971e2ca81c65b`;
