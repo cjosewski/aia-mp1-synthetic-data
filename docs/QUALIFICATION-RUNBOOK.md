@@ -1,5 +1,11 @@
 # Review the ten judge-qualification examples
 
+**Current status:** Chad has personally verified and adopted all ten reviews.
+The qualification reference is frozen with the original GPT-6 secondary-evaluator
+attribution retained. Do not repeat this review. Llama's first comparison stopped
+on repeated timeouts; see [current readiness](SOURCE-READINESS.md#current-next-action).
+The instructions below document the completed review procedure.
+
 Your task is to rate ten short technical answers using the existing D1–D6 rubric.
 This prepares the human reference for comparing Llama-3.3-70B-Instruct with
 Qwen3-30B-A3B. It is separate from the 20 baseline evaluations you already finished.
@@ -77,8 +83,8 @@ MY-ANSWERS.md.”** Codex can read the local file directly. Alternatively, paste
 ten completed blocks here with their Q numbers or full item IDs.
 
 Include whether you completed the reviews without seeing either model's
-qualification judgments. State this only if true. No model comparisons have been
-run for this packet at the handoff.
+qualification judgments. State this only if true. No model comparisons had been
+run when the original blank packet was handed off.
 
 Codex will validate that all ten items have six explicit binary ratings and retain
 your submitted comments with their attribution. Missing or ambiguous ratings

@@ -82,11 +82,24 @@ append-only amendments, and the blind human reference for `baseline-review-001`
 is frozen. Its validated SHA-256 is
 `1e555ed74a0417120ac4d16052c3082e02e8e03550c3e2e09a64eda89856e4a8`.
 
-Technical preflight is complete. The separate ten-example qualification packet
-is prepared at external `qualification/llama-vs-qwen-v1/`, with two new authored
-examples per category and blank human ratings. Follow the
-[qualification runbook](QUALIFICATION-RUNBOOK.md) to review and submit ratings.
-No qualification model comparisons have run; they await the completed, frozen
-human reference for this packet. Pin the qualified model
-and settings in the qualification receipt before any assessed judge run. Assessed
-judging and calibration remain pending; the frozen human reference is preserved.
+The ten-example qualification reference is now frozen at external
+`qualification/llama-vs-qwen-v1/qualification-human-reference.json`. Chad stated,
+"I personally reviewed and adopt all ten reviews." The original submission names
+GPT-6 as its secondary evaluator; both that provenance and Chad's personal
+verification are retained. These are AI-assisted, human-verified ratings, not
+unaided human ratings. The reference SHA-256 is
+`b86a7b139c1077a527f9e29a189aae41821add29e28b58f534e971e2ca81c65b`.
+
+Llama's qualification phase stopped after both permitted attempts on the first
+example timed out at 120 seconds. A third request had already started when the
+runner was interrupted; its outcome is unknown and consumes an attempt. No valid
+judgments were captured. `runs/llama/interruption.json` retains the exact state;
+the Qwen comparison has not started. These are operational failures, not quality
+scores or proof of inferior judgment.
+
+`proposed-runtime-revision.json` describes a pending fresh comparison at a
+300-second timeout, at most 40 additional requests, with the same frozen reviews
+and identical settings for both models. It requires an explicit budget revision
+because the first example has exhausted its two allowed attempts. No new run or
+Herd change is authorized by that proposal alone. Assessed judging and calibration
+remain pending; the frozen baseline reference is preserved.

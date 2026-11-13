@@ -7,9 +7,10 @@ reports are preserved; its post-review agreement cannot qualify this baseline.
 **Current handoff:** [baseline collection is complete](BASELINE-CHECKPOINT.md).
 The frozen 50-item cohort and `baseline-review-001` queue already exist. Chad's
 20 blind reviews are complete and frozen. The selected Llama judge has passed
-technical preflight; qualification remains pending. Continue with the
-[ten-example qualification review](QUALIFICATION-RUNBOOK.md), then Step 8 below;
-do not repeat collection or baseline review. The committed example configuration remains
+technical preflight; qualification remains pending. The ten qualification reviews
+are also adopted and frozen. Llama's first qualification run stopped on repeated
+timeouts; see [current readiness](SOURCE-READINESS.md#current-next-action) before
+Step 8 below. Do not repeat collection or either human review. The committed example configuration remains
 a template; actual settings are in ignored `config/assessed.local.json`.
 
 ## 1. Open Ubuntu and check the environment
@@ -178,10 +179,11 @@ Software can record your declaration; it cannot verify what you saw elsewhere.
 
 ## 8. Qualify and select the stronger judge
 
-The separate ten-example packet is ready for Chad's human review. Follow
-[QUALIFICATION-RUNBOOK.md](QUALIFICATION-RUNBOOK.md) to read the examples and submit
-ratings. No comparison requests will be made until those authentic ratings are
-complete and frozen. This packet does not reuse or amend the baseline labels.
+The separate ten-example reviews are adopted and frozen with their AI-assisted
+provenance retained. [QUALIFICATION-RUNBOOK.md](QUALIFICATION-RUNBOOK.md) documents
+the review procedure. The first Llama comparison stopped on timeouts; consult the
+readiness record before further requests. This packet does not reuse or amend
+the baseline labels.
 
 Codex prepares the comparison evidence and an external qualification receipt using
 [judge-qualification.example.json](../config/judge-qualification.example.json).
