@@ -1,5 +1,67 @@
 # Judge qualification — November 13 checkpoint
 
+The v5 evidence protocol is implemented, but its bounded Mac screen stopped after
+two unsuccessful attempts on the first item. **Coverage is 0/10 and agreement is
+undefined.** The first response was truncated at 4,096 output tokens; the retry
+returned complete JSON but exceeded the candidate-citation count limit. No
+judgment was accepted or repaired. Qualification and assessed judging remain pending.
+
+## GPT-OSS judge-v5 returned results
+
+Chad's "Go on next task." authorized the next protocol work. The
+[evidence protocol](JUDGE-EVIDENCE-PROTOCOL.md) adds exact requirement/candidate
+citations and counterevidence to each dimension, validates their locations and
+quotes, and projects only an accepted result to the existing D1–D6 judgment.
+The [v5 prompt](../prompts/judge-v5-evidence.md) and response contract changed
+together. User messages, reference content, frozen reviews, model and runtime
+settings remained unchanged. No model quality improvement is inferred from the
+implementation or its 234 passing offline tests.
+
+After the run, provider-shape guards were hardened with six additional synthetic
+tests; the final repository/portable checks pass 240 tests. The measured bundle
+retains its original code, and replay uses that frozen validator. This hardening
+does not revise the failed run or establish a successful model result.
+
+| Measure | Observed result |
+| --- | --- |
+| New requests / ceiling | 2 / 20 |
+| Initial items started | 1 / 10 |
+| Initial schema-valid responses | 0 / 1 started (nine items not attempted) |
+| Initial citation-accepted responses | 0 / 1 started |
+| Retry recoveries | 0 |
+| Resolved / unresolved items | 0 / 10 |
+| Human/model criterion comparisons | 0; agreement undefined |
+| Attempt 1 | 36.5 seconds, 4,096 completion tokens, finish reason `length` |
+| Attempt 2 | 25.9 seconds, 3,096 completion tokens, finish reason `stop`; schema rejected |
+| Unknown outcomes | 0 |
+| Documented cumulative starts | 75 |
+
+The retry supplies four D1 candidate citations where the frozen schema allows at
+most three. The application retained both raw responses and null judgments, then
+stopped at its two-consecutive-failure boundary. Those are output-contract failures,
+not timeouts or evidence of an unavailable Mac server. The nine unattempted items
+remain unresolved, not failed technical answers. Zero recorded false approvals
+or rejections means there were no accepted comparisons; it is not perfect judgment.
+
+Return `MP1-results-2026-11-13T201505417975+0000.zip` has SHA-256
+`248e57673126cb34a77afb57b18fa3cf3005bb10bb9a3b1e4eeb9321ed80eb60`.
+Remote and received hashes match. The audit at
+`qualification/gptoss-v5-return-review-20261113/` verifies the frozen bundle and
+reference, model/runtime signature, two start/result lineages, schema rejection,
+null projections, stop condition and six report rows. The owned server stopped
+before export; a subsequent check found no listener on port 8081. No desktop
+control or Herd changes occurred. The complete working folder is archived under
+`MP1-handoff/completed-runs/gptoss-v5-2026-11-13T201505417975+0000/` on the NAS.
+
+The next work item is to simplify the response contract and validate feasibility
+under a separately frozen budget. A compact shared citation table may reduce
+repeated text, but that hypothesis is unmeasured. Preserve this failed protocol,
+its token limit and rejected responses. Do not relax validation retrospectively,
+score incomplete output, reuse the unused allocation for another revision, or
+advance to blind confirmation. No further human review is needed at this stage.
+
+## Prior v4 checkpoint
+
 The GPT-OSS judge-v4 Mac experiment returned **52/60 agreement, three false
 approvals and five false rejections**, down from v3's 55/60. Both confirmed API
 errors are detected, but the confirmed safety miss remains and context agreement

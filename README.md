@@ -3,17 +3,18 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
-**November 13 checkpoint:** the GPT-OSS judge-v4 Mac experiment is complete:
-52/60 agreement, three false approvals and five false rejections. Both confirmed
-API errors are now detected, but a safety miss remains and context agreement
-fell to 60%. This revision does not advance to fresh blind confirmation.
+**November 13 checkpoint:** the [v5 evidence protocol](docs/JUDGE-EVIDENCE-PROTOCOL.md)
+is implemented; final offline checks pass 240 tests. Its Mac screen stopped after two
+failed attempts on the first item: output truncation, then a citation-count schema
+violation. Coverage is 0/10; agreement is undefined. Qualification remains pending.
 [Results and next experiment](docs/JUDGE-QUALIFICATION-RESULTS.md) record the gains
 and regressions. No assessed judge run has started.
 **Human follow-up complete:** Chad's [judge-v3 post-result review](docs/JUDGE-V3-REVIEW-RUNBOOK.md)
 reaffirms all five frozen ratings. The three false approvals and two false
 rejections remain in the v3 record; no historical labels or metrics changed.
-V4 tested the targeted correction and introduced five regressions while fixing
-two decisions. Next is a protocol redesign with explicit evidence checks.
+V4 remains at 52/60, with three false approvals and five false rejections. V5 has
+not produced accepted evidence for a quality comparison. Next is to simplify the
+evidence response format and test feasibility under a separate bounded protocol.
 The [Mac runbook](docs/GPTOSS-MAC-RUNBOOK.md) is retained as the completed procedure.
 Do not repeat completed runs/reviews or start assessed judging yet. Older dated
 sections below describe their original implementation checkpoints.

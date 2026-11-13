@@ -141,6 +141,7 @@ labeling displays the item and rubric without suggested model scores.
 | [collection.py](../src/aia_mp1/collection.py), [cohort.py](../src/aia_mp1/cohort.py), [sources.py](../src/aia_mp1/sources.py) | Permission-checked contexts, bounded collection and immutable cohorts | Implemented |
 | [human_reference.py](../src/aia_mp1/human_reference.py), [qualification.py](../src/aia_mp1/qualification.py) | Blind-label freeze and attributed judge selection evidence | Implemented |
 | `analysis.py`, `iteration.py` | Full comparison/charts and Phase B controls | Subsequent slice |
+| [evidence_judge.py](../src/aia_mp1/evidence_judge.py) | Experimental citation validation and projection to the existing judge result | Development-only v5; offline verified, live screen produced no accepted judgments |
 
 Run Python, dependency management and tests in WSL2 Ubuntu. The existing locked
 environment uses Python 3.12; [pyproject.toml](../pyproject.toml) and
@@ -242,6 +243,15 @@ Every attempt has a request-start record and a completion/error record. Invalid
 judgments preserve raw output and consume an attempt. Exhaustion produces
 `unresolved`, never six default passes. Each judge revision has a new immutable
 judge-run ID even when it reuses the same assessment.
+
+The November 13 [v5 evidence experiment](JUDGE-EVIDENCE-PROTOCOL.md) adds a separate
+development response contract. Each dimension includes exact requirement/candidate
+citations, optional counterevidence and a declared search for any claimed absence.
+Only structurally valid, verbatim citations from allowed locations can be projected
+to the existing Judgment. Raw evidence remains in the attempt record. Invalid
+citations consume attempts; no output is repaired or converted to default scores.
+These checks establish traceability, not semantic correctness. The production
+judge command and assessed defaults continue to use their existing contract.
 
 ### 4.5 Storage and commands
 
@@ -580,3 +590,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 
 | 0.3 | 2026-11-10 | Approved assessed collection: grounded source packs, bounded multi-batch cohorts, blind-reference freeze, model qualification, CLI/runbook and preserved diagnostic evidence; live corpus/model prerequisites remain open |
 | 0.4 | 2026-11-10 | Actual source-use approval, approved pack, upstream-matched generator and preflight; four-batch baseline qualified, 50-item cohort frozen and 20-item blind review queue created; see BASELINE-CHECKPOINT.md |
+| 0.5 | 2026-11-13 | Development-only evidence contract and canonical projection; 234 offline tests, bounded Mac feasibility failure with zero accepted judgments; assessed contract/defaults and frozen references unchanged |

@@ -164,3 +164,10 @@ the predeclared development advancement condition. Preserve the complete run and
 all earlier references; no fresh blind or assessed judging starts from this
 result. The next work item is an explicit evidence-checking protocol, as described
 in the qualification checkpoint. No additional human review is needed now.
+
+V5 implemented an evidence-citation contract and passed 234 offline tests. Its
+separate Mac screen stopped after two unsuccessful attempts on the first item
+(output truncation, then excess citations). No judgment was accepted: 0/10
+coverage, ten unresolved, agreement undefined. The evidence is retained and the
+dedicated server stopped. Simplify and test protocol feasibility before further
+quality screening; stronger-model readiness and assessed calibration remain open.
