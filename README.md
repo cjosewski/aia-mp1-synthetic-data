@@ -3,10 +3,12 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
-**November 13 checkpoint:** the GPT-OSS Mac screen is complete: 52/60 agreement,
-zero false approvals and eight false rejections. D5 remains 7/10, so judge
-qualification is still pending. [Results and next experiment](docs/JUDGE-QUALIFICATION-RESULTS.md)
-record all measured comparisons and the remaining reasoning defects.
+**November 13 checkpoint:** the GPT-OSS judge-v3 Mac experiment is complete:
+55/60 agreement, three false approvals and two false rejections. All dimensions
+reach 80% on the known development cases, but safety/API regressions and the need
+for fresh blind confirmation keep qualification pending.
+[Results and next experiment](docs/JUDGE-QUALIFICATION-RESULTS.md) record the gains
+and regressions. No assessed judge run has started.
 The [Mac runbook](docs/GPTOSS-MAC-RUNBOOK.md) is retained as the completed procedure.
 Do not repeat completed runs/reviews or start assessed judging yet. Older dated
 sections below describe their original implementation checkpoints.

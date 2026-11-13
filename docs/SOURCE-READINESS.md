@@ -140,3 +140,11 @@ false rejections; D5 is 7/10. It remains a development candidate, not a qualifie
 assessed judge. Cross-field evidence and rubric-boundary defects need attention;
 the [qualification checkpoint](JUDGE-QUALIFICATION-RESULTS.md) owns the findings
 and next proposed experiment. Frozen reviews and judge-v2 remain unchanged.
+
+Owner-authorized judge-v3 follow-up completed remotely on the same Mac, model and
+runtime: ten valid first attempts, 55/60 agreement, three false approvals and two
+false rejections. All six development dimensions reach 80%, but D3 now passes
+both human-failing API cases and a safety failure is newly approved. The frozen
+rubric/references remain unchanged; v3 is measured development evidence, not a
+qualified judge or an automatic default change. Review the regressions before
+fresh blind confirmation and assessed calibration.

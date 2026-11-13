@@ -1,11 +1,62 @@
 # Judge qualification — November 13 checkpoint
 
-The GPT-OSS Mac screen completed successfully: **52/60 agreement, zero false
-approvals and eight false rejections**. It detects all eighteen human-failing
-criteria in the ten known cases, but D5 agreement is 7/10. Stronger-judge
-qualification remains pending. The generator, measured prompts, rubric, cohort
-and human references remain unchanged. Do not rerun the completed handoff or
-advance to assessed judging.
+The GPT-OSS judge-v3 Mac experiment completed successfully: **55/60 agreement,
+three false approvals and two false rejections**. Field coverage improved, but
+safety/API defect detection regressed. Every dimension is at least 80% on the ten
+known cases; this does not establish qualification. The generator, prior measured
+prompts, rubric, cohort and human references remain unchanged. Do not rerun a
+completed package or advance to assessed judging.
+
+## GPT-OSS judge-v3 returned results
+
+Chad authorized remote execution with "Go for it. I'll stand by." after SSH
+setup. A separate twenty-request ceiling followed 53 documented starts; ten new
+first attempts were used, bringing the documented total to 63. The earlier Mac
+working folders matched their audited records with no additional attempts there.
+No desktop control or Herd changes occurred. The dedicated server was stopped
+before export, and the port was checked afterward.
+
+Return `MP1-results-2026-11-13T174104724949+0000.zip` has SHA-256
+`d856debaa0bc708ca7af367d6720cc23839c3ef4f80b1be3978a9a4bde8740b8`.
+The external `qualification/gptoss-v3-return-review-20261113/` audit verifies
+the frozen inputs/reference, bundle/policy/model/runtime, all attempt lineages,
+raw/parsed JSON equality and all four report rows. Ten first attempts were valid,
+with no errors, retries, truncation or unknown outcomes. Offline preparation
+passed 204 tests, Ruff, shell syntax and package integrity checks.
+
+Only the [judge-v3 system instructions](../prompts/judge-v3.md) changed. The
+ten user messages, rubric, labels, weights, embedded template, runtime properties
+and client settings were held constant. V3 requires checking evidence across all
+seven fields and applying each rubric anchor independently. It contains no case
+IDs, expected decisions or human comments. The default judge remains unchanged.
+
+| Dimension / measure | GPT-OSS v2 | GPT-OSS v3 |
+| --- | ---: | ---: |
+| D1 — Completeness | 8/10 | 10/10 |
+| D2 — Safety | 9/10 | 9/10 |
+| D3 — API realism | 9/10 | 8/10 |
+| D4 — Scope | 10/10 | 10/10 |
+| D5 — Context | 7/10 | 8/10 |
+| D6 — Tips | 9/10 | 10/10 |
+| Agreement | 52/60 (86.7%) | 55/60 (91.7%) |
+| False approvals | 0 | 3 |
+| False rejections | 8 | 2 |
+
+Six decisions gained agreement and three lost it. Mean request time was 13.1
+seconds, totaling 130.5 seconds. This single run uses stochastic sampling; it
+does not establish repeatability or a definitive causal effect for every change.
+
+The new false approvals concern a null-dereference safeguard and two API
+owner/return-interface defects. D3 predicts pass for all ten cases, including
+both human-failing API cases. Its 80% agreement therefore detects neither failure;
+the threshold alone is inadequate evidence of reliable judgment. D2 retains 90%
+by exchanging a false rejection for a false approval. Two D5 false rejections
+remain, and matching scores can still have weak explanations.
+
+Retain v3 as development evidence rather than promote it to the assessed judge.
+Review these safety/API regressions before selecting a frozen candidate for fresh
+blind confirmation. No further iteration or model request followed this run.
+The NAS archive is `MP1-handoff/completed-runs/gptoss-v3-2026-11-13T174104724949+0000/`.
 
 ## GPT-OSS Mac returned results
 
@@ -45,8 +96,9 @@ The next proposed experiment is a general instruction revision for cross-field
 evidence coverage and independent rubric boundaries. Keep v2 and these results
 immutable; do not insert known answers or reuse the remaining allowance for a new
 experiment. Fresh blind confirmation remains necessary before qualification.
-The supplied ledgers account for 53 starts; the owner's possible separate repeat
-has not been supplied and is not included in that documented total.
+At this earlier checkpoint the supplied ledgers accounted for 53 starts. Subsequent
+SSH inspection found no additional attempts in either known Mac working folder;
+the v3 experiment above adds ten. This was not a whole-machine search.
 
 ## GPT-OSS preparation record — completed by the return above
 
