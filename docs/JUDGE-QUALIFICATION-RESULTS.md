@@ -1,5 +1,76 @@
 # Judge qualification — November 13 checkpoint
 
+The v7 supplied-passage format completed **five valid first attempts and 27/30
+agreement (90%)**, with one API false approval and two context false rejections.
+The format is feasible on these five known cases, but judge qualification remains
+pending: D5 is 3/5 and the confirmed API-owner error is approved. Exact citations
+do not establish reliable use of the evidence. No assessed judging has started.
+
+## GPT-OSS judge-v7 supplied-passage results
+
+Chad's "Go" authorized the [passage protocol](JUDGE-PASSAGE-PROTOCOL.md).
+Application-generated IDs identify complete original candidate fields/list entries,
+task/source text and rubric anchors. The model emits IDs and ratings; the application
+checks their existence/roles and resolves them to frozen text. User messages add
+only the deterministic passage index; underlying text and human references are
+unchanged. The system instruction, input index and output contract changed together.
+
+The same five cases, qualification-v1-01 through -05, cover all five categories.
+Model weights, Mac runtime, context, slot count, temperature, output budget and
+timeout remained fixed. All five responses passed schema and passage validation
+on their first attempt, with no retries, transport failures, truncation or unknown
+outcomes. Five of ten allocated requests were used; documented cumulative starts
+are now 82. Total request time was 85.4 seconds (mean 17.1 seconds), with 1,409–2,266
+completion tokens per response. Preparation passed 266 project and 22 portable
+tests, lint, formatting, shell syntax, input/reference and package-integrity checks.
+
+| Dimension / measure | V4, same five cases | V7, same five cases |
+| --- | ---: | ---: |
+| D1 — Completeness | 4/5 | 5/5 |
+| D2 — Safety | 4/5 | 5/5 |
+| D3 — API realism | 5/5 | 4/5 |
+| D4 — Scope | 5/5 | 5/5 |
+| D5 — Context | 3/5 | 3/5 |
+| D6 — Tips | 5/5 | 5/5 |
+| Agreement | 26/30 (86.7%) | 27/30 (90%) |
+| False approvals | 2 | 1 |
+| False rejections | 2 | 2 |
+
+Two decisions gain agreement versus v4: the geometry-completion error and the
+sheet-report safety defect. One regresses: the sheet API-owner defect is approved
+because the method name exists, without checking its proposed owning object.
+The two existing context false rejections persist. Historical ten-case scores
+are not substituted for this five-case comparison.
+
+All thirty explanations and their resolved passages were inspected. On the sheet
+case, every dimension cites only the answer field as candidate evidence. Some
+matching failure labels are justified by claiming that steps or tips are absent,
+although the original record supplies them; the actual problem is their content.
+Other matching judgments similarly describe incorrect guidance as missing or
+repetitive rather than addressing the specific defect. All thirty requirement
+citations point to rubric anchors, with no task/source passage cited as the decisive
+requirement. Those IDs are structurally permitted, but do not independently ground
+the technical claims. No human reference was amended during this audit.
+
+Return `MP1-results-2026-11-13T204636583467+0000.zip` has SHA-256
+`ba0aafbe1416f4cbd6a0aa86261c51e954b777a467c6d603f02d6b6c5099bd50`.
+The external `qualification/gptoss-v7-return-review-20261113/` audit verifies the
+frozen bundle/reference, original-text preservation and passage index, model/runtime,
+five attempt lineages, raw evidence and canonical projections, exact resolved
+text, coverage accounting and all eight report rows. Remote and received hashes
+match. The owned server stopped before export and port 8081 had no listener
+afterward. No desktop control or Herd settings changed. The complete NAS archive
+is `MP1-handoff/completed-runs/gptoss-v7-2026-11-13T204636583467+0000/`.
+
+Keep the measured passage format fixed and prepare a controlled candidate comparison
+with verified local availability and a documented model-selection basis. The
+remaining problem is judgment/evidence fidelity, not quote formatting. No new
+candidate is selected or measured here. Do not advance to fresh blind confirmation
+or assessed calibration on this five-case result; no further human review is needed
+now. This single stochastic run does not establish repeatability or broad superiority.
+
+## Prior v6 checkpoint
+
 The v6 compact-citation feasibility check stopped after two output-contract
 failures on the first of five selected cases. **Coverage is 0/5 and agreement is
 undefined.** Both responses finished within the token limit; their quotes exceeded

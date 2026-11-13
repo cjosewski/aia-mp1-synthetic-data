@@ -143,6 +143,7 @@ labeling displays the item and rubric without suggested model scores.
 | `analysis.py`, `iteration.py` | Full comparison/charts and Phase B controls | Subsequent slice |
 | [evidence_judge.py](../src/aia_mp1/evidence_judge.py) | Experimental citation validation and projection to the existing judge result | Development-only v5; offline verified, live screen produced no accepted judgments |
 | [compact_evidence.py](../src/aia_mp1/compact_evidence.py) | Shared citations and short references using the same canonical projection | Development-only v6; five-case feasibility check stopped on output-format failures |
+| [passage_evidence.py](../src/aia_mp1/passage_evidence.py) | Application-supplied passage IDs and exact source-text resolution | Development-only v7; measured status owned by the qualification checkpoint |
 
 Run Python, dependency management and tests in WSL2 Ubuntu. The existing locked
 environment uses Python 3.12; [pyproject.toml](../pyproject.toml) and
@@ -260,6 +261,16 @@ to the same original fields. Bounds, exact substrings, namespace/anchor ownershi
 and index consistency are validated before projection. This remains an experiment:
 the five-case feasibility check accepted no outputs, and no assessed interface or
 default changed. Shared transport validation retains the v5 contract as well.
+
+The [v7 passage contract](JUDGE-PASSAGE-PROTOCOL.md) adds a deterministic ID-to-path
+index to each model input. IDs identify complete original candidate fields/list
+entries, task/source text or the dimension's rubric anchors. The model emits
+references and ratings; the application validates IDs and roles, projects the
+canonical Judgment and resolves each ID to original text for audit. Original
+text, augmented messages and catalogs are bound by the experiment manifest.
+This removes generated-quote formatting constraints, not the need to assess
+whether a cited passage actually supports its rating. Assessed defaults remain
+unchanged.
 
 ### 4.5 Storage and commands
 
@@ -600,3 +611,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.4 | 2026-11-10 | Actual source-use approval, approved pack, upstream-matched generator and preflight; four-batch baseline qualified, 50-item cohort frozen and 20-item blind review queue created; see BASELINE-CHECKPOINT.md |
 | 0.5 | 2026-11-13 | Development-only evidence contract and canonical projection; 234 offline tests, bounded Mac feasibility failure with zero accepted judgments; assessed contract/defaults and frozen references unchanged |
 | 0.6 | 2026-11-13 | Compact shared-citation contract and 267 offline checks; bounded five-case Mac check stopped on quote-length violations with zero accepted judgments; no calibration or default change |
+| 0.7 | 2026-11-13 | Supplied-passage contract, exact text resolution and 288 offline checks; separate bounded five-case experiment, with results in JUDGE-QUALIFICATION-RESULTS.md; no assessed default change |

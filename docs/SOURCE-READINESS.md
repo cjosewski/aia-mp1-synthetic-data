@@ -178,3 +178,11 @@ Both responses finished within the unchanged token budget. Coverage is 0/5,
 agreement undefined; four selected cases were not attempted. This is an output
 format blocker, not a technical-quality result. The next design uses supplied
 passage IDs; no new human review or assessed judging is required at this checkpoint.
+
+V7's supplied-passage format passed 288 offline tests and accepted five first
+attempts on the same Mac, with all IDs resolved to original text. Agreement is
+27/30: one API false approval and two context false rejections (D5 3/5). The format
+is feasible on this small known sample, but evidence-use defects and the confirmed
+API miss keep qualification pending. Freeze the format for a controlled candidate
+comparison after verifying model availability/basis. No new candidate selection,
+fresh blind confirmation or assessed inference follows this check.

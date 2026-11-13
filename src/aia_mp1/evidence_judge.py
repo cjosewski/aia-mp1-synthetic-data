@@ -174,17 +174,26 @@ class EvidenceClient:
     The caller owns starts, retry budgets, immutable persistence and reporting.
     """
 
-    def __init__(self, client, rubric: dict, *, parser=parse_evidence, validator=validate_evidence):
+    def __init__(
+        self,
+        client,
+        rubric: dict,
+        *,
+        parser=parse_evidence,
+        validator=validate_evidence,
+        input_validator=citation_catalog,
+    ):
         self.client = client
         self.rubric = rubric
         self.parser = parser
         self.validator = validator
+        self.input_validator = input_validator
 
     def generate(self, messages: list[dict]) -> AttemptResult:
         if len(messages) != 2 or [m["role"] for m in messages] != ["system", "user"]:
             raise ValueError("expected one system and one user message")
         content = json.loads(messages[1]["content"])
-        citation_catalog(content, self.rubric)  # Reject bad inputs before a model call.
+        self.input_validator(content, self.rubric)  # Reject bad inputs before a model call.
         result = self.client.generate(messages)
         if result.item is None:
             return result
