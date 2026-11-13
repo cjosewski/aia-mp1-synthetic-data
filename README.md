@@ -9,6 +9,9 @@ reach 80% on the known development cases, but safety/API regressions and the nee
 for fresh blind confirmation keep qualification pending.
 [Results and next experiment](docs/JUDGE-QUALIFICATION-RESULTS.md) record the gains
 and regressions. No assessed judge run has started.
+**Current human step:** follow the [judge-v3 review runbook](docs/JUDGE-V3-REVIEW-RUNBOOK.md)
+to review five disputed decisions across three saved cases. The NAS packet includes
+the complete evidence and a blank response sheet; no evaluation rerun is needed.
 The [Mac runbook](docs/GPTOSS-MAC-RUNBOOK.md) is retained as the completed procedure.
 Do not repeat completed runs/reviews or start assessed judging yet. Older dated
 sections below describe their original implementation checkpoints.

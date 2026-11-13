@@ -7,6 +7,12 @@ known cases; this does not establish qualification. The generator, prior measure
 prompts, rubric, cohort and human references remain unchanged. Do not rerun a
 completed package or advance to assessed judging.
 
+The [post-result review runbook](JUDGE-V3-REVIEW-RUNBOOK.md) now guides Chad through
+the five disagreements across three cases. The NAS folder
+`MP1-handoff/MP1-JUDGE-V3-REVIEW-20261113/` contains a packet assembled from the
+frozen evidence and a blank `MY-REVIEW.md`. This disclosed adjudication is separate
+from fresh blind confirmation. No new human ratings have been supplied or inserted.
+
 ## GPT-OSS judge-v3 returned results
 
 Chad authorized remote execution with "Go for it. I'll stand by." after SSH
