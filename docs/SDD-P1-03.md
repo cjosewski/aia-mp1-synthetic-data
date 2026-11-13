@@ -2,7 +2,7 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.9, November 13, 2026 |
+| Revision | 0.10, November 13, 2026 |
 | Status | Approved sources, 50-item baseline cohort and 20-item human reference frozen; judge development comparisons ongoing; qualified judge and assessed calibration pending |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
@@ -272,7 +272,7 @@ This removes generated-quote formatting constraints, not the need to assess
 whether a cited passage actually supports its rating. Assessed defaults remain
 unchanged.
 
-#### 4.4.1 Source-grounded verification — proposed
+#### 4.4.1 Source-grounded verification — offline implementation
 
 The [V8 design](JUDGE-FACTCHECK-DESIGN.md) separates claim verification from rubric
 scoring. A typed reference bundle distinguishes task requirements, authored
@@ -290,6 +290,18 @@ execution. Draft prompts do not change assessed commands. Model findings are
 untrusted assessments, not human labels or proof of technical truth; successful
 known-case development would still require fresh blind confirmation and assessed
 calibration. The linked design owns contracts, acceptance criteria and stop rules.
+
+The subsequent offline slice implements typed source catalogs, strict verifier and
+scorer contracts, original-text resolution, memo lineage and canonical projection.
+Its external ledger freezes schemas/code, prompts, runtime and a separate human
+reference mapping hash; it writes durable starts before dispatch, revalidates saved
+completions on replay and blocks unknown outcomes or damaged checkpoints. Paired
+reports retain all five selected cases, separate schema validity from acceptance,
+and report unresolved cases without invented ratings. A separate module CLI only
+validates packages, inspects ledgers and writes immutable reports. The source
+bundle, PDF extraction provenance where needed, token fit and live Mac transport
+adapter remain pending. Offline tests use synthetic fixtures only; no V8 quality
+measurement or stronger-judge qualification is established.
 
 ### 4.5 Storage and commands
 
@@ -633,3 +645,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.7 | 2026-11-13 | Supplied-passage contract, exact text resolution and 288 offline checks; separate bounded five-case experiment, with results in JUDGE-QUALIFICATION-RESULTS.md; no assessed default change |
 | 0.8 | 2026-11-13 | Fixed V7 candidate comparison under JUDGE-MODEL-COMPARISON.md; byte-identical messages/validation with model-specific native templates; results and advancement decision owned by JUDGE-QUALIFICATION-RESULTS.md |
 | 0.9 | 2026-11-13 | Proposed source-grounded verifier/scorer contracts, explicit unresolved handling and matched evidence control; draft prompts prepared, implementation and experiment unmeasured; no assessed default or frozen-reference changes |
+| 0.10 | 2026-11-13 | Implement isolated V8 contracts, source integrity checks, durable stage ledger, frozen reporting-reference hash and paired offline reports; source package and live dispatch remain pending, with no new inference |

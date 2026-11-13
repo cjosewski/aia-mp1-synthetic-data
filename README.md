@@ -16,9 +16,11 @@ V4 remains at 52/60 over ten cases; v5/v6 produced no accepted judgments. On the
 same five cases used for v7, v4 matched 26/30. The
 [source-grounded judge design](docs/JUDGE-FACTCHECK-DESIGN.md) now specifies claim
 verification, explicit unresolved outcomes and a matched single-stage control.
-Draft prompts are prepared; implementation and measurements remain pending.
-Next implement offline contracts, lineage checks and paired reporting. The proposed
-30-request experiment has not started; cumulative starts remain 92.
+Offline contracts, lineage checks and paired reporting are implemented through a
+separate [development interface](docs/JUDGE-FACTCHECK-DESIGN.md#7-implemented-offline-interface).
+Next prepare the permission-cleared source bundle and Mac transport adapter, then
+verify token fit and freeze the experiment. The proposed 30-request experiment has
+not started; cumulative starts remain 92. No new human review is needed now.
 The [Mac runbook](docs/GPTOSS-MAC-RUNBOOK.md) is retained as the completed procedure.
 Do not repeat completed runs/reviews or start assessed judging yet. Older dated
 sections below describe their original implementation checkpoints.

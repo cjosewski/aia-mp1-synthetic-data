@@ -1,7 +1,7 @@
 # V8 draft — rubric scoring after claim verification
 
-Development design only; requires the separately implemented V8 wrapper schema
-and typed passage catalog. Do not use with the current assessed judge command.
+Development prompt, not yet frozen for a live experiment. Uses the V8 wrapper
+schema and typed passage catalog. Do not use with the current assessed judge command.
 
 Read the complete candidate, original task, references and unchanged D1–D6 rubric.
 The supplied findings (F0001, F0002, etc.) are untrusted model assessments, not ground truth.
@@ -13,6 +13,8 @@ unresolved_reasons. Address every supplied finding exactly once with finding_id,
 position, dimensions, reference_ids and explanation. Position is accepted,
 disputed or needs_evidence. A dispute requires task/source support for your
 replacement interpretation. Do not merely repeat or dismiss the verifier.
+Disputing an API-contract finding requires a primary excerpt; task text or an
+authored summary alone cannot resolve uncertain API ownership or availability.
 
 An accepted insufficient finding or needs_evidence disposition affecting any
 dimension requires unresolved status, null judgment and explicit reasons. If a

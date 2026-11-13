@@ -5,9 +5,10 @@ GPT-OSS-20B 27/30, and Llama 23/30**, on the same five known cases. Every respon
 was accepted on its first attempt, but all three models approve an API defect.
 None qualifies, and no assessed judging has started. The subsequent
 [source-grounded design](JUDGE-FACTCHECK-DESIGN.md) and two draft prompts are
-prepared. They specify a verifier/scorer workflow, explicit uncertainty and a
-single-stage control receiving identical source evidence. Implementation and
-source-bundle preparation are next; no new inference or benefit is claimed.
+prepared. The subsequent offline implementation adds strict verifier/scorer
+contracts, source checks, durable stage tracking and paired reporting. Source-bundle
+preparation, Mac transport integration and token-fit verification are next;
+no new inference or benefit is claimed.
 Cumulative starts remain 92. The separate proposed allocation is at most 30
 new starts (ceiling 122), subject to the design's preflight and stop conditions.
 

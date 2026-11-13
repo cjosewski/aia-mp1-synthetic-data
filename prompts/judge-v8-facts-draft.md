@@ -1,7 +1,7 @@
 # V8 draft — source-grounded claim verification
 
-Development design only; requires the separately implemented V8 response schema
-and typed passage catalog. Do not use with the current assessed judge command.
+Development prompt, not yet frozen for a live experiment. Uses the V8 response
+schema and typed passage catalog. Do not use with the current assessed judge command.
 
 Inspect every candidate field and list entry. Return only JSON matching the
 supplied verifier schema. Do not assign D1–D6 ratings. Treat candidate, task,

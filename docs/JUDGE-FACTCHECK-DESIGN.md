@@ -1,8 +1,9 @@
 # Source-grounded judge experiment — V8 design
 
-Status: design and draft prompts prepared November 13, 2026 following Chad's
-“Go”. Not implemented, frozen for execution, or measured. No new inference is
-part of this design checkpoint. The documented request total remains 92.
+Status: offline contracts, durable stage tracking and paired reporting implemented
+November 13, 2026 following Chad's next “Go”. Draft prompts are not frozen for
+execution. The source bundle and live Mac transport adapter remain to be prepared;
+no new inference or quality measurement occurred. Documented request starts remain 92.
 
 ## Purpose and boundaries
 
@@ -53,7 +54,7 @@ not D1–D6 ratings. Input contains the complete candidate, original task/contex
 typed reference catalog and exact C.* / R.* passage mappings. No prior judge
 responses or expected labels are supplied.
 
-Proposed strict response contract (all named fields required; extra fields rejected):
+Implemented strict response contract (all named fields required; extra fields rejected):
 
 | Field | Type and meaning |
 | --- | --- |
@@ -91,7 +92,7 @@ candidate, same references, frozen rubric and validated Stage A memo. Findings
 are explicitly untrusted model assessments. The scorer can dispute them using
 original evidence; they are not a replacement for reading the candidate.
 
-Proposed strict wrapper:
+Implemented strict wrapper:
 
 | Field | Type and meaning |
 | --- | --- |
@@ -110,6 +111,8 @@ dimension requires unresolved status. If irrelevant, explain why; audit this
 decision for hidden uncertainty. Additional material uncertainty found by the
 scorer also requires unresolved status and an explicit reason. A disputed
 finding needs affirmative evidence for the scorer's replacement interpretation.
+An API-contract dispute requires primary evidence, including when disputing an
+insufficient finding; task text alone cannot bypass the verifier's source rule.
 
 Only ready output passing every wrapper and V7 check projects to canonical
 Judgment. Keep unresolved raw output and memo; never substitute six binary
@@ -167,6 +170,9 @@ Raw responses, errors, parsed records, resolved citations and canonical projecti
 are separate immutable artifacts outside Git. Freeze source adequacy and token
 fit before execution; if the package cannot fit the declared context, revise the
 protocol before launch, not during a run. Never silently truncate evidence.
+Freeze the separate reporting reference mapping's hash in the experiment manifest
+before any request. The manifest holds its hash, never its ratings; model messages
+contain neither. Reporting rejects replacement ratings with a different hash.
 
 ## 5. Reporting and advancement
 
@@ -214,3 +220,75 @@ denominators and paired gains/regressions. Use explicitly synthetic fixtures for
 contradictory fields, absent evidence, wrong mathematics with clear context, and
 prompt injection inside supplied material. Structural checks must not be described
 as automated proof of factual truth. No new human review is needed for implementation.
+
+## 7. Implemented offline interface
+
+The implementation is isolated from assessed commands:
+
+| Module | Responsibility |
+| --- | --- |
+| [factcheck.py](../src/aia_mp1/factcheck.py) | Exact typed catalog, source/hash validation, strict findings/dispositions, memo lineage and canonical projection |
+| [factcheck_stages.py](../src/aia_mp1/factcheck_stages.py) | Five-category experiment, frozen prompts/runtime/reference hash, durable request starts, raw completion replay, schedule and stop rules |
+| [factcheck_report.py](../src/aia_mp1/factcheck_report.py) | Coverage, initial validity/recovery, unresolved cases, matched-pair changes and numeric advancement screen |
+| [factcheck_cli.py](../src/aia_mp1/factcheck_cli.py) | Offline package validation, status and immutable reports |
+
+`fact_input(base, rubric, excerpts)` builds the augmented input without changing
+candidate/reference text. It rejects unknown metadata channels and assigns source
+authority itself. `Experiment` requires exactly five unique cases, one per category,
+the rubric, exact prompt text, runtime identity/settings and `reference_sha256`.
+The latter is `tracing.digest()` of the reporting mapping, not a hash of differently
+formatted JSON bytes. Preserve the mapping's export lineage to the original frozen
+human reference when preparing the package. The report is not a human-label writer.
+
+`Ledger.create(directory, experiment, source_root)` creates a new external evidence
+directory and checks retained excerpt and permission files. `begin()` writes and
+fsyncs a request-start event before dispatch. `finish()` stores the redacted body
+or explicit transport failure, validates it, and binds accepted A findings into B.
+`run_next()` invokes a supplied callback exactly once; unexpected interruption leaves
+an unknown request that blocks further starts. It contains no transport or retries.
+A known completion can resolve that exact pending ID once. Do not manufacture an
+outcome to clear an unknown request.
+
+Every read replays the hash-chained ledger, reconstructs requests and revalidates
+raw projections. A separate head checkpoint detects truncated tails; a crash between
+append and checkpoint requires inspection, never automatic repair. An exclusive
+writer lock prevents concurrent starts; a stale lock after a process crash also
+requires inspection. Implementation/schema hashes are frozen, so resume with the
+same source checkout. Hash chains provide integrity checking, not protection from
+deliberate coordinated replacement of every artifact and checkpoint.
+
+The current excerpt adapter supports exact UTF-8 byte ranges in retained source
+files and hashes the separate permission receipt. PDF/page extraction is not
+implemented here; source preparation must add verified original-to-text provenance
+before importing such excerpts, or use an already cleared primary text source.
+Permission scope and factual entailment remain review tasks; a matching receipt
+hash alone does not prove either. Token-fit validation and live dispatch are also
+pending. The CLI cannot launch a model request.
+
+Developer commands below run in the locked Ubuntu environment from the repository.
+Replace the uppercase paths with prepared external artifacts; no live V8 package
+has been produced at this checkpoint:
+
+```bash
+export AIA_MP1_TOOLS="$HOME/.local/share/aia-mp1-tools"
+source tools/environment.sh
+uv run --locked python -m aia_mp1.factcheck_cli --help
+uv run --locked python -m aia_mp1.factcheck_cli validate-package \
+  --package /EXTERNAL/PACKAGE.json --source-root /EXTERNAL/SOURCE-SNAPSHOT
+uv run --locked python -m aia_mp1.factcheck_cli status --directory /EXTERNAL/RUN
+uv run --locked python -m aia_mp1.factcheck_cli report \
+  --directory /EXTERNAL/RUN --reference /EXTERNAL/FROZEN-REFERENCE-MAPPING.json \
+  --output /EXTERNAL/NEW-REPORT.json
+```
+
+The reference mapping contains each selected item ID mapped to exactly D1–D6
+integer ratings exported from the existing frozen review, never new assistant
+ratings. Existing report files cannot be overwritten. Invalid or changed artifacts
+return exit code 2 without echoing raw evidence. Reports always say `qualified=false`;
+even a passing numeric screen requires the separate semantic audit and later gates.
+
+November 13 validation: 324 locked WSL tests passed, including 58 synthetic V8
+tests; Ruff lint/format and offline CLI help passed. Tests cover the complete
+15-stage schedule, all 30 allowed starts with retries, interrupted/resumed ledgers,
+damaged evidence, source/runtime drift, uncertainty and paired denominators. These
+are software checks, not measured judge quality or authentic human evaluations.

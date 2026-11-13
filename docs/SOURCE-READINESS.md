@@ -221,3 +221,9 @@ record coverage gaps and verify hashes/context fit; absent source evidence must
 remain insufficient. Offline contracts, lineage/accounting and paired reporting
 are next. This design introduces no new inference or qualified judge; the proposed
 30-request allocation remains unactivated and documented starts remain 92.
+
+The next offline slice implements those contracts, stage tracking and paired
+reports, including a frozen reference-mapping hash. Source preparation remains
+outstanding: exact excerpts, permission-scope review, PDF extraction provenance
+where applicable, coverage gaps and token fit. The live Mac transport adapter is
+also pending. No model requests or human-label amendments occurred.
