@@ -3,19 +3,19 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
-**November 13 checkpoint:** the [fixed V7 model comparison](docs/JUDGE-MODEL-COMPARISON.md)
-completed with Llama at 23/30 agreement and GPT-OSS at 27/30 on identical five-case
-inputs. Both accepted all first attempts, but Llama falsely approved six criteria
-and GPT-OSS one. Neither model qualifies. Preparation passed 288 offline tests.
+**November 13 checkpoint:** the [GPT-OSS-120B V7 screen](docs/GPTOSS120B-COMPARISON.md)
+completed at 23/30 agreement, versus GPT-OSS-20B's 27/30 and Llama's 23/30 on
+identical five-case inputs. Every response was accepted on its first attempt,
+but all three approve an API defect. None qualifies. Preparation passed 288 tests.
 [Results and next step](docs/JUDGE-QUALIFICATION-RESULTS.md) record the evidence
 audit. No assessed judge run has started.
 **Human follow-up complete:** Chad's [judge-v3 post-result review](docs/JUDGE-V3-REVIEW-RUNBOOK.md)
 reaffirms all five frozen ratings. The three false approvals and two false
 rejections remain in the v3 record; no historical labels or metrics changed.
 V4 remains at 52/60 over ten cases; v5/v6 produced no accepted judgments. On the
-same five cases used for v7, v4 matched 26/30. Next is preparation of another
-distinct local candidate's availability, capacity, identity and selection basis;
-the working V7 format remains fixed.
+same five cases used for v7, v4 matched 26/30. Next is design of a separate
+source-grounded claim-verification stage before rubric scoring, preserving the
+working output format and frozen human references.
 The [Mac runbook](docs/GPTOSS-MAC-RUNBOOK.md) is retained as the completed procedure.
 Do not repeat completed runs/reviews or start assessed judging yet. Older dated
 sections below describe their original implementation checkpoints.

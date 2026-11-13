@@ -204,3 +204,12 @@ space. The file was absent from both Mac and NAS, so acquisition must finish
 and pass size/hash verification before local loading. The tested package holds
 V7 fixed and allocates at most ten new starts after 87; no model-quality result
 or stronger-judge qualification is inferred from preparation or capacity estimates.
+
+The GPT-OSS-120B acquisition and screen subsequently completed. The full file
+matched the published size/hash and loaded on the unchanged Mac runtime. Five
+first attempts were accepted, but agreement was 23/30, with five false approvals
+and two false rejections; D1/D5 are 3/5. Safety/API defects remain approved, so
+no stronger-judge qualification follows. Complete provenance, attempts and audit
+are archived; the server stopped. Next design source-grounded claim verification
+before rubric scoring under a separate protocol, preserving all frozen references.
+No further human review or assessed inference is needed at this checkpoint.

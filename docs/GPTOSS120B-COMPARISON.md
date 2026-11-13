@@ -1,5 +1,11 @@
 # GPT-OSS-120B fixed V7 screen
 
+**Completed:** the verified model loaded on the Mac and accepted five first
+attempts, but matched only 23/30 ratings, with five false approvals and two false
+rejections. It remains unqualified. The [checkpoint](JUDGE-QUALIFICATION-RESULTS.md)
+owns the audit and next proposed intervention. The protocol below is retained
+as the predeclared procedure; no automatic extension follows.
+
 Chad's “Go” after the Llama comparison authorizes preparation of the next local
 candidate. GPT-OSS-120B MXFP4 is selected for a bounded development screen, not
 as a qualified assessed judge. The frozen human reviews remain unchanged.

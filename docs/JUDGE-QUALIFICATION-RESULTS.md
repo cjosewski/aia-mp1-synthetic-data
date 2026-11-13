@@ -1,15 +1,78 @@
 # Judge qualification — November 13 checkpoint
 
-The fixed V7 comparison completed with **Llama 23/30 agreement (76.7%) versus
-GPT-OSS 27/30 (90%)** on the same five known cases. Both accepted every first
-attempt. Llama falsely approved six criteria, including safety and API defects;
-GPT-OSS falsely approved one API criterion. Neither model qualifies, and no
-assessed judging has started. Working citation formatting does not establish
-reliable use of evidence.
+The fixed V7 screens now compare three candidates: **GPT-OSS-120B 23/30 agreement,
+GPT-OSS-20B 27/30, and Llama 23/30**, on the same five known cases. Every response
+was accepted on its first attempt, but all three models approve an API defect.
+None qualifies, and no assessed judging has started. The next proposed step is
+source-grounded claim verification before rubric scoring.
 
-The next [GPT-OSS-120B candidate screen](GPTOSS120B-COMPARISON.md) has a pinned,
-tested fixed-V7 package. Its 63.4 GB model requires verified local acquisition
-before inference. This preparation does not change the measured results below.
+## GPT-OSS-120B with fixed V7
+
+The [candidate protocol](GPTOSS120B-COMPARISON.md) records the selection basis,
+capacity check, exact weights and predeclared ten-request ceiling. Slow/reset
+downloads were recovered with bounded ranges; the complete 63,387,346,208-byte
+file matched its published SHA-256 before loading. Acquisition logs are preserved
+and temporary fragments were removed only after verification. The model remains
+on the Mac. No runtime upgrade, Herd setting, system GPU limit or desktop control
+was needed.
+
+V7 messages, passage catalog, schema, validator, rubric and human reference stayed
+identical. Both GPT-OSS models used MXFP4, and their recorded native chat-template
+text and runtime digest matched. Mac, build, context 16,384, one slot, temperature
+0.1, output limit 4,096 and timeout 300 seconds were unchanged. This remains a
+single stochastic known-case screen, not proof of broad model superiority.
+
+| Dimension / measure | GPT-OSS-120B | GPT-OSS-20B | Llama 70B |
+| --- | ---: | ---: | ---: |
+| D1 — Completeness | 3/5 | 5/5 | 3/5 |
+| D2 — Safety | 4/5 | 5/5 | 4/5 |
+| D3 — API realism | 4/5 | 4/5 | 4/5 |
+| D4 — Scope | 5/5 | 5/5 | 5/5 |
+| D5 — Context | 3/5 | 3/5 | 4/5 |
+| D6 — Tips | 4/5 | 5/5 | 3/5 |
+| Agreement | 23/30 (76.7%) | 27/30 (90%) | 23/30 (76.7%) |
+| False approvals / rejections | 5 / 2 | 1 / 2 | 6 / 1 |
+
+GPT-OSS-120B gains one match versus 20B (the Revit context) and loses five:
+FreeCAD context, Revit completeness/safety/tips, and structural completeness.
+It still approves the incorrect Revit API owner and rejects the clear structural
+task context. D1/D5 are 60%, and safety/API false approvals remain. The declared
+development advancement condition is not met.
+
+The semantic audit inspected all thirty explanations and resolved passages.
+The model correctly distinguishes Compound aggregation from Boolean union, but
+approves the Revit null-guard-removal tip and treats familiar API names as valid
+usage. It also counts the structural example's unsafe approval step as successful
+completion while rejecting that same approval claim under D4. All requirement
+citations use rubric anchors; no task/source passage is cited as the decisive
+requirement, and all counterevidence lists are empty. More citations did not
+establish reference checking. No human labels or historical scores changed.
+
+All five first attempts passed; there were no retries, transport failures,
+truncation, citation rejection or unknown outcomes. Total request time was 128.6
+seconds (mean 25.7, range 22.9–29.2), with 1,726–2,204 completion tokens. These are
+operational timings, not a hardware benchmark. Five of ten allocated requests
+were used, bringing documented cumulative starts to 92. Preparation passed 288
+offline tests, lint, formatting, shell syntax, fixed-contract hashes and archived
+comparison checks. The independent audit validated raw projections, attempt
+lineage, exact passages, coverage and all ten report rows.
+
+Return `MP1-results-2026-11-13T224054628349+0000.zip` has SHA-256
+`87b97107eaaf47179714346025072f255e7f91383012fa61403ce81952c2d099`.
+Audit: `qualification/gptoss120b-v7-return-review-20261113/`.
+Complete NAS archive:
+`MP1-handoff/completed-runs/gptoss120b-v7-2026-11-13T224054628349+0000/`.
+Candidate/acquisition provenance is separately archived under
+`MP1-handoff/candidate-preparation/gptoss120b-20261113/`. The owned server stopped
+before export; port 8081 had no listener afterward. The Mac working copy is retained.
+
+Do not extend this screen or start assessed judging. Next design a separate
+source-grounded claim-verification stage before rubric scoring, including API
+ownership, actual hazards, tip correctness and independent context scoring.
+This proposal needs its own frozen protocol and request budget; no implementation
+benefit or new inference is claimed here. No additional human review is needed
+now. Broader development, fresh blind confirmation and assessed calibration remain
+required.
 
 ## Llama versus GPT-OSS with fixed V7
 

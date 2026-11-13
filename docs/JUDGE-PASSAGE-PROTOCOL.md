@@ -66,3 +66,9 @@ attempts but matched only 23/30 ratings, with six false approvals and one false
 rejection. Neither candidate qualifies. Keep this usable format frozen while
 preparing another distinct candidate's availability, identity, capacity and
 selection basis. Further formatting changes are not supported by these results.
+
+The subsequent GPT-OSS-120B screen also accepted all five first attempts but
+matched 23/30 ratings, with five false approvals and two false rejections. It
+does not qualify. Next design source-grounded claim verification before rubric
+scoring under a separate experiment; the working passage format and human
+references remain preserved. See the current qualification checkpoint.
