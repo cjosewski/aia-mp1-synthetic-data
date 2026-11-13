@@ -1,12 +1,57 @@
 # Judge qualification — November 13 checkpoint
 
-The Fedora comparison completed successfully, but **does not support qualifying
-Llama-3.3-70B-Instruct Q4_K_M as the stronger judge**. The next action is a separately
-versioned development comparison using [judge-v2.md](../prompts/judge-v2.md).
-Its effect is unmeasured. The generator, original judge prompt, frozen rubric,
-cohort and human references remain unchanged.
+The Fedora v1 and Mac v2 comparisons completed successfully, but **Llama remains
+unqualified as the stronger judge**. Mac v2 matches 50/60 decisions but still
+incorrectly approves nine human-failing criteria; D1 and D2 are each 7/10.
+The generator, both measured judge prompts, frozen rubric, cohort and human
+references remain unchanged. The next decision is a distinct candidate comparison
+under the frozen v2 development protocol, not the assessed judge run.
 
-## Observed results
+## Mac v2 returned results
+
+The November 13 return passed bundle/policy/input/attempt validation. All twenty
+raw judgments match their saved parsed records and the independently recomputed
+report; both models completed ten first attempts without retries, errors,
+truncation or unknown outcomes. The source ZIP is retained with SHA-256
+`cf8be0a1c700ef568fc16bd3bf543f2e5febfd7511fd254bb4124947840d3fc2`.
+
+| Dimension | Llama Mac v2 | Qwen Mac v2 |
+| --- | ---: | ---: |
+| D1 — Completeness | 7/10 | 9/10 |
+| D2 — Safety | 7/10 | 7/10 |
+| D3 — API realism | 8/10 | 8/10 |
+| D4 — Scope | 10/10 | 10/10 |
+| D5 — Context | 9/10 | 8/10 |
+| D6 — Tips | 9/10 | 9/10 |
+| Total, descriptive only | 50/60 (83.3%) | 51/60 (85%) |
+
+Llama's false approvals fell from fourteen to nine and false rejections from four
+to one. Qwen's false approvals fell from ten to three, while false rejections rose
+from two to six. Llama gained eight matching decisions without losing any; Qwen
+gained ten and lost seven. Matching scores sometimes still have weak reasons.
+These changes do not isolate a prompt effect because the platform/runtime also
+changed, and the cases were already used to develop v2.
+
+Both Mac phases record native arm64 macOS, Python 3.12.13, llama.cpp
+`b12110-cd959bae9`, one slot and context 16,384, with the original GGUF pins and
+client generation settings. Startup logs establish loading/serving but do not
+explicitly record Metal offload layers. Mean request time was 38.1 seconds for
+Llama and 9.6 seconds for Qwen (totals 381.1 and 96.3 seconds). This is operational
+evidence, not a controlled hardware benchmark or a Herd-repair result.
+
+Llama still approves critical procedural defects. Qwen detects more of them but
+introduces dimension-boundary disagreements and a new false approval of a flawed
+tip. Qwen remains the baseline generator, so its pooled 85% cannot supply the
+required distinct stronger judge. Neither aggregate score establishes assessed
+calibration; both models have D2 agreement of 7/10 on this development set.
+
+Keep v2 as measured development evidence. Prepare another distinct candidate's
+identity and rationale for a bounded same-Mac comparison before launching it;
+do not silently change prompts, enter labels, reuse unused slots for new work or
+advance to assessed judging. Any promising candidate still needs fresh blind
+confirmation. The original twenty assessed reviews stay frozen.
+
+## Earlier Fedora v1 results
 
 Both models produced ten valid first-attempt judgments, with no retries, transport
 failures, truncated responses or unknown outcomes in the Fedora comparison.
@@ -65,7 +110,7 @@ or item-specific correction keys. Its hypothesis is that these instructions will
 reduce false approvals without creating blanket failures or expanding D4's
 professional-review requirement.
 
-## Next experiment and stopping conditions
+## V2 experiment protocol and stopping conditions
 
 Chad instructed, "Document these findings and go on next steps." Prepare one
 bounded development comparison of `judge-v2` against the original ten cases,
@@ -96,7 +141,8 @@ Both models must use the same Mac, server build and launch flags. Comparisons wi
 Fedora v1 now vary platform/runtime as well as prompt, so apparent improvement
 cannot be attributed solely to `judge-v2`. The within-Mac model comparison and
 agreement with the fixed reference remain development diagnostics. Native Mac
-execution and model-quality outcomes are unmeasured until returned evidence exists.
+execution is now recorded in the returned results above; qualification is still
+pending. Twenty Mac requests bring the retained history to 43 total starts.
 
 These cases have informed the prompt change, so the new results are **development
 diagnostics**, not an independent qualification result. Compare first-attempt
@@ -122,6 +168,8 @@ Raw evidence is excluded from Git under workspace `artifacts/evidence/P1-03/`:
 
 - Returned data: `qualification/MP1-results-2026-11-13T050434763053+0000/`.
 - Review, reproducible audit and file hashes: `qualification/return-review-20261113/`.
+- Mac return: `qualification/MP1-results-2026-11-13T150132266655+0000/`.
+- Mac review, audit and hashes: `qualification/mac-return-review-20261113/`.
 - Frozen original packet/adoption: `qualification/llama-vs-qwen-v1/`.
 - Portable original code and packet: `qualification/MP1-LINUX-HANDOFF/`.
 - Current development handoff: `qualification/MP1-JUDGE-V2-MAC/HANDOFF.md`;

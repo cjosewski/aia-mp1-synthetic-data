@@ -4,9 +4,9 @@ Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
 **November 13 checkpoint:** the frozen baseline reviews and ten qualification
-reviews are complete. The Fedora comparison ran successfully but did not support
-Llama as the stronger judge. [Results and next experiment](docs/JUDGE-QUALIFICATION-RESULTS.md)
-record the measured findings and the unmeasured `judge-v2` development revision.
+reviews are complete. The Fedora v1 and Mac v2 comparisons ran successfully, but
+Llama qualification remains pending. [Results and next experiment](docs/JUDGE-QUALIFICATION-RESULTS.md)
+record both measured comparisons and the remaining false approvals.
 Do not repeat the completed reviews or start assessed judging yet. Older dated
 sections below describe their original implementation checkpoints.
 

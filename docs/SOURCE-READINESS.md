@@ -108,7 +108,7 @@ agreement nor successful JSON output establishes assessed readiness.
 
 The [qualification checkpoint](JUDGE-QUALIFICATION-RESULTS.md) owns the results,
 limitations and next experiment. Chad authorized continued work; `judge-v2` is a
-separate, unmeasured prompt revision for a bounded development comparison. It
+separate prompt revision measured in the returned Mac development comparison. It
 does not alter the original prompt or frozen packet. Fresh blind confirmation
 must follow any tuning on these known cases before claiming independent support.
 Assessed judging and calibration remain pending; the frozen baseline reference
@@ -119,3 +119,9 @@ Use the Mac handoff identified in the qualification checkpoint. It preserves GGU
 weight pins through standalone llama.cpp/Metal and replaces the unstarted Fedora
 v2 package without adding a request budget. Platform/runtime differences mean
 comparison with Fedora v1 cannot isolate the effect of the prompt change.
+
+The Mac return passed audit: ten first-attempt judgments per model, no failures;
+Llama 50/60 agreement and Qwen 51/60. Llama still falsely approves nine criteria,
+and both models have D2 agreement of 7/10. Qualification remains pending. Preserve
+the measured v2 protocol and prepare a distinct candidate comparison before any
+new run; neither the aggregate scores nor faster serving authorize assessed judging.

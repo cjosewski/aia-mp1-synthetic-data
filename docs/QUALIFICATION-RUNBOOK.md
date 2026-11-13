@@ -2,8 +2,8 @@
 
 **Current status:** Chad has personally verified and adopted all ten reviews.
 The qualification reference is frozen with the original GPT-6 secondary-evaluator
-attribution retained. Do not repeat this review. The Fedora comparison completed,
-but does not support qualifying Llama. See the
+attribution retained. Do not repeat this review. The Fedora v1 and Mac v2
+comparisons completed, but Llama qualification remains pending. See the
 [results and next experiment](JUDGE-QUALIFICATION-RESULTS.md) and
 [current readiness](SOURCE-READINESS.md#current-next-action).
 The instructions below document the completed review procedure.
