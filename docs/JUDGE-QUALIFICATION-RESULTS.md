@@ -1,11 +1,84 @@
 # Judge qualification — November 13 checkpoint
 
-The GPT-OSS judge-v3 Mac experiment completed successfully: **55/60 agreement,
-three false approvals and two false rejections**. Field coverage improved, but
-safety/API defect detection regressed. Every dimension is at least 80% on the ten
-known cases; this does not establish qualification. The generator, prior measured
-prompts, rubric, cohort and human references remain unchanged. Do not rerun a
-completed package or advance to assessed judging.
+The GPT-OSS judge-v4 Mac experiment returned **52/60 agreement, three false
+approvals and five false rejections**, down from v3's 55/60. Both confirmed API
+errors are detected, but the confirmed safety miss remains and context agreement
+falls to 60%. The predeclared advancement condition is not met. Preserve v4 as
+development evidence; do not advance it to fresh blind confirmation or assessed
+judging. The generator, earlier prompts, rubric, cohort and references are unchanged.
+
+## GPT-OSS judge-v4 returned results
+
+After Chad directed "Go on next steps.", a separate twenty-request allocation
+tested [judge-v4](../prompts/judge-v4.md) on the same ten known cases. It requires
+checking API ownership and returned interfaces, matching precautions to actual
+hazards, and distinguishing context from correctness. Only the system prompt
+changed; all user messages, model weights, runtime settings, rubric and frozen
+labels remained identical. No case identifiers, reference ratings or reviewer
+comments were added to the model instructions.
+
+All ten first attempts produced valid judgments: no retries, transport failures,
+truncation or unknown outcomes. This brings documented qualification starts from
+63 to 73. The dedicated server stopped before export and port 8081 had no listener
+afterward. No desktop control or Herd settings changed. Offline preparation
+passed 204 tests, Ruff, shell syntax and bundle integrity checks.
+
+| Dimension / measure | GPT-OSS v3 | GPT-OSS v4 |
+| --- | ---: | ---: |
+| D1 — Completeness | 10/10 | 8/10 |
+| D2 — Safety | 9/10 | 9/10 |
+| D3 — API realism | 8/10 | 10/10 |
+| D4 — Scope | 10/10 | 10/10 |
+| D5 — Context | 8/10 | 6/10 |
+| D6 — Tips | 10/10 | 9/10 |
+| Agreement | 55/60 (91.7%) | 52/60 (86.7%) |
+| False approvals | 3 | 3 |
+| False rejections | 2 | 5 |
+
+Two decisions gain agreement and five lose it. The API gains identify the actual
+wrong receiver and returned-value interface. However, the same safety false
+approval survives: protection against model modification is credited despite
+an instruction removing a necessary access guard. Newly approved errors concern
+an operation that does not accomplish the requested geometry task and inaccurate
+numerical-solver advice. A previously passing report is now rejected for allegedly
+missing explanations and storage handling that its answer, steps and tip contain.
+Two additional context false rejections also appear.
+
+Review of all sixty explanations shows inconsistent use of evidence, beyond the
+headline scores. One item passes completeness while the model's tip explanation
+correctly identifies why the core operation cannot achieve the task. Another is rejected
+for missing an explanation that its own passing tip judgment acknowledges. These
+are recorded against the unchanged human reference, not new human annotations.
+Mean request time was 13.8 seconds (138.2 seconds total). This is one stochastic run
+per prompt on known development cases; it does not establish repeatability or
+isolate a reliable causal effect.
+
+Return `MP1-results-2026-11-13T193720940768+0000.zip` has SHA-256
+`5987f5cba4fe157fd9d19571aaaeaf6fd0b4cff0760c1976ec16251d2c8d263c`.
+The reproducible audit at `qualification/gptoss-v4-return-review-20261113/`
+verifies inputs, reference and policy hashes, model/runtime identity, all ten
+attempt lineages, raw/parsed JSON equality and all five comparison rows. Remote
+and received archive hashes match. The complete Mac working folder is retained
+at `MP1-handoff/completed-runs/gptoss-v4-2026-11-13T193720940768+0000/` on the NAS.
+
+### Next work item
+
+Do not keep extending the same instruction paragraph or choose per-item results
+from different prompt versions. The next design should make the decisive evidence
+inspectable before each rubric decision: candidate field/excerpt, the matching
+reference requirement, any contradiction, and the reason that particular anchor
+passes or fails. This is a proposed protocol change, not a measured improvement
+or a new rubric. It must preserve the final D1–D6 contract and count every model
+request, including any separate evidence-extraction stage.
+
+Prepare and validate that protocol separately before another bounded development
+screen. Evaluate all gains, false approvals and evidence fidelity; do not rely on
+pooled agreement. No new human review is requested for these already adjudicated
+cases. A promising frozen protocol still needs authentic fresh blind confirmation
+across all five categories before the existing assessed-calibration gates. No
+second revision or additional inference followed the v4 audit.
+
+## Completed judge-v3 human follow-up
 
 Chad completed the [post-result review](JUDGE-V3-REVIEW-RUNBOOK.md) on November 13.
 All five explicit ratings reaffirm the frozen reference: the three false
@@ -19,10 +92,9 @@ preserved with SHA-256
 `05c3829f35f7a81a9a87c2ac6d530238d22b0f91d95afe3cf46f91b71e4c1320`.
 The external receipt is `qualification/judge-v3-adjudication-20261113/`;
 the NAS review folder includes the completed sheet and `submissions/review-001/`.
-No frozen label was amended, and the 55/60 result remains unchanged. The next
-design work should address the confirmed API-owner/return-interface checks,
-task-specific safeguards and context/correctness distinction. No new prompt or
-model run was created while recording this review.
+No frozen label was amended, and the historical 55/60 result remains unchanged.
+Those findings motivated the separate v4 experiment above. No new prompt or model
+run was created while recording the human review itself.
 
 ## GPT-OSS judge-v3 returned results
 
@@ -73,7 +145,8 @@ remain, and matching scores can still have weak explanations.
 Retain v3 as development evidence rather than promote it to the assessed judge.
 The human review above confirms these safety/API regressions. Address them before
 selecting a frozen candidate for fresh blind confirmation. No further iteration
-or model request followed this run.
+or model request followed during that audit; the separately authorized v4 work
+is recorded above.
 The NAS archive is `MP1-handoff/completed-runs/gptoss-v3-2026-11-13T174104724949+0000/`.
 
 ## GPT-OSS Mac returned results

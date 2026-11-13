@@ -155,3 +155,12 @@ amendment or metric change followed. This disclosed review is not fresh blind
 confirmation; stronger-judge qualification remains pending targeted correction
 and independent evidence. The completed response and attribution are preserved
 outside Git and on the NAS.
+
+The subsequent owner-authorized judge-v4 experiment completed ten valid first
+attempts on the same Mac/model/runtime. It matches 52/60 decisions, with three
+false approvals and five false rejections. API agreement improves to 10/10, but
+the confirmed safety miss remains and context falls to 6/10. It does not satisfy
+the predeclared development advancement condition. Preserve the complete run and
+all earlier references; no fresh blind or assessed judging starts from this
+result. The next work item is an explicit evidence-checking protocol, as described
+in the qualification checkpoint. No additional human review is needed now.
