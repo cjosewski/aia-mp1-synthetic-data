@@ -1,5 +1,13 @@
 # Assessed source and model readiness
 
+**November 13 continuation:** the baseline human reference remains frozen.
+GPT-OSS-120B high-effort V9/V10 development is now measured: 56/60 and 53/60 on ten
+known cases, with semantic failures that prevent qualification. Cumulative starts
+are 119. See [the current qualification record](JUDGE-QUALIFICATION-RESULTS.md).
+Reporting/export software is implemented; assessed judging and Phase B still wait
+for a qualified candidate and full calibration. No new human review is requested
+while these known-case defects are being addressed.
+
 Software readiness and corpus permission are separate. The source loader requires
 a real, attributed, versioned reference pack. The existing [source manifest](../config/sources.json)
 remains cleared only for smoke use. The separate `engineering-v1` reference pack

@@ -2,6 +2,7 @@
 
 import json
 from pathlib import Path
+from typing import Literal
 
 from pydantic import Field
 
@@ -36,6 +37,9 @@ class JudgeConfig(RunConfig):
     prompt_variant: NonBlank = "judge-v1"
     stronger_model_basis: NonBlank | None = None
     qualification_path: NonBlank | None = None
+    reasoning_effort: Literal["low", "medium", "high"] | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
 
 
 def judge_directory(assessment_dir: Path, judge_run_id: str) -> Path:

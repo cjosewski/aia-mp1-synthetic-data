@@ -1,5 +1,21 @@
 # Judge qualification — November 13 checkpoint
 
+**Latest:** [V9R1](JUDGE-V9-CANONICAL.md#measured-development-result) scores 56/60
+with four D5 false rejections. [V10](JUDGE-V10-CANONICAL.md#measured-result) reaches
+80% in every dimension but regresses to 53/60 with six false approvals, including
+an API defect. Neither advances. Both GPT-OSS-120B high-effort runs complete all ten
+cases on first attempts; their full returns/audits are retained and the Mac server
+is stopped. Cumulative development starts are **119**. Next isolate D5 scoring
+from the other five anchors under a new bounded protocol. Frozen human ratings,
+assessed thresholds and production judge defaults remain unchanged.
+
+The [analysis tools](ANALYSIS-RUNBOOK.md) now generate verified comparisons, five
+chart/table pairs and local evidence exports. The preliminary baseline reproduces
+74/120 human criterion passes and four all-six passes, without inventing the fifty
+missing population judgments or a corrected cohort.
+
+## Earlier V7–V8.1 checkpoint
+
 The fixed V7 screens now compare three candidates: **GPT-OSS-120B 23/30 agreement,
 GPT-OSS-20B 27/30, and Llama 23/30**, on the same five known cases. Every response
 was accepted on its first attempt, but all three models approve an API defect.

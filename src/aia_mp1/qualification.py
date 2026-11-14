@@ -13,6 +13,11 @@ def validate_qualification(config, assessment: dict) -> dict:
         raise ValueError("assessed judge requires model identity and qualification receipt")
     path = Path(config.qualification_path)
     receipt = read_json(path)
+    expected_settings = {
+        k: getattr(config, k) for k in ("mode", "temperature", "max_tokens", "timeout_seconds")
+    }
+    if config.reasoning_effort is not None:
+        expected_settings["reasoning_effort"] = config.reasoning_effort
     for field in ("selected_by", "selected_at", "stronger_model_basis", "model_sha256"):
         if not isinstance(receipt.get(field), str) or not receipt[field].strip():
             raise ValueError("judge qualification is incomplete")
@@ -25,8 +30,7 @@ def validate_qualification(config, assessment: dict) -> dict:
         or receipt["model_sha256"] != config.model_sha256
         or config.model_sha256 == assessment["generator_model_sha256"]
         or receipt["stronger_model_basis"] != config.stronger_model_basis
-        or receipt.get("settings")
-        != {k: getattr(config, k) for k in ("mode", "temperature", "max_tokens", "timeout_seconds")}
+        or receipt.get("settings") != expected_settings
     ):
         raise ValueError("judge qualification does not match selected model/settings")
     evidence = receipt.get("evidence", [])

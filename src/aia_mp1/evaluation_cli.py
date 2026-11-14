@@ -122,6 +122,7 @@ def run_command(args) -> tuple[dict, int]:
             max_tokens=config.max_tokens,
             temperature=config.temperature,
             response_model=Judgment,
+            reasoning_effort=config.reasoning_effort,
         ) as client:
             result = judge_run(
                 root, assessment_id, args.judge_run_id, config, client, resume=args.resume

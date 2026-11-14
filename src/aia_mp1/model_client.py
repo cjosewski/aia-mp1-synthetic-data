@@ -64,6 +64,7 @@ class InstructorClient:
         max_tokens: int = 1200,
         temperature: float = 0.6,
         response_model: type[BaseModel] = QAItem,
+        reasoning_effort: str | None = None,
         _transport: httpx.BaseTransport | None = None,
     ) -> None:
         modes = {"json": instructor.Mode.JSON, "tools": instructor.Mode.TOOLS}
@@ -79,12 +80,15 @@ class InstructorClient:
             raise ValueError("api_key must be supplied explicitly")
         if not model or not model.strip():
             raise ValueError("model must be supplied explicitly")
+        if reasoning_effort is not None and reasoning_effort not in {"low", "medium", "high"}:
+            raise ValueError("reasoning_effort must be low, medium, high or None")
 
         self._api_key = api_key
         self._output_type = response_model
         self._model = model
         self._max_tokens = max_tokens
         self._temperature = temperature
+        self._reasoning_options = {"reasoning_effort": reasoning_effort} if reasoning_effort else {}
         self._timeout_seconds = timeout_seconds
         self._last_http_body: dict[str, Any] | str | None = None
         self._sdk = OpenAI(
@@ -186,6 +190,7 @@ class InstructorClient:
                 max_tokens=self._max_tokens,
                 temperature=self._temperature,
                 timeout=self._timeout_seconds,
+                **self._reasoning_options,
             )
             # A server can echo a credential in its content. Protect the parsed
             # payload as well as the raw response before either is persisted.

@@ -73,7 +73,10 @@ def agreement(records: list[dict], selected_ids: list[str], labels: dict, judgme
     }
 
 
-def calibration_report(root: Path, assessment_id: str, judge_run_id: str, report_id: str) -> dict:
+def calibration_report(
+    root: Path, assessment_id: str, judge_run_id: str, report_id: str, *, write: bool = True
+) -> dict:
+    """Revalidate and compute calibration; previews do not create a report directory."""
     parent, assessment, records, rubric = load_assessment(root, assessment_id)
     judge_dir = judge_directory(parent, judge_run_id)
     report_root = parent / "calibration"
@@ -175,6 +178,7 @@ def calibration_report(root: Path, assessment_id: str, judge_run_id: str, report
             if reference
             else None,
         }
-        target.mkdir(parents=True, exist_ok=False)
-        save_new(target / "report.json", report)
+        if write:
+            target.mkdir(parents=True, exist_ok=False)
+            save_new(target / "report.json", report)
         return report

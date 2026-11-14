@@ -2,7 +2,7 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.10, November 13, 2026 |
+| Revision | 0.14, November 13, 2026 |
 | Status | Approved sources, 50-item baseline cohort and 20-item human reference frozen; judge development comparisons ongoing; qualified judge and assessed calibration pending |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
@@ -140,7 +140,7 @@ labeling displays the item and rubric without suggested model scores.
 | [judge.py](../src/aia_mp1/judge.py), [calibration.py](../src/aia_mp1/calibration.py) | Audited judge execution and agreement reports | Implemented; five-item diagnostic measured; assessed evidence pending |
 | [collection.py](../src/aia_mp1/collection.py), [cohort.py](../src/aia_mp1/cohort.py), [sources.py](../src/aia_mp1/sources.py) | Permission-checked contexts, bounded collection and immutable cohorts | Implemented |
 | [human_reference.py](../src/aia_mp1/human_reference.py), [qualification.py](../src/aia_mp1/qualification.py) | Blind-label freeze and attributed judge selection evidence | Implemented |
-| `analysis.py`, `iteration.py` | Full comparison/charts and Phase B controls | Subsequent slice |
+| `analysis.py`, `analysis_export.py`, `analysis_cli.py` | Verified cohort metrics, exact comparison gates, five charts and local evidence export | Implemented; assessed comparison awaits qualified judging and corrected cohort |
 | [evidence_judge.py](../src/aia_mp1/evidence_judge.py) | Experimental citation validation and projection to the existing judge result | Development-only v5; offline verified, live screen produced no accepted judgments |
 | [compact_evidence.py](../src/aia_mp1/compact_evidence.py) | Shared citations and short references using the same canonical projection | Development-only v6; five-case feasibility check stopped on output-format failures |
 | [passage_evidence.py](../src/aia_mp1/passage_evidence.py) | Application-supplied passage IDs and exact source-text resolution | Development-only v7; measured status owned by the qualification checkpoint |
@@ -497,7 +497,13 @@ The paired bars compare cohort aggregates: freshly generated baseline/corrected
 items are not paired observations. Do not imply item-level matched statistics.
 Save charts plus the exact machine-readable plotted data, metric specification,
 input hashes, tool versions and figure captions. Missing values are visually
-distinct from zero. Charts are proposed outputs, not current evidence.
+distinct from zero. The [analysis runbook](ANALYSIS-RUNBOOK.md) now documents the
+implemented report, verification, chart and local export commands. A preliminary
+baseline snapshot reproduces the frozen 20-item human results (74/120 criterion
+passes; four all-six passes). Its 50-item judge measurements and corrected cohort
+remain explicitly unmeasured. Preliminary figures are software/output evidence,
+not a completed assessed comparison. Local exports retain raw attempts and source
+permissions; no external distribution or instructor acceptance is implied.
 
 ## 7. Reliability, security and operational decisions
 
@@ -601,6 +607,16 @@ state or a successful CLI exit.
 
 ### 8.3 Observed implementation checkpoint
 
+November 13 continuation: comparison, chart/table and local export tooling is
+implemented, with a verified preliminary human baseline record. Canonical
+GPT-OSS-120B high-effort V9/V10 development remains unqualified despite valid
+outputs: [measured results](JUDGE-QUALIFICATION-RESULTS.md) distinguish percentage
+agreement from semantic accuracy. The owner authorized continued work to completion
+and full Mac access, subject to authentic human-review and acceptance dependencies.
+The [demo runbook](DEMO-RUNBOOK.md) prepares the later human handoff.
+
+Historical continuation checkpoint:
+
 Continuation, November 9: Chad reported assignment acceptance and approved the
 next-slice plan. The implementation passed 166 offline tests and Ruff checks.
 Assessment `smoke-review-20261110T035628Z` contains all five original smoke items,
@@ -657,3 +673,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.11 | 2026-11-13 | Add primary-excerpt extraction lineage and native Mac wire/token preflight; 340 tests pass. Frozen package halted on two scorer reserve overflows before inference; full return/audit retained, M4 remains in progress |
 | 0.12 | 2026-11-13 | Compact model-input metadata without altering evidence; 341 tests and all native preflight checks pass. Bounded run stops after control acceptance and two verifier failures; 95 cumulative starts, no scorer/paired result, M4 remains in progress |
 | 0.13 | 2026-11-13 | V8.1 verifier ID/coverage checklist and concise prompt; 344 tests. First verifier accepted but semantic overclaims remain; two scorer format failures stop the four-request run, bringing cumulative starts to 99 with no paired result |
+| 0.14 | 2026-11-13 | Implement exact cohort comparison, five chart/table exports and local evidence packaging; preserve preliminary human-only measurements. Add explicit reasoning-effort identity and canonical V9/V10 development; 119 cumulative starts, semantic failures prevent qualification. Prepare final demo/coaching runbook; no assessed default or frozen-label changes |

@@ -3,6 +3,21 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
+**Reporting implementation:** the [analysis runbook](docs/ANALYSIS-RUNBOOK.md)
+covers verified cohort reports, five charts with plotted-data tables, exact
+comparison thresholds and local evidence export.
+**367 locked WSL tests pass**, with Ruff and CLI/shell checks.
+The preliminary baseline report reproduces the frozen human review; full-cohort
+judge results and corrected data remain unmeasured. M4 qualification continues.
+
+**Latest judge result:** [V9R1](docs/JUDGE-V9-CANONICAL.md) matched 56/60 known
+ratings; [V10](docs/JUDGE-V10-CANONICAL.md) matched 53/60 and introduced six false
+approvals. Both completed ten first attempts. Semantic failures prevent
+qualification even though V10 reaches 80% in each dimension. Cumulative starts
+are 119. Next test isolated context scoring; no fresh human review is needed yet.
+
+Earlier development checkpoints follow for provenance:
+
 **November 13 checkpoint:** the [GPT-OSS-120B V7 screen](docs/GPTOSS120B-COMPARISON.md)
 completed at 23/30 agreement, versus GPT-OSS-20B's 27/30 and Llama's 23/30 on
 identical five-case inputs. Every response was accepted on its first attempt,
@@ -23,8 +38,9 @@ The source bundle and Mac transport are implemented; **344 tests pass**.
 on the first case, followed by two scorer format failures and the bounded stop.
 Semantic audit also finds unsupported verifier claims accepted by both scorers.
 Control covers 1/5 cases, treatment 0/5; no paired improvement is established.
-Next revise scorer citation roles and atomic evidence verification before another
-frozen experiment. Cumulative starts are **99**; no new human review is needed now.
+At that checkpoint the next proposal was to revise scorer citation roles and atomic
+evidence verification. Its cumulative starts were **99**; later canonical
+experiments and current next steps are recorded above.
 The [Mac runbook](docs/GPTOSS-MAC-RUNBOOK.md) is retained as the completed procedure.
 Do not repeat completed runs/reviews or start assessed judging yet. Older dated
 sections below describe their original implementation checkpoints.
@@ -37,7 +53,7 @@ and its software is implemented. Follow the **[assessed runbook](docs/ASSESSED-R
 for the new commands. [Source/model readiness](docs/SOURCE-READINESS.md) remains
 explicit; live assessed collection has not started.
 
-## Start here: review the five saved answers
+## Historical diagnostic: review the five saved answers
 
 Use the **[step-by-step human-review runbook](docs/RUNBOOK.md)**. It explains what
 you are evaluating, how to enter Ubuntu from Windows, how to apply each of the six
@@ -53,7 +69,12 @@ the runbook if your task is the prepared human review.
 
 Generate engineering-code Q&A items, preserve structural-gate evidence, collect authentic human labels, run an independent local judge and measure per-dimension agreement. These stages of P1-03 / Mini Project 1 run independently against saved artifacts.
 
-Assessed collection tooling is implemented; live assessed data, full charts and prompt-correction comparisons remain pending. Chad reported assignment acceptance and approved the labeling/judge plan on November 9, 2026; this is separate from measured pipeline results. See the [SDD](docs/SDD-P1-03.md), [requirements and source decisions](docs/requirements.md) and [iteration log](ITERATION_LOG.md).
+Assessed collection and reporting tools are implemented. The baseline cohort and
+human reference are frozen; qualified judging, corrected collection and measured
+comparison remain pending. Chad reported assignment acceptance and approved the
+labeling/judge plan on November 9, 2026; this is separate from measured pipeline
+results. See the [SDD](docs/SDD-P1-03.md), [requirements](docs/requirements.md) and
+[iteration log](ITERATION_LOG.md).
 
 ## Prerequisites
 
