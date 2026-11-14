@@ -6,8 +6,9 @@ Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/iss
 **Reporting implementation:** the [analysis runbook](docs/ANALYSIS-RUNBOOK.md)
 covers verified cohort reports, five charts with plotted-data tables, exact
 comparison thresholds and local evidence export.
-**388 locked WSL tests pass**, including confirmation-review intake and lineage
-checks. Ruff lint/format and the actual blank-packet rejection also pass.
+**409 locked WSL tests pass**, including confirmation intake, two-model transport
+and portable bundle checks. Ruff lint/format, launcher syntax and the actual
+missing-review rejection also pass.
 The preliminary baseline report reproduces the frozen human review; full-cohort
 judge results and corrected data remain unmeasured. M4 qualification continues.
 
@@ -15,6 +16,9 @@ judge results and corrected data remain unmeasured. M4 qualification continues.
 [confirmation runbook](docs/QWEN35-CONFIRMATION-RUNBOOK.md). The packet is on the
 Mac under `~/AIA/MP1-handoff/qwen35-v4-blind-confirmation-v1`; edit `MY-ANSWERS.md`.
 Neither comparison model will receive these examples before your review is frozen.
+The [matched comparison transport](docs/CONFIRMATION-TRANSPORT.md) is implemented
+offline, including a shared bounded ledger, native runtime checks and portable
+packaging. Real packaging/preflight remain gated on the authentic review.
 
 **Latest judge result:** [Qwen3.5 V4](docs/QWEN35-V4.md#measured-result) completed
 ten valid first attempts at **57/60**, with at least 90% agreement in each dimension

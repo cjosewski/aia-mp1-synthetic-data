@@ -2,7 +2,7 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.19, November 13, 2026 |
+| Revision | 0.20, November 13, 2026 |
 | Status | Approved sources, 50-item baseline cohort and 20-item human reference frozen; judge development comparisons ongoing; qualified judge and assessed calibration pending |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
@@ -635,6 +635,16 @@ inputs and preserves exact submitted bytes; it cannot invent or authenticate
 human decisions. The complete locked WSL suite passes 388 tests. These are
 development decisions, not assessed measurements.
 
+The [fresh-confirmation transport](CONFIRMATION-TRANSPORT.md) now implements a
+separate matched candidate/comparator schedule. Plan creation requires a frozen
+attributed review; each invocation revalidates exact input and review identities.
+One shared forty-start ledger enforces two-attempt and consecutive-failure limits
+without resets between models. Native preflight pins weights/build/template and
+token fit; portable packaging freezes committed code and preserves every returned
+artifact. Real confirmation packaging and model execution remain unmeasured until
+the human review exists. The full locked WSL suite passes 409 tests, including
+21 transport/bundle tests. Assessed judge defaults and all frozen labels are unchanged.
+
 Historical continuation checkpoint:
 
 Continuation, November 9: Chad reported assignment acceptance and approved the
@@ -699,3 +709,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.17 | 2026-11-13 | Preserve Qwen V2's complete 54/60 result, safety improvement and context regressions; cumulative starts 169. Freeze V3 using the existing V10 prompt under unchanged model/inputs/runtime after 374 tests; no assessed defaults or labels change |
 | 0.18 | 2026-11-13 | Preserve Qwen V3's complete 56/60 result, eleven starts including a token-limit failure/recovery, and semantic failures; cumulative 180. Prepare V13 D1/D2 clarification under V4's separate budget with 375 tests; no qualification or label changes |
 | 0.19 | 2026-11-13 | Audit V4 at 57/60 over ten valid first attempts, retaining three errors and zero safety/API false approvals; cumulative 190. Prepare ten fresh unscored confirmation cases, Mac/NAS review packet and strict attributed-review intake. Human review and matched comparison remain pending; no qualification or assessed metrics claimed |
+| 0.20 | 2026-11-13 | Implement the separate fresh-confirmation transport, shared two-model request ledger, native runtime/weight checks, exact-input comparison reports and committed-code portable packaging. Actual blank reviews still block plan/package creation; no new model requests or qualification claimed |

@@ -1,0 +1,83 @@
+#!/bin/bash
+set -eu
+root="$(cd "$(dirname "$0")" && pwd)"
+phase="${1:-}"
+mode="${2:-preflight}"
+case "$phase" in candidate|comparator) ;; *) exit 2 ;; esac
+case "$mode" in preflight|execute) ;; *) exit 2 ;; esac
+if [ "$(uname -sm)" != 'Darwin arm64' ]; then exit 2; fi
+export PATH="$HOME/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export UV_PROJECT_ENVIRONMENT="$HOME/.local/share/aia-mp1-tools/qwen35-confirmation-v1-venv"
+cd "$root/project"
+uv sync --locked
+uv run --locked python tools/verify_confirmation_bundle.py "$root"
+# Validate the review and shared ledger before starting the owned service.
+uv run --locked python -m aia_mp1.confirmation_transport validate \
+  --plan "$root/plan.json" --packet "$root/packet" --review "$root/review" \
+  --directory "$root/results/ledger" --phase "$phase"
+if /usr/sbin/lsof -nP -iTCP:8081 -sTCP:LISTEN >/dev/null 2>&1; then
+  printf '%s\n' 'STOP: Port 8081 occupied; existing service preserved.' >&2
+  exit 1
+fi
+mkdir -p "$root/results"
+(set -C; printf '%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > "$root/results/$phase-$mode-started.txt")
+model="$(uv run --locked python -c 'import json,sys; p=json.load(open(sys.argv[1])); print(next(m["model"] for m in p["models"] if m["phase"]==sys.argv[2]))' "$root/plan.json" "$phase")"
+server_pid=''
+server_started=false
+finish() {
+  status=$?
+  trap - EXIT
+  stopped=true
+  if [ -n "$server_pid" ]; then
+    if kill -0 "$server_pid" 2>/dev/null; then
+      parent="$(/bin/ps -o ppid= -p "$server_pid" | /usr/bin/tr -d ' ')"
+      if [ "$parent" = "$$" ]; then
+        kill -TERM "$server_pid" 2>/dev/null || :
+        for ((check=0; check<30; check++)); do
+          if ! kill -0 "$server_pid" 2>/dev/null; then break; fi
+          sleep 1
+        done
+        if kill -0 "$server_pid" 2>/dev/null; then
+          parent="$(/bin/ps -o ppid= -p "$server_pid" | /usr/bin/tr -d ' ')"
+          if [ "$parent" = "$$" ]; then
+            kill -KILL "$server_pid" 2>/dev/null || :
+          else
+            stopped=false
+            status=1
+          fi
+        fi
+        wait "$server_pid" 2>/dev/null || :
+        if kill -0 "$server_pid" 2>/dev/null; then stopped=false; status=1; fi
+      else
+        stopped=false
+        status=1
+      fi
+    else
+      wait "$server_pid" 2>/dev/null || :
+    fi
+  fi
+  printf '{"run_exit_code":%s,"owned_server_started":%s,"owned_server_stopped":%s}\n' \
+    "$status" "$server_started" "$stopped" > "$root/results/$phase-$mode-status.json"
+  exit "$status"
+}
+trap finish EXIT
+trap 'exit 130' INT
+trap 'exit 143' TERM
+/opt/homebrew/bin/llama-server --model "$model" --host 127.0.0.1 --port 8081 \
+  --ctx-size 16384 --parallel 1 --reasoning on --reasoning-format deepseek \
+  > "$root/results/server-$phase-$mode.log" 2>&1 &
+server_pid=$!
+server_started=true
+printf '%s\n' "$server_pid" > "$root/results/$phase-$mode-owned-server.pid"
+ready=0
+for ((check=0; check<120; check++)); do
+  if ! kill -0 "$server_pid" 2>/dev/null; then exit 1; fi
+  if /usr/bin/curl --fail --silent --max-time 2 http://127.0.0.1:8081/health >/dev/null; then
+    ready=1; break
+  fi
+  sleep 2
+done
+if [ "$ready" -ne 1 ]; then exit 1; fi
+uv run --locked python -m aia_mp1.confirmation_transport "$mode" \
+  --plan "$root/plan.json" --packet "$root/packet" --review "$root/review" \
+  --directory "$root/results/ledger" --phase "$phase"

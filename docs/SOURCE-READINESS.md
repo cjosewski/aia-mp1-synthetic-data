@@ -7,6 +7,9 @@ and no safety/API false approvals. Three remaining scoring errors are preserved.
 Qualification remains pending; cumulative starts are 190. The owned server is
 stopped. The [fresh confirmation packet](QWEN35-CONFIRMATION-RUNBOOK.md) now needs
 Chad's authentic reviews before either model can receive those inputs.
+The separate [matched transport and portable packaging](CONFIRMATION-TRANSPORT.md)
+are implemented with 409 passing offline tests; the missing reference blocks real
+package preparation. Native confirmation preflight remains unmeasured.
 See [the current qualification record](JUDGE-QUALIFICATION-RESULTS.md).
 Reporting/export software is implemented; assessed judging and Phase B still wait
 for a qualified candidate and full calibration. No earlier human labels change.

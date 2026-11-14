@@ -68,9 +68,11 @@ create no reference. Existing freeze directories are never overwritten; partial
 writes require inspection. Preserve the submitted copy and its SHA-256 locally
 and on the NAS. Do not freeze a template or copy assistant suggestions into it.
 
-After review freeze, complete and freeze the executable comparison package before
-any model request. The existing known-case runner is not a fresh-confirmation
-runner and must not be tricked by renaming the new case IDs. Run the candidate
+The separate [confirmation transport](CONFIRMATION-TRANSPORT.md) now implements
+the two-model runner and portable bundle preparation. It requires the frozen
+authentic review before it can prepare a real plan or package. After review freeze,
+freeze that executable package before any model request. The known-case runner
+remains separate; never rename the new case IDs to make it accept them. Run the candidate
 Qwen3.5-122B-A10B and generator Qwen3-30B-A3B on identical messages with V13,
 temperature 0.1, 8192 output tokens, 300-second timeout, native thinking, build
 b12110-cd959bae9, context 16384 and one slot. Verify each model/template/token fit.
