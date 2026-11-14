@@ -15,6 +15,7 @@ judge results and corrected data remain unmeasured. M4 qualification continues.
 **All actions needed from Chad:** [consolidated instruction sheet](docs/CHAD-ACTIONS-P1-03.md)
 covers the review needed now and the later corrected reviews, demo and coaching
 handoff, with conditional instructor decisions kept separate.
+Also available as a [printable PDF](docs/CHAD-ACTIONS-P1-03.pdf).
 
 **Action for Chad now:** complete the ten fresh reviews using the
 [confirmation runbook](docs/QWEN35-CONFIRMATION-RUNBOOK.md). The packet is on the
