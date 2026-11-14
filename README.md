@@ -12,7 +12,11 @@ missing-review rejection also pass.
 The preliminary baseline report reproduces the frozen human review; full-cohort
 judge results and corrected data remain unmeasured. M4 qualification continues.
 
-**Action for Chad:** complete the ten fresh reviews using the
+**All actions needed from Chad:** [consolidated instruction sheet](docs/CHAD-ACTIONS-P1-03.md)
+covers the review needed now and the later corrected reviews, demo and coaching
+handoff, with conditional instructor decisions kept separate.
+
+**Action for Chad now:** complete the ten fresh reviews using the
 [confirmation runbook](docs/QWEN35-CONFIRMATION-RUNBOOK.md). The packet is on the
 Mac under `~/AIA/MP1-handoff/qwen35-v4-blind-confirmation-v1`; edit `MY-ANSWERS.md`.
 Neither comparison model will receive these examples before your review is frozen.
