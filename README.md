@@ -18,13 +18,13 @@ same five cases used for v7, v4 matched 26/30. The
 verification, explicit unresolved outcomes and a matched single-stage control.
 Offline contracts, lineage checks and paired reporting are implemented through a
 separate [development interface](docs/JUDGE-FACTCHECK-DESIGN.md#7-implemented-offline-interface).
-The source bundle and Mac transport are now implemented; **340 tests pass**.
-Native Mac preflight stopped before inference: the FreeCAD and SciPy scorer
-reserve checks exceed the fixed context limit. [Preflight results and next
-step](docs/JUDGE-FACTCHECK-DESIGN.md#8-native-mac-preflight-result) retain the exact
-counts and source gaps. Next compact the presentation without dropping evidence
-and repeat preflight in a new frozen package. Cumulative starts remain 92;
-no new human review is needed now.
+The source bundle and Mac transport are implemented; **341 tests pass**.
+The compact presentation passed all token checks. Its bounded comparison stopped
+after one accepted control and two failed verifier responses (invalid references/
+missing coverage, then output exhaustion). [Results and next step](docs/JUDGE-FACTCHECK-DESIGN.md#9-compact-presentation-and-bounded-comparison)
+retain the diagnosis and source gaps. No scorer output or paired improvement is
+established. Next revise verifier ID/coverage and output discipline before another
+frozen experiment. Cumulative starts are **95**; no new human review is needed now.
 The [Mac runbook](docs/GPTOSS-MAC-RUNBOOK.md) is retained as the completed procedure.
 Do not repeat completed runs/reviews or start assessed judging yet. Older dated
 sections below describe their original implementation checkpoints.

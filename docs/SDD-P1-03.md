@@ -302,9 +302,11 @@ also supports native Mac preflight and explicit bounded execution. Its transport
 checks the exact Instructor wire request against the pinned server's tokenizer,
 runtime and weights before dispatch. The prepared bundle contains 18 primary
 excerpts, PDF extraction lineage and explicit source coverage gaps. Tests use
-synthetic fixtures only; 340 locked WSL tests pass. These software checks do not
-establish V8 quality or stronger-judge qualification. The development record below
-the [design](JUDGE-FACTCHECK-DESIGN.md) tracks the measured execution outcome.
+synthetic fixtures only; 341 locked WSL tests pass. Compact presentation passes
+native token preflight, but the bounded run stops after one accepted control and
+two verifier failures. No scorer or paired result exists; cumulative development
+starts are 95. The [design's development record](JUDGE-FACTCHECK-DESIGN.md#9-compact-presentation-and-bounded-comparison)
+owns the diagnosis. M4 remains incomplete and no stronger judge is qualified.
 
 ### 4.5 Storage and commands
 
@@ -650,3 +652,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.9 | 2026-11-13 | Proposed source-grounded verifier/scorer contracts, explicit unresolved handling and matched evidence control; draft prompts prepared, implementation and experiment unmeasured; no assessed default or frozen-reference changes |
 | 0.10 | 2026-11-13 | Implement isolated V8 contracts, source integrity checks, durable stage ledger, frozen reporting-reference hash and paired offline reports; source package and live dispatch remain pending, with no new inference |
 | 0.11 | 2026-11-13 | Add primary-excerpt extraction lineage and native Mac wire/token preflight; 340 tests pass. Frozen package halted on two scorer reserve overflows before inference; full return/audit retained, M4 remains in progress |
+| 0.12 | 2026-11-13 | Compact model-input metadata without altering evidence; 341 tests and all native preflight checks pass. Bounded run stops after control acceptance and two verifier failures; 95 cumulative starts, no scorer/paired result, M4 remains in progress |

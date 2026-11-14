@@ -1,10 +1,9 @@
 # Source-grounded judge experiment — V8 design
 
-Status: contracts, source preparation and native Mac transport implemented on
-November 13, 2026. Following Chad's “Continue on M4”, the frozen package passed
-integrity/runtime checks but stopped at token preflight before inference. Two
-scorer reserve checks exceed the fixed context. See section 8. No V8 quality
-measurement occurred; documented request starts remain 92.
+Status: the compact presentation passed native Mac preflight and the bounded
+comparison started on November 13, 2026. It stopped after one accepted control and
+two failed verifier responses, with no scorer output. See section 9. Cumulative
+development starts are **95**; no paired improvement or qualification is established.
 
 ## Purpose and boundaries
 
@@ -153,8 +152,9 @@ Archived V7 is a historical comparator only because it used less source material
 Freeze ordering: original case order; odd-numbered cases control/A/B,
 even-numbered cases A/B/control. Maximum two attempts per stage, **15 nominal
 requests, 30 maximum new starts**, proposed cumulative ceiling **122 after 92**.
-This allocation is proposed and unactivated at this design checkpoint; unused
-prior allocations do not transfer. There are no extra model preflight requests.
+This allocation was activated for the compact2 package in section 9 and stopped
+after three starts. Unused allocations do not transfer. There are no extra model
+preflight requests.
 
 Retry only transport, schema or lineage failures, using the identical request.
 Never retry valid disagreement or uncertainty. Never regenerate A because B
@@ -275,7 +275,13 @@ template, settings and the full weight hash are checked; each dispatch must matc
 the inspected wire body and cannot retry internally.
 
 The wire catalog includes passage IDs and authority without repeating the text
-already present in the candidate, context and primary excerpts. Scoring receives
+already present in the candidate, context and primary excerpts. Locations occur
+once in `passage_index`. Primary excerpts retain exact text, source/version,
+retrieval date, license and allowed uses. File hashes, paths, byte ranges and PDF
+receipts remain in the frozen input and are validated before dispatch; they are
+omitted from model messages because they are integrity metadata, not claim evidence.
+Compact JSON separators remove whitespace outside strings without changing text.
+Scoring receives
 the memo findings once; the full verifier report remains in the ledger. The three
 arms retain identical source evidence. `run-prepared` defaults to preflight only;
 `--execute` explicitly enables the frozen bounded schedule on native Apple Silicon.
@@ -367,4 +373,83 @@ meaning, uncertainty and all five cases; review the documented source gaps and
 freeze a new package before repeating preflight. Do not resume this halted ledger,
 truncate evidence or silently increase context/output limits. The bounded
 comparison, semantic audit, fresh blind confirmation and assessed calibration
-remain ahead; M4 is still in progress.
+remain ahead; M4 is still in progress. Section 9 records the subsequent revision.
+
+## 9. Compact presentation and bounded comparison
+
+Following Chad's next “go”, source integrity receipts were retained in the frozen
+input but removed from model messages. Exact excerpts, source identity/version,
+permission information, original candidate/task/summary text and authority labels
+remain. Compact JSON changes whitespace outside strings only. The first compact
+package fixed FreeCAD but left SciPy 46 tokens over the planning limit; it halted
+with zero starts. The second package also removed duplicate passage paths from
+the authority catalog while preserving them in the passage index. No prompts,
+response schemas, ratings, excerpt text or runtime/output settings changed.
+
+All 15 compact2 preflight checks passed. Scorer totals include the unchanged 4096
+output-token allowance and 5120-token memo reserve:
+
+| Category | Scorer base prompt | Total required | Headroom in 16384 |
+| --- | ---: | ---: | ---: |
+| ArcPy | 5294 | 14510 | 1874 |
+| FreeCAD | 6287 | 15503 | 881 |
+| SciPy | 6853 | 16069 | 315 |
+| Revit | 5092 | 14308 | 2076 |
+| OpenSeesPy | 5346 | 14562 | 1822 |
+
+Tests and preparation receipts verify every original passage and its authority
+survives serialization, the three stages use identical source content, and the
+frozen inputs are not mutated. **341 locked WSL tests pass**, with Ruff lint/format
+and shell syntax checks. The new packages are separate from all halted ledgers.
+
+The actual run stopped at the predeclared two-consecutive-failure boundary:
+
+| Attempt | Stage / first ArcPy case | Result | Completion tokens | Seconds |
+| --- | --- | --- | ---: | ---: |
+| 1 | Control | Accepted; matches six frozen decisions | 1212 | 13.06 |
+| 2 | Verifier | Schema-valid, rejected by reference/coverage contract | 2964 | 27.00 |
+| 3 | Identical verifier retry | Output limit; no final JSON | 4096 | 34.47 |
+
+Attempt 2 uses metadata IDs `qualification-v1-01-task` and `gis-arcpy-3r0` instead
+of the required R.* passage IDs. It omits `C.steps.0` and `C.steps.1`, including
+the core inventory operation. Automatically mapping a source ID to a passage
+would be ambiguous because that source has an authored summary and two excerpts.
+The retry finishes with `length` and empty final content after exhausting the
+output allowance; a separate reasoning channel is present. This was neither a
+timeout nor an input overflow. No failed output was repaired or accepted.
+
+All starts have retained outcomes. The owned server stopped and port 8081 was
+verified free. **Three starts raise the cumulative total from 92 to 95.** Control
+coverage is **1/5**, treatment coverage **0/5**, matched pairs **0**. The control's
+6/6 match is only one known case; it is not full-screen agreement. No scorer was
+called and no stronger-judge claim follows. The remaining allowance is not an
+automatic extension.
+
+The semantic audit inspected all six control explanations and ten failed verifier
+findings. It found primary-source overclaims about root-only behavior and evidence
+confusion between authored summaries and excerpts. The verifier also dismissed
+installation/tool entries as non-claims and overlooked an explicit task constraint
+when reporting insufficient evidence. The control's correct labels do not settle
+all documented source gaps. Neither reference labels nor historical metrics changed.
+
+Evidence under workspace `artifacts/evidence/P1-03/qualification/`:
+
+- First compact package/return: `MP1-GPTOSS-V8-COMPACT-MAC.zip` and
+  `MP1-GPTOSS-V8-COMPACT-RETURN.zip`; zero-start replay in
+  `mp1-gptoss-v8-compact-return-audit/`.
+- Executed package: `MP1-GPTOSS-V8-COMPACT2-MAC.zip`, SHA-256
+  `b67958056eeff8636d3d213865972cf50769a1d53069d57f1974326597e4466e`.
+- Complete Mac return: `MP1-GPTOSS-V8-COMPACT2-RETURN.zip`, SHA-256
+  `b66206c9f255a9f7af89d4aab30043ab274f260d7fc1e15ea83167232888ba6f`.
+- Replay with the package's own frozen code, 142-file integrity check, full Mac
+  folder, diagnosis and `SEMANTIC-REVIEW.md`:
+  `mp1-gptoss-v8-compact2-return-audit/`.
+
+Both package/return sets and full audit folders are on the NAS
+`\\192.168.0.55\aia\MP1-handoff`; all 362 files copied in this continuation matched
+their source hashes. Earlier Mac/NAS evidence remains intact.
+
+Next revise the verifier's reference-ID/coverage presentation and output discipline
+before freezing another protocol and request allocation based on 95 prior starts.
+Preserve source gaps and all validation gates. Input compaction is complete; M4
+remains at judge development, before fresh blind confirmation and assessed calibration.

@@ -27,6 +27,30 @@ def test_real_packet_metadata_key_is_preserved(bundle):
     assert sent["untrusted_item"] == content["untrusted_item"]
 
 
+def test_compact_wire_preserves_every_passage_and_source_authority(bundle):
+    experiment, root = bundle
+    case = experiment.cases[0]
+    original = deepcopy(case.content)
+    for stage in ("control", "facts"):
+        request = request_for(experiment, case, stage, None)
+        sent = json.loads(request["messages"][1]["content"])
+        lookup = {**sent, "rubric": experiment.rubric}
+        for identifier, entry in original["passage_catalog"].items():
+            value = lookup
+            assert sent["passage_index"][identifier] == entry["path"]
+            for component in sent["passage_index"][identifier].strip("/").split("/"):
+                value = value[int(component)] if isinstance(value, list) else value[component]
+            assert value == entry["text"], identifier
+            assert sent["passage_catalog"][identifier]["authority"] == entry["authority"]
+        for frozen, wire in zip(
+            original["primary_excerpts"], sent["primary_excerpts"], strict=True
+        ):
+            assert "artifact_sha256" not in wire
+            assert all(wire[key] == frozen[key] for key in wire)
+    assert case.content == original
+    assert validate_input(case.content, experiment.rubric, root)
+
+
 @pytest.mark.parametrize("suffix", ["/unexpected", "/v1?key=test", "/v1#fragment"])
 def test_loopback_url_rejects_ambiguous_paths(suffix):
     with pytest.raises(ValueError):
@@ -219,6 +243,17 @@ def test_native_runner_preflight_resume_and_actual_memo_guard(
     def fake_dispatch(request, stage, *_):
         calls.append(stage)
         body = json.loads(request["messages"][1]["content"])
+        item = next(
+            case
+            for case in experiment.cases
+            if case.content["untrusted_item"] == body["untrusted_item"]
+        )
+        expected = json.loads(
+            request_for(experiment, item, "control", None)["messages"][1]["content"]
+        )
+        assert {
+            key: value for key, value in body.items() if key != "untrusted_fact_memo"
+        } == expected
         return completion(
             facts(body) if stage == "facts" else score() if stage == "score" else judgment()
         )

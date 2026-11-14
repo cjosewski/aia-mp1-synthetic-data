@@ -5,12 +5,14 @@ GPT-OSS-20B 27/30, and Llama 23/30**, on the same five known cases. Every respon
 was accepted on its first attempt, but all three models approve an API defect.
 None qualifies, and no assessed judging has started. The subsequent
 [source-grounded design](JUDGE-FACTCHECK-DESIGN.md) and two draft prompts are
-prepared. The subsequent offline implementation adds strict verifier/scorer
-contracts, source checks, durable stage tracking and paired reporting. Source-bundle
-preparation, Mac transport integration and token-fit verification are next;
-no new inference or benefit is claimed.
-Cumulative starts remain 92. The separate proposed allocation is at most 30
-new starts (ceiling 122), subject to the design's preflight and stop conditions.
+prepared and implemented with a source bundle, Mac transport and paired reporting.
+The [compact V8 comparison](JUDGE-FACTCHECK-DESIGN.md#9-compact-presentation-and-bounded-comparison)
+passed preflight but stopped after three requests: one accepted control, one
+schema-valid verifier response with invalid IDs/missing coverage, and a verifier
+retry that exhausted its output allowance. Control covers 1/5 cases, treatment
+0/5; no paired improvement is established. Cumulative starts are **95**. The
+30-start allocation stopped under its two-failure rule; unused requests do not
+authorize an automatic continuation. Next revise verifier output/ID discipline.
 
 ## GPT-OSS-120B with fixed V7
 

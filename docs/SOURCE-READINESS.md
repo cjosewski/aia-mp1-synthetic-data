@@ -238,3 +238,13 @@ was hash-verified on the NAS. **340 locked WSL tests pass.** Next compact the
 presentation without removing necessary evidence and repeat preflight in a new
 package. [Details](JUDGE-FACTCHECK-DESIGN.md#8-native-mac-preflight-result). M4 and
 assessed judging remain gated; no human-label amendment is needed.
+
+The compact continuation subsequently passed all 15 native token checks without
+changing evidence text, prompts, schemas or runtime limits. Its live comparison
+stopped after three starts under the two-failure rule: control accepted, verifier
+invalid passage IDs plus missing core-step coverage, then retry output exhaustion.
+No scorer output or paired comparison exists. Cumulative starts are **95**;
+**341 locked WSL tests pass**. The full Mac folders, responses and semantic audit
+are preserved locally/NAS and the server is stopped. Source gaps remain; matching
+the single control case's six labels does not resolve them. Next revise verifier
+ID/coverage and output discipline before a new frozen allocation.

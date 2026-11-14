@@ -249,10 +249,20 @@ def accepted_memo(experiment: Experiment, case: Case, predecessor: dict | None) 
 
 def request_for(experiment: Experiment, case: Case, stage: Stage, predecessor: dict | None) -> dict:
     content = dict(case.content)
-    # Original text remains in candidate/context/excerpts. Send its typed locations
-    # once, rather than repeating every passage's text in a second catalog.
+    # Integrity receipts are checked against the full frozen input before dispatch.
+    # They are not factual evidence. Keep all text and source authority/context on
+    # the wire, without repeatedly tokenizing file hashes and extraction receipts.
+    content["primary_excerpts"] = [
+        {
+            key: excerpt[key]
+            for key in ("source_id", "version", "text", "retrieved_at", "license", "allowed_uses")
+        }
+        for excerpt in case.content["primary_excerpts"]
+    ]
+    # Text stays in candidate/context/excerpts and locations in passage_index.
+    # The supplemental catalog only needs to state each passage's authority.
     content["passage_catalog"] = {
-        key: {"path": entry["path"], "authority": entry["authority"]}
+        key: {"authority": entry["authority"]}
         for key, entry in case.content["passage_catalog"].items()
     }
     if stage == "score":
@@ -267,7 +277,10 @@ def request_for(experiment: Experiment, case: Case, stage: Stage, predecessor: d
         "model": experiment.runtime.model,
         "messages": [
             {"role": "system", "content": system},
-            {"role": "user", "content": json.dumps(content, ensure_ascii=False)},
+            {
+                "role": "user",
+                "content": json.dumps(content, ensure_ascii=False, separators=(",", ":")),
+            },
         ],
         "response_schema": SCHEMAS[stage].model_json_schema(),
         "temperature": experiment.runtime.temperature,
