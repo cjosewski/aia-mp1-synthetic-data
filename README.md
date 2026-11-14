@@ -6,15 +6,19 @@ Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/iss
 **Reporting implementation:** the [analysis runbook](docs/ANALYSIS-RUNBOOK.md)
 covers verified cohort reports, five charts with plotted-data tables, exact
 comparison thresholds and local evidence export.
-**374 locked WSL tests pass**, with Ruff and CLI/shell checks.
+**375 locked WSL tests pass**, with Ruff and CLI/shell checks.
 The preliminary baseline report reproduces the frozen human review; full-cohort
 judge results and corrected data remain unmeasured. M4 qualification continues.
 
-**Latest judge result:** [Qwen3.5 V2](docs/QWEN35-V2.md#measured-result) completed
-ten valid first attempts and matched 54/60, with zero false approvals but D5 at
-6/10. It does not qualify; cumulative development starts are 169. The
-[frozen V3 comparison](docs/QWEN35-V3.md) tests the existing V10 system prompt
-with the same model, user inputs and runtime. No assessed judge run has started.
+**Latest judge result:** [Qwen3.5 V3](docs/QWEN35-V3.md#measured-result) completed
+ten cases in eleven starts, retaining one truncated response and its successful
+retry. Agreement is 56/60, but three false approvals prevent qualification.
+Cumulative development starts are 180. The [V4 protocol](docs/QWEN35-V4.md)
+combines explicit completion/hazard checks with the existing context instructions.
+No assessed judge run has started.
+
+Previous Qwen result: [V2](docs/QWEN35-V2.md#measured-result) matched 54/60 with
+zero false approvals but D5 at 6/10, failing its advancement threshold.
 
 Previous Qwen result: [V1](docs/QWEN35-CANDIDATE.md#measured-result) matched 56/60
 with one safety false approval and three false rejections. It remains unqualified.

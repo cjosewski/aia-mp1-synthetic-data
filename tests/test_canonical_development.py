@@ -282,6 +282,7 @@ def test_presentation_preserves_original_values_and_canonical_schema(fixture, tm
         ("qwen35-canonical-development", 149),
         ("qwen35-v4-development", 159),
         ("qwen35-v10-development", 169),
+        ("qwen35-v13-development", 180),
     ],
 )
 def test_qwen_uses_own_weight_and_thinking_identity(fixture, tmp_path, protocol, prior_starts):

@@ -1,6 +1,14 @@
 # Judge qualification — November 13 checkpoint
 
-**Latest:** [Qwen3.5 V2](QWEN35-V2.md#measured-result) completes ten valid first
+**Latest:** [Qwen3.5 V3](QWEN35-V3.md#measured-result) completes ten cases in eleven
+starts, retaining one 8192-token truncation and its successful retry. Agreement
+is 56/60, dimensions 9,8,10,10,9,10; two safety false approvals and one completeness
+false approval prevent advancement. All 181 frozen files replay correctly, and
+the return plus 234 audit files verify locally/NAS. The owned server is stopped;
+cumulative starts are **180**. Next is the [V4 completion/hazard clarification](QWEN35-V4.md).
+No human labels, assessed defaults or qualification status change.
+
+Previous result: [Qwen3.5 V2](QWEN35-V2.md#measured-result) completes ten valid first
 attempts at 54/60, with dimension counts 10,10,8,10,6,10. There are zero false
 approvals, but D5 falls below threshold. All 180 frozen files replay correctly;
 the return and 231 audit files verify locally/NAS. The owned server stopped.

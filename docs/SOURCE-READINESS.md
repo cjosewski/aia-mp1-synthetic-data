@@ -1,11 +1,12 @@
 # Assessed source and model readiness
 
 **November 13 continuation:** the baseline human reference remains frozen.
-The pinned Qwen3.5 candidate is acquired and verified on the Mac. V1 completes
-at 56/60 with a safety false approval; V2 corrects that miss but scores 54/60 with
-D5 at 6/10. Qualification remains pending; cumulative starts are 169. The separate
-[V3 comparison](QWEN35-V3.md) tests the existing V10 prompt under unchanged runtime
-conditions after 374 passing WSL tests.
+The pinned Qwen3.5 candidate is acquired and verified on the Mac. V3 completes
+ten cases in eleven starts at 56/60, with three false approvals and one false
+rejection. A rejected token-limit completion and successful retry remain in the
+ledger. Qualification remains pending; cumulative starts are 180. The separate
+[V4 protocol](QWEN35-V4.md) combines explicit D1/D2 checks with V10 context
+instructions under unchanged runtime conditions, after 375 passing WSL tests.
 See [the current qualification record](JUDGE-QUALIFICATION-RESULTS.md).
 Reporting/export software is implemented; assessed judging and Phase B still wait
 for a qualified candidate and full calibration. No new human review is requested
