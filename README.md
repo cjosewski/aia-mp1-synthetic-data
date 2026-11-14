@@ -6,15 +6,26 @@ Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/iss
 **Reporting implementation:** the [analysis runbook](docs/ANALYSIS-RUNBOOK.md)
 covers verified cohort reports, five charts with plotted-data tables, exact
 comparison thresholds and local evidence export.
-**367 locked WSL tests pass**, with Ruff and CLI/shell checks.
+**370 locked WSL tests pass**, with Ruff and CLI/shell checks.
 The preliminary baseline report reproduces the frozen human review; full-cohort
 judge results and corrected data remain unmeasured. M4 qualification continues.
 
-**Latest judge result:** [V9R1](docs/JUDGE-V9-CANONICAL.md) matched 56/60 known
+**Latest judge result:** [V12](docs/JUDGE-V12-PRESENTATION.md) preserved all input
+values while changing formatting, but matched only 53/60 and retained safety/API
+defects. No judge is qualified; cumulative development starts are 149. The next
+candidate is [Qwen3.5-122B-A10B](docs/QWEN35-CANDIDATE.md), with acquisition and
+runtime verification ahead of a separate bounded test.
+
+Previous result: [V11](docs/JUDGE-V11-ISOLATED.md) completed twenty valid
+stage calls and matched 55/60 known ratings, with D5 at 6/10 and one safety false
+approval. It remains unqualified. All returns are archived locally/NAS; cumulative
+starts are 139. Next is the [formatting-only V12 test](docs/JUDGE-V12-PRESENTATION.md).
+
+Earlier canonical results: [V9R1](docs/JUDGE-V9-CANONICAL.md) matched 56/60 known
 ratings; [V10](docs/JUDGE-V10-CANONICAL.md) matched 53/60 and introduced six false
 approvals. Both completed ten first attempts. Semantic failures prevent
 qualification even though V10 reaches 80% in each dimension. Cumulative starts
-are 119. Next test isolated context scoring; no fresh human review is needed yet.
+were 119 at that checkpoint. No fresh human review is needed yet.
 
 Earlier development checkpoints follow for provenance:
 

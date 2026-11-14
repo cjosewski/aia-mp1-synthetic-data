@@ -1,6 +1,19 @@
 # Judge qualification — November 13 checkpoint
 
-**Latest:** [V9R1](JUDGE-V9-CANONICAL.md#measured-development-result) scores 56/60
+**Latest:** [V12](JUDGE-V12-PRESENTATION.md#measured-result) completed ten valid
+first attempts, matching 53/60 with two false approvals and five false rejections.
+Formatting did not resolve context or evidence-reading defects. Development
+starts total **149**. Next acquire and verify the pinned [Qwen3.5 candidate](QWEN35-CANDIDATE.md)
+before a separate bounded screen. No qualification or assessed run is claimed.
+
+Previous result: [V11](JUDGE-V11-ISOLATED.md#measured-result) completed all twenty
+independent stage calls, composing ten judgments at 55/60. D5 remains 6/10 and
+D2 introduces one false approval. Neither valid formatting nor stage separation
+resolved the semantic errors. Cumulative starts are **139**; full frozen-code
+replay and NAS copies are verified, and the server is stopped. Next test
+[input presentation alone](JUDGE-V12-PRESENTATION.md) with the exact V9 prompt.
+
+Previous canonical checkpoint: [V9R1](JUDGE-V9-CANONICAL.md#measured-development-result) scores 56/60
 with four D5 false rejections. [V10](JUDGE-V10-CANONICAL.md#measured-result) reaches
 80% in every dimension but regresses to 53/60 with six false approvals, including
 an API defect. Neither advances. Both GPT-OSS-120B high-effort runs complete all ten

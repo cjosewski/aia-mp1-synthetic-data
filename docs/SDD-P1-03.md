@@ -2,7 +2,7 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.14, November 13, 2026 |
+| Revision | 0.15, November 13, 2026 |
 | Status | Approved sources, 50-item baseline cohort and 20-item human reference frozen; judge development comparisons ongoing; qualified judge and assessed calibration pending |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
@@ -609,11 +609,17 @@ state or a successful CLI exit.
 
 November 13 continuation: comparison, chart/table and local export tooling is
 implemented, with a verified preliminary human baseline record. Canonical
-GPT-OSS-120B high-effort V9/V10 development remains unqualified despite valid
+GPT-OSS-120B high-effort V9–V12 development remains unqualified despite valid
 outputs: [measured results](JUDGE-QUALIFICATION-RESULTS.md) distinguish percentage
 agreement from semantic accuracy. The owner authorized continued work to completion
 and full Mac access, subject to authentic human-review and acceptance dependencies.
 The [demo runbook](DEMO-RUNBOOK.md) prepares the later human handoff.
+
+The V11 two-call experiment and V12 presentation test preserve complete input and
+attempt lineage but retain context errors and safety/API false approvals. Cumulative
+development starts are 149; 370 locked WSL tests pass. The next candidate is the
+pinned local Qwen3.5-122B-A10B, pending acquisition/runtime verification and its own
+bounded screen. These are development decisions, not new assessed measurements.
 
 Historical continuation checkpoint:
 
@@ -674,3 +680,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.12 | 2026-11-13 | Compact model-input metadata without altering evidence; 341 tests and all native preflight checks pass. Bounded run stops after control acceptance and two verifier failures; 95 cumulative starts, no scorer/paired result, M4 remains in progress |
 | 0.13 | 2026-11-13 | V8.1 verifier ID/coverage checklist and concise prompt; 344 tests. First verifier accepted but semantic overclaims remain; two scorer format failures stop the four-request run, bringing cumulative starts to 99 with no paired result |
 | 0.14 | 2026-11-13 | Implement exact cohort comparison, five chart/table exports and local evidence packaging; preserve preliminary human-only measurements. Add explicit reasoning-effort identity and canonical V9/V10 development; 119 cumulative starts, semantic failures prevent qualification. Prepare final demo/coaching runbook; no assessed default or frozen-label changes |
+| 0.15 | 2026-11-13 | Preserve V11 independent-stage and V12 input-presentation experiments, including failed semantic audits and complete request accounting; 149 cumulative starts, 370 tests. Prepare pinned Qwen3.5 candidate acquisition; M4 remains active and no assessed defaults or frozen labels change |

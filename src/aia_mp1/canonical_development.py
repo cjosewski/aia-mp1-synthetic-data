@@ -10,9 +10,10 @@ import time
 from pathlib import Path
 
 import httpx
+from pydantic import BaseModel, ConfigDict
 
 from .assessment import exclusive, read_json
-from .evaluation_schemas import Judgment
+from .evaluation_schemas import DimensionJudgment, Judgment
 from .factcheck_transport import LocalServer, VerifiedTransport
 from .model_client import InstructorClient
 from .tracing import digest, now
@@ -27,6 +28,37 @@ SETTINGS = {
 }
 
 
+class CoreJudgment(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    D1: DimensionJudgment
+    D2: DimensionJudgment
+    D3: DimensionJudgment
+    D4: DimensionJudgment
+    D6: DimensionJudgment
+
+
+class ContextJudgment(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    D5: DimensionJudgment
+
+
+def schema_for(plan, case):
+    if plan["protocol"] == "v11-isolated-development":
+        return {"core": CoreJudgment, "context": ContextJudgment}[case["stage"]]
+    return Judgment
+
+
+def schema_identity(plan):
+    if plan["protocol"] == "v11-isolated-development":
+        return digest(
+            {
+                "core": CoreJudgment.model_json_schema(),
+                "context": ContextJudgment.model_json_schema(),
+            }
+        )
+    return digest(Judgment.model_json_schema())
+
+
 def save(path: Path, value: dict):
     with path.open("x", encoding="utf-8") as stream:
         json.dump(value, stream, indent=2, ensure_ascii=False, allow_nan=False)
@@ -35,16 +67,22 @@ def save(path: Path, value: dict):
 
 
 def validate_plan(plan):
-    allocations = {"v9-canonical-development": 99, "v10-canonical-development": 109}
+    allocations = {
+        "v9-canonical-development": (99, 20),
+        "v10-canonical-development": (109, 20),
+        "v11-isolated-development": (119, 40),
+        "v12-presentation-development": (139, 20),
+    }
+    isolated = plan["protocol"] == "v11-isolated-development"
+    expected_ids = [f"qualification-v1-{i:02d}" for i in range(1, 11)]
+    if isolated:
+        expected_ids = [f"{item}:{stage}" for item in expected_ids for stage in ("core", "context")]
     if (
         plan["protocol"] not in allocations
-        or plan["prior_starts"] != allocations[plan["protocol"]]
-        or plan["max_starts"] != 20
+        or (plan["prior_starts"], plan["max_starts"]) != allocations[plan["protocol"]]
         or plan["settings"] != SETTINGS
         or plan["model_sha256"] != MODEL_SHA
-        or len(plan["cases"]) != 10
-        or [c["item_id"] for c in plan["cases"]]
-        != [f"qualification-v1-{i:02d}" for i in range(1, 11)]
+        or [c["item_id"] for c in plan["cases"]] != expected_ids
     ):
         raise ValueError("canonical development protocol, identities or budget changed")
     for case in plan["cases"]:
@@ -57,14 +95,28 @@ def validate_plan(plan):
             != {"untrusted_item", "untrusted_reference_context"}
         ):
             raise ValueError("development input contains unexpected roles or fields")
+        if plan["protocol"] == "v12-presentation-development" and messages[1][
+            "content"
+        ] != json.dumps(json.loads(messages[1]["content"]), ensure_ascii=False, indent=2):
+            raise ValueError("V12 requires the frozen readable JSON serialization")
+    if isolated:
+        for core, context in zip(plan["cases"][::2], plan["cases"][1::2]):
+            for case, stage in ((core, "core"), (context, "context")):
+                if (
+                    case["stage"] != stage
+                    or case["item_id"] != f"{case['original_item_id']}:{stage}"
+                ):
+                    raise ValueError("isolated stage identity differs")
+            if core["messages"][1] != context["messages"][1]:
+                raise ValueError("isolated calls must receive identical original input")
 
 
-def client_for(plan, endpoint, transport=None):
+def client_for(plan, endpoint, transport=None, *, case=None):
     return InstructorClient(
         base_url=endpoint,
         model=plan["model"],
         api_key="local-development",
-        response_model=Judgment,
+        response_model=schema_for(plan, case),
         _transport=transport,
         **plan["settings"],
     )
@@ -77,21 +129,23 @@ def wire_for(plan, case):
         captured.append(json.loads(request.content))
         return httpx.Response(400, json={"error": {"message": "Offline serialization"}})
 
-    with client_for(plan, "http://127.0.0.1:1/v1", httpx.MockTransport(capture)) as client:
+    with client_for(
+        plan, "http://127.0.0.1:1/v1", httpx.MockTransport(capture), case=case
+    ) as client:
         client.generate(case["messages"])
     if len(captured) != 1 or captured[0].get("reasoning_effort") != "high":
         raise ValueError("exact high-effort request serialization failed")
     return captured[0]
 
 
-def parse(raw, model):
+def parse(raw, model, response_model=Judgment):
     try:
         if raw["model"] != model or len(raw["choices"]) != 1:
             return None
         choice = raw["choices"][0]
         if choice["finish_reason"] != "stop":
             return None
-        return Judgment.model_validate_json(choice["message"]["content"]).model_dump()
+        return response_model.model_validate_json(choice["message"]["content"]).model_dump()
     except (ValueError, KeyError, TypeError):
         return None
 
@@ -99,8 +153,8 @@ def parse(raw, model):
 def audit(plan, directory):
     validate_plan(plan)
     manifest = read_json(directory / "manifest.json")
-    if manifest["plan_sha256"] != digest(plan) or manifest["schema_sha256"] != digest(
-        Judgment.model_json_schema()
+    if manifest["plan_sha256"] != digest(plan) or manifest["schema_sha256"] != schema_identity(
+        plan
     ):
         raise ValueError("development identity changed")
     attempts, successful, failures = [], {}, 0
@@ -129,7 +183,7 @@ def audit(plan, directory):
             {k: v for k, v in result.items() if k != "sha256"}
         ):
             raise ValueError("development result lineage changed")
-        judgment = parse(result["raw_response"], plan["model"])
+        judgment = parse(result["raw_response"], plan["model"], schema_for(plan, case))
         if result["judgment"] != judgment:
             raise ValueError("stored judgment differs from raw completion")
         attempts.append(result)
@@ -153,6 +207,23 @@ def audit(plan, directory):
         "next_case": expected_case,
         "next_number": number,
     }
+
+
+def compose(plan, state):
+    """A canonical result requires both independently completed stage outputs."""
+    if plan["protocol"] != "v11-isolated-development":
+        return state["successful"]
+    combined = {}
+    for case in plan["cases"][::2]:
+        item = case["original_item_id"]
+        core = state["successful"].get(f"{item}:core")
+        context = state["successful"].get(f"{item}:context")
+        if core is not None and context is not None:
+            combined[item] = Judgment.model_validate(
+                CoreJudgment.model_validate(core).model_dump()
+                | ContextJudgment.model_validate(context).model_dump()
+            ).model_dump()
+    return combined
 
 
 def run(plan, directory, dispatch):
@@ -181,7 +252,7 @@ def run(plan, directory, dispatch):
                 "start_sha256": digest(start),
                 "raw_response": raw,
                 "error": error,
-                "judgment": parse(raw, plan["model"]),
+                "judgment": parse(raw, plan["model"], schema_for(plan, case)),
                 "completed_at": now(),
                 "seconds": time.monotonic() - began,
             }
@@ -237,7 +308,7 @@ def prepare_runtime(plan, directory, endpoint):
             checks.append({"item_id": case["item_id"], **check})
         manifest = {
             "plan_sha256": digest(plan),
-            "schema_sha256": digest(Judgment.model_json_schema()),
+            "schema_sha256": schema_identity(plan),
             "properties": props,
             "token_checks": checks,
             "python": platform.python_version(),
@@ -283,14 +354,14 @@ def main(argv=None):
 
     def dispatch(case, wire):
         transport = VerifiedTransport(wire)
-        with client_for(plan, args.endpoint, transport) as client:
+        with client_for(plan, args.endpoint, transport, case=case) as client:
             result = client.generate(case["messages"])
         if transport.calls != 1:
             raise ValueError("no verified dispatch; preserve unknown start")
         return result.raw_response, result.error
 
     state = run(plan, args.directory, dispatch)
-    return 0 if len(state["successful"]) == 10 else 1
+    return 0 if len(state["successful"]) == len(plan["cases"]) else 1
 
 
 if __name__ == "__main__":

@@ -1,9 +1,11 @@
 # Assessed source and model readiness
 
 **November 13 continuation:** the baseline human reference remains frozen.
-GPT-OSS-120B high-effort V9/V10 development is now measured: 56/60 and 53/60 on ten
-known cases, with semantic failures that prevent qualification. Cumulative starts
-are 119. See [the current qualification record](JUDGE-QUALIFICATION-RESULTS.md).
+GPT-OSS-120B high-effort V11 and V12 complete with 55/60 and 53/60 agreement,
+respectively, and continuing semantic failures. Qualification remains pending;
+cumulative starts are 149. Next acquire and verify the pinned Qwen3.5 candidate
+before its separate bounded screen.
+See [the current qualification record](JUDGE-QUALIFICATION-RESULTS.md).
 Reporting/export software is implemented; assessed judging and Phase B still wait
 for a qualified candidate and full calibration. No new human review is requested
 while these known-case defects are being addressed.
