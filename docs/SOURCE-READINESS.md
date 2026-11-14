@@ -248,3 +248,11 @@ No scorer output or paired comparison exists. Cumulative starts are **95**;
 are preserved locally/NAS and the server is stopped. Source gaps remain; matching
 the single control case's six labels does not resolve them. Next revise verifier
 ID/coverage and output discipline before a new frozen allocation.
+
+V8.1 subsequently passes token preflight and accepts the first verifier response
+with complete passage coverage and valid IDs. It nevertheless marks composite
+claims supported despite the same documented primary-source gaps. Both scorers
+accept those findings and fail their citation-role format. The run stops after
+four starts (cumulative **99**), with zero matched pairs and no qualification.
+**344 tests pass**. The complete return/audit is verified locally and on the NAS;
+the server is stopped. [Details and next work](JUDGE-V81-VERIFIER.md#measured-result).

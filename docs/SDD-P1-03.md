@@ -306,7 +306,10 @@ synthetic fixtures only; 341 locked WSL tests pass. Compact presentation passes
 native token preflight, but the bounded run stops after one accepted control and
 two verifier failures. No scorer or paired result exists; cumulative development
 starts are 95. The [design's development record](JUDGE-FACTCHECK-DESIGN.md#9-compact-presentation-and-bounded-comparison)
-owns the diagnosis. M4 remains incomplete and no stronger judge is qualified.
+owns the diagnosis. The subsequent [V8.1 revision](JUDGE-V81-VERIFIER.md) passes
+344 tests and accepts the first verifier response, but stops on two scorer format
+failures; semantic evidence overclaims remain. Cumulative starts are now 99, with
+zero paired cases. M4 remains incomplete and no stronger judge is qualified.
 
 ### 4.5 Storage and commands
 
@@ -653,3 +656,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.10 | 2026-11-13 | Implement isolated V8 contracts, source integrity checks, durable stage ledger, frozen reporting-reference hash and paired offline reports; source package and live dispatch remain pending, with no new inference |
 | 0.11 | 2026-11-13 | Add primary-excerpt extraction lineage and native Mac wire/token preflight; 340 tests pass. Frozen package halted on two scorer reserve overflows before inference; full return/audit retained, M4 remains in progress |
 | 0.12 | 2026-11-13 | Compact model-input metadata without altering evidence; 341 tests and all native preflight checks pass. Bounded run stops after control acceptance and two verifier failures; 95 cumulative starts, no scorer/paired result, M4 remains in progress |
+| 0.13 | 2026-11-13 | V8.1 verifier ID/coverage checklist and concise prompt; 344 tests. First verifier accepted but semantic overclaims remain; two scorer format failures stop the four-request run, bringing cumulative starts to 99 with no paired result |

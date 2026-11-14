@@ -1,9 +1,9 @@
 # Source-grounded judge experiment — V8 design
 
-Status: the compact presentation passed native Mac preflight and the bounded
-comparison started on November 13, 2026. It stopped after one accepted control and
-two failed verifier responses, with no scorer output. See section 9. Cumulative
-development starts are **95**; no paired improvement or qualification is established.
+Status: V8 compact2 stopped after two verifier failures (section 9). Its subsequent
+[V8.1 revision](JUDGE-V81-VERIFIER.md) accepted the first verifier response but
+stopped on two scorer format failures; semantic overclaims remain. Cumulative
+development starts are **99**. No paired improvement or qualification is established.
 
 ## Purpose and boundaries
 

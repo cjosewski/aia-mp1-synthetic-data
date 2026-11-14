@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 from typing import Annotated, Literal
 
-from pydantic import Field, field_validator
+from pydantic import Field, field_validator, model_validator
 
 from .assessment import exclusive, validate_rubric
 from .evaluation_schemas import Judgment
@@ -69,16 +69,23 @@ class Case(StrictModel):
 
 
 class Experiment(StrictModel):
-    protocol: Literal["v8-development"]
+    protocol: Literal["v8-development", "v8.1-development"]
     cases: Annotated[list[Case], Field(min_length=5, max_length=5)]
     rubric: dict
     prompts: Prompts
     runtime: Runtime
     reference_sha256: SHA
-    prior_starts: Literal[92]
+    prior_starts: Literal[92, 95]
     max_starts: Literal[30]
     attempts_per_stage: Literal[2]
     consecutive_failure_limit: Literal[2]
+
+    @model_validator(mode="after")
+    def bind_allocation(self):
+        expected = 92 if self.protocol == "v8-development" else 95
+        if self.prior_starts != expected:
+            raise ValueError("protocol differs from its frozen prior request count")
+        return self
 
 
 class Completion(StrictModel):
@@ -271,6 +278,23 @@ def request_for(experiment: Experiment, case: Case, stage: Stage, predecessor: d
             exclude={"report"}
         )
     system = getattr(experiment.prompts, stage)
+    if experiment.protocol == "v8.1-development" and stage == "facts":
+        catalog = case.content["passage_catalog"]
+        instructions = {
+            "required_candidate_ids": [
+                k for k, v in catalog.items() if v["authority"] == "candidate"
+            ],
+            "allowed_task_refs": [k for k, v in catalog.items() if v["authority"] == "task"],
+            "allowed_primary_source_refs": [
+                k for k, v in catalog.items() if v["authority"] == "primary_excerpt"
+            ],
+            "allowed_summary_source_refs": [
+                k for k, v in catalog.items() if v["authority"] == "authored_summary"
+            ],
+        }
+        system += "\n\nApplication reference and coverage lists:\n" + json.dumps(
+            instructions, separators=(",", ":")
+        )
     if stage != "facts":
         system += "\n\nFrozen rubric:\n" + json.dumps(experiment.rubric, ensure_ascii=False)
     return {

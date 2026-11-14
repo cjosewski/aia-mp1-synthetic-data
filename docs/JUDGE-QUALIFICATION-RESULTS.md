@@ -12,7 +12,12 @@ schema-valid verifier response with invalid IDs/missing coverage, and a verifier
 retry that exhausted its output allowance. Control covers 1/5 cases, treatment
 0/5; no paired improvement is established. Cumulative starts are **95**. The
 30-start allocation stopped under its two-failure rule; unused requests do not
-authorize an automatic continuation. Next revise verifier output/ID discipline.
+authorize an automatic continuation. The subsequent [V8.1 revision](JUDGE-V81-VERIFIER.md#measured-result)
+passes verifier ID/coverage checks on the first case, then stops on two scorer
+format failures. Semantic audit also finds unsupported composite claims accepted
+by the scorer. Four new starts bring the cumulative count to **99**; control
+coverage remains 1/5, treatment 0/5, paired cases zero. Next strengthen atomic
+evidence verification and scorer citation roles before another frozen experiment.
 
 ## GPT-OSS-120B with fixed V7
 
