@@ -1,9 +1,10 @@
 # Source-grounded judge experiment — V8 design
 
-Status: offline contracts, durable stage tracking and paired reporting implemented
-November 13, 2026 following Chad's next “Go”. Draft prompts are not frozen for
-execution. The source bundle and live Mac transport adapter remain to be prepared;
-no new inference or quality measurement occurred. Documented request starts remain 92.
+Status: contracts, source preparation and native Mac transport implemented on
+November 13, 2026. Following Chad's “Continue on M4”, the frozen package passed
+integrity/runtime checks but stopped at token preflight before inference. Two
+scorer reserve checks exceed the fixed context. See section 8. No V8 quality
+measurement occurred; documented request starts remain 92.
 
 ## Purpose and boundaries
 
@@ -230,7 +231,8 @@ The implementation is isolated from assessed commands:
 | [factcheck.py](../src/aia_mp1/factcheck.py) | Exact typed catalog, source/hash validation, strict findings/dispositions, memo lineage and canonical projection |
 | [factcheck_stages.py](../src/aia_mp1/factcheck_stages.py) | Five-category experiment, frozen prompts/runtime/reference hash, durable request starts, raw completion replay, schedule and stop rules |
 | [factcheck_report.py](../src/aia_mp1/factcheck_report.py) | Coverage, initial validity/recovery, unresolved cases, matched-pair changes and numeric advancement screen |
-| [factcheck_cli.py](../src/aia_mp1/factcheck_cli.py) | Offline package validation, status and immutable reports |
+| [factcheck_cli.py](../src/aia_mp1/factcheck_cli.py) | Package validation, status, immutable reports and explicit native Mac execution |
+| [factcheck_transport.py](../src/aia_mp1/factcheck_transport.py) | Runtime/weight identity, exact Instructor wire capture, server token preflight and single-dispatch transport |
 
 `fact_input(base, rubric, excerpts)` builds the augmented input without changing
 candidate/reference text. It rejects unknown metadata channels and assigns source
@@ -257,17 +259,29 @@ requires inspection. Implementation/schema hashes are frozen, so resume with the
 same source checkout. Hash chains provide integrity checking, not protection from
 deliberate coordinated replacement of every artifact and checkpoint.
 
-The current excerpt adapter supports exact UTF-8 byte ranges in retained source
-files and hashes the separate permission receipt. PDF/page extraction is not
-implemented here; source preparation must add verified original-to-text provenance
-before importing such excerpts, or use an already cleared primary text source.
-Permission scope and factual entailment remain review tasks; a matching receipt
-hash alone does not prove either. Token-fit validation and live dispatch are also
-pending. The CLI cannot launch a model request.
+The excerpt adapter supports exact UTF-8 byte ranges in retained source files and
+hashes the separate permission receipt. PDF excerpts also bind the original PDF,
+extraction script, output and receipt. The locked pypdf extraction tool records
+its version and page hashes without rewriting text. Permission scope and factual
+entailment remain review tasks; matching hashes alone do not prove either.
+
+The native Mac transport captures the actual Instructor request, including its
+schema additions, without inference. The pinned server renders and tokenizes that
+wire request before dispatch. Input plus 4096 output tokens must fit 16384 tokens;
+the preliminary scorer check reserves another 5120 tokens for its future memo.
+The actual scorer memo is checked again before its durable start. Overflow halts
+the experiment without changing context or truncating evidence. Server identity,
+template, settings and the full weight hash are checked; each dispatch must match
+the inspected wire body and cannot retry internally.
+
+The wire catalog includes passage IDs and authority without repeating the text
+already present in the candidate, context and primary excerpts. Scoring receives
+the memo findings once; the full verifier report remains in the ledger. The three
+arms retain identical source evidence. `run-prepared` defaults to preflight only;
+`--execute` explicitly enables the frozen bounded schedule on native Apple Silicon.
 
 Developer commands below run in the locked Ubuntu environment from the repository.
-Replace the uppercase paths with prepared external artifacts; no live V8 package
-has been produced at this checkpoint:
+Replace the uppercase paths with prepared external artifacts:
 
 ```bash
 export AIA_MP1_TOOLS="$HOME/.local/share/aia-mp1-tools"
@@ -292,3 +306,65 @@ tests; Ruff lint/format and offline CLI help passed. Tests cover the complete
 15-stage schedule, all 30 allowed starts with retries, interrupted/resumed ledgers,
 damaged evidence, source/runtime drift, uncertainty and paired denominators. These
 are software checks, not measured judge quality or authentic human evaluations.
+
+The transport/source preparation slice passed **340 locked WSL tests**, Ruff
+lint/format and shell syntax checks. New tests cover actual Instructor schema
+serialization, one-dispatch enforcement, token overflow before and after a verifier
+memo, extraction lineage, and preflight-to-execution reuse. The external five-case
+package contains 18 exact primary excerpts and a coverage/gap record. It preserves
+all candidates and frozen ratings. Missing primary support must remain uncertain;
+this package is a development experiment, not a completed qualification.
+
+## 8. Native Mac preflight result
+
+The frozen five-case package contains 18 primary excerpts from the previously
+approved retained sources. It preserves the candidate/reference text and ratings.
+The full GPT-OSS-20B weight hash, pinned build/template, one slot and 16384-token
+context matched the archived V7 runtime. All ten control/verifier checks fit.
+Scorer planning checks include 4096 output tokens plus a 5120-token memo reserve:
+
+| Category | Scorer base prompt | Total with output and memo reserve | Fits 16384 |
+| --- | ---: | ---: | --- |
+| ArcPy | 6487 | 15703 | Yes |
+| FreeCAD | 7934 | 17150 | No; 766 over |
+| SciPy | 8330 | 17546 | No; 1162 over |
+| Revit | 5927 | 15143 | Yes |
+| OpenSeesPy | 6392 | 15608 | Yes |
+
+This is a conservative planning failure, not an observed memo overflow: no
+verifier completion was generated. The ledger recorded `token_fit` and **zero
+request starts**, keeping cumulative development starts at **92**. No quality,
+agreement or stronger-judge claim follows. The owned server stopped, and an
+independent port check found no listener. The earlier launch failed on macOS
+Bash 3 empty-array expansion before ledger creation; its record is retained. A
+separately hashed launcher fixed that shell issue without changing the experiment.
+Offline Instructor wire capture logs synthetic HTTP 400 responses; these are
+intercepted serialization checks, not real model attempts.
+
+Source gaps remain explicit: the ArcPy excerpts do not establish every cleanup
+or empty-result detail; SciPy's excerpts do not document `math.log`; Revit's sample
+shows the correct sheet method but is not an exhaustive API absence/null-behavior
+reference. Mathematical deductions and safety conclusions also need semantic
+review. Unsupported decisive claims must remain insufficient.
+
+External evidence under workspace `artifacts/evidence/P1-03/qualification/`:
+
+- Frozen package: `MP1-GPTOSS-V8-MAC.zip`, SHA-256
+  `381d818446548b4cd24a73e360f49e06b1baaafd6d65a9df8969ad5d94f36320`.
+- Complete Mac return: `MP1-GPTOSS-V8-PREFLIGHT-RETURN.zip`, SHA-256
+  `96ab5e4113cc94c701cdf862bcf4e93624267107f0cf10f6e4d3d0e4771c74ec`.
+- Replay, 141 frozen-file checks, token receipts and full extracted Mac folder:
+  `gptoss-v8-preflight-review-20261113/`.
+- Input lineage, exact ranges, permission and extraction receipts and limitations:
+  `MP1-GPTOSS-V8-MAC/SOURCE-COVERAGE.md` and adjacent manifests.
+
+The package, complete return and audit/full folder were copied to
+`\\192.168.0.55\aia\MP1-handoff`; all 177 copied files matched their source hashes.
+Previous Mac/NAS folders remain intact.
+
+Next compact prompt/schema or evidence presentation while preserving source
+meaning, uncertainty and all five cases; review the documented source gaps and
+freeze a new package before repeating preflight. Do not resume this halted ledger,
+truncate evidence or silently increase context/output limits. The bounded
+comparison, semantic audit, fresh blind confirmation and assessed calibration
+remain ahead; M4 is still in progress.

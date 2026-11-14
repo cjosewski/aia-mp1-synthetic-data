@@ -297,11 +297,14 @@ Its external ledger freezes schemas/code, prompts, runtime and a separate human
 reference mapping hash; it writes durable starts before dispatch, revalidates saved
 completions on replay and blocks unknown outcomes or damaged checkpoints. Paired
 reports retain all five selected cases, separate schema validity from acceptance,
-and report unresolved cases without invented ratings. A separate module CLI only
-validates packages, inspects ledgers and writes immutable reports. The source
-bundle, PDF extraction provenance where needed, token fit and live Mac transport
-adapter remain pending. Offline tests use synthetic fixtures only; no V8 quality
-measurement or stronger-judge qualification is established.
+and report unresolved cases without invented ratings. The separate module CLI
+also supports native Mac preflight and explicit bounded execution. Its transport
+checks the exact Instructor wire request against the pinned server's tokenizer,
+runtime and weights before dispatch. The prepared bundle contains 18 primary
+excerpts, PDF extraction lineage and explicit source coverage gaps. Tests use
+synthetic fixtures only; 340 locked WSL tests pass. These software checks do not
+establish V8 quality or stronger-judge qualification. The development record below
+the [design](JUDGE-FACTCHECK-DESIGN.md) tracks the measured execution outcome.
 
 ### 4.5 Storage and commands
 
@@ -646,3 +649,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.8 | 2026-11-13 | Fixed V7 candidate comparison under JUDGE-MODEL-COMPARISON.md; byte-identical messages/validation with model-specific native templates; results and advancement decision owned by JUDGE-QUALIFICATION-RESULTS.md |
 | 0.9 | 2026-11-13 | Proposed source-grounded verifier/scorer contracts, explicit unresolved handling and matched evidence control; draft prompts prepared, implementation and experiment unmeasured; no assessed default or frozen-reference changes |
 | 0.10 | 2026-11-13 | Implement isolated V8 contracts, source integrity checks, durable stage ledger, frozen reporting-reference hash and paired offline reports; source package and live dispatch remain pending, with no new inference |
+| 0.11 | 2026-11-13 | Add primary-excerpt extraction lineage and native Mac wire/token preflight; 340 tests pass. Frozen package halted on two scorer reserve overflows before inference; full return/audit retained, M4 remains in progress |

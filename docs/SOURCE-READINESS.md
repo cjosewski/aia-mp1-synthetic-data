@@ -227,3 +227,14 @@ reports, including a frozen reference-mapping hash. Source preparation remains
 outstanding: exact excerpts, permission-scope review, PDF extraction provenance
 where applicable, coverage gaps and token fit. The live Mac transport adapter is
 also pending. No model requests or human-label amendments occurred.
+
+The subsequent M4 source/transport slice prepared 18 exact primary excerpts with
+permission and PDF extraction lineage, preserving explicit coverage gaps. Native
+Mac preflight verified the frozen GPT-OSS-20B runtime and weights, then halted:
+FreeCAD and SciPy scorer planning checks require 17150 and 17546 tokens against
+the fixed 16384 context, including output and memo reserve. No inference occurred;
+development starts remain 92. The owned server stopped and the full return/audit
+was hash-verified on the NAS. **340 locked WSL tests pass.** Next compact the
+presentation without removing necessary evidence and repeat preflight in a new
+package. [Details](JUDGE-FACTCHECK-DESIGN.md#8-native-mac-preflight-result). M4 and
+assessed judging remain gated; no human-label amendment is needed.

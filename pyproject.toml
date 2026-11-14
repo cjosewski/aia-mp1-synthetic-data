@@ -22,7 +22,11 @@ analysis = ["matplotlib>=3.10,<4", "seaborn>=0.13,<1"]
 aia-mp1 = "aia_mp1.cli:main"
 
 [dependency-groups]
-dev = ["pytest>=9,<10", "ruff>=0.14,<1"]
+dev = [
+    "pypdf>=6,<7",
+    "pytest>=9,<10",
+    "ruff>=0.14,<1",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/aia_mp1"]

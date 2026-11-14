@@ -128,6 +128,8 @@ def contract_hash() -> str:
                     "evaluation_schemas.py",
                     "schemas.py",
                     "factcheck_report.py",
+                    "factcheck_transport.py",
+                    "model_client.py",
                 )
             },
             "schemas": {stage: schema.model_json_schema() for stage, schema in SCHEMAS.items()},
@@ -247,8 +249,17 @@ def accepted_memo(experiment: Experiment, case: Case, predecessor: dict | None) 
 
 def request_for(experiment: Experiment, case: Case, stage: Stage, predecessor: dict | None) -> dict:
     content = dict(case.content)
+    # Original text remains in candidate/context/excerpts. Send its typed locations
+    # once, rather than repeating every passage's text in a second catalog.
+    content["passage_catalog"] = {
+        key: {"path": entry["path"], "authority": entry["authority"]}
+        for key, entry in case.content["passage_catalog"].items()
+    }
     if stage == "score":
-        content["untrusted_fact_memo"] = accepted_memo(experiment, case, predecessor).model_dump()
+        # The ledger retains the complete report; do not repeat each finding twice on the wire.
+        content["untrusted_fact_memo"] = accepted_memo(experiment, case, predecessor).model_dump(
+            exclude={"report"}
+        )
     system = getattr(experiment.prompts, stage)
     if stage != "facts":
         system += "\n\nFrozen rubric:\n" + json.dumps(experiment.rubric, ensure_ascii=False)
@@ -427,7 +438,7 @@ class Ledger:
             if computed["fatal"]:
                 state["halt"] = computed["error_type"]
         elif record.get("kind") == "halt" and set(record) == {"kind", "reason"}:
-            if state["halt"] or record["reason"] != "preflight_mismatch":
+            if state["halt"] or record["reason"] not in {"preflight_mismatch", "token_fit"}:
                 raise ValueError("invalid halt receipt")
             state["halt"] = record["reason"]
         else:
@@ -460,6 +471,15 @@ class Ledger:
             record = self._start(experiment, state, selected)
             self._append(state, record)
             return record
+
+    def halt(self, reason: str) -> None:
+        if reason not in {"preflight_mismatch", "token_fit"}:
+            raise ValueError("unsupported preflight halt")
+        with exclusive(self.directory):
+            _, state = self.read()
+            if state["pending"] or state["halt"]:
+                raise ValueError("cannot replace an existing halt or unknown request")
+            self._append(state, {"kind": "halt", "reason": reason})
 
     def finish(self, attempt_id: str, completion: Completion) -> dict:
         with exclusive(self.directory):

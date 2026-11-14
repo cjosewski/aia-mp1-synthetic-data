@@ -1,6 +1,7 @@
 """V8 development contracts. Valid references establish traceability, not truth."""
 
 import hashlib
+import json
 from copy import deepcopy
 from pathlib import Path
 from typing import Annotated, Literal
@@ -18,6 +19,15 @@ Dimension = Literal["D1", "D2", "D3", "D4", "D5", "D6"]
 Stage = Literal["control", "facts", "score"]
 
 
+class Extraction(StrictModel):
+    original_path: NonBlank
+    original_sha256: SHA
+    extractor_path: NonBlank
+    extractor_sha256: SHA
+    receipt_path: NonBlank
+    receipt_sha256: SHA
+
+
 class Excerpt(StrictModel):
     source_id: NonBlank
     version: NonBlank
@@ -32,6 +42,7 @@ class Excerpt(StrictModel):
     permission_path: NonBlank
     permission_sha256: SHA
     allowed_uses: list[NonBlank]
+    extraction: Extraction | None = None
 
     @field_validator("text")
     @classmethod
@@ -73,6 +84,29 @@ def check_excerpt(excerpt: Excerpt, root: Path | None = None) -> None:
             or hashlib.sha256(permission).hexdigest() != excerpt.permission_sha256
         ):
             raise ValueError("source artifact, exact excerpt or permission receipt changed")
+        if excerpt.extraction is not None:
+            extraction = excerpt.extraction
+            for name, expected in (
+                (extraction.original_path, extraction.original_sha256),
+                (extraction.extractor_path, extraction.extractor_sha256),
+                (extraction.receipt_path, extraction.receipt_sha256),
+            ):
+                if hashlib.sha256(source_file(root, name).read_bytes()).hexdigest() != expected:
+                    raise ValueError("original/extractor/receipt hash changed")
+            receipt = json.loads(source_file(root, extraction.receipt_path).read_text("utf-8"))
+            if (
+                not isinstance(receipt, dict)
+                or any(
+                    receipt.get(key) != expected
+                    for key, expected in {
+                        "original_sha256": extraction.original_sha256,
+                        "extractor_sha256": extraction.extractor_sha256,
+                        "output_sha256": excerpt.artifact_sha256,
+                    }.items()
+                )
+                or not receipt.get("extractor_version")
+            ):
+                raise ValueError("extraction receipt does not bind the original and output")
 
 
 def _context(content: dict) -> None:
@@ -81,7 +115,7 @@ def _context(content: dict) -> None:
     if (
         not isinstance(context, dict)
         or not {"task", "sources"} <= set(context)
-        or set(context) - {"task", "sources", "pack_sha256", "task_origin"}
+        or set(context) - {"task", "sources", "pack_sha256", "source_pack_sha256", "task_origin"}
     ):
         raise ValueError("unexpected reference context fields")
     task = context["task"]
