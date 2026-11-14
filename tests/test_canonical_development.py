@@ -1,12 +1,15 @@
 """Synthetic V9 request accounting and exact wire checks; no model inference."""
 
 import copy
+import hashlib
 import json
 
 import pytest
 
 from aia_mp1.canonical_development import (
     MODEL_SHA,
+    QWEN_MODEL_SHA,
+    QWEN_SETTINGS,
     SETTINGS,
     audit,
     compose,
@@ -16,7 +19,9 @@ from aia_mp1.canonical_development import (
     schema_for,
     schema_identity,
     validate_plan,
+    validate_template,
     verify_runtime,
+    weight_identity,
     wire_for,
 )
 from aia_mp1.evaluation_schemas import DIMENSIONS, Judgment
@@ -269,3 +274,54 @@ def test_presentation_preserves_original_values_and_canonical_schema(fixture, tm
     )
     state = run(plan, directory, lambda *_: (completion(), None))
     assert len(compose(plan, state)) == len(state["attempts"]) == 10
+
+
+def test_qwen_uses_own_weight_and_thinking_identity(fixture, tmp_path):
+    old, _ = fixture
+    plan = copy.deepcopy(old)
+    plan.update(
+        protocol="qwen35-canonical-development",
+        prior_starts=149,
+        settings=QWEN_SETTINGS,
+        model_sha256=QWEN_MODEL_SHA,
+    )
+    validate_plan(plan)
+    assert "reasoning_effort" not in wire_for(plan, plan["cases"][0])
+    validate_template(plan, "Synthetic text\n<|im_start|>assistant\n<think>\n")
+    with pytest.raises(ValueError, match="thinking channel"):
+        validate_template(plan, "<|im_start|>assistant\n<think>\n</think>\n")
+    with pytest.raises(ValueError, match="high reasoning"):
+        validate_template(old, "<|im_start|>assistant\n<think>\n")
+    changed = copy.deepcopy(plan)
+    changed["settings"] = SETTINGS
+    with pytest.raises(ValueError, match="protocol"):
+        validate_plan(changed)
+    changed = copy.deepcopy(plan)
+    changed["model_sha256"] = MODEL_SHA
+    with pytest.raises(ValueError, match="protocol"):
+        validate_plan(changed)
+    directory = tmp_path / "qwen"
+    directory.mkdir()
+    save(
+        directory / "manifest.json",
+        {"plan_sha256": digest(plan), "schema_sha256": schema_identity(plan)},
+    )
+    state = run(plan, directory, lambda *_: (completion(), None))
+    assert len(state["attempts"]) == len(compose(plan, state)) == 10
+
+
+def test_split_weight_identity_checks_every_shard(monkeypatch, tmp_path):
+    files = []
+    for name, content in (("synthetic-1.gguf", b"first"), ("synthetic-2.gguf", b"second")):
+        (tmp_path / name).write_bytes(content)
+        files.append(
+            {"name": name, "bytes": len(content), "sha256": hashlib.sha256(content).hexdigest()}
+        )
+    monkeypatch.setattr("aia_mp1.canonical_development.QWEN_FILES", files)
+    plan = {"protocol": "qwen35-canonical-development", "model_sha256": digest(files)}
+    assert weight_identity(plan, tmp_path / files[0]["name"]) == digest(files)
+    with pytest.raises(ValueError, match="first shard"):
+        weight_identity(plan, tmp_path / files[1]["name"])
+    (tmp_path / files[1]["name"]).write_bytes(b"mutated")
+    with pytest.raises(ValueError, match="size or checksum"):
+        weight_identity(plan, tmp_path / files[0]["name"])

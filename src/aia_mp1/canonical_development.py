@@ -26,6 +26,24 @@ SETTINGS = {
     "timeout_seconds": 300.0,
     "reasoning_effort": "high",
 }
+QWEN_SETTINGS = {key: value for key, value in SETTINGS.items() if key != "reasoning_effort"}
+QWEN_FILES = [
+    {
+        "name": "Qwen_Qwen3.5-122B-A10B-Q4_K_M-00001-of-00002.gguf",
+        "bytes": 39925205312,
+        "sha256": "e6f74fc4e5ff7da7888cb0a135f9fafbf1265b748f5db9f72c7794061a333843",
+    },
+    {
+        "name": "Qwen_Qwen3.5-122B-A10B-Q4_K_M-00002-of-00002.gguf",
+        "bytes": 37691305984,
+        "sha256": "1c07a0f86507ad661830a2c317f9c4450e40a836bf9133225926054ab0722316",
+    },
+]
+QWEN_MODEL_SHA = digest(QWEN_FILES)
+
+
+def is_qwen(plan):
+    return plan["protocol"] == "qwen35-canonical-development"
 
 
 class CoreJudgment(BaseModel):
@@ -72,6 +90,7 @@ def validate_plan(plan):
         "v10-canonical-development": (109, 20),
         "v11-isolated-development": (119, 40),
         "v12-presentation-development": (139, 20),
+        "qwen35-canonical-development": (149, 20),
     }
     isolated = plan["protocol"] == "v11-isolated-development"
     expected_ids = [f"qualification-v1-{i:02d}" for i in range(1, 11)]
@@ -80,8 +99,8 @@ def validate_plan(plan):
     if (
         plan["protocol"] not in allocations
         or (plan["prior_starts"], plan["max_starts"]) != allocations[plan["protocol"]]
-        or plan["settings"] != SETTINGS
-        or plan["model_sha256"] != MODEL_SHA
+        or plan["settings"] != (QWEN_SETTINGS if is_qwen(plan) else SETTINGS)
+        or plan["model_sha256"] != (QWEN_MODEL_SHA if is_qwen(plan) else MODEL_SHA)
         or [c["item_id"] for c in plan["cases"]] != expected_ids
     ):
         raise ValueError("canonical development protocol, identities or budget changed")
@@ -133,8 +152,12 @@ def wire_for(plan, case):
         plan, "http://127.0.0.1:1/v1", httpx.MockTransport(capture), case=case
     ) as client:
         client.generate(case["messages"])
-    if len(captured) != 1 or captured[0].get("reasoning_effort") != "high":
-        raise ValueError("exact high-effort request serialization failed")
+    if len(captured) != 1 or (
+        ("reasoning_effort" in captured[0])
+        if is_qwen(plan)
+        else captured[0].get("reasoning_effort") != "high"
+    ):
+        raise ValueError("exact model-specific request serialization failed")
     return captured[0]
 
 
@@ -273,6 +296,35 @@ def run(plan, directory, dispatch):
         return state
 
 
+def weight_identity(plan, weight):
+    if is_qwen(plan):
+        if weight.name != QWEN_FILES[0]["name"]:
+            raise ValueError("Qwen first shard identity differs")
+        observed = []
+        for expected in QWEN_FILES:
+            shard = weight.parent / expected["name"]
+            with shard.open("rb") as stream:
+                sha = hashlib.file_digest(stream, "sha256").hexdigest()
+            observed.append({"name": shard.name, "bytes": shard.stat().st_size, "sha256": sha})
+        if observed != QWEN_FILES:
+            raise ValueError("Qwen shard size or checksum differs")
+        checksum = digest(observed)
+    else:
+        with weight.open("rb") as stream:
+            checksum = hashlib.file_digest(stream, "sha256").hexdigest()
+    if checksum != plan["model_sha256"]:
+        raise ValueError("served weight checksum differs")
+    return checksum
+
+
+def validate_template(plan, rendered):
+    if is_qwen(plan):
+        if not rendered.rstrip().endswith("<|im_start|>assistant\n<think>"):
+            raise ValueError("Qwen template did not open the thinking channel")
+    elif "Reasoning: high" not in rendered:
+        raise ValueError("chat template did not apply high reasoning effort")
+
+
 def prepare_runtime(plan, directory, endpoint):
     validate_plan(plan)
     if platform.system() != "Darwin" or platform.machine() != "arm64":
@@ -292,16 +344,12 @@ def prepare_runtime(plan, directory, endpoint):
         ):
             raise ValueError("Mac runtime differs from frozen plan")
         weight = Path(props["model_path"])
-        with weight.open("rb") as stream:
-            checksum = hashlib.file_digest(stream, "sha256").hexdigest()
-        if checksum != plan["model_sha256"]:
-            raise ValueError("served weight checksum differs")
+        checksum = weight_identity(plan, weight)
         checks = []
         for case in plan["cases"]:
             wire = wire_for(plan, case)
             rendered = server.json("/apply-template", wire)["prompt"]
-            if "Reasoning: high" not in rendered:
-                raise ValueError("chat template did not apply high reasoning effort")
+            validate_template(plan, rendered)
             check = server.token_fit(wire, 16384)
             if not check["fits"]:
                 raise ValueError("exact wire input plus output allowance exceeds context")

@@ -49,3 +49,56 @@ in every dimension. No human labels or production defaults change here.
 
 Pinned metadata, model cards, license, template and runtime source are retained
 outside Git in `qualification/qwen35-candidate-research-20261113/`.
+
+## Frozen-screen specification
+
+Use the exact ten original user messages and V9 system messages, the canonical
+six-dimension Judgment schema, JSON mode, temperature 0.1, output limit 8192 and
+300-second request timeout. The native Mac, pinned server build, context 16384 and
+one slot stay fixed. Use Qwen's default thinking mode explicitly enabled at server
+launch and extract the reasoning channel separately; do not send GPT-OSS's
+`reasoning_effort` request option. Preflight requires the rendered prompt to end
+with the assistant's open `<think>` channel. Only final JSON is parsed as a result.
+
+This differs from upstream's recommended sampling and long-context settings:
+the local judge's 0.1 temperature remains below the generator's 0.6, and the
+resource ceiling remains 16384 with verified input-plus-output fit. Results
+describe this constrained configuration, not the model's maximum capability.
+Model weights, chat template and model-specific thinking controls necessarily
+differ from GPT-OSS; do not attribute every difference solely to parameter count.
+
+Allocate **twenty new starts after 149**, cumulative ceiling **169**, with two
+attempts per case and a stop after two consecutive invalid/transport outcomes.
+Unknown outcomes require inspection and stop dispatch. Freeze all code, source
+messages, prompts, model provenance and the plan before inference. Both shard
+size/hash records define the composite weight identity using the project's
+canonical JSON digest; retain each raw shard checksum separately.
+
+Require complete known-case coverage, at least 80% agreement in every dimension,
+no safety/API false approvals and supported public explanations before fresh
+confirmation. Preserve failure as failure. A promising screen is not qualification:
+freeze the protocol before preparing new cases, obtain authentic blind reviews
+before model calls, and compare with the generator on matched confirmation inputs.
+
+## Preparation evidence
+
+The new runner passes **372 locked WSL tests**, including strict model-specific
+serialization, independent verification of both shards, template-mode rejection
+and unchanged canonical composition. Ruff lint/format and launcher syntax checks
+pass. No assessed configuration changes are made.
+
+`qualification/MP1-QWEN35-V1-MAC.zip` freezes 148 files. All ten complete model
+messages match the V9R1 plan exactly. Mac and NAS copies match the source archive,
+and native environment setup verifies every frozen file without inference.
+
+- Plan SHA-256: `fbd845e35eb3476be12432ef148fd8f9f9d54b5bf0fd86a59f1e416e8255ccbf`.
+- Package SHA-256: `fb0f6cf16b2fd5ca686905adece9725ab13f531cc9557b33bff673fddfc8a17f`.
+- Composite weight identity: `b7063f5f100fb0ff065badc28d9474bf2ad7007cf6ec6051bb463e0d02537aa3`.
+
+After this protocol freeze, ten unscored reserve confirmation examples were
+authored, two per category. Exact comparisons against 225 prior records found no
+reused item ID, payload or question; task briefs differ from the approved task
+pack and the earlier unused draft. Concepts and domains overlap, so these checks
+are not a claim of semantic independence or representative sampling. No human
+labels or model judgments exist for them, and no review request has been issued.
+They remain separate at `qualification/qwen35-v1-confirmation-draft/`.
