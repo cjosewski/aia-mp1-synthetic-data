@@ -1,6 +1,14 @@
 # Judge qualification — November 13 checkpoint
 
-**Latest:** [Qwen3.5 V1](QWEN35-CANDIDATE.md#measured-result) completes ten valid
+**Latest:** [Qwen3.5 V2](QWEN35-V2.md#measured-result) completes ten valid first
+attempts at 54/60, with dimension counts 10,10,8,10,6,10. There are zero false
+approvals, but D5 falls below threshold. All 180 frozen files replay correctly;
+the return and 231 audit files verify locally/NAS. The owned server stopped.
+Cumulative starts are **169**. Next is the [existing-V10-prompt comparison](QWEN35-V3.md),
+with unchanged model, user inputs and runtime. No qualification or assessed run
+is claimed.
+
+Previous result: [Qwen3.5 V1](QWEN35-CANDIDATE.md#measured-result) completes ten valid
 first attempts, matching 56/60 with dimension counts 10,9,9,10,8,10. A safety false
 approval and three false rejections prevent advancement. The complete return and
 199 audit files verify locally/NAS; the owned server is stopped. Cumulative starts

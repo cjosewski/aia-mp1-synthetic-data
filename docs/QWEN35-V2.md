@@ -46,4 +46,30 @@ the source archive. Plan SHA-256:
 `0b5e7e4bd41dd562779a89def9d2b7c79e91dd56024d120f0a8db2f4c16ab571`.
 Archive SHA-256:
 `79749a3f1bee419e81fdd8615c4cdffe796332f01213c12852ac556e10184c80`.
-Native preflight and execution results remain pending.
+Native preflight and execution completed; the measured result follows.
+
+## Measured result
+
+All ten judgments are valid on their first attempts: **54/60 agreement**, with
+dimension matches **10, 10, 8, 10, 6, 10**. There are zero false approvals and six
+false rejections. The identical first five score 26/30. No retry, timeout,
+truncation or unknown outcome occurred. Cumulative development starts are **169**.
+All 180 frozen files and the returned ledger replay verify; the owned server
+stopped and port 8081 was free before archiving.
+
+Audit of all sixty public explanations confirms the corrected case-04 safety
+decision: read-only operation does not prevent dereferencing null. However, cases
+02 and 09 fail D3 for the wrong semantic effect of real, callable APIs. Cases 02,
+04, 05 and 06 fail D5 for procedural or interpretive errors rather than actual
+ambiguity or substituted givens. Case 02's D1 explanation identifies the wrong
+960-versus-720 volume, although it still calls the arithmetic check omitted rather
+than present but wrong. Other decisions are supported by the supplied fields.
+
+D5's 60% fails the numerical advancement threshold. Preserve V2 as a failed
+development comparison, including its safety improvement and regressions.
+No fresh human review, qualification receipt or assessed-default change follows.
+Next is the [separately frozen existing-V10-prompt comparison](QWEN35-V3.md).
+
+Return: `qualification/MP1-QWEN35-V2-RETURN.zip`, SHA-256
+`f0f073ada76a755de9520b3b0cbc3b177ec9ef607610d73147d6610d8b26d200`.
+Audit and public review rows: `qualification/mp1-qwen35-v2-return-audit/`.
