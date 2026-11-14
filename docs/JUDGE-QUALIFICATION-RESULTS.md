@@ -1,6 +1,21 @@
 # Judge qualification — November 13 checkpoint
 
-**Latest:** [Qwen3.5 V3](QWEN35-V3.md#measured-result) completes ten cases in eleven
+**Latest:** [Qwen3.5 V4](QWEN35-V4.md#measured-result) completes ten valid first
+attempts at **57/60**, dimensions **9,9,10,10,9,10**. One completeness false approval
+and two false rejections remain; safety/API false approvals are zero. All sixty
+public explanations were audited, with the three anchor errors retained and the
+57 matching explanations factually supported. All 183 frozen files replay; return,
+audit and fresh packet total 250 verified NAS files. Cumulative starts are **190**,
+and the owned Mac server is stopped. This supports fresh confirmation only.
+
+The [human review runbook](QWEN35-CONFIRMATION-RUNBOOK.md) is ready. Its ten unscored
+examples were prepared after the protocol freeze and checked for exact duplication
+against 235 prior records; conceptual overlap and nonrepresentative sampling remain
+disclosed. Neither comparison model has seen them. Authentic reviews, then a
+matched generator comparison, remain necessary before a stronger-model selection.
+No assessed defaults, frozen human labels or qualification status change.
+
+Previous result: [Qwen3.5 V3](QWEN35-V3.md#measured-result) completes ten cases in eleven
 starts, retaining one 8192-token truncation and its successful retry. Agreement
 is 56/60, dimensions 9,8,10,10,9,10; two safety false approvals and one completeness
 false approval prevent advancement. All 181 frozen files replay correctly, and

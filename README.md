@@ -6,16 +6,25 @@ Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/iss
 **Reporting implementation:** the [analysis runbook](docs/ANALYSIS-RUNBOOK.md)
 covers verified cohort reports, five charts with plotted-data tables, exact
 comparison thresholds and local evidence export.
-**375 locked WSL tests pass**, with Ruff and CLI/shell checks.
+**388 locked WSL tests pass**, including confirmation-review intake and lineage
+checks. Ruff lint/format and the actual blank-packet rejection also pass.
 The preliminary baseline report reproduces the frozen human review; full-cohort
 judge results and corrected data remain unmeasured. M4 qualification continues.
 
-**Latest judge result:** [Qwen3.5 V3](docs/QWEN35-V3.md#measured-result) completed
-ten cases in eleven starts, retaining one truncated response and its successful
-retry. Agreement is 56/60, but three false approvals prevent qualification.
-Cumulative development starts are 180. The [V4 protocol](docs/QWEN35-V4.md)
-combines explicit completion/hazard checks with the existing context instructions.
-No assessed judge run has started.
+**Action for Chad:** complete the ten fresh reviews using the
+[confirmation runbook](docs/QWEN35-CONFIRMATION-RUNBOOK.md). The packet is on the
+Mac under `~/AIA/MP1-handoff/qwen35-v4-blind-confirmation-v1`; edit `MY-ANSWERS.md`.
+Neither comparison model will receive these examples before your review is frozen.
+
+**Latest judge result:** [Qwen3.5 V4](docs/QWEN35-V4.md#measured-result) completed
+ten valid first attempts at **57/60**, with at least 90% agreement in each dimension
+and no safety/API false approvals. Three scoring errors remain explicitly recorded.
+The audited screen supports fresh confirmation only; qualification and assessed
+judging remain pending. Cumulative development starts are **190**. The owned Mac
+server is stopped and complete returns are verified locally/NAS.
+
+Previous Qwen result: [V3](docs/QWEN35-V3.md#measured-result) matched 56/60 in
+eleven starts, preserving a token-limit failure and its successful retry.
 
 Previous Qwen result: [V2](docs/QWEN35-V2.md#measured-result) matched 54/60 with
 zero false approvals but D5 at 6/10, failing its advancement threshold.

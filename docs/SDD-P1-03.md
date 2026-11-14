@@ -2,7 +2,7 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.18, November 13, 2026 |
+| Revision | 0.19, November 13, 2026 |
 | Status | Approved sources, 50-item baseline cohort and 20-item human reference frozen; judge development comparisons ongoing; qualified judge and assessed calibration pending |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
@@ -625,7 +625,15 @@ safety miss but regressing to 6/10 D5. V3 completes ten cases in eleven starts
 at 56/60; its token-limit failure and retry are both retained. Three false approvals
 prevent qualification. Cumulative starts are 180; 375 locked WSL tests pass.
 V4 combines the existing D1/D2 checks and V10 context instructions under unchanged
-model/inputs/runtime. These are development decisions, not assessed measurements.
+model/inputs/runtime. Ten valid first attempts match 57/60, with at least 90% in
+each dimension and zero safety/API false approvals. Three anchor errors remain
+recorded; all matching explanations are grounded in supplied facts. Cumulative
+starts are 190. The [fresh confirmation review](QWEN35-CONFIRMATION-RUNBOOK.md)
+is prepared on the Mac/NAS and requires authentic human reviews before either
+candidate or generator receives its ten cases. The intake validates immutable
+inputs and preserves exact submitted bytes; it cannot invent or authenticate
+human decisions. The complete locked WSL suite passes 388 tests. These are
+development decisions, not assessed measurements.
 
 Historical continuation checkpoint:
 
@@ -690,3 +698,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.16 | 2026-11-13 | Verify split Qwen3.5 weights and native thinking/token preflight; preserve complete 56/60 V1 result and semantic failure, bringing cumulative starts to 159. Prepare existing-V4-prompt controlled follow-up with 373 passing tests; no qualification or frozen-reference change |
 | 0.17 | 2026-11-13 | Preserve Qwen V2's complete 54/60 result, safety improvement and context regressions; cumulative starts 169. Freeze V3 using the existing V10 prompt under unchanged model/inputs/runtime after 374 tests; no assessed defaults or labels change |
 | 0.18 | 2026-11-13 | Preserve Qwen V3's complete 56/60 result, eleven starts including a token-limit failure/recovery, and semantic failures; cumulative 180. Prepare V13 D1/D2 clarification under V4's separate budget with 375 tests; no qualification or label changes |
+| 0.19 | 2026-11-13 | Audit V4 at 57/60 over ten valid first attempts, retaining three errors and zero safety/API false approvals; cumulative 190. Prepare ten fresh unscored confirmation cases, Mac/NAS review packet and strict attributed-review intake. Human review and matched comparison remain pending; no qualification or assessed metrics claimed |
