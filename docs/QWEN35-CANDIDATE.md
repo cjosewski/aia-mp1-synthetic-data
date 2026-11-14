@@ -4,8 +4,8 @@ Repeated GPT-OSS context errors motivate considering another local candidate.
 This record nominates a possible experiment; it does not qualify the model or
 claim that its size or published benchmarks predict this project's outcome.
 The complete V12 result is now 53/60 with continuing safety/API/context defects.
-Chad's standing authorization covers this next candidate; acquisition has begun.
-Inference remains gated on verified files and a newly frozen executable package.
+Chad's standing authorization covers this next candidate. Acquisition and native
+preflight and the frozen screen are complete. The configuration does not qualify.
 
 The [official model card](https://huggingface.co/Qwen/Qwen3.5-122B-A10B) identifies
 122B total parameters, 10B active parameters and Apache-2.0 licensing. Its reported
@@ -24,8 +24,8 @@ at `fec8b222a2eddc3346d6b6d7f7c85efea93cd6bf`. Two shards total
 | `00001-of-00002.gguf` | 39925205312 | `e6f74fc4e5ff7da7888cb0a135f9fafbf1265b748f5db9f72c7794061a333843` |
 | `00002-of-00002.gguf` | 37691305984 | `1c07a0f86507ad661830a2c317f9c4450e40a836bf9133225926054ab0722316` |
 
-The filenames begin `Qwen_Qwen3.5-122B-A10B-Q4_K_M-`. Mac inventory finds the
-candidate absent, 128 GiB installed memory and 269 GiB free disk. These establish
+The filenames begin `Qwen_Qwen3.5-122B-A10B-Q4_K_M-`. Before acquisition, Mac inventory found the
+candidate absent, 128 GiB installed memory and 269 GiB free disk. These established
 plausible capacity, not successful loading. Stop on resource/load failure; do not
 change system GPU limits, Herd or other services. Preserve existing model files.
 Use exclusive download paths, bounded transfer attempts, exact size/hash checks
@@ -102,3 +102,53 @@ pack and the earlier unused draft. Concepts and domains overlap, so these checks
 are not a claim of semantic independence or representative sampling. No human
 labels or model judgments exist for them, and no review request has been issued.
 They remain separate at `qualification/qwen35-v1-confirmation-draft/`.
+
+## Acquisition and native preflight
+
+Both final shard files match the pinned byte counts and SHA-256 values above.
+The second sequential transfer was interrupted after 21,695,787,008 bytes because
+of sustained low throughput. Only the identified acquisition processes were
+stopped. The prefix was preserved, eight bounded HTTP range transfers retrieved
+the remainder, and the assembled full-file checksum matched before publication
+at the model path. This recovery issued no model requests. Existing models and
+Herd services were preserved.
+
+The acquisition logs, interruption record, range responses and verification
+receipts are retained in `qwen35-candidate-research-20261113/mac-acquisition/`.
+All forty acquisition/provenance files match their NAS copies. Temporary download
+parts remain separate from the verified final weights.
+
+Native preflight exited successfully and stopped its owned server. It verified
+both shard hashes, the served model, frozen runtime properties, thinking-template
+marker and every input's token fit before the execute phase began. Offline
+serialization deliberately uses a mocked HTTP 400 response to capture the exact
+request; those logged mock errors are not failed inference requests.
+
+## Measured result
+
+All ten requests returned valid first-attempt judgments: **56/60 agreement**, with
+dimension matches **10, 9, 9, 10, 8, 10** out of ten. There is one false approval
+and three false rejections. The identical first five score 27/30. No retry,
+timeout, truncation or unknown outcome occurred; cumulative starts are **159**.
+All 148 frozen files verify, frozen-code ledger replay succeeds, and the owned
+server is stopped with port 8081 free.
+
+All sixty public explanations were inspected against the original candidate and
+task. Case 04 approves D2 based on read-only/disposable-model precautions despite
+recognizing the null-dereference defect in D1/D3/D6. Cases 04 and 06 still confuse
+incorrect handling with a changed problem under D5. Case 02 fails D3 because a
+real compound operation has the wrong Boolean effect, despite the anchor's
+distinction between a callable interface and its misuse. Its D1 explanation also
+calls the arithmetic check absent instead of identifying the supplied incorrect
+480 + 480 calculation. The other cases' explanations support their decisions;
+this does not repair the recorded failures.
+
+Every dimension reaches 80% numerically, but the safety false approval and
+unsupported anchor applications prevent advancement. The V1 reserve draft stays
+unused and unscored. Next compare the existing, unchanged V4 system prompt under
+the [separate V2 protocol](QWEN35-V2.md), keeping the model and user inputs fixed.
+No qualification receipt or assessed configuration is changed.
+
+Return: `qualification/MP1-QWEN35-V1-RETURN.zip`, SHA-256
+`10bc51af583819007a2cdf6e9f96eadb6c47267921f9160cee435a48eccb5116`.
+Audit and all public review rows: `qualification/mp1-qwen35-v1-return-audit/`.

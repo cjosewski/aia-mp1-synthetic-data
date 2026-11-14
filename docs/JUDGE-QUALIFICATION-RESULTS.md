@@ -1,10 +1,17 @@
 # Judge qualification — November 13 checkpoint
 
-**Latest:** [V12](JUDGE-V12-PRESENTATION.md#measured-result) completed ten valid
+**Latest:** [Qwen3.5 V1](QWEN35-CANDIDATE.md#measured-result) completes ten valid
+first attempts, matching 56/60 with dimension counts 10,9,9,10,8,10. A safety false
+approval and three false rejections prevent advancement. The complete return and
+199 audit files verify locally/NAS; the owned server is stopped. Cumulative starts
+are **159**. Next is the [V2 existing-prompt comparison](QWEN35-V2.md), with
+unchanged weights, runtime and user inputs. No new human review or assessed run
+is authorized by the development score alone.
+
+Previous result: [V12](JUDGE-V12-PRESENTATION.md#measured-result) completed ten valid
 first attempts, matching 53/60 with two false approvals and five false rejections.
 Formatting did not resolve context or evidence-reading defects. Development
-starts total **149**. Next acquire and verify the pinned [Qwen3.5 candidate](QWEN35-CANDIDATE.md)
-before a separate bounded screen. No qualification or assessed run is claimed.
+starts totaled **149** at that checkpoint. No qualification or assessed run was claimed.
 
 Previous result: [V11](JUDGE-V11-ISOLATED.md#measured-result) completed all twenty
 independent stage calls, composing ten judgments at 55/60. D5 remains 6/10 and

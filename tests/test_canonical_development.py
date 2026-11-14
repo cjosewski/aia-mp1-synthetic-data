@@ -276,12 +276,16 @@ def test_presentation_preserves_original_values_and_canonical_schema(fixture, tm
     assert len(compose(plan, state)) == len(state["attempts"]) == 10
 
 
-def test_qwen_uses_own_weight_and_thinking_identity(fixture, tmp_path):
+@pytest.mark.parametrize(
+    "protocol,prior_starts",
+    [("qwen35-canonical-development", 149), ("qwen35-v4-development", 159)],
+)
+def test_qwen_uses_own_weight_and_thinking_identity(fixture, tmp_path, protocol, prior_starts):
     old, _ = fixture
     plan = copy.deepcopy(old)
     plan.update(
-        protocol="qwen35-canonical-development",
-        prior_starts=149,
+        protocol=protocol,
+        prior_starts=prior_starts,
         settings=QWEN_SETTINGS,
         model_sha256=QWEN_MODEL_SHA,
     )

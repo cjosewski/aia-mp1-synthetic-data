@@ -1,10 +1,11 @@
 # Assessed source and model readiness
 
 **November 13 continuation:** the baseline human reference remains frozen.
-GPT-OSS-120B high-effort V11 and V12 complete with 55/60 and 53/60 agreement,
-respectively, and continuing semantic failures. Qualification remains pending;
-cumulative starts are 149. Next acquire and verify the pinned Qwen3.5 candidate
-before its separate bounded screen.
+The pinned Qwen3.5 candidate is acquired and verified on the Mac. Its first screen
+completes at 56/60 with a safety false approval and three false rejections.
+Qualification remains pending; cumulative starts are 159. The separate
+[V2 follow-up](QWEN35-V2.md) tests the existing V4 prompt under unchanged runtime
+conditions after 373 passing WSL tests.
 See [the current qualification record](JUDGE-QUALIFICATION-RESULTS.md).
 Reporting/export software is implemented; assessed judging and Phase B still wait
 for a qualified candidate and full calibration. No new human review is requested

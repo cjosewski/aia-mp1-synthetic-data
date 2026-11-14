@@ -43,7 +43,7 @@ QWEN_MODEL_SHA = digest(QWEN_FILES)
 
 
 def is_qwen(plan):
-    return plan["protocol"] == "qwen35-canonical-development"
+    return plan["protocol"] in {"qwen35-canonical-development", "qwen35-v4-development"}
 
 
 class CoreJudgment(BaseModel):
@@ -91,6 +91,7 @@ def validate_plan(plan):
         "v11-isolated-development": (119, 40),
         "v12-presentation-development": (139, 20),
         "qwen35-canonical-development": (149, 20),
+        "qwen35-v4-development": (159, 20),
     }
     isolated = plan["protocol"] == "v11-isolated-development"
     expected_ids = [f"qualification-v1-{i:02d}" for i in range(1, 11)]
