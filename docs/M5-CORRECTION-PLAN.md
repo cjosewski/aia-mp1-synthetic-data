@@ -22,12 +22,13 @@ baseline answers or corrected answer keys to generation.
 
 Hypothesis: this correction reduces invented or misapplied APIs, especially in AEC
 automation, without changing task requirements or introducing incompatible tips.
-The prompt is now being exercised by corrected collection; no measured quality improvement is claimed.
+The [corrected collection is complete](M5-COLLECTION-RESULTS.md); no measured
+quality improvement is claimed before human review and corrected judging.
 
 ## Execution record — November 16
 
 Chad released the Mac after a temporary availability hold. Collection
-`corrected-001` is running from a frozen checkout of `0e9a93b`, using the prepared
+`corrected-001` completed from a frozen checkout of `0e9a93b`, using the prepared
 v2 prompt. Python and collection ledgers run in locked WSL; an SSH loopback tunnel
 connects to the owned native Mac inference process. No Herd settings were changed.
 The endpoint reports the original generator model ID as an explicit alias for the
@@ -46,6 +47,11 @@ Runtime and helper records are in workspace
 accessed an absent optional config attribute after successful preflight; it stopped
 before any collection or model request. Its correction uses the unchanged absent
 reasoning-effort setting; both preflight records and the setup failure are retained.
+
+Final result: 250/250 valid first attempts, no retries or unknowns, fifty retained
+items with ten per category. The twenty-item blind packet is on the NAS at
+`Handoff/P1-03/M5-corrected-review-001`. The Mac was released after owned-process
+and port checks. Human review and corrected judging remain pending.
 
 ## Blind review export
 

@@ -3,19 +3,27 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
+**M5 review is ready:** [corrected collection results](docs/M5-COLLECTION-RESULTS.md)
+record 250/250 schema-valid first attempts and a frozen fifty-item cohort, ten per
+category. The twenty-item PDF/Markdown review packet is in
+`\\192.168.0.55\aia\Handoff\P1-03\M5-corrected-review-001`. Read `RUNBOOK.md` and
+`REVIEW-PACKET.pdf`, then complete `MY-ANSWERS.md`. No corrected judge results exist
+yet. The Mac is free; quality improvement remains unmeasured pending human review.
+
 **Current acceptance rule:** Chad confirmed [70% overall human/judge agreement](docs/ACCEPTANCE-AMENDMENT-70.md)
 on November 16. The saved V13 baseline has **87/120 matches (72.5%)** and complete
 coverage; its new validated receipt is **ready and M4 is complete**. New calibration
 and analysis CLI reports use this owner policy; original
 80%-per-dimension reports and all 33 false approvals remain preserved. M5 generator
-correction [plan and prompt are prepared](docs/M5-CORRECTION-PLAN.md). No additional judge experiment is
+correction [collection is complete and awaiting human review](docs/M5-CORRECTION-PLAN.md). No additional judge experiment is
 needed to satisfy the amended baseline agreement requirement.
 
 **Reporting implementation:** the [analysis runbook](docs/ANALYSIS-RUNBOOK.md)
 covers verified cohort reports, five charts with plotted-data tables, exact
 comparison thresholds and local evidence export.
-**449 locked WSL tests pass**, including the amended acceptance boundary, original
-report replay, incomplete-evidence rejection and runtime ownership guards.
+**456 WSL tests pass** with the locked analysis environment and optional PDF renderer,
+including the acceptance amendment, review export/intake, PDF content preservation,
+original report replay, incomplete-evidence rejection and runtime ownership guards.
 The [full baseline calibration](docs/BASELINE-BUDGET-RESULTS.md) completed 50/50
 first attempts, but agreement fails D1 (50%), D3 (65%) and D6 (60%). D2 is 85%,
 D4 90% and D5 85%. Those are the original-rule results; the amendment above now

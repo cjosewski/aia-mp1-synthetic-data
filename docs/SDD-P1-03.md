@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.27, November 16, 2026 |
-| Status | M4 complete under owner >=70% overall agreement amendment; validated baseline receipt ready at 87/120 (72.5%); M5 correction prompt and controls prepared |
+| Revision | 0.28, November 16, 2026 |
+| Status | M4 complete under owner >=70% overall amendment; M5 corrected cohort frozen after 250 valid first attempts; twenty-item review packet delivered, awaiting authentic reviews |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
@@ -614,6 +614,16 @@ state or a successful CLI exit.
 
 ### 8.3 Observed implementation checkpoint
 
+November 16, latest checkpoint: [M5 corrected collection](M5-COLLECTION-RESULTS.md)
+completed five batches, 250/250 initial schema-valid responses, zero retries and
+zero unknown outcomes. The unchanged gates retained fifty items, ten per category;
+twenty were frozen for blind human review. The 41-page PDF preserves all 445
+answer/reference text parts; all nine packet files match their NAS copies.
+Ninety-nine prior sealed entries are unchanged. The Mac server is stopped and its
+port is clear. No corrected labels or judge results exist yet. 456 WSL tests pass,
+including the optional PDF renderer. M5 awaits Chad's reviews, then frozen-V13
+judging and measured comparison. The Windows-to-Mac execution change is disclosed.
+
 November 16, current checkpoint: Chad confirmed **70% overall agreement** and
 specified that no instructor approval is needed for this amendment. The
 [new acceptance receipt](ACCEPTANCE-AMENDMENT-70.md#verified-completion) is ready
@@ -776,3 +786,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.25 | 2026-11-16 | Complete approved capped V13 baseline: 50 valid first attempts, 94.5 request minutes, zero failures/retries/unknowns; agreement 10,17,13,18,17,12 of twenty fails D1/D3/D6. Verify 206 inputs and replay, preserve 33 false approvals, inspect 120 human-paired explanations and render five charts. Original evidence unchanged, Mac released, 435 tests. Prepare V14 draft/proposal without new inference; M4 remains incomplete |
 | 0.26 | 2026-11-16 | Complete approved paired V13/V14 development: twenty valid first attempts, 32.3 request minutes, V14 55/60 versus V13 56/60, one improvement and two regressions including a safety false approval. Both D5 7/10; no advancement. Verify 173 files/replay, inspect 120 public justifications, retain unchanged assessed evidence and release Mac. 441 tests; final assessed allocation unused, M4 incomplete |
 | 0.27 | 2026-11-16 | Apply owner-confirmed 70% overall agreement as a separate versioned acceptance policy. New baseline receipt ready at 87/120; original calibration/analysis and 79 prior sealed entries preserved. M4 complete, no inference. Prepare API-contract generator correction for AEC × D3; freeze M5 controls. 449 tests pass |
+| 0.28 | 2026-11-16 | Complete corrected-001 from frozen 0e9a93b: 250 valid first attempts, no retries/unknowns, fifty balanced retained items. Verify matched recorded runtime controls and disclose Windows-to-Mac host change. Freeze corrected-review-001 and deliver the twenty-item PDF/Markdown packet; preserve 99 prior sealed entries. Mac released; 456 tests; authentic reviews and corrected judging pending |

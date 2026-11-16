@@ -152,8 +152,8 @@ def prepare_review(root: Path, assessment_id: str, output: Path) -> dict:
             ]
         runbook = f"""# M5 review — step by step
 
-1. Open `REVIEW-PACKET.md` and `MY-ANSWERS.md` in this folder. Use a Markdown
-   preview for the packet and a plain-text editor for the answers.
+1. Open `REVIEW-PACKET.pdf` if supplied, or `REVIEW-PACKET.md` in a Markdown
+   preview. Open `MY-ANSWERS.md` in a plain-text editor beside the packet.
 2. In `MY-ANSWERS.md`, enter your name, review date and any assistance used.
    Complete the adoption and blind-review declarations truthfully.
 3. Read the rubric once. For each evaluation, read the reference task, all seven

@@ -11,11 +11,11 @@ reviews. It meets the amended agreement requirement; all original errors remain
 recorded. No further judge-development or confirmation review is needed for this
 baseline. See the [decision record](ACCEPTANCE-AMENDMENT-70.md).
 
-**There is nothing to review now.** Codex is moving into generator correction;
-your next review task is the twenty-item corrected-dataset packet in Action 2.
-Do not repeat the completed reviews. The Mac remains free until Codex announces
-the next model run.
-Actions 2–4 happen later, when the relevant material is ready. Conditional items
+**Your twenty-item M5 review is ready.** Open
+`\\192.168.0.55\aia\Handoff\P1-03\M5-corrected-review-001`, read `RUNBOOK.md` and
+`REVIEW-PACKET.pdf`, then fill in `MY-ANSWERS.md`. The Mac is free. Collection is
+complete; no corrected judge outputs have been generated. See Action 2 below.
+Action 2 is ready now. Actions 3–4 happen later. Conditional items
 at the end apply only if an unresolved decision or failed evaluation requires them.
 
 | Action | When | What you provide |
@@ -25,7 +25,7 @@ at the end apply only if an unresolved decision or failed evaluation requires th
 | 1c. Decide on the limited thinking-budget probe | **Approved and complete** | Two valid first attempts; original errors preserved |
 | 1d. Amend the assessed runtime | **Approved and complete** | Fifty first attempts complete; calibration failed three dimensions; all previous evidence preserved |
 | 1e. Decide on the V14 development comparison | **Approved and complete; did not advance** | Twenty valid first attempts; one improvement and two regressions; no third assessed run authorized |
-| 2. Review twenty corrected-dataset answers | After Codex qualifies/calibrates the judge and creates the corrected dataset | Twenty authentic reviews in a new packet Codex will provide |
+| 2. Review twenty corrected-dataset answers | **Ready now** in `M5-corrected-review-001` | Twenty authentic reviews in that folder's `MY-ANSWERS.md` |
 | 3. Review and record the final demonstration | After final results and charts are ready | A reviewed 90–180 second demonstration video |
 | 4. Complete the coaching/submission step | When the evidence package and demonstration are ready | Instructor/coach decision, date, reviewer name and any requested changes |
 
@@ -181,17 +181,17 @@ Your standing permission already covers this work and Mac use. Codex will
 announce before starting an owned model server or taking desktop control. Your
 remaining role is to report any change in machine availability or permissions.
 
-## Action 2 — Review twenty corrected answers later
+## Action 2 — Review twenty corrected answers now
 
-**Wait for a new packet from Codex. These answers are not ready yet.**
+**Ready now:** `\\192.168.0.55\aia\Handoff\P1-03\M5-corrected-review-001`.
 
-After qualification and baseline calibration, Codex will identify the measured
-weaknesses, revise the generator, collect a new corrected dataset and prepare
-twenty selected answers for your review.
+The corrected cohort has fifty retained items; twenty were selected before any
+judge run, four per category. The packet includes a 41-page PDF, matching Markdown,
+the step-by-step runbook and an editable answer sheet. This is a new review round.
 
-When Codex supplies the new folder and runbook:
+In the new folder:
 
-1. Open that new packet and its answer file.
+1. Open `RUNBOOK.md`, `REVIEW-PACKET.pdf` and `MY-ANSWERS.md`.
 2. Read each reference task and complete candidate answer.
 3. Enter your own D1–D6 ratings and comments using the same frozen rubric.
 4. Record assistance and exposure accurately. Complete your ratings before seeing
@@ -273,7 +273,7 @@ chart generation and package verification do not require another approval from y
 - [x] Select the assessed judge with the measured limitations retained.
 - [x] Approve the two-case thinking-budget probe; both cases completed.
 - [x] Approve the full-run runtime amendment; execution is in progress.
-- [ ] **Later:** complete the twenty corrected-dataset reviews when provided.
+- [ ] **Now:** complete the twenty reviews in `M5-corrected-review-001/MY-ANSWERS.md`.
 - [ ] **Later:** review the final results and record/review the demonstration.
 - [ ] **Later:** provide the final coaching/instructor decision and any conditions.
 - [ ] **If applicable:** supply an existing unresolved instructor decision or respond
