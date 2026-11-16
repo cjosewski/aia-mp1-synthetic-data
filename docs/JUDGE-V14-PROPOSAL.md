@@ -1,6 +1,8 @@
 # Proposed V14 claim-checking comparison
 
-**Status: draft for owner review; no V14 model calls authorized or executed.**
+**Status: owner approved; implementation and frozen-package preparation in progress.**
+Chad replied "Approved" to the twenty-request comparison, with a maximum of forty
+starts including retries. The attributed approval is retained outside Git.
 This proposal changes the V13 prompt Chad explicitly selected. It does not alter
 the completed V13 run, its human reference, the rubric or course thresholds.
 
@@ -70,5 +72,26 @@ prepare the evidence and an explicit proposal for the third and final assessed
 version with an amended selection receipt. This proposal does not authorize that
 full assessed run, generator correction or any change to human ratings.
 
-No new human review is needed for this development comparison. Approval would
-authorize preparing and executing only the bounded two-arm comparison above.
+No new human review is needed for this development comparison. The approval
+authorizes preparing and executing only the bounded two-arm comparison above.
+
+## Implementation checkpoint
+
+The dedicated wrapper derives twenty requests from the original confirmation
+plan, alternating V13/V14 within each case. Both arms retain identical user
+messages and model settings. The existing durable runner enforces the shared
+failure boundary; an added pre-start callback checks the owned PID, parent and
+4096-cap command before every start. Unknown outcomes prevent replay/continuation.
+The wrapper permits no external-interruption recovery amendment or extra attempts.
+
+Reporting separates the two arms' initial validity, retries, coverage, agreement,
+false approvals/rejections and paired changes. It rejects numerical advancement
+on a tie or a new D2/D3 false approval even when total agreement increases. Semantic
+review remains mandatory and cannot be replaced by that numerical check.
+
+The approved draft has byte SHA-256
+`fb33419d7500a7d1493c13a3f90871676d69afb57e3b0528d0ae2938d6603b65`.
+The original confirmation-plan identity is
+`cf87d3e07c2f4424e3994e232d45d9398431b2a809ddfd5476ff0dbbeb4f90e7`.
+Preparation passes **441 locked WSL tests**, Ruff and launcher syntax checks.
+These are implementation checks, not new model measurements.

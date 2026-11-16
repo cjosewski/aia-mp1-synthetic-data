@@ -6,8 +6,8 @@ Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/iss
 **Reporting implementation:** the [analysis runbook](docs/ANALYSIS-RUNBOOK.md)
 covers verified cohort reports, five charts with plotted-data tables, exact
 comparison thresholds and local evidence export.
-**435 locked WSL tests pass**, including confirmation intake, preserved reviewer
-rationale, assessed pre-dispatch checks and the amended runtime's budget/ownership guards.
+**441 locked WSL tests pass**, including confirmation intake, preserved reviewer
+rationale, runtime ownership guards and the paired V13/V14 ordering/failure checks.
 The [full baseline calibration](docs/BASELINE-BUDGET-RESULTS.md) completed 50/50
 first attempts, but agreement fails D1 (50%), D3 (65%) and D6 (60%). D2 is 85%,
 D4 90% and D5 85%. M4 remains incomplete; corrected data remain unmeasured.
@@ -39,9 +39,9 @@ case matched 6/6; semantic limitations remain. A
 [new full baseline revision](docs/BASELINE-BUDGET-RESULTS.md) completed fifty valid
 first attempts, retaining 33 false approvals and no false rejections across the
 twenty human reviews. Calibration is not ready. The Mac is free. The
-[V14 draft and bounded comparison proposal](docs/JUDGE-V14-PROPOSAL.md) await
-approval because they change the explicitly selected prompt; no new human scoring
-is needed. The earlier development checkpoint had **212 starts**, including both
+[V14 draft and bounded comparison](docs/JUDGE-V14-PROPOSAL.md) are now approved;
+frozen-package preparation is in progress and no new human scoring is needed.
+The earlier development checkpoint had **212 starts**, including both
 externally interrupted attempts; the later assessed runs have 14 and 50 starts,
 and the separate thinking-budget probe has two.
 

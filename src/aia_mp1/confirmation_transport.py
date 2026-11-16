@@ -369,7 +369,7 @@ def prepare_runtime(plan, phase, directory, endpoint):
         server.close()
 
 
-def run_phase(plan, phase, directory, dispatch, *, verify_before=None):
+def run_phase(plan, phase, directory, dispatch, *, verify_before=None, before_attempt=None):
     """Persist each start before dispatch; replay and bounded stopping are shared."""
     with exclusive(directory):
         state = audit(plan, directory)
@@ -382,6 +382,8 @@ def run_phase(plan, phase, directory, dispatch, *, verify_before=None):
             model, case = queue[state["next_index"]]
             wire = wire_for(plan, model, case)
             serial = len(state["attempts"]) + 1
+            if before_attempt:
+                before_attempt()
             start = {
                 "phase": phase,
                 "item_id": case["item_id"],
