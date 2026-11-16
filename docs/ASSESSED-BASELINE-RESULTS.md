@@ -84,6 +84,12 @@ have complete outcomes; no third attempt of the exhausted item is permitted.
 The current offline suite passes 430 tests, including the proposed probe's approval
 and server-ownership checks; these tests are not additional model measurements.
 
+The offline analysis `analysis/baseline-qwen35-v13-partial-001/` records the same
+pending state, with five charts and their CSV tables. Plots explicitly say
+"PRELIMINARY — INCOMPLETE", show the observed sample sizes and leave corrected
+measurements as NA. Report identity:
+`b31f66c584319006262029a21011c6c7c152993bd59c256d6cb9e7da26706f4e`.
+
 ## Next decision
 
 The installed pinned runtime documents an explicit thinking-token budget. A

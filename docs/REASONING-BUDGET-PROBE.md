@@ -53,3 +53,18 @@ Approval text:
 
 Codex will announce Mac use before the approved probe, stop only its owned server,
 verify the return and announce when the Mac is free. The Mac is currently free.
+
+## Prepared package
+
+The package is frozen from commit `03d439ea62ce302d86bf1ab767917057acd54b85` and
+verifies 151 files. Its missing approval receipt was checked to block execution.
+It has not been deployed to the Mac and has made zero model requests.
+
+- Local: `qualification/MP1-QWEN35-BUDGET-PROBE-MAC/` under the external evidence root.
+- NAS archive: `\\192.168.0.55\aia\Handoff\P1-03\operator\MP1-QWEN35-BUDGET-PROBE-MAC.zip`.
+- Plan SHA-256: `26432836b166d8663d79f72a7a4c8eda3b03dafb0c3dc5793cd80806f82f0e24`.
+- Archive SHA-256: `6688f2f228eb83008c13fa1bb0a79409adea88e0b6cf54e748361378db9356ed`.
+
+After an actual owner reply, Codex records its exact text, attribution and date in
+`owner-approval.json`, bound to the plan above. No approval receipt currently exists.
+Original bundle files and the prior assessed evidence remain unchanged.
