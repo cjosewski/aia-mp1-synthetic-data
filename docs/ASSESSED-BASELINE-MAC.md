@@ -8,8 +8,11 @@ The attributed receipt is retained outside Git at
 `qualification/qwen35-assessed-selection-001/qualification.json`, with byte SHA-256
 `66fc2d669c3365c08c30d651a800c4a2165ca9d42ac3e6f951a8b56211092a48`.
 It includes the [matched comparison and its errors](CONFIRMATION-RESULTS.md).
-The owner selection is complete. Assessed calibration remains unmeasured until the
-run and independent replay finish. No new human review is needed for this step.
+The owner selection is complete. The [first assessed run and replay](ASSESSED-BASELINE-RESULTS.md)
+are now recorded: 11/50 complete judgments, three retained token-limit failures,
+and an enforced stop. Calibration remains pending; the Mac is free. A proposed
+[two-case budget probe](REASONING-BUDGET-PROBE.md) needs approval for its changed
+runtime setting. No new human ratings are requested.
 
 ## Frozen experiment
 

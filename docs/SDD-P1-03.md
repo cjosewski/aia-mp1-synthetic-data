@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.22, November 15, 2026 |
-| Status | Baseline and human references frozen; fresh matched confirmation complete; Qwen3.5 owner selection recorded; assessed calibration pending |
+| Revision | 0.23, November 15, 2026 |
+| Status | Qwen3.5 selected; first assessed run stopped at 11/50 complete judgments with token-limit failures preserved; revised-runtime probe awaits approval; calibration pending |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
@@ -724,3 +724,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.20 | 2026-11-13 | Implement the separate fresh-confirmation transport, shared two-model request ledger, native runtime/weight checks, exact-input comparison reports and committed-code portable packaging. Actual blank reviews still block plan/package creation; no new model requests or qualification claimed |
 | 0.21 | 2026-11-15 | Freeze authentic revised confirmation reviews and complete the matched comparison: 56/60 versus 46/60. Preserve external-interruption recovery and native-template validator correction; 212 cumulative starts, 419 tests, all public explanations audited. Recommend Qwen3.5 for assessed calibration pending owner selection; no human-label changes or assessed readiness claimed |
 | 0.22 | 2026-11-15 | Record Chad's Qwen3.5 selection with frozen V13/settings and errors retained. Prepare portable assessed baseline wrapper, full provenance/qualification verification and pre-dispatch server guard; 427 tests. Separate 50-item/20-human calibration remains unmeasured |
+| 0.23 | 2026-11-15 | Preserve first assessed run: 11/50 complete judgments, 14 starts, three complete token-limit failures, zero unknown outcomes. Verify 188 frozen files and import an explicitly pending report. Prepare approval-gated two-case 4096-thinking-token probe; no runtime change or new inference executed |

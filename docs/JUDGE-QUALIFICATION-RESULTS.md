@@ -9,7 +9,9 @@ starts are 212. Recovery and the comparator-template validation correction are
 documented without altering frozen labels/messages. The return and all code
 snapshots verify locally/NAS. Chad has now selected Qwen3.5 with frozen V13/settings
 and the reported errors retained. The [selection receipt and assessed-run protocol](ASSESSED-BASELINE-MAC.md)
-record the next 50-item/20-human calibration. Assessed calibration remains unmeasured.
+record the 50-item/20-human calibration. Its [first run](ASSESSED-BASELINE-RESULTS.md)
+stopped at 11 complete judgments after three token-limit failures in 14 starts.
+All errors and inputs are retained; calibration remains pending and the Mac is free.
 
 **Previous development checkpoint:** [Qwen3.5 V4](QWEN35-V4.md#measured-result) completes ten valid first
 attempts at **57/60**, dimensions **9,9,10,10,9,10**. One completeness false approval

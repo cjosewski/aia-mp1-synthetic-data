@@ -6,8 +6,8 @@ Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/iss
 **Reporting implementation:** the [analysis runbook](docs/ANALYSIS-RUNBOOK.md)
 covers verified cohort reports, five charts with plotted-data tables, exact
 comparison thresholds and local evidence export.
-**427 locked WSL tests pass**, including confirmation intake, preserved reviewer
-rationale, bounded interruption recovery and assessed pre-dispatch runtime checks.
+**430 locked WSL tests pass**, including confirmation intake, preserved reviewer
+rationale, assessed pre-dispatch runtime checks and the proposed probe's approval/ownership guards.
 The preliminary baseline report reproduces the frozen human review; full-cohort
 judge results and corrected data remain unmeasured. M4 qualification continues.
 
@@ -29,8 +29,11 @@ packaging. The comparison is now complete and fully archived.
 Qwen3.5 matches **56/60**, versus Qwen3's **46/60**, with ten improvements and
 no regressions against the frozen human reference. Four candidate false approvals
 and reasoning limitations remain recorded. Chad selected Qwen3.5 with frozen V13
-and its settings. The separate 50-item/20-human calibration gate remains pending;
-Codex is preparing the portable assessed run and will announce Mac use.
+and its settings. The [assessed run stopped](docs/ASSESSED-BASELINE-RESULTS.md) with
+11/50 complete judgments after three token-limit failures in 14 recorded attempts.
+The Mac is free. Calibration remains pending. A
+[two-case thinking-budget probe](docs/REASONING-BUDGET-PROBE.md) is prepared for
+approval because it would change a frozen runtime setting.
 Cumulative starts are **212**, including both externally interrupted attempts.
 
 **Previous development result:** [Qwen3.5 V4](docs/QWEN35-V4.md#measured-result) completed

@@ -20,10 +20,10 @@ preserve that instruction and the full evidence below. Selection leaves every
 course threshold unchanged and does not rewrite any human rating or declare the
 judge calibrated. No new answer sheet is needed for this step.
 
-Codex is preparing full judging of the frozen 50-item baseline
-and compare against the separate 20-item human reference. All six dimensions must
-reach at least 80% agreement with complete coverage before generator correction.
-This will require another announced Mac run; no model server is left running now.
+The [first assessed baseline run](ASSESSED-BASELINE-RESULTS.md) stopped at 11/50
+complete judgments after token-limit exhaustion. All six dimensions still require
+at least 80% agreement against the separate 20-item human reference, with complete
+coverage, before generator correction. The Mac is free; no model server remains.
 
 ## Matched results
 
