@@ -179,6 +179,11 @@ Software can record your declaration; it cannot verify what you saw elsewhere.
 
 ## 8. Qualify and select the stronger judge
 
+**Current selection:** Chad selected Qwen3.5-122B-A10B on November 15 with the
+frozen V13 prompt/settings and reported errors retained. The
+[attributed receipt and native Mac protocol](ASSESSED-BASELINE-MAC.md) govern the
+current baseline run. The earlier Llama comparison below is historical evidence.
+
 The separate ten-example reviews are adopted and frozen with their AI-assisted
 provenance retained. [QUALIFICATION-RUNBOOK.md](QUALIFICATION-RUNBOOK.md) documents
 the review procedure. The Fedora comparison is complete and the proposed prompt
@@ -210,7 +215,11 @@ advance to Step 9 until the outstanding qualification requirement is met.
 
 ## 9. Judge and compare
 
-Once Steps 7–8 are complete:
+For the selected Qwen3.5 run, Codex uses the frozen portable bundle described in
+[ASSESSED-BASELINE-MAC.md](ASSESSED-BASELINE-MAC.md), with run ID
+`baseline-qwen35-v13-001`. Do not start a second run using the generic example below.
+
+For another explicitly prepared assessed configuration, once Steps 7–8 are complete:
 
 ```bash
 uv run --locked python -m aia_mp1 judge --assessment-id baseline-review-001 --judge-run-id baseline-judge-v1 --config config/judge-assessed.local.json
