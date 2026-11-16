@@ -20,6 +20,7 @@ from aia_mp1.confirmation_transport import (
     next_phase,
     record_external_recovery,
     run_phase,
+    verify_thinking_template,
     wire_for,
 )
 from aia_mp1.evaluation_schemas import DIMENSIONS
@@ -382,6 +383,28 @@ def test_comparator_weight_must_match_exact_checksum(tmp_path):
     path.write_bytes(b"changed")
     with pytest.raises(ValueError, match="checksum"):
         transport_module.weight_identity(model)
+
+
+@pytest.mark.parametrize("phase", ["candidate", "comparator"])
+def test_native_thinking_prefix_is_model_specific_and_disabled_mode_fails(monkeypatch, phase):
+    import hashlib
+
+    template = "Synthetic pinned Qwen3 template"
+    monkeypatch.setattr(
+        transport_module, "QWEN3_TEMPLATE_SHA", hashlib.sha256(template.encode()).hexdigest()
+    )
+    properties = {"chat_template": template}
+    prefix = "<|im_start|>assistant\n"
+    correct = prefix + ("<think>\n" if phase == "candidate" else "")
+    verify_thinking_template(phase, properties, "synthetic input\n" + correct)
+    with pytest.raises(ValueError, match="native thinking"):
+        verify_thinking_template(phase, properties, prefix + "<think>\n\n</think>\n\n")
+    wrong = prefix if phase == "candidate" else prefix + "<think>\n"
+    with pytest.raises(ValueError, match="native thinking"):
+        verify_thinking_template(phase, properties, wrong)
+    if phase == "comparator":
+        with pytest.raises(ValueError, match="identity differs"):
+            verify_thinking_template(phase, {"chat_template": "Different template"}, correct)
 
 
 def test_missing_human_review_blocks_even_offline_preparation(confirmation, tmp_path):

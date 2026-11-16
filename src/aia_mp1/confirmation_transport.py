@@ -28,6 +28,21 @@ PHASES = ("candidate", "comparator")
 GENERATOR_SHA = "9f1a24700a339b09c06009b729b5c809e0b64c213b8af5b711b3dbdfd0c5ba48"
 RUNTIME = {"build_info": "b12110-cd959bae9", "ctx_size": 16384, "parallel": 1}
 RECOVERY_FILE = "external-interruption-recovery.json"
+QWEN3_TEMPLATE_SHA = "5da44855ab7e0641774d5ed0ff0b4f89671d01df7d316e54d06557a962211cb4"
+
+
+def verify_thinking_template(phase, properties, rendered):
+    """Respect each pinned model's native generation prefix without changing it."""
+    suffix = "<|im_start|>assistant\n<think>"
+    if phase == "comparator":
+        template_sha = hashlib.sha256(properties["chat_template"].encode()).hexdigest()
+        if template_sha != QWEN3_TEMPLATE_SHA:
+            raise ValueError("comparator native template identity differs")
+        # This exact Qwen3 template inserts an empty think block only when disabled.
+        # Its enabled/default branch leaves the opening think token for generation.
+        suffix = "<|im_start|>assistant"
+    if not rendered.rstrip().endswith(suffix):
+        raise ValueError("confirmation template did not open native thinking")
 
 
 def check_external_interruption(attempts):
@@ -328,8 +343,7 @@ def prepare_runtime(plan, phase, directory, endpoint):
         for case in plan["cases"]:
             wire = wire_for(plan, model, case)
             rendered = server.json("/apply-template", wire)["prompt"]
-            if not rendered.rstrip().endswith("<|im_start|>assistant\n<think>"):
-                raise ValueError("confirmation template did not open native thinking")
+            verify_thinking_template(phase, props, rendered)
             check = server.token_fit(wire, RUNTIME["ctx_size"])
             if not check["fits"]:
                 raise ValueError("confirmation input plus output allowance exceeds context")

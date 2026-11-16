@@ -70,6 +70,19 @@ and every exact request's token fit. Every execution repeats preflight and check
 it against the first observation. The server's random unused media marker is the
 only ignored runtime field. Runtime drift or overflow prevents dispatch.
 
+The initial comparator preflight stopped before inference because it incorrectly
+required Qwen3.5's prefilled `<think>` opening from both models. Inspection of the
+pinned Qwen3 weights' template shows that its enabled/default branch ends at the
+assistant prefix; disabling thinking adds an empty thinking block. This agrees
+with the [upstream template](https://huggingface.co/Qwen/Qwen3-30B-A3B/blob/main/tokenizer_config.json)
+and [Qwen3 mode documentation](https://github.com/QwenLM/Qwen3#switching-thinkingnon-thinking-modes).
+The corrected validator accepts only the exact observed comparator template hash
+`5da44855ab7e0641774d5ed0ff0b4f89671d01df7d316e54d06557a962211cb4`
+and its enabled native prefix. It rejects the disabled branch or changed template.
+No template, server argument, message, sampling setting or model weight changes.
+The failed preflight and separate zero-generation inspection are retained; the
+comparator uses separately frozen corrected code and new invocation markers.
+
 Reports preserve selected denominators, unresolved cases, initial-attempt validity,
 retry recovery, total starts, timing, exact agreement and false approvals/rejections
 for each dimension/model. Reports do not qualify a model automatically. Inspect
