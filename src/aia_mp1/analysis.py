@@ -4,6 +4,7 @@ import hashlib
 from fractions import Fraction
 from pathlib import Path
 
+from .acceptance import COURSE_POLICY, acceptance_result
 from .assessment import exclusive, load_assessment, read_json, save_new
 from .calibration import calibration_report
 from .cohort import load_cohort
@@ -120,7 +121,13 @@ def _sources(root: Path, parent: Path, cohort: dict, judge_dir: Path | None) -> 
     return {p.relative_to(root).as_posix(): file_hash(p) for p in sorted(set(paths))}
 
 
-def cohort_snapshot(root: Path, assessment_id: str, judge_run_id: str | None = None) -> dict:
+def cohort_snapshot(
+    root: Path,
+    assessment_id: str,
+    judge_run_id: str | None = None,
+    *,
+    acceptance_policy: str = COURSE_POLICY,
+) -> dict:
     root = root.resolve()
     parent, assessment, records, rubric = load_assessment(root, assessment_id)
     if assessment.get("source_type") != "cohort" or not assessment["assessment_eligible"]:
@@ -129,7 +136,14 @@ def cohort_snapshot(root: Path, assessment_id: str, judge_run_id: str | None = N
     judge_dir = judge_directory(parent, judge_run_id) if judge_run_id else None
     calibration = None
     if judge_run_id:
-        calibration = calibration_report(root, assessment_id, judge_run_id, "preview", write=False)
+        calibration = calibration_report(
+            root,
+            assessment_id,
+            judge_run_id,
+            "preview",
+            write=False,
+            acceptance_policy=acceptance_policy,
+        )
         # The report time is not evidence and must not change a reproducible snapshot.
         for key in ("created_at", "report_id", "implementation"):
             calibration.pop(key)
@@ -263,6 +277,17 @@ def compare(baseline: dict, corrected: dict, correction: str) -> dict:
                 if left.get(field) != right.get(field):
                     reasons.append(f"different_judge_{field}")
     rubric = baseline["rubric"]
+
+    def policy_id(snapshot):
+        return (
+            (snapshot.get("calibration") or {})
+            .get("acceptance", {})
+            .get("policy", {})
+            .get("id", COURSE_POLICY)
+        )
+
+    if policy_id(baseline) != policy_id(corrected):
+        reasons.append("different_acceptance_policy")
     checks = {}
     for phase, snapshot in (("baseline", baseline), ("corrected", corrected)):
         cal = snapshot["calibration"]
@@ -321,16 +346,25 @@ def write_analysis(
     corrected_id: str | None = None,
     corrected_judge: str | None = None,
     correction: str = "",
+    acceptance_policy: str = COURSE_POLICY,
 ) -> dict:
     target = output_directory(root, report_id)
     if target.exists():
         raise FileExistsError(f"analysis already exists: {report_id}")
     if corrected_judge and not corrected_id:
         raise ValueError("corrected judge requires corrected assessment")
-    baseline = cohort_snapshot(root, baseline_id, baseline_judge)
+    # Validate even if no judge has yet completed.
+    acceptance_result({"dimensions": {}}, acceptance_policy)
+    baseline = cohort_snapshot(
+        root, baseline_id, baseline_judge, acceptance_policy=acceptance_policy
+    )
     if baseline["purpose"] != "baseline":
         raise ValueError("baseline assessment required")
-    corrected = cohort_snapshot(root, corrected_id, corrected_judge) if corrected_id else None
+    corrected = (
+        cohort_snapshot(root, corrected_id, corrected_judge, acceptance_policy=acceptance_policy)
+        if corrected_id
+        else None
+    )
     comparison = compare(baseline, corrected, correction) if corrected else None
     report = {
         "schema_version": "1",
@@ -343,6 +377,8 @@ def write_analysis(
         "implementation": implementation_identity(),
         "scope": "local evidence; human sample statistics are not 50-item judge measurements",
     }
+    if acceptance_policy != COURSE_POLICY:
+        report["acceptance_policy"] = acceptance_policy
     report["sha256"] = digest(report)
     target.mkdir(parents=True, exist_ok=False)
     save_new(target / "report.json", report)
@@ -356,7 +392,10 @@ def load_analysis(root: Path, report_id: str) -> dict:
     for phase in ("baseline", "corrected"):
         snapshot = report[phase]
         if snapshot and snapshot != cohort_snapshot(
-            root, snapshot["assessment_id"], snapshot["judge_run_id"]
+            root,
+            snapshot["assessment_id"],
+            snapshot["judge_run_id"],
+            acceptance_policy=report.get("acceptance_policy", COURSE_POLICY),
         ):
             raise ValueError("analysis source evidence changed; create a new report")
     expected = (

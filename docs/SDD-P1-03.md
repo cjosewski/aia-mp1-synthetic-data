@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.26, November 16, 2026 |
-| Status | Full baseline calibration fails D1/D3/D6; completed V14 development comparison does not advance (55/60 versus 56/60); M4 incomplete, final assessed slot preserved |
+| Revision | 0.27, November 16, 2026 |
+| Status | M4 complete under owner >=70% overall agreement amendment; validated baseline receipt ready at 87/120 (72.5%); M5 correction prompt and controls prepared |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
@@ -72,7 +72,7 @@ local design control. A proposed test or artifact below is not passing evidence.
 | MP1-R03 | Separate baseline/corrected datasets, each at least 50 retained items; initial schema validity at least 95%; all five categories | §5.2, §6 | Dataset manifests, exact counts and initial-attempt denominators |
 | MP1-R04 | Resumable authentic human labels on at least 20 baseline and 20 corrected items, D1–D6 and trace IDs | §4.3, §5.3 | Label records, reviewer/timestamp/rubric identity and coverage |
 | MP1-R05 | Independent structured judge prompt, all six dimensions for every assessed item, lower temperature than generator and recorded model identity | §4.4, §5.4 | Judge request ledger, outputs and model-selection record |
-| MP1-R06 | Phase A tunes the judge on fixed items until every dimension has at least 80% human/judge agreement | §5.5, §6 | Versioned prompts, disagreement reports and calibration receipt |
+| MP1-R06 | Phase A requires at least 70% overall human/judge agreement across all compared D1–D6 ratings (owner amendment, November 16) | §5.5, §6 | Versioned prompts, disagreement reports and calibration receipt |
 | MP1-R07 | Phase B corrects the worst category/variant × dimension; freeze the calibrated judge for baseline/corrected evaluation | §5.6 | Frozen comparison specification, corrected prompt and iteration entries |
 | MP1-R08 | Genuine baseline overall failure at least 15%; corrected D1–D6 and overall rates meet the rubric | §6 | Complete per-item judgments and exact aggregate counts |
 | MP1-R09 | Measure relative failure reduction; disclose the conflicting exact-80% boundary | §6, §9 | Before/after report with formula, operands and explicit boundary verdict |
@@ -413,14 +413,21 @@ affect a model. Test adversarial synthetic items and surface disagreements.
 
 ### 5.5 Phase A — calibrate the judge
 
+The [November 16 owner amendment](ACCEPTANCE-AMENDMENT-70.md) replaces the original
+80%-per-dimension acceptance gate with 70% overall across all compared D1–D6
+ratings. No instructor approval is required for this amendment. Acceptance is a
+separate versioned policy; frozen scoring rubrics and prior reports are unchanged.
+New CLI reports use the owner policy, while historical report replay uses the
+policy recorded in that report (or the original rule for older reports).
+
 Judge a fixed calibration selection, join it to authentic human records and report
 all disagreements. Revise only the judge prompt for this phase; each revision
 gets an iteration-log entry and new judge-run ID. A rubric or input change creates
 a new assessment rather than silently changing the calibration target.
 
 A calibration-ready receipt requires an eligible cohort, at least 20 complete
-human reviews and complete matching judgments, with agreement >=80% in every
-dimension. The receipt freezes effective labels, selection, rubric, judge prompt,
+human reviews and complete matching judgments, with overall agreement >=70% across all
+dimensions combined. The receipt freezes effective labels, selection, rubric, judge prompt,
 model/settings and report hashes. Five-item smoke agreement is diagnostic only.
 Agreement on the tuning sample is calibration evidence, not independent
 generalization; identify any held-out evaluation separately.
@@ -441,8 +448,8 @@ new generation runs. Keep sources, quotas, gate policy, model/settings and rubri
 fixed unless a declared experimental change requires a new comparison design.
 
 Collect and label the corrected cohort, judge every item with the same frozen
-judge, then compare. If corrected human/judge agreement drops below 80% on any
-dimension, the comparison is not accepted. Recalibration requires re-evaluating
+judge, then compare. If corrected overall human/judge agreement drops below 70% across all
+dimensions combined, the comparison is not accepted. Recalibration requires re-evaluating
 both cohorts with one new frozen judge; do not compare differently scored cohorts.
 Preserve unsuccessful iterations and genuine low-failure baselines.
 
@@ -459,7 +466,7 @@ Threshold verdicts require complete judgment coverage of the cohort.
 | Dimension rate | Passes for `d` / `n_d`, with coverage `n_d/N`; apply §2.1 thresholds only at complete coverage |
 | Overall pass | Items passing all six / `N`, when all items have resolved D1–D6; corrected >=80% |
 | Overall failure | `1 - overall_pass` for complete populations; baseline >=15% |
-| Human/judge agreement | Exact matching binary decisions / compared labels for each dimension; report selected, completed, compared and missing counts; each dimension >=80% |
+| Human/judge agreement | Exact matching binary decisions / compared labels for each dimension; report selected, completed, compared and missing counts; overall across D1–D6 >=70%; dimension rates remain visible |
 | Relative failure reduction | `(F_baseline - F_corrected) / F_baseline`, using rates rather than raw counts when sizes differ |
 | Category distribution | Counts and proportions before filtering, after deduplication and in retained cohort; exact equal quotas are the current local policy |
 
@@ -489,7 +496,7 @@ filtered corrected dataset. Show gate attrition separately from retained quality
 | --- | --- |
 | Dimension pass rates before/after | D1–D6 for baseline/corrected with rubric threshold lines and counts |
 | Segment heatmap | Category × dimension, separately faceted by variant/run; show sample sizes and mark unresolved cells |
-| Agreement by dimension | Matching/compared counts for baseline/corrected and the 80% line |
+| Agreement by dimension | Matching/compared dimension counts and overall totals against the owner 70% requirement |
 | Category distribution | Before/after gate counts and target share for each cohort |
 | Before/after paired bars | Grouped baseline/corrected overall pass/failure rates; also annotate relative failure reduction |
 
@@ -571,7 +578,7 @@ unit or policy failures; see [SDD-09](https://github.com/cjosewski/aia-plan/blob
 | Gate/cohort | Duplicate questions within/across batches, quota deficits, fixed selection, bounded regeneration, tampered/missing evidence and immutable replay | R02, R03, R14, C01 |
 | Human labels | Interrupt/resume, skipped dimensions, strict binary input, amendments/conflicts, foreign IDs and changed rubric | R04, R12, C01 |
 | Judge | Missing/extra dimensions, malformed output, timeout, unsupported settings, input injection fixtures and no label leakage | R05, R11, R12 |
-| Calibration | 16/20 passes 80%; 15/20 fails; zero comparisons undefined; incomplete or five-item smoke selection cannot qualify | R06 |
+| Calibration | 84/120 passes 70% overall; 83/120 fails; zero comparisons undefined; incomplete or five-item smoke selection cannot qualify | R06 |
 | Comparison | Unrounded boundary checks, zero/low baseline failure, mismatched judge/gate/source policy, missing judgment and different cohort sizes | R07–R09 |
 | Analysis/export | Counts match plotted tables; all five charts exist; unresolved cells and cohort grouping correctly described; artifact lineage complete | R10, R13 |
 
@@ -588,7 +595,7 @@ stochastic model responses need not be byte-identical on rerun.
 | M1 — kickoff | Generation, structural gate and smoke evidence | Recorded November 9 result; not full acceptance |
 | M2 — review workflow | Approved slice implemented: labels, judge, calibration reporting and diagnostic queue | 166 offline tests passed; live probe timed out before judge execution; authentic labels remain a human dependency |
 | M3 — assessed baseline | Cleared sources/model/gate policy, >=50 retained items and >=20 human reviews | Complete provenance, real baseline measurements and calibration readiness |
-| M4 — Phase A | Calibrated judge frozen | All six agreement thresholds; fixed-item iteration history |
+| M4 — Phase A | Calibrated judge frozen | >=70% overall agreement under owner amendment, complete coverage and eligibility; fixed-item iteration history |
 | M5 — Phase B and analysis | Corrected cohort, >=20 human reviews, comparison and five charts | Every quantitative criterion and comparability check passes, or explicit instructor disposition retained |
 | M6 — Evidence Pack | Reproducible repository, results, demo and review | Coach approval recorded explicitly |
 
@@ -606,6 +613,16 @@ its exact version/hash. Missing entries remain open, never inferred from issue
 state or a successful CLI exit.
 
 ### 8.3 Observed implementation checkpoint
+
+November 16, current checkpoint: Chad confirmed **70% overall agreement** and
+specified that no instructor approval is needed for this amendment. The
+[new acceptance receipt](ACCEPTANCE-AMENDMENT-70.md#verified-completion) is ready
+at 87/120 with complete coverage and no remaining eligibility reasons. Original
+calibration/analysis replay, sixteen assessment files and seventy-nine prior seal
+entries verify unchanged. No model calls or new assessed versions were needed.
+449 locked WSL tests pass. M4 is complete under the explicit owner policy; the
+[M5 correction](M5-CORRECTION-PLAN.md) targets AEC automation × D3 (4/10 failures).
+The following checkpoints retain their original, pre-amendment decisions.
 
 November 16, subsequent approved development: [V13 versus V14](JUDGE-V14-RESULTS.md)
 completes twenty first attempts on ten exposed confirmation cases. V13 matches
@@ -758,3 +775,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.24 | 2026-11-15 | Execute approved 4096-thinking-token probe: two valid first attempts, 4438/4532 completion tokens, 212.2 request seconds, one known human case matching 6/6. Verify 151 files and original assessed attempts; preserve semantic concerns and release Mac. Propose a separate second assessed version under an explicit runtime amendment; no full rerun started |
 | 0.25 | 2026-11-16 | Complete approved capped V13 baseline: 50 valid first attempts, 94.5 request minutes, zero failures/retries/unknowns; agreement 10,17,13,18,17,12 of twenty fails D1/D3/D6. Verify 206 inputs and replay, preserve 33 false approvals, inspect 120 human-paired explanations and render five charts. Original evidence unchanged, Mac released, 435 tests. Prepare V14 draft/proposal without new inference; M4 remains incomplete |
 | 0.26 | 2026-11-16 | Complete approved paired V13/V14 development: twenty valid first attempts, 32.3 request minutes, V14 55/60 versus V13 56/60, one improvement and two regressions including a safety false approval. Both D5 7/10; no advancement. Verify 173 files/replay, inspect 120 public justifications, retain unchanged assessed evidence and release Mac. 441 tests; final assessed allocation unused, M4 incomplete |
+| 0.27 | 2026-11-16 | Apply owner-confirmed 70% overall agreement as a separate versioned acceptance policy. New baseline receipt ready at 87/120; original calibration/analysis and 79 prior sealed entries preserved. M4 complete, no inference. Prepare API-contract generator correction for AEC × D3; freeze M5 controls. 449 tests pass |

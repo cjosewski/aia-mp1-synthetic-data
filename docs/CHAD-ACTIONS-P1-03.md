@@ -5,17 +5,16 @@ The [live project checklist](https://github.com/cjosewski/aia-plan/issues/4) tra
 completion. This file explains your actions; Codex handles the implementation,
 model runs, analysis and evidence preparation.
 
-**Your reviews, judge selection and full-run runtime amendment are approved.** The
-[assessed run](ASSESSED-BASELINE-RESULTS.md) stopped when thinking consumed the
-entire output allowance. Your approved two-case thinking-budget test completed
-both first attempts. The approved [new full 50-item calibration](BASELINE-BUDGET-RESULTS.md)
-completed all fifty first attempts, but failed agreement on completeness, API
-realism and tips. The subsequent approved [V13/V14 comparison](JUDGE-V14-RESULTS.md)
-is also complete: V14 scored 55/60 versus V13's 56/60 and introduced a safety miss.
-**V14 will not advance. The Mac is free.** The bounded allocation has stopped as
-specified, preserving the last assessed version. A new judge proposal is needed
-before further model work. There is no new answer sheet or human scoring task now;
-do not repeat the completed reviews.
+**Your 70% overall agreement amendment is confirmed.** The existing full V13
+baseline has 87/120 matches (72.5%), complete coverage and twenty frozen human
+reviews. It meets the amended agreement requirement; all original errors remain
+recorded. No further judge-development or confirmation review is needed for this
+baseline. See the [decision record](ACCEPTANCE-AMENDMENT-70.md).
+
+**There is nothing to review now.** Codex is moving into generator correction;
+your next review task is the twenty-item corrected-dataset packet in Action 2.
+Do not repeat the completed reviews. The Mac remains free until Codex announces
+the next model run.
 Actions 2–4 happen later, when the relevant material is ready. Conditional items
 at the end apply only if an unresolved decision or failed evaluation requires them.
 

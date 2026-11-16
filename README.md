@@ -3,14 +3,23 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
+**Current acceptance rule:** Chad confirmed [70% overall human/judge agreement](docs/ACCEPTANCE-AMENDMENT-70.md)
+on November 16. The saved V13 baseline has **87/120 matches (72.5%)** and complete
+coverage; its new validated receipt is **ready and M4 is complete**. New calibration
+and analysis CLI reports use this owner policy; original
+80%-per-dimension reports and all 33 false approvals remain preserved. M5 generator
+correction [plan and prompt are prepared](docs/M5-CORRECTION-PLAN.md). No additional judge experiment is
+needed to satisfy the amended baseline agreement requirement.
+
 **Reporting implementation:** the [analysis runbook](docs/ANALYSIS-RUNBOOK.md)
 covers verified cohort reports, five charts with plotted-data tables, exact
 comparison thresholds and local evidence export.
-**441 locked WSL tests pass**, including confirmation intake, preserved reviewer
-rationale, runtime ownership guards and the paired V13/V14 ordering/failure checks.
+**449 locked WSL tests pass**, including the amended acceptance boundary, original
+report replay, incomplete-evidence rejection and runtime ownership guards.
 The [full baseline calibration](docs/BASELINE-BUDGET-RESULTS.md) completed 50/50
 first attempts, but agreement fails D1 (50%), D3 (65%) and D6 (60%). D2 is 85%,
-D4 90% and D5 85%. M4 remains incomplete; corrected data remain unmeasured.
+D4 90% and D5 85%. Those are the original-rule results; the amendment above now
+governs acceptance. Corrected data remain unmeasured.
 
 **Latest development result:** the [approved V13/V14 comparison](docs/JUDGE-V14-RESULTS.md)
 completed twenty valid first attempts. V14 matches 55/60 versus V13's 56/60, with
@@ -44,7 +53,8 @@ completed both cases on their first attempt with the 4096 cap. One known human
 case matched 6/6; semantic limitations remain. A
 [new full baseline revision](docs/BASELINE-BUDGET-RESULTS.md) completed fifty valid
 first attempts, retaining 33 false approvals and no false rejections across the
-twenty human reviews. Calibration is not ready. The Mac is free. The
+twenty human reviews. Calibration failed the original criterion; see the current
+owner amendment above. The Mac is free. The
 [V14 comparison](docs/JUDGE-V14-RESULTS.md) is complete and failed its advancement
 conditions. No third assessed run or new human scoring has started.
 The earlier development checkpoint had **212 starts**, including both
@@ -267,7 +277,7 @@ disagreements and category breakdowns. Exit 1 with `status: pending` is expected
 for this diagnostic queue, even with perfect observed agreement. Readiness needs
 complete population judgments, the full frozen human selection, at least 20
 complete labels, at least 50 balanced retained items, a qualified distinct judge,
-and >=80% agreement on every dimension. The receipt freezes effective label IDs,
+and >=70% overall agreement across all six dimensions under the owner amendment. The receipt freezes effective label IDs,
 rubric, judge prompt/model/settings and input hashes. It measures calibration-set
 agreement, not independent generalization or professional correctness.
 

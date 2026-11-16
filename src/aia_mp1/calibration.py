@@ -2,6 +2,7 @@
 
 from pathlib import Path
 
+from .acceptance import COURSE_POLICY, acceptance_result
 from .assessment import exclusive, load_assessment, read_text, save_new
 from .evaluation_schemas import DIMENSIONS, Judgment
 from .generate import implementation_identity
@@ -74,7 +75,13 @@ def agreement(records: list[dict], selected_ids: list[str], labels: dict, judgme
 
 
 def calibration_report(
-    root: Path, assessment_id: str, judge_run_id: str, report_id: str, *, write: bool = True
+    root: Path,
+    assessment_id: str,
+    judge_run_id: str,
+    report_id: str,
+    *,
+    write: bool = True,
+    acceptance_policy: str = COURSE_POLICY,
 ) -> dict:
     """Revalidate and compute calibration; previews do not create a report directory."""
     parent, assessment, records, rubric = load_assessment(root, assessment_id)
@@ -100,6 +107,7 @@ def calibration_report(
             for key, value in results.items()
         }
         summary = agreement(records, assessment["selected_ids"], labels, judgments)
+        acceptance = acceptance_result(summary, acceptance_policy)
         category_counts = {c: sum(r["category"] == c for r in records) for c in CATEGORIES}
         settings = judge_manifest["identity"]["settings"]
         generator_models = {r["model"] for r in records} | {assessment["generator_model"]}
@@ -128,8 +136,12 @@ def calibration_report(
             reasons.append("fewer_than_20_complete_human_labels")
         if not summary["coverage_complete"]:
             reasons.append("incomplete_human_or_judge_coverage")
-        if not all(d["threshold_met"] for d in summary["dimensions"].values()):
-            reasons.append("per_dimension_agreement_not_met")
+        if not acceptance["threshold_met"]:
+            reasons.append(
+                "per_dimension_agreement_not_met"
+                if acceptance_policy == COURSE_POLICY
+                else "overall_agreement_not_met"
+            )
         if not model_eligible:
             reasons.append("stronger_judge_selection_not_established")
         if judge_manifest["status"] != "complete":
@@ -178,6 +190,9 @@ def calibration_report(
             if reference
             else None,
         }
+        # Preserve the exact legacy report shape for replay of sealed course reports.
+        if acceptance_policy != COURSE_POLICY:
+            report["acceptance"] = acceptance
         if write:
             target.mkdir(parents=True, exist_ok=False)
             save_new(target / "report.json", report)

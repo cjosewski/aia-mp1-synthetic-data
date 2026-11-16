@@ -1,5 +1,9 @@
 # V13 versus V14 — completed development comparison
 
+**Subsequent owner decision:** [70% overall calibration agreement](ACCEPTANCE-AMENDMENT-70.md)
+allows the completed V13 baseline to proceed without another judge experiment.
+The V14 comparison and its original non-advancement decision below are preserved.
+
 November 16, 2026. **Do not advance V14. The Mac is free.** The owned server is
 stopped, its PID is absent and port 8081 has no listener. Herd was not changed.
 

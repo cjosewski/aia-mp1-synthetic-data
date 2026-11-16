@@ -4,6 +4,12 @@ Use this procedure for a new assessed baseline after its source pack is prepared
 The original five-item exercise remains in [RUNBOOK.md](RUNBOOK.md). Its two
 reports are preserved; its post-review agreement cannot qualify this baseline.
 
+**November 16 update:** the full Qwen3.5/V13 baseline has complete coverage and
+87/120 matching human ratings. Chad's [70% overall acceptance amendment](ACCEPTANCE-AMENDMENT-70.md)
+replaces the original per-dimension calibration gate. No new baseline collection
+or human review is needed. The historical qualification steps below describe the
+earlier workflow; the next live stage is corrected generation.
+
 **Current handoff:** [baseline collection is complete](BASELINE-CHECKPOINT.md).
 The frozen 50-item cohort and `baseline-review-001` queue already exist. Chad's
 20 blind reviews are complete and frozen. The selected Llama judge has passed

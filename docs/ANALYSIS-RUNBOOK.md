@@ -4,6 +4,14 @@ This offline procedure reads existing frozen cohorts, labels and judge ledgers.
 It never requests model output or supplies human labels. A baseline-only report is
 useful now, but cannot establish improvement or project completion.
 
+New reports default to `owner-overall-70-20261116`: at least 70% overall agreement
+across D1–D6, as [confirmed by Chad](ACCEPTANCE-AMENDMENT-70.md). Pass
+`--acceptance-policy course-per-dimension-80-v1` when reproducing the original
+course criterion. Saved reports replay their recorded policy; old reports replay
+the original rule. Dimension rates and original failures remain visible. The
+agreement chart reports the overall counts and 70% overall requirement without
+presenting 70% as a separate pass requirement for each dimension.
+
 ## 1. Open Ubuntu and prepare the locked environment
 
 From Windows Terminal or PowerShell, enter `wsl -d Ubuntu`. Run the remaining
@@ -68,7 +76,7 @@ identity must match; the generator prompt must have a declared change. Endpoint,
 authentication and local file paths do not themselves change the sampling policy.
 
 Each population needs complete qualified judging, at least 50 balanced items and
-20 frozen authentic reviews with at least 80% agreement in every dimension. The
+20 frozen authentic reviews with at least 70% overall agreement across D1–D6. The
 report also checks initial schema validity, baseline failure, corrected overall
 and dimension pass rates, and relative failure reduction using exact fractions.
 Zero baseline failures make relative reduction undefined. Exactly 80% reduction

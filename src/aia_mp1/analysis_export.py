@@ -5,6 +5,7 @@ import importlib.metadata
 import shutil
 from pathlib import Path
 
+from .acceptance import COURSE_POLICY, OWNER_POLICY
 from .analysis import file_hash, load_analysis, output_directory
 from .assessment import save_new
 from .evaluation_schemas import DIMENSIONS
@@ -37,6 +38,7 @@ def chart_tables(report: dict) -> dict:
             )
             cal = snapshot["calibration"] if snapshot else None
             agreement = cal["summary"]["dimensions"][dimension] if cal else {}
+            acceptance = cal.get("acceptance", {}) if cal else {}
             tables["agreement"].append(
                 {
                     "cohort": phase,
@@ -46,6 +48,16 @@ def chart_tables(report: dict) -> dict:
                     "compared": agreement.get("compared"),
                     "missing": agreement.get("missing"),
                     "threshold": 0.8,
+                    "threshold_role": "original_course_reference"
+                    if report.get("acceptance_policy") == OWNER_POLICY
+                    else "required_per_dimension",
+                    "acceptance_policy": report.get("acceptance_policy", COURSE_POLICY),
+                    "overall_agreement": acceptance.get("agreement"),
+                    "overall_matching": acceptance.get("matching"),
+                    "overall_compared": acceptance.get("compared"),
+                    "overall_required": 0.7
+                    if report.get("acceptance_policy") == OWNER_POLICY
+                    else None,
                 }
             )
             for category in CATEGORIES:
@@ -210,8 +222,21 @@ def render_charts(report: dict, target: Path) -> dict:
         "Category × dimension judge pass rates; each cell reports its observed N",
     )
     fig, ax = plt.subplots(figsize=(10, 5))
-    rate_bars(ax, "agreement", "agreement", [80] * 6)
-    save(fig, "03-human-judge-agreement", "Agreement against frozen blind human references")
+    owner_policy = report.get("acceptance_policy") == OWNER_POLICY
+    rate_bars(ax, "agreement", "agreement", None if owner_policy else [80] * 6)
+    caption = "Agreement against frozen blind human references"
+    if owner_policy:
+        totals = []
+        for phase in PHASES:
+            snapshot = report[phase]
+            acceptance = (snapshot.get("calibration") or {}).get("acceptance") if snapshot else None
+            totals.append(
+                f"{phase}: {acceptance['matching']}/{acceptance['compared']}"
+                if acceptance
+                else f"{phase}: NA"
+            )
+        caption += "\n70% overall required; " + "; ".join(totals)
+    save(fig, "03-human-judge-agreement", caption)
     fig, axes = plt.subplots(1, 2, figsize=(14, 5))
     for ax, phase in zip(axes, PHASES, strict=True):
         rows = [r for r in tables["categories"] if r["cohort"] == phase]

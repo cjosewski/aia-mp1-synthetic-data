@@ -1,5 +1,10 @@
 # Qwen3.5 V13 baseline with a 4096 thinking-token cap
 
+**Subsequent owner amendment:** on November 16 Chad confirmed
+[70% overall agreement](ACCEPTANCE-AMENDMENT-70.md). The saved 87/120 result meets
+that requirement. This original report retains the 80%-per-dimension verdict and
+all measured errors; the new acceptance receipt is separate.
+
 November 16, 2026. **Execution completed; calibration failed. The Mac is free.**
 All fifty judgments arrived on their first attempt. The owned server stopped,
 its PID was absent and port 8081 had no listener. Herd was not changed.

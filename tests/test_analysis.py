@@ -8,6 +8,7 @@ from assessed_fixtures import GoodClient, fixture_config, qualified_judge
 from test_evaluation import FakeJudge, label_all
 from test_evaluation import assessed_queue as _assessed_queue
 
+from aia_mp1.acceptance import OWNER_POLICY, acceptance_result
 from aia_mp1.analysis import (
     cohort_snapshot,
     compare,
@@ -79,6 +80,16 @@ def test_worst_segment_is_exact_and_deterministic():
     decisions[records[22]["item_id"]]["D3"] = 0
     assert worst_segment(segments(records, decisions))["dimension"] == "D3"
     assert worst_segment(segments(records, decisions))["category"] == CATEGORIES[2]
+
+
+def test_comparison_rejects_different_acceptance_policies(snapshots):
+    baseline, corrected = snapshots
+    corrected["calibration"]["acceptance"] = acceptance_result(
+        corrected["calibration"]["summary"], OWNER_POLICY
+    )
+    result = compare(baseline, corrected, "Synthetic correction")
+    assert result["status"] == "pending"
+    assert "different_acceptance_policy" in result["comparability_reasons"]
 
 
 @pytest.fixture
