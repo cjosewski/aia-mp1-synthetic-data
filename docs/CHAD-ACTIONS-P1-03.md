@@ -1,6 +1,6 @@
 # P1-03 — Everything needed from Chad
 
-Updated November 15, 2026. This is your consolidated instruction sheet.
+Updated November 16, 2026. This is your consolidated instruction sheet.
 The [live project checklist](https://github.com/cjosewski/aia-plan/issues/4) tracks
 completion. This file explains your actions; Codex handles the implementation,
 model runs, analysis and evidence preparation.
@@ -8,9 +8,12 @@ model runs, analysis and evidence preparation.
 **Your reviews, judge selection and full-run runtime amendment are approved.** The
 [assessed run](ASSESSED-BASELINE-RESULTS.md) stopped when thinking consumed the
 entire output allowance. Your approved two-case thinking-budget test completed
-both first attempts. The approved [new full 50-item calibration](BASELINE-BUDGET-AMENDMENT.md)
-is now running on the Mac with that cap. No action is needed from you during this
-run. Codex will announce when the Mac is free and report the measured outcome.
+both first attempts. The approved [new full 50-item calibration](BASELINE-BUDGET-RESULTS.md)
+completed all fifty first attempts, but failed agreement on completeness, API
+realism and tips. **The Mac is free.** The next decision is whether to test the
+[prepared V14 draft](JUDGE-V14-PROPOSAL.md) against a matched V13 control on ten
+existing development cases. This changes your explicit V13 selection, so it needs
+separate approval. No new answer sheet or human scoring is needed now.
 Actions 2–4 happen later, when the relevant material is ready. Conditional items
 at the end apply only if an unresolved decision or failed evaluation requires them.
 
@@ -19,7 +22,8 @@ at the end apply only if an unresolved decision or failed evaluation requires th
 | 1. Review ten fresh confirmation answers | **Complete and frozen** | No further action; original ratings, pass reasons and comments retained |
 | 1b. Select the assessed judge | **Complete and recorded** | Qwen3.5 with frozen V13/settings and reported errors retained |
 | 1c. Decide on the limited thinking-budget probe | **Approved and complete** | Two valid first attempts; original errors preserved |
-| 1d. Amend the assessed runtime | **Approved; execution in progress** | Apply the 4096 cap to the new 50-item run; previous evidence and thresholds preserved |
+| 1d. Amend the assessed runtime | **Approved and complete** | Fifty first attempts complete; calibration failed three dimensions; all previous evidence preserved |
+| 1e. Decide on the V14 development comparison | **Ready for your decision** | Review the draft and approve or decline twenty planned requests, at most forty starts including retries; no third assessed run authorized |
 | 2. Review twenty corrected-dataset answers | After Codex qualifies/calibrates the judge and creates the corrected dataset | Twenty authentic reviews in a new packet Codex will provide |
 | 3. Review and record the final demonstration | After final results and charts are ready | A reviewed 90–180 second demonstration video |
 | 4. Complete the coaching/submission step | When the evidence package and demonstration are ready | Instructor/coach decision, date, reviewer name and any requested changes |

@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.24, November 15, 2026 |
-| Status | Original assessed run preserved at 11/50; approved 4096-thinking-token probe completed 2/2 first attempts; full-run runtime amendment proposed; calibration pending |
+| Revision | 0.25, November 16, 2026 |
+| Status | Approved capped V13 run complete at 50/50 first attempts; calibration fails D1/D3/D6; M4 incomplete; V14 development draft proposed, no new inference |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
@@ -137,7 +137,7 @@ labeling displays the item and rubric without suggested model scores.
 | [generate.py](../src/aia_mp1/generate.py), [tracing.py](../src/aia_mp1/tracing.py) | Attempts, checkpoints, identity and resume validation | Implemented for smoke and explicitly assessed source packs |
 | [gate.py](../src/aia_mp1/gate.py), [cli.py](../src/aia_mp1/cli.py) | Saved-data gate and CLI | Implemented for kickoff checks |
 | [assessment.py](../src/aia_mp1/assessment.py), [evaluation_schemas.py](../src/aia_mp1/evaluation_schemas.py), [labels.py](../src/aia_mp1/labels.py) | Single-run assessment snapshots, review contracts and human CLI | Implemented for legacy single-run and multi-batch cohort inputs |
-| [judge.py](../src/aia_mp1/judge.py), [calibration.py](../src/aia_mp1/calibration.py) | Audited judge execution and agreement reports | Implemented; five-item diagnostic measured; assessed evidence pending |
+| [judge.py](../src/aia_mp1/judge.py), [calibration.py](../src/aia_mp1/calibration.py) | Audited judge execution and agreement reports | Implemented; full baseline judging complete, calibration fails three dimensions |
 | [collection.py](../src/aia_mp1/collection.py), [cohort.py](../src/aia_mp1/cohort.py), [sources.py](../src/aia_mp1/sources.py) | Permission-checked contexts, bounded collection and immutable cohorts | Implemented |
 | [human_reference.py](../src/aia_mp1/human_reference.py), [qualification.py](../src/aia_mp1/qualification.py) | Blind-label freeze and attributed judge selection evidence | Implemented |
 | `analysis.py`, `analysis_export.py`, `analysis_cli.py` | Verified cohort metrics, exact comparison gates, five charts and local evidence export | Implemented; assessed comparison awaits qualified judging and corrected cohort |
@@ -607,6 +607,26 @@ state or a successful CLI exit.
 
 ### 8.3 Observed implementation checkpoint
 
+November 16: the approved [second assessed version](BASELINE-BUDGET-RESULTS.md)
+completes all fifty first attempts under the 4096 thinking cap, with no retries,
+failures or unknown outcomes. Frozen V13, weights and original twenty human reviews
+are unchanged. Agreement is D1 10/20, D2 17/20, D3 13/20, D4 18/20, D5 17/20 and
+D6 12/20. There are 33 false approvals and zero false rejections. D2's passing
+agreement rate masks all three human-rated safety failures being missed. The two
+D4 scope disagreements include an explicit rubric-interpretation difference.
+All 206 inputs and calibration replay verify; the original interrupted run and
+probe remain intact. The audit covers all 120 human-paired public justifications,
+not all population explanations. Five charts and source tables retain pending
+comparison status; corrected data are unmeasured. The owned server is stopped and
+the Mac is free. Implementation validation passed 435 locked WSL tests.
+
+M4 remains incomplete because D1/D3/D6 fail the unchanged 80% agreement threshold.
+The [V14 draft and matched development proposal](JUDGE-V14-PROPOSAL.md) require a
+separate prompt decision; no V14 inference or third assessed version has started.
+One assessed version remains. M5 generator correction/new human review and M6
+demonstration/acceptance remain subsequent work. Earlier dated checkpoints below
+preserve their historical scope rather than overriding this result.
+
 November 15: the [fresh comparison](CONFIRMATION-RESULTS.md) completes with frozen
 authentic reviews. Qwen3.5 matches 56/60 versus Qwen3's 46/60, improving ten ratings
 with no regressions. All 120 public explanations are audited; four candidate
@@ -726,3 +746,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.22 | 2026-11-15 | Record Chad's Qwen3.5 selection with frozen V13/settings and errors retained. Prepare portable assessed baseline wrapper, full provenance/qualification verification and pre-dispatch server guard; 427 tests. Separate 50-item/20-human calibration remains unmeasured |
 | 0.23 | 2026-11-15 | Preserve first assessed run: 11/50 complete judgments, 14 starts, three complete token-limit failures, zero unknown outcomes. Verify 188 frozen files and import an explicitly pending report. Prepare approval-gated two-case 4096-thinking-token probe; no runtime change or new inference executed |
 | 0.24 | 2026-11-15 | Execute approved 4096-thinking-token probe: two valid first attempts, 4438/4532 completion tokens, 212.2 request seconds, one known human case matching 6/6. Verify 151 files and original assessed attempts; preserve semantic concerns and release Mac. Propose a separate second assessed version under an explicit runtime amendment; no full rerun started |
+| 0.25 | 2026-11-16 | Complete approved capped V13 baseline: 50 valid first attempts, 94.5 request minutes, zero failures/retries/unknowns; agreement 10,17,13,18,17,12 of twenty fails D1/D3/D6. Verify 206 inputs and replay, preserve 33 false approvals, inspect 120 human-paired explanations and render five charts. Original evidence unchanged, Mac released, 435 tests. Prepare V14 draft/proposal without new inference; M4 remains incomplete |

@@ -8,8 +8,9 @@ covers verified cohort reports, five charts with plotted-data tables, exact
 comparison thresholds and local evidence export.
 **435 locked WSL tests pass**, including confirmation intake, preserved reviewer
 rationale, assessed pre-dispatch checks and the amended runtime's budget/ownership guards.
-The preliminary baseline report reproduces the frozen human review; full-cohort
-judge results and corrected data remain unmeasured. M4 qualification continues.
+The [full baseline calibration](docs/BASELINE-BUDGET-RESULTS.md) completed 50/50
+first attempts, but agreement fails D1 (50%), D3 (65%) and D6 (60%). D2 is 85%,
+D4 90% and D5 85%. M4 remains incomplete; corrected data remain unmeasured.
 
 **All actions needed from Chad:** [consolidated instruction sheet](docs/CHAD-ACTIONS-P1-03.md)
 covers the completed reviews and selection, plus later corrected reviews, demo and coaching
@@ -35,9 +36,14 @@ The Mac is free. Calibration remains pending. The approved
 [two-case thinking-budget probe](docs/REASONING-BUDGET-PROBE.md#measured-result)
 completed both cases on their first attempt with the 4096 cap. One known human
 case matched 6/6; semantic limitations remain. A
-[new full baseline revision](docs/BASELINE-BUDGET-AMENDMENT.md) is now owner-approved
-and running with the amended assessed runtime. No new human review is needed yet.
-Cumulative starts are **212**, including both externally interrupted attempts.
+[new full baseline revision](docs/BASELINE-BUDGET-RESULTS.md) completed fifty valid
+first attempts, retaining 33 false approvals and no false rejections across the
+twenty human reviews. Calibration is not ready. The Mac is free. The
+[V14 draft and bounded comparison proposal](docs/JUDGE-V14-PROPOSAL.md) await
+approval because they change the explicitly selected prompt; no new human scoring
+is needed. The earlier development checkpoint had **212 starts**, including both
+externally interrupted attempts; the later assessed runs have 14 and 50 starts,
+and the separate thinking-budget probe has two.
 
 **Previous development result:** [Qwen3.5 V4](docs/QWEN35-V4.md#measured-result) completed
 ten valid first attempts at **57/60**, with at least 90% agreement in each dimension

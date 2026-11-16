@@ -1,7 +1,10 @@
-# Proposed 4096-thinking-token assessed baseline revision
+# Approved 4096-thinking-token assessed baseline revision
 
-**Status: owner approved; frozen execution is in progress.** Chad replied
+**Status: owner approved; execution complete, calibration not ready.** Chad replied
 "Approved." to the proposal for the new 50-item calibration with the same 4096 cap.
+The [full result](BASELINE-BUDGET-RESULTS.md) records 50 valid first attempts and
+agreement of 50%, 85%, 65%, 90%, 85% and 60%. The Mac is released. This document
+preserves the approved protocol; it does not imply that calibration passed.
 
 The [approved two-case probe](REASONING-BUDGET-PROBE.md#measured-result) returned
 two valid first attempts. It supports trying the same thinking cap in a new full

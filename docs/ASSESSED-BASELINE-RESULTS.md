@@ -96,5 +96,7 @@ The installed pinned runtime documents an explicit thinking-token budget. A
 [two-case probe](REASONING-BUDGET-PROBE.md#measured-result) was subsequently
 approved and completed both cases on their first attempt with a 4096 thinking cap.
 It retains the 8192 total allowance and V13 prompt. A
-[new full-run runtime amendment](BASELINE-BUDGET-AMENDMENT.md) is proposed; the
-probe does not replace this failed assessed run or establish calibration readiness.
+[new full-run runtime amendment](BASELINE-BUDGET-AMENDMENT.md) was subsequently
+approved and [completed](BASELINE-BUDGET-RESULTS.md). That run delivers 50/50 valid
+first attempts but fails three agreement thresholds. Neither later run replaces
+this interrupted record or its retained failures.
