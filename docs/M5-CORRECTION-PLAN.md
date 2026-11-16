@@ -22,7 +22,52 @@ baseline answers or corrected answer keys to generation.
 
 Hypothesis: this correction reduces invented or misapplied APIs, especially in AEC
 automation, without changing task requirements or introducing incompatible tips.
-The prompt is prepared; no corrected generation or measured improvement is claimed.
+The prompt is now being exercised by corrected collection; no measured quality improvement is claimed.
+
+## Execution record — November 16
+
+Chad released the Mac after a temporary availability hold. Collection
+`corrected-001` is running from a frozen checkout of `0e9a93b`, using the prepared
+v2 prompt. Python and collection ledgers run in locked WSL; an SSH loopback tunnel
+connects to the owned native Mac inference process. No Herd settings were changed.
+The endpoint reports the original generator model ID as an explicit alias for the
+same verified GGUF weights.
+
+Preflight matched the baseline's weight SHA-256, server build `b12110-cd959bae9`,
+chat-template hash, all recorded sampling defaults, four slots and 16384 tokens
+per slot. The execution host/backend changed from Windows/Herd to Mac/Metal.
+Retain this as a comparability limitation: observed improvement cannot be attributed
+exclusively to the prompt despite matching recorded controls. No thinking-budget
+amendment was applied to generation. The generator remains bounded to five
+fifty-slot batches and two attempts per slot, stopping when quotas are met.
+
+Runtime and helper records are in workspace
+`artifacts/evidence/P1-03/qualification/m5-generator-20261116/`. A setup helper
+accessed an absent optional config attribute after successful preflight; it stopped
+before any collection or model request. Its correction uses the unchanged absent
+reasoning-effort setting; both preflight records and the setup failure are retained.
+
+## Blind review export
+
+After collection and cohort validation, create the new assessment and export its
+frozen twenty-item selection. Example commands run in WSL from the main checkout:
+
+```bash
+uv run --locked python -m aia_mp1 cohort --collection-id corrected-001 --cohort-id corrected-cohort-001
+uv run --locked python -m aia_mp1 assessment --cohort-id corrected-cohort-001 --assessment-id corrected-review-001
+uv run --locked python -m aia_mp1.assessed_review \
+  --artifact-root ../artifacts/evidence/P1-03 --assessment-id corrected-review-001 \
+  --output ../artifacts/evidence/P1-03/reviews/corrected-review-001
+uv run --locked --with reportlab python tools/render_assessed_review.py \
+  ../artifacts/evidence/P1-03/reviews/corrected-review-001
+```
+
+The exporter validates source lineage, preserves four selected items per category,
+and refuses an already reviewed/judged assessment or an existing output directory.
+The Markdown/PDF packet contains all seven generated fields, exact reference tasks,
+source context and the frozen rubric. `MY-ANSWERS.md` starts blank; a hashed blank
+template remains separate. No human labels or model judgments are manufactured.
+Chad edits only the answer sheet. Source-bearing packets stay local/NAS.
 
 ## Fixed controls and execution
 
