@@ -1,6 +1,6 @@
 # Proposed 4096-thinking-token assessed baseline revision
 
-**Status: owner approved; preparing the frozen execution package.** Chad replied
+**Status: owner approved; frozen execution is in progress.** Chad replied
 "Approved." to the proposal for the new 50-item calibration with the same 4096 cap.
 
 The [approved two-case probe](REASONING-BUDGET-PROBE.md#measured-result) returned
@@ -52,5 +52,20 @@ Approved proposal:
 
 > Approve a new 50-item assessed baseline calibration with Qwen3.5, frozen V13 and a 4096 thinking-token cap, under the existing two-attempt-per-item budget. Preserve all earlier runs, errors and human ratings.
 
-Mac use has been announced. The package will bind the amended qualification,
-implementation, new run/report IDs and every frozen input before inference.
+Mac use was announced. The package binds the amended qualification, implementation,
+new run/report IDs and every frozen input before inference. All 435 offline tests
+pass, including rejection of a mismatched receipt, thinking cap or process owner.
+
+## Frozen execution package
+
+- Implementation: `43d35918193c677538a3f31244625423fb1debd9`.
+- Package: `qualification/MP1-QWEN35-BASELINE-B4096-MAC`, 206 frozen files.
+- Archive SHA-256: `9c3c69feef16552fd677f35584fdb5f912d93f7007439c15d364835651067c82`.
+- Native plan: `44e980f3bf4424c30b15ec412a0915a24433bc47849fb7a11857685f3d907100`.
+- Amended selection: `qualification/qwen35-assessed-selection-budget4096-002/qualification.json`,
+  byte SHA-256 `5d6884abd6deea891a35b9e1b723146eb533b114846d54a4e0ccf7f02ed43bf0`.
+
+Packaging verified that all fifty message bodies, model identities, request
+settings and the frozen human-reference identity match the original plan. The
+native thinking cap is separately bound in the plan and qualification receipt,
+and the actual owned server command is checked before every recorded request start.

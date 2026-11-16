@@ -6,8 +6,8 @@ Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/iss
 **Reporting implementation:** the [analysis runbook](docs/ANALYSIS-RUNBOOK.md)
 covers verified cohort reports, five charts with plotted-data tables, exact
 comparison thresholds and local evidence export.
-**430 locked WSL tests pass**, including confirmation intake, preserved reviewer
-rationale, assessed pre-dispatch runtime checks and the proposed probe's approval/ownership guards.
+**435 locked WSL tests pass**, including confirmation intake, preserved reviewer
+rationale, assessed pre-dispatch checks and the amended runtime's budget/ownership guards.
 The preliminary baseline report reproduces the frozen human review; full-cohort
 judge results and corrected data remain unmeasured. M4 qualification continues.
 
@@ -35,8 +35,8 @@ The Mac is free. Calibration remains pending. The approved
 [two-case thinking-budget probe](docs/REASONING-BUDGET-PROBE.md#measured-result)
 completed both cases on their first attempt with the 4096 cap. One known human
 case matched 6/6; semantic limitations remain. A
-[new full baseline revision](docs/BASELINE-BUDGET-AMENDMENT.md) is proposed for
-explicit approval of the amended assessed runtime.
+[new full baseline revision](docs/BASELINE-BUDGET-AMENDMENT.md) is now owner-approved
+and running with the amended assessed runtime. No new human review is needed yet.
 Cumulative starts are **212**, including both externally interrupted attempts.
 
 **Previous development result:** [Qwen3.5 V4](docs/QWEN35-V4.md#measured-result) completed
