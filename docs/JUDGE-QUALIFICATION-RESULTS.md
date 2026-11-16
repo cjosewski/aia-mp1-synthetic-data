@@ -1,6 +1,17 @@
-# Judge qualification — November 13 checkpoint
+# Judge qualification — November 15 checkpoint
 
-**Latest:** [Qwen3.5 V4](QWEN35-V4.md#measured-result) completes ten valid first
+**Current:** the [fresh confirmation comparison](CONFIRMATION-RESULTS.md) is complete.
+Qwen3.5 scores 56/60 versus Qwen3's 46/60, with ten improvements and no regressions.
+All 120 public explanations were audited. Four candidate false approvals and
+context-anchor inconsistencies remain disclosed. Twenty valid judgments took 22
+starts, including two owner-confirmed external-interruption failures; cumulative
+starts are 212. Recovery and the comparator-template validation correction are
+documented without altering frozen labels/messages. The return and all code
+snapshots verify locally/NAS; the Mac is released. The recommendation is Qwen3.5
+for assessed baseline calibration, pending Chad's selection. No assessed
+calibration or final qualification is claimed.
+
+**Previous development checkpoint:** [Qwen3.5 V4](QWEN35-V4.md#measured-result) completes ten valid first
 attempts at **57/60**, dimensions **9,9,10,10,9,10**. One completeness false approval
 and two false rejections remain; safety/API false approvals are zero. All sixty
 public explanations were audited, with the three anchor errors retained and the

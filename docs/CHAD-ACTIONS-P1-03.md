@@ -1,17 +1,22 @@
 # P1-03 — Everything needed from Chad
 
-Prepared November 14, 2026. This is your consolidated instruction sheet.
+Updated November 15, 2026. This is your consolidated instruction sheet.
 The [live project checklist](https://github.com/cjosewski/aia-plan/issues/4) tracks
 completion. This file explains your actions; Codex handles the implementation,
 model runs, analysis and evidence preparation.
 
-**Start with Action 1. It is the only task you need to complete immediately.**
+**The ten reviews are complete. Your current action is the judge-selection decision
+in [CONFIRMATION-RESULTS.md](CONFIRMATION-RESULTS.md#decision-needed-from-chad).**
+No repeat review or new answer sheet is needed. Read the measured comparison and
+its known errors, then select Qwen3.5 for full baseline calibration or request
+further judge development. The Mac is released and its project server is stopped.
 Actions 2–4 happen later, when the relevant material is ready. Conditional items
 at the end apply only if an unresolved decision or failed evaluation requires them.
 
 | Action | When | What you provide |
 | --- | --- | --- |
-| 1. Review ten fresh confirmation answers | Ready now; currently blocks the next model comparison | Completed `MY-ANSWERS.md` with your six ratings and comment for each answer |
+| 1. Review ten fresh confirmation answers | **Complete and frozen** | No further action; original ratings, pass reasons and comments retained |
+| 1b. Select the assessed judge | **Ready now** | Decision after reading [the matched results](CONFIRMATION-RESULTS.md) |
 | 2. Review twenty corrected-dataset answers | After Codex qualifies/calibrates the judge and creates the corrected dataset | Twenty authentic reviews in a new packet Codex will provide |
 | 3. Review and record the final demonstration | After final results and charts are ready | A reviewed 90–180 second demonstration video |
 | 4. Complete the coaching/submission step | When the evidence package and demonstration are ready | Instructor/coach decision, date, reviewer name and any requested changes |
@@ -20,7 +25,10 @@ Allow roughly **3–5 hours of your involvement** across the planned reviews and
 demo, depending on reference checking. Coaching scheduling and any extra review
 round are separate. This is an estimate, not a completion guarantee.
 
-## Action 1 — Complete the ten fresh confirmation reviews now
+## Action 1 — Completed ten-case review (retained instructions)
+
+The submitted file was `\\192.168.0.55\aia\Handoff\P1-03\MY-ANSWERS.md`.
+The instructions below describe the completed review, not a request to repeat it.
 
 ### What you are evaluating
 

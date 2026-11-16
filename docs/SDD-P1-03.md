@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.20, November 13, 2026 |
-| Status | Approved sources, 50-item baseline cohort and 20-item human reference frozen; judge development comparisons ongoing; qualified judge and assessed calibration pending |
+| Revision | 0.21, November 15, 2026 |
+| Status | Baseline and human references frozen; fresh matched confirmation complete; owner judge selection and assessed calibration pending |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
@@ -607,6 +607,18 @@ state or a successful CLI exit.
 
 ### 8.3 Observed implementation checkpoint
 
+November 15: the [fresh comparison](CONFIRMATION-RESULTS.md) completes with frozen
+authentic reviews. Qwen3.5 matches 56/60 versus Qwen3's 46/60, improving ten ratings
+with no regressions. All 120 public explanations are audited; four candidate
+false approvals and anchor-application limitations remain. Two owner-confirmed
+external-interruption failures are retained under an explicit bounded recovery
+amendment; comparator preflight validation was corrected for its pinned native
+template without changing inputs or settings. There are 22 new starts and 212
+cumulative starts. 419 WSL tests pass; all code snapshots and the complete return
+verify locally/NAS. The Mac is released. Chad's model selection is the next human
+decision; full 50-item baseline judging/20-human calibration, correction and final
+acceptance remain pending. Earlier checkpoints below retain their dated scope.
+
 November 13 continuation: comparison, chart/table and local export tooling is
 implemented, with a verified preliminary human baseline record. Canonical
 GPT-OSS-120B high-effort V9–V12 development remains unqualified despite valid
@@ -710,3 +722,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.18 | 2026-11-13 | Preserve Qwen V3's complete 56/60 result, eleven starts including a token-limit failure/recovery, and semantic failures; cumulative 180. Prepare V13 D1/D2 clarification under V4's separate budget with 375 tests; no qualification or label changes |
 | 0.19 | 2026-11-13 | Audit V4 at 57/60 over ten valid first attempts, retaining three errors and zero safety/API false approvals; cumulative 190. Prepare ten fresh unscored confirmation cases, Mac/NAS review packet and strict attributed-review intake. Human review and matched comparison remain pending; no qualification or assessed metrics claimed |
 | 0.20 | 2026-11-13 | Implement the separate fresh-confirmation transport, shared two-model request ledger, native runtime/weight checks, exact-input comparison reports and committed-code portable packaging. Actual blank reviews still block plan/package creation; no new model requests or qualification claimed |
+| 0.21 | 2026-11-15 | Freeze authentic revised confirmation reviews and complete the matched comparison: 56/60 versus 46/60. Preserve external-interruption recovery and native-template validator correction; 212 cumulative starts, 419 tests, all public explanations audited. Recommend Qwen3.5 for assessed calibration pending owner selection; no human-label changes or assessed readiness claimed |
