@@ -164,3 +164,38 @@ def test_duplicate_declaration_is_not_silently_selected(packet):
     text = "Reviewer: Another synthetic reviewer\n" + answers.read_text(encoding="utf-8-sig")
     with pytest.raises(ValueError, match="declaration"):
         parse_answers(text, manifest["packet_id"], ids)
+
+
+def test_pass_reasons_survive_freeze_and_cannot_be_removed(packet, tmp_path):
+    directory, sha, answers = packet
+    notes = "Pass reasons:\n\n- D2: Synthetic hazard and precaution.\n- D4: Synthetic scope."
+    text = answers.read_text(encoding="utf-8-sig").replace("Comment:", notes + "\n\nComment:", 1)
+    answers.write_bytes(b"\xef\xbb\xbf" + text.replace("\n", "\r\n").encode())
+    out = tmp_path / "with-notes"
+    reference = freeze_review(directory, sha, answers, out)
+    assert load_review(directory, sha, out) == reference
+    assert (out / "submitted-answers.md").read_bytes() == answers.read_bytes()
+    assert reference["labels"][0]["comment"] == (
+        notes + "\n\nComment: Synthetic review for tests only.\nSecond comment line."
+    )
+    assert reference["labels"][0]["decisions"] == dict(D1=0, D2=1, D3=0, D4=1, D5=1, D6=0)
+    reference["labels"][0]["comment"] = "Synthetic review for tests only."
+    reference["sha256"] = digest({k: v for k, v in reference.items() if k != "sha256"})
+    (out / "human-reference.json").write_text(json.dumps(reference))
+    with pytest.raises(ValueError, match="submitted record"):
+        load_review(directory, sha, out)
+
+
+@pytest.mark.parametrize("comment", ["", "   ", "___"])
+def test_pass_reasons_do_not_replace_required_comment(packet, tmp_path, comment):
+    directory, sha, answers = packet
+    text = answers.read_text(encoding="utf-8-sig").replace(
+        "Comment: Synthetic review for tests only.\nSecond comment line.",
+        "Pass reasons:\n- D2: Synthetic precaution.\n\nComment: " + comment,
+        1,
+    )
+    answers.write_text(text)
+    out = tmp_path / "invalid-notes"
+    with pytest.raises(ValueError):
+        freeze_review(directory, sha, answers, out)
+    assert not out.exists()

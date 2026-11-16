@@ -26,6 +26,10 @@ engineering applications.
    different copy. Codex will preserve the exact submission and check that it is
    complete; it will not supply missing human judgments.
 
+Optional `Pass reasons:` notes may appear between an item's ratings and its
+`Comment:` line. Intake preserves these notes with the comment and retains the
+exact submitted file. A completed `Comment:` remains required.
+
 The same packet is on the NAS at
 `\\192.168.0.55\aia\MP1-handoff\qwen35-v4-blind-confirmation-v1` and on Windows at
 `D:\_Repos\_AIA\artifacts\evidence\P1-03\qualification\qwen35-v4-blind-confirmation-v1`.

@@ -1,14 +1,18 @@
 # Fresh confirmation transport
 
 This operator procedure follows the [human review](QWEN35-CONFIRMATION-RUNBOOK.md).
-The software is implemented and tested offline. A real confirmation plan, package,
-native preflight and model calls remain pending the authentic frozen reference.
+The software is implemented and tested offline. Chad's resubmitted ten-item
+review was frozen on November 16 UTC (November 15 local), before model calls.
+All ratings and added pass reasons are preserved; the earlier submission remains
+separate. The frozen reference is `qualification/qwen35-v4-human-reference-001`
+under the external evidence root. Plan/package preparation and native preflight
+can now proceed.
 No production model or prompt default changes.
 
-Verification: 409 locked WSL tests pass, including 21 transport/bundle tests using
-synthetic inputs, declarations and completions only. Ruff lint/format and Bash
-syntax checks pass. The actual packet cannot produce a package without its
-missing human reference; that negative check created no output directory.
+Verification: 413 locked WSL tests pass, including 21 transport/bundle tests using
+synthetic inputs, declarations and completions only. Intake tests cover exact-byte
+preservation, added rationale, missing comments and rewritten parsed notes. The
+earlier missing-reference negative check created no output directory.
 
 ## Contract
 

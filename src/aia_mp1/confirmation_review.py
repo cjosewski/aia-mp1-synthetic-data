@@ -112,14 +112,24 @@ def parse_answers(text: str, packet_id: str, ids: list[str]):
     for index, header in enumerate(headers):
         end = headers[index + 1].start() if index + 1 < len(headers) else len(text)
         block = text[header.end() : end].strip()
-        match = re.fullmatch(ratings_pattern + r"\s*\n\s*Comment:\s*(.+)", block, re.DOTALL)
-        if not match or "___" in match.group(7) or not match.group(7).strip():
+        match = re.fullmatch(
+            ratings_pattern
+            + r"\s*\n\s*(?P<reasons>Pass reasons:[ \t]*\n.+?\n\s*)?"
+            + r"Comment:[ \t]*(?P<comment>.+)",
+            block,
+            re.DOTALL,
+        )
+        if not match or "___" in block or not match.group("comment").strip():
             raise ValueError(f"six explicit binary ratings and a comment required: {ids[index]}")
+        comment = match.group("comment").strip()
+        if match.group("reasons"):
+            # Retain reviewer-added rationale, including its original section label.
+            comment = match.group("reasons").strip() + "\n\nComment: " + comment
         labels.append(
             {
                 "item_id": ids[index],
                 "decisions": {d: int(match.group(i + 1)) for i, d in enumerate(DIMENSIONS)},
-                "comment": match.group(7).strip(),
+                "comment": comment,
             }
         )
     return {

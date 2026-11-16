@@ -6,9 +6,8 @@ Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/iss
 **Reporting implementation:** the [analysis runbook](docs/ANALYSIS-RUNBOOK.md)
 covers verified cohort reports, five charts with plotted-data tables, exact
 comparison thresholds and local evidence export.
-**409 locked WSL tests pass**, including confirmation intake, two-model transport
-and portable bundle checks. Ruff lint/format, launcher syntax and the actual
-missing-review rejection also pass.
+**413 locked WSL tests pass**, including confirmation intake, preservation of
+reviewer-added pass reasons, two-model transport and portable bundle checks.
 The preliminary baseline report reproduces the frozen human review; full-cohort
 judge results and corrected data remain unmeasured. M4 qualification continues.
 
@@ -17,13 +16,14 @@ covers the review needed now and the later corrected reviews, demo and coaching
 handoff, with conditional instructor decisions kept separate.
 Also available as a [printable PDF](docs/CHAD-ACTIONS-P1-03.pdf).
 
-**Action for Chad now:** complete the ten fresh reviews using the
-[confirmation runbook](docs/QWEN35-CONFIRMATION-RUNBOOK.md). The packet is on the
-Mac under `~/AIA/MP1-handoff/qwen35-v4-blind-confirmation-v1`; edit `MY-ANSWERS.md`.
-Neither comparison model will receive these examples before your review is frozen.
+**Fresh human review received:** Chad's revised ten-item answer sheet is frozen
+with all original ratings, pass reasons and comments preserved. The authoritative
+submission came from `\\192.168.0.55\aia\Handoff\P1-03\MY-ANSWERS.md`.
+No further human action is needed for this confirmation review.
 The [matched comparison transport](docs/CONFIRMATION-TRANSPORT.md) is implemented
 offline, including a shared bounded ledger, native runtime checks and portable
-packaging. Real packaging/preflight remain gated on the authentic review.
+packaging. The authentic review now permits packaging and native preflight;
+model results remain unmeasured at this intake checkpoint.
 
 **Latest judge result:** [Qwen3.5 V4](docs/QWEN35-V4.md#measured-result) completed
 ten valid first attempts at **57/60**, with at least 90% agreement in each dimension
