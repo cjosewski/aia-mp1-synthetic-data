@@ -18,7 +18,7 @@ from .canonical_development import (
     save,
     verify_runtime,
 )
-from .confirmation_review import load_review, verify_packet
+from .confirmation_review import byte_hash, load_review, verify_packet
 from .evaluation_schemas import DIMENSIONS, Judgment
 from .factcheck_transport import LocalServer, VerifiedTransport, loopback_url
 from .model_client import InstructorClient
@@ -27,6 +27,87 @@ from .tracing import digest, now
 PHASES = ("candidate", "comparator")
 GENERATOR_SHA = "9f1a24700a339b09c06009b729b5c809e0b64c213b8af5b711b3dbdfd0c5ba48"
 RUNTIME = {"build_info": "b12110-cd959bae9", "ctx_size": 16384, "parallel": 1}
+RECOVERY_FILE = "external-interruption-recovery.json"
+
+
+def check_external_interruption(attempts):
+    """Only two recorded connection losses, after an otherwise valid prefix, qualify."""
+    if len(attempts) < 2:
+        raise ValueError("two recorded connection failures required for recovery")
+    tail = attempts[-2:]
+    if (
+        any(a["result"]["judgment"] is None for a in attempts[:-2])
+        or [a["start"]["number"] for a in tail] != [1, 2]
+        or len({(a["start"]["phase"], a["start"]["item_id"]) for a in tail}) != 1
+        or any(
+            a["result"]["raw_response"] is not None
+            or a["result"]["error"] != "Connection error."
+            or a["result"]["judgment"] is not None
+            for a in tail
+        )
+    ):
+        raise ValueError("recovery requires a confirmed external connection-loss boundary")
+
+
+def record_external_recovery(plan, directory, incident):
+    """Record an explicit protocol amendment; never erase attempts or rerun successes."""
+    with exclusive(directory):
+        if (directory / RECOVERY_FILE).exists():
+            raise ValueError("external interruption recovery already recorded")
+        state = audit(plan, directory)
+        check_external_interruption(state["attempts"])
+        if state["consecutive_failures"] != 2 or len(state["attempts"]) >= plan["max_starts"]:
+            raise ValueError("recovery needs a stopped ledger with remaining total budget")
+        required = {"reported_by", "incident_statement", "availability_statement"}
+        if set(incident) != required or any(
+            not isinstance(v, str) or not v.strip() for v in incident.values()
+        ):
+            raise ValueError("attributed incident and availability statements required")
+        count = len(state["attempts"])
+        receipt = {
+            "protocol_amendment": "external-interruption-recovery-v1",
+            "plan_sha256": plan["sha256"],
+            "created_at": now(),
+            "after_serial": count,
+            "additional_attempts_for_interrupted_case": 1,
+            "total_start_limit": plan["max_starts"],
+            "incident": incident,
+            "attribution_boundary": "Owner statements recorded; not independently authenticated.",
+            "prefix_files_sha256": {
+                f"{i:03d}-{kind}.json": byte_hash(directory / f"{i:03d}-{kind}.json")
+                for i in range(1, count + 1)
+                for kind in ("start", "result")
+            },
+        }
+        receipt["sha256"] = digest(receipt)
+        save(directory / RECOVERY_FILE, receipt)
+        return receipt
+
+
+def read_external_recovery(plan, directory):
+    path = directory / RECOVERY_FILE
+    if not path.exists():
+        return None
+    receipt = read_json(path)
+    count = receipt["after_serial"]
+    if (
+        type(count) is not int
+        or not 2 <= count < plan["max_starts"]
+        or receipt["sha256"] != digest({k: v for k, v in receipt.items() if k != "sha256"})
+        or receipt["protocol_amendment"] != "external-interruption-recovery-v1"
+        or receipt["plan_sha256"] != plan["sha256"]
+        or receipt["additional_attempts_for_interrupted_case"] != 1
+        or receipt["total_start_limit"] != plan["max_starts"]
+    ):
+        raise ValueError("external recovery amendment identity differs")
+    expected = {
+        f"{i:03d}-{kind}.json": byte_hash(directory / f"{i:03d}-{kind}.json")
+        for i in range(1, count + 1)
+        for kind in ("start", "result")
+    }
+    if receipt["prefix_files_sha256"] != expected:
+        raise ValueError("interrupted ledger prefix changed")
+    return receipt
 
 
 def make_plan(packet, manifest_sha256, review, model_paths, *, created_at=None):
@@ -136,6 +217,7 @@ def audit(plan, directory):
     }:
         raise ValueError("confirmation ledger identity differs")
     queue = queue_for(plan)
+    recovery = read_external_recovery(plan, directory)
     attempts, successful = [], {phase: {} for phase in PHASES}
     next_index, number, failures = 0, 1, 0
     starts = sorted(directory.glob("*-start.json"))
@@ -177,6 +259,13 @@ def audit(plan, directory):
             if number > 2:
                 next_index += 1
                 number = 1
+        if recovery and serial == recovery["after_serial"]:
+            check_external_interruption(attempts)
+            if failures != 2:
+                raise ValueError("recovery does not follow the terminal connection losses")
+            # The two original starts still count. Permit exactly one third attempt.
+            next_index -= 1
+            number, failures = 3, 0
     if len(list(directory.glob("*-result.json"))) != len(starts):
         raise ValueError("orphan confirmation result")
     return {
@@ -185,6 +274,7 @@ def audit(plan, directory):
         "next_index": next_index,
         "next_number": number,
         "consecutive_failures": failures,
+        "external_interruption_recovery": recovery,
     }
 
 
@@ -353,13 +443,16 @@ def comparison_report(plan, state, reference):
         "human_reference_sha256": reference["sha256"],
         "starts": len(state["attempts"]),
         "cumulative_starts": plan["prior_starts"] + len(state["attempts"]),
+        "protocol_amendment": state.get("external_interruption_recovery"),
         "models": reports,
     }
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("prepare", "validate", "preflight", "execute", "report"))
+    parser.add_argument(
+        "action", choices=("prepare", "validate", "preflight", "execute", "report", "recover")
+    )
     parser.add_argument("--packet", type=Path, required=True)
     parser.add_argument("--review", type=Path, required=True)
     parser.add_argument("--plan", type=Path, required=True)
@@ -368,6 +461,7 @@ def main(argv=None):
     parser.add_argument("--comparator-model")
     parser.add_argument("--directory", type=Path)
     parser.add_argument("--phase", choices=PHASES)
+    parser.add_argument("--incident", type=Path)
     parser.add_argument("--endpoint", default="http://127.0.0.1:8081/v1")
     args = parser.parse_args(argv)
     try:
@@ -397,6 +491,12 @@ def main(argv=None):
             return 0
         if args.directory is None:
             raise ValueError("ledger directory required")
+        if args.action == "recover":
+            if args.incident is None:
+                raise ValueError("attributed incident file required")
+            receipt = record_external_recovery(plan, args.directory, read_json(args.incident))
+            print(json.dumps({"recovery_sha256": receipt["sha256"], "model_requests": 0}))
+            return 0
         if args.action == "report":
             reference = load_review(args.packet, plan["packet_manifest_sha256"], args.review)
             print(

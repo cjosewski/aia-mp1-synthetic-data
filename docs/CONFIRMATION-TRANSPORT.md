@@ -39,6 +39,31 @@ an unknown outcome and prevents new dispatch. Replay checks order, phase, exact
 wire, raw completion, parsed judgment and lineage hashes. Completed phases cannot
 be rerun in the same ledger. Never create a replacement ledger to bypass a stop.
 
+### Recorded external interruption amendment — November 15, 2026
+
+The first live run completed C01–C06, then recorded two connection failures for
+C07. Chad confirmed that another session killed the Mac server, requested a hold,
+and later stated that the Mac was free. The interrupted return is preserved as
+`MP1-QWEN35-CONFIRMATION-INTERRUPTED.zip` (SHA-256
+`efe646cc41b5a872b592aa809f8d827b2f58a9a020c6650dd381353e46ab31a4`).
+
+This is an explicit recovery amendment to the original two-attempt protocol,
+not an unchanged-protocol result. The `recover` command records the attributed
+incident and availability statements and binds every original start/result byte
+hash. It permits exactly one third attempt for the interrupted case. The original
+eight starts still count toward the same forty-start limit, and neither the six
+successful judgments nor the frozen review/messages/settings are replaced.
+There is no new ledger or new human review. Unknown outcomes, malformed responses,
+earlier failed cases and an exhausted total budget do not qualify for this recovery.
+Only one amendment is supported. Subsequent consecutive failures still stop the run.
+
+Recovery code and its launcher are frozen separately beside the original bundle;
+the original code, markers and logs remain intact. The recovery launcher verifies
+both code packages, uses distinct invocation/log names, and repeats native
+preflight before dispatch. Reports include the amendment and retain the failed
+first attempt in initial-validity accounting. The original partial result remains
+separately reproducible with its original frozen code.
+
 Native preflight verifies both candidate shard hashes, the comparator's single
 weight hash, served identity, build, context, slot count, thinking-channel opening
 and every exact request's token fit. Every execution repeats preflight and checks

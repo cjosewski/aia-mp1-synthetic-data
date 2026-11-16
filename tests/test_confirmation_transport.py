@@ -18,6 +18,7 @@ from aia_mp1.confirmation_transport import (
     main,
     make_plan,
     next_phase,
+    record_external_recovery,
     run_phase,
     wire_for,
 )
@@ -154,6 +155,89 @@ def test_unknown_outcome_blocks_replay_and_dispatch(confirmation):
     for phase in ("candidate", "comparator"):
         with pytest.raises(ValueError, match="unknown request outcome"):
             run_phase(plan, phase, ledger, interrupted)
+
+
+def test_external_recovery_keeps_prefix_and_all_attempt_denominators(confirmation):
+    plan, _, packet_dir, review, ledger = confirmation
+    calls = []
+
+    def interrupted(model, case, wire):
+        calls.append(case["item_id"])
+        return (completion(model), None) if len(calls) == 1 else (None, "Connection error.")
+
+    state = run_phase(plan, "candidate", ledger, interrupted)
+    assert len(calls) == 3 and next_phase(plan, state) is None
+    original = {p.name: p.read_bytes() for p in ledger.glob("*.json")}
+    receipt = record_external_recovery(
+        plan,
+        ledger,
+        {
+            "reported_by": "Synthetic owner",
+            "incident_statement": "Synthetic external shutdown",
+            "availability_statement": "Synthetic host now available",
+        },
+    )
+    assert receipt["after_serial"] == 3
+    with pytest.raises(ValueError, match="already recorded"):
+        record_external_recovery(plan, ledger, {})
+    resumed = []
+
+    def success(model, case, wire):
+        resumed.append(case["item_id"])
+        return completion(model), None
+
+    state = run_phase(plan, "candidate", ledger, success)
+    assert resumed == [c["item_id"] for c in plan["cases"][1:]]
+    assert json.loads((ledger / "004-start.json").read_text())["number"] == 3
+    assert all((ledger / name).read_bytes() == data for name, data in original.items())
+    state = run_phase(plan, "comparator", ledger, success)
+    report = comparison_report(
+        plan, state, load_review(packet_dir, plan["packet_manifest_sha256"], review)
+    )
+    assert report["starts"] == 22 and report["cumulative_starts"] == 212
+    assert report["models"]["candidate"]["initial_valid"] == 9
+    assert report["models"]["candidate"]["retry_starts"] == 2
+    assert report["models"]["candidate"]["valid_cases"] == 10
+    assert report["protocol_amendment"] == receipt
+    (ledger / "001-result.json").write_text("changed")
+    with pytest.raises(ValueError, match="prefix changed"):
+        audit(plan, ledger)
+
+
+@pytest.mark.parametrize("outcome", ["malformed", "unknown", "third_failure"])
+def test_external_recovery_does_not_remove_other_stop_conditions(confirmation, outcome):
+    plan, _, _, _, ledger = confirmation
+    incident = {
+        "reported_by": "Synthetic",
+        "incident_statement": "Synthetic shutdown",
+        "availability_statement": "Synthetic available",
+    }
+    if outcome == "unknown":
+
+        def dispatch(*args):
+            raise KeyboardInterrupt
+
+        with pytest.raises(KeyboardInterrupt):
+            run_phase(plan, "candidate", ledger, dispatch)
+        with pytest.raises(ValueError, match="unknown request outcome"):
+            record_external_recovery(plan, ledger, incident)
+    elif outcome == "malformed":
+        run_phase(plan, "candidate", ledger, lambda m, c, w: (completion(m, "length"), None))
+        with pytest.raises(ValueError, match="external connection-loss"):
+            record_external_recovery(plan, ledger, incident)
+    else:
+
+        def fail(m, c, w):
+            return None, "Connection error."
+
+        run_phase(plan, "candidate", ledger, fail)
+        record_external_recovery(plan, ledger, incident)
+        state = run_phase(plan, "candidate", ledger, fail)
+        # One extra try of the interrupted case, then one failed start on the next case.
+        assert len(state["attempts"]) == 4 and state["consecutive_failures"] == 2
+        assert next_phase(plan, state) is None
+        with pytest.raises(ValueError, match="next permitted"):
+            run_phase(plan, "comparator", ledger, fail)
 
 
 def test_review_tampering_and_unreviewed_input_prevent_cli_dispatch(confirmation, monkeypatch):
