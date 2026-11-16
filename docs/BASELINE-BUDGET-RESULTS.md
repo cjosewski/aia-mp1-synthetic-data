@@ -117,7 +117,7 @@ It proposes a bounded comparison on the ten existing confirmation cases, now
 explicitly treated as known development data, with a matched capped V13 control.
 It does not consume the one remaining assessed version or claim fresh validation.
 
-Chad's approval so far fixes V13 for this assessed run. Approval of the new prompt
-comparison is requested separately because it changes that explicit selection.
-No V14 inference or third assessed version has started. No new human scoring is
-needed for the proposed development comparison.
+Chad subsequently approved that comparison. Its [complete result](JUDGE-V14-RESULTS.md)
+is 55/60 for V14 versus 56/60 for the capped V13 control, with one improvement and
+two regressions, including a new safety false approval. V14 does not advance.
+No third assessed version has started, and the original baseline result is unchanged.

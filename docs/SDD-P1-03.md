@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.25, November 16, 2026 |
-| Status | Approved capped V13 run complete at 50/50 first attempts; calibration fails D1/D3/D6; M4 incomplete; V14 development draft proposed, no new inference |
+| Revision | 0.26, November 16, 2026 |
+| Status | Full baseline calibration fails D1/D3/D6; completed V14 development comparison does not advance (55/60 versus 56/60); M4 incomplete, final assessed slot preserved |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
@@ -607,6 +607,16 @@ state or a successful CLI exit.
 
 ### 8.3 Observed implementation checkpoint
 
+November 16, subsequent approved development: [V13 versus V14](JUDGE-V14-RESULTS.md)
+completes twenty first attempts on ten exposed confirmation cases. V13 matches
+56/60; V14 matches 55/60. One completeness improvement is outweighed by a safety
+false approval and an API false rejection. Both D5 results are 7/10. All 173 frozen
+files and report replay verify, and all 120 public explanations are inspected.
+The earlier assessed seal verifies unchanged; no outputs or new labels enter the
+assessment. The Mac is released. 441 locked WSL tests pass. V14 does not advance,
+this allocation stops, and the third assessed version remains unused. Further
+model work requires a new bounded proposal; M4 remains incomplete.
+
 November 16: the approved [second assessed version](BASELINE-BUDGET-RESULTS.md)
 completes all fifty first attempts under the 4096 thinking cap, with no retries,
 failures or unknown outcomes. Frozen V13, weights and original twenty human reviews
@@ -621,8 +631,8 @@ comparison status; corrected data are unmeasured. The owned server is stopped an
 the Mac is free. Implementation validation passed 435 locked WSL tests.
 
 M4 remains incomplete because D1/D3/D6 fail the unchanged 80% agreement threshold.
-The [V14 draft and matched development proposal](JUDGE-V14-PROPOSAL.md) require a
-separate prompt decision; no V14 inference or third assessed version has started.
+At that baseline checkpoint, the [V14 draft](JUDGE-V14-PROPOSAL.md) required a
+separate prompt decision; its later approved result is recorded immediately above.
 One assessed version remains. M5 generator correction/new human review and M6
 demonstration/acceptance remain subsequent work. Earlier dated checkpoints below
 preserve their historical scope rather than overriding this result.
@@ -747,3 +757,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.23 | 2026-11-15 | Preserve first assessed run: 11/50 complete judgments, 14 starts, three complete token-limit failures, zero unknown outcomes. Verify 188 frozen files and import an explicitly pending report. Prepare approval-gated two-case 4096-thinking-token probe; no runtime change or new inference executed |
 | 0.24 | 2026-11-15 | Execute approved 4096-thinking-token probe: two valid first attempts, 4438/4532 completion tokens, 212.2 request seconds, one known human case matching 6/6. Verify 151 files and original assessed attempts; preserve semantic concerns and release Mac. Propose a separate second assessed version under an explicit runtime amendment; no full rerun started |
 | 0.25 | 2026-11-16 | Complete approved capped V13 baseline: 50 valid first attempts, 94.5 request minutes, zero failures/retries/unknowns; agreement 10,17,13,18,17,12 of twenty fails D1/D3/D6. Verify 206 inputs and replay, preserve 33 false approvals, inspect 120 human-paired explanations and render five charts. Original evidence unchanged, Mac released, 435 tests. Prepare V14 draft/proposal without new inference; M4 remains incomplete |
+| 0.26 | 2026-11-16 | Complete approved paired V13/V14 development: twenty valid first attempts, 32.3 request minutes, V14 55/60 versus V13 56/60, one improvement and two regressions including a safety false approval. Both D5 7/10; no advancement. Verify 173 files/replay, inspect 120 public justifications, retain unchanged assessed evidence and release Mac. 441 tests; final assessed allocation unused, M4 incomplete |

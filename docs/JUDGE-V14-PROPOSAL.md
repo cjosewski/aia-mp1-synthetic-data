@@ -1,8 +1,11 @@
 # Proposed V14 claim-checking comparison
 
-**Status: owner approved; implementation and frozen-package preparation in progress.**
+**Status: approved comparison complete; V14 does not advance.**
 Chad replied "Approved" to the twenty-request comparison, with a maximum of forty
 starts including retries. The attributed approval is retained outside Git.
+The [measured result](JUDGE-V14-RESULTS.md) is 55/60 for V14 versus 56/60 for V13,
+with one improvement, two regressions and a new safety false approval. All twenty
+first attempts completed; the Mac is free. This document preserves the protocol.
 This proposal changes the V13 prompt Chad explicitly selected. It does not alter
 the completed V13 run, its human reference, the rubric or course thresholds.
 
@@ -95,3 +98,7 @@ The original confirmation-plan identity is
 `cf87d3e07c2f4424e3994e232d45d9398431b2a809ddfd5476ff0dbbeb4f90e7`.
 Preparation passes **441 locked WSL tests**, Ruff and launcher syntax checks.
 These are implementation checks, not new model measurements.
+
+The frozen package contains 173 files at implementation `171aa1b`; plan identity
+`83a8fbce3ec0d5b4a72cb0f52050b988995e06845bca3dbffc40e762bca40096`.
+The complete return and semantic audit are linked in the measured result above.

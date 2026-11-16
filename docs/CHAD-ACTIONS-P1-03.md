@@ -10,10 +10,12 @@ model runs, analysis and evidence preparation.
 entire output allowance. Your approved two-case thinking-budget test completed
 both first attempts. The approved [new full 50-item calibration](BASELINE-BUDGET-RESULTS.md)
 completed all fifty first attempts, but failed agreement on completeness, API
-realism and tips. The approved next step is to test the
-[prepared V14 draft](JUDGE-V14-PROPOSAL.md) against a matched V13 control on ten
-existing development cases. **You approved that comparison; preparation is in
-progress.** No new answer sheet, decision or human scoring is needed now.
+realism and tips. The subsequent approved [V13/V14 comparison](JUDGE-V14-RESULTS.md)
+is also complete: V14 scored 55/60 versus V13's 56/60 and introduced a safety miss.
+**V14 will not advance. The Mac is free.** The bounded allocation has stopped as
+specified, preserving the last assessed version. A new judge proposal is needed
+before further model work. There is no new answer sheet or human scoring task now;
+do not repeat the completed reviews.
 Actions 2–4 happen later, when the relevant material is ready. Conditional items
 at the end apply only if an unresolved decision or failed evaluation requires them.
 
@@ -23,7 +25,7 @@ at the end apply only if an unresolved decision or failed evaluation requires th
 | 1b. Select the assessed judge | **Complete and recorded** | Qwen3.5 with frozen V13/settings and reported errors retained |
 | 1c. Decide on the limited thinking-budget probe | **Approved and complete** | Two valid first attempts; original errors preserved |
 | 1d. Amend the assessed runtime | **Approved and complete** | Fifty first attempts complete; calibration failed three dimensions; all previous evidence preserved |
-| 1e. Decide on the V14 development comparison | **Approved; preparation in progress** | Twenty planned requests, at most forty starts including retries; no third assessed run authorized |
+| 1e. Decide on the V14 development comparison | **Approved and complete; did not advance** | Twenty valid first attempts; one improvement and two regressions; no third assessed run authorized |
 | 2. Review twenty corrected-dataset answers | After Codex qualifies/calibrates the judge and creates the corrected dataset | Twenty authentic reviews in a new packet Codex will provide |
 | 3. Review and record the final demonstration | After final results and charts are ready | A reviewed 90–180 second demonstration video |
 | 4. Complete the coaching/submission step | When the evidence package and demonstration are ready | Instructor/coach decision, date, reviewer name and any requested changes |

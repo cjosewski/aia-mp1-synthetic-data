@@ -12,6 +12,12 @@ The [full baseline calibration](docs/BASELINE-BUDGET-RESULTS.md) completed 50/50
 first attempts, but agreement fails D1 (50%), D3 (65%) and D6 (60%). D2 is 85%,
 D4 90% and D5 85%. M4 remains incomplete; corrected data remain unmeasured.
 
+**Latest development result:** the [approved V13/V14 comparison](docs/JUDGE-V14-RESULTS.md)
+completed twenty valid first attempts. V14 matches 55/60 versus V13's 56/60, with
+one improvement, two regressions and a new safety false approval. Both score 7/10
+on D5. V14 does not advance; the final assessed allocation remains unused.
+The Mac is free, and all original ratings and assessed evidence are unchanged.
+
 **All actions needed from Chad:** [consolidated instruction sheet](docs/CHAD-ACTIONS-P1-03.md)
 covers the completed reviews and selection, plus later corrected reviews, demo and coaching
 handoff, with conditional instructor decisions kept separate.
@@ -39,8 +45,8 @@ case matched 6/6; semantic limitations remain. A
 [new full baseline revision](docs/BASELINE-BUDGET-RESULTS.md) completed fifty valid
 first attempts, retaining 33 false approvals and no false rejections across the
 twenty human reviews. Calibration is not ready. The Mac is free. The
-[V14 draft and bounded comparison](docs/JUDGE-V14-PROPOSAL.md) are now approved;
-frozen-package preparation is in progress and no new human scoring is needed.
+[V14 comparison](docs/JUDGE-V14-RESULTS.md) is complete and failed its advancement
+conditions. No third assessed run or new human scoring has started.
 The earlier development checkpoint had **212 starts**, including both
 externally interrupted attempts; the later assessed runs have 14 and 50 starts,
 and the separate thinking-budget probe has two.
