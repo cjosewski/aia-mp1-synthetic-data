@@ -12,6 +12,10 @@ and the reported errors retained. The [selection receipt and assessed-run protoc
 record the 50-item/20-human calibration. Its [first run](ASSESSED-BASELINE-RESULTS.md)
 stopped at 11 complete judgments after three token-limit failures in 14 starts.
 All errors and inputs are retained; calibration remains pending and the Mac is free.
+The subsequent [approved 4096-thinking-token probe](REASONING-BUDGET-PROBE.md#measured-result)
+completed two first attempts, with 6/6 agreement on its one known human-rated case.
+It establishes limited technical feasibility; a full assessed runtime amendment
+is proposed separately and has not been executed.
 
 **Previous development checkpoint:** [Qwen3.5 V4](QWEN35-V4.md#measured-result) completes ten valid first
 attempts at **57/60**, dimensions **9,9,10,10,9,10**. One completeness false approval

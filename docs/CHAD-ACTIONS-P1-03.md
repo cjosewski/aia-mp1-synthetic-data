@@ -7,10 +7,11 @@ model runs, analysis and evidence preparation.
 
 **The ten reviews and your judge selection are complete. The Mac is free.** The
 [assessed run](ASSESSED-BASELINE-RESULTS.md) stopped when thinking consumed the
-entire output allowance. Your current action is one decision: approve or decline
-the [prepared two-case thinking-budget test](REASONING-BUDGET-PROBE.md). Approval
-is needed because it changes the runtime settings you explicitly froze. No new
-ratings or repeat review are needed for this decision.
+entire output allowance. Your approved two-case thinking-budget test completed
+both first attempts. Your current decision is whether to apply the 4096 thinking
+cap to a [new full 50-item calibration](BASELINE-BUDGET-AMENDMENT.md). Your latest
+approval covered the two-case probe; this would amend the assessed runtime.
+No new ratings or repeat review are needed for this decision.
 Actions 2–4 happen later, when the relevant material is ready. Conditional items
 at the end apply only if an unresolved decision or failed evaluation requires them.
 
@@ -18,7 +19,8 @@ at the end apply only if an unresolved decision or failed evaluation requires th
 | --- | --- | --- |
 | 1. Review ten fresh confirmation answers | **Complete and frozen** | No further action; original ratings, pass reasons and comments retained |
 | 1b. Select the assessed judge | **Complete and recorded** | Qwen3.5 with frozen V13/settings and reported errors retained |
-| 1c. Decide on the limited thinking-budget probe | **Ready for your decision** | Approve a 4096 thinking-token cap on two saved cases, at most four requests; no automatic full rerun |
+| 1c. Decide on the limited thinking-budget probe | **Approved and complete** | Two valid first attempts; original errors preserved |
+| 1d. Amend the assessed runtime | **Ready for your decision** | Apply the 4096 cap to a new 50-item run, preserving all previous evidence and thresholds |
 | 2. Review twenty corrected-dataset answers | After Codex qualifies/calibrates the judge and creates the corrected dataset | Twenty authentic reviews in a new packet Codex will provide |
 | 3. Review and record the final demonstration | After final results and charts are ready | A reviewed 90–180 second demonstration video |
 | 4. Complete the coaching/submission step | When the evidence package and demonstration are ready | Instructor/coach decision, date, reviewer name and any requested changes |
@@ -265,7 +267,8 @@ chart generation and package verification do not require another approval from y
 
 - [x] Complete and submit the ten fresh confirmation reviews.
 - [x] Select the assessed judge with the measured limitations retained.
-- [ ] **Now:** decide on the prepared two-case thinking-budget probe.
+- [x] Approve the two-case thinking-budget probe; both cases completed.
+- [ ] **Now:** decide on the proposed full-run runtime amendment.
 - [ ] **Later:** complete the twenty corrected-dataset reviews when provided.
 - [ ] **Later:** review the final results and record/review the demonstration.
 - [ ] **Later:** provide the final coaching/instructor decision and any conditions.

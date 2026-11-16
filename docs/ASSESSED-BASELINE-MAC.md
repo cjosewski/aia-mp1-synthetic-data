@@ -10,9 +10,11 @@ The attributed receipt is retained outside Git at
 It includes the [matched comparison and its errors](CONFIRMATION-RESULTS.md).
 The owner selection is complete. The [first assessed run and replay](ASSESSED-BASELINE-RESULTS.md)
 are now recorded: 11/50 complete judgments, three retained token-limit failures,
-and an enforced stop. Calibration remains pending; the Mac is free. A proposed
-[two-case budget probe](REASONING-BUDGET-PROBE.md) needs approval for its changed
-runtime setting. No new human ratings are requested.
+and an enforced stop. Calibration remains pending; the Mac is free. The approved
+[two-case budget probe](REASONING-BUDGET-PROBE.md#measured-result) now completes
+both first attempts. The [proposed full-run amendment](BASELINE-BUDGET-AMENDMENT.md)
+needs approval to apply that runtime change to assessed judging. No new human
+ratings are requested.
 
 ## Frozen experiment
 

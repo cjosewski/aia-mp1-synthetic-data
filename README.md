@@ -31,9 +31,12 @@ no regressions against the frozen human reference. Four candidate false approval
 and reasoning limitations remain recorded. Chad selected Qwen3.5 with frozen V13
 and its settings. The [assessed run stopped](docs/ASSESSED-BASELINE-RESULTS.md) with
 11/50 complete judgments after three token-limit failures in 14 recorded attempts.
-The Mac is free. Calibration remains pending. A
-[two-case thinking-budget probe](docs/REASONING-BUDGET-PROBE.md) is prepared for
-approval because it would change a frozen runtime setting.
+The Mac is free. Calibration remains pending. The approved
+[two-case thinking-budget probe](docs/REASONING-BUDGET-PROBE.md#measured-result)
+completed both cases on their first attempt with the 4096 cap. One known human
+case matched 6/6; semantic limitations remain. A
+[new full baseline revision](docs/BASELINE-BUDGET-AMENDMENT.md) is proposed for
+explicit approval of the amended assessed runtime.
 Cumulative starts are **212**, including both externally interrupted attempts.
 
 **Previous development result:** [Qwen3.5 V4](docs/QWEN35-V4.md#measured-result) completed

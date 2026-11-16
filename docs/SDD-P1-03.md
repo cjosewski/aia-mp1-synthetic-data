@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.23, November 15, 2026 |
-| Status | Qwen3.5 selected; first assessed run stopped at 11/50 complete judgments with token-limit failures preserved; revised-runtime probe awaits approval; calibration pending |
+| Revision | 0.24, November 15, 2026 |
+| Status | Original assessed run preserved at 11/50; approved 4096-thinking-token probe completed 2/2 first attempts; full-run runtime amendment proposed; calibration pending |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
@@ -725,3 +725,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.21 | 2026-11-15 | Freeze authentic revised confirmation reviews and complete the matched comparison: 56/60 versus 46/60. Preserve external-interruption recovery and native-template validator correction; 212 cumulative starts, 419 tests, all public explanations audited. Recommend Qwen3.5 for assessed calibration pending owner selection; no human-label changes or assessed readiness claimed |
 | 0.22 | 2026-11-15 | Record Chad's Qwen3.5 selection with frozen V13/settings and errors retained. Prepare portable assessed baseline wrapper, full provenance/qualification verification and pre-dispatch server guard; 427 tests. Separate 50-item/20-human calibration remains unmeasured |
 | 0.23 | 2026-11-15 | Preserve first assessed run: 11/50 complete judgments, 14 starts, three complete token-limit failures, zero unknown outcomes. Verify 188 frozen files and import an explicitly pending report. Prepare approval-gated two-case 4096-thinking-token probe; no runtime change or new inference executed |
+| 0.24 | 2026-11-15 | Execute approved 4096-thinking-token probe: two valid first attempts, 4438/4532 completion tokens, 212.2 request seconds, one known human case matching 6/6. Verify 151 files and original assessed attempts; preserve semantic concerns and release Mac. Propose a separate second assessed version under an explicit runtime amendment; no full rerun started |

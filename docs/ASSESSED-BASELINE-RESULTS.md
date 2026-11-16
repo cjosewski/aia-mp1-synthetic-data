@@ -93,7 +93,8 @@ measurements as NA. Report identity:
 ## Next decision
 
 The installed pinned runtime documents an explicit thinking-token budget. A
-[prepared two-case probe](REASONING-BUDGET-PROBE.md) would cap thinking at 4096
-tokens while retaining the 8192 total allowance and the V13 prompt. It remains
-unexecuted because Chad explicitly selected the frozen settings. The probe cannot
-replace this failed assessed run or establish calibration readiness.
+[two-case probe](REASONING-BUDGET-PROBE.md#measured-result) was subsequently
+approved and completed both cases on their first attempt with a 4096 thinking cap.
+It retains the 8192 total allowance and V13 prompt. A
+[new full-run runtime amendment](BASELINE-BUDGET-AMENDMENT.md) is proposed; the
+probe does not replace this failed assessed run or establish calibration readiness.
