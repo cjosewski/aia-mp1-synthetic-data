@@ -5,18 +5,17 @@ The [live project checklist](https://github.com/cjosewski/aia-plan/issues/4) tra
 completion. This file explains your actions; Codex handles the implementation,
 model runs, analysis and evidence preparation.
 
-**The ten reviews are complete. Your current action is the judge-selection decision
-in [CONFIRMATION-RESULTS.md](CONFIRMATION-RESULTS.md#decision-needed-from-chad).**
-No repeat review or new answer sheet is needed. Read the measured comparison and
-its known errors, then select Qwen3.5 for full baseline calibration or request
-further judge development. The Mac is released and its project server is stopped.
+**The ten reviews and your judge selection are complete. Nothing is needed from
+you for the current baseline-calibration step.** You selected Qwen3.5 with frozen
+V13/settings and reported errors retained. Codex is preparing the
+[assessed Mac run](ASSESSED-BASELINE-MAC.md) and will announce Mac use.
 Actions 2–4 happen later, when the relevant material is ready. Conditional items
 at the end apply only if an unresolved decision or failed evaluation requires them.
 
 | Action | When | What you provide |
 | --- | --- | --- |
 | 1. Review ten fresh confirmation answers | **Complete and frozen** | No further action; original ratings, pass reasons and comments retained |
-| 1b. Select the assessed judge | **Ready now** | Decision after reading [the matched results](CONFIRMATION-RESULTS.md) |
+| 1b. Select the assessed judge | **Complete and recorded** | Qwen3.5 with frozen V13/settings and reported errors retained |
 | 2. Review twenty corrected-dataset answers | After Codex qualifies/calibrates the judge and creates the corrected dataset | Twenty authentic reviews in a new packet Codex will provide |
 | 3. Review and record the final demonstration | After final results and charts are ready | A reviewed 90–180 second demonstration video |
 | 4. Complete the coaching/submission step | When the evidence package and demonstration are ready | Instructor/coach decision, date, reviewer name and any requested changes |
@@ -261,7 +260,8 @@ chart generation and package verification do not require another approval from y
 
 ## Quick checklist
 
-- [ ] **Now:** complete and submit the ten fresh confirmation reviews.
+- [x] Complete and submit the ten fresh confirmation reviews.
+- [x] Select the assessed judge with the measured limitations retained.
 - [ ] **Later:** complete the twenty corrected-dataset reviews when provided.
 - [ ] **Later:** review the final results and record/review the demonstration.
 - [ ] **Later:** provide the final coaching/instructor decision and any conditions.

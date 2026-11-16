@@ -6,16 +6,16 @@ Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/iss
 **Reporting implementation:** the [analysis runbook](docs/ANALYSIS-RUNBOOK.md)
 covers verified cohort reports, five charts with plotted-data tables, exact
 comparison thresholds and local evidence export.
-**419 locked WSL tests pass**, including confirmation intake, preserved reviewer
-rationale, bounded interruption recovery and model-specific native-template checks.
+**427 locked WSL tests pass**, including confirmation intake, preserved reviewer
+rationale, bounded interruption recovery and assessed pre-dispatch runtime checks.
 The preliminary baseline report reproduces the frozen human review; full-cohort
 judge results and corrected data remain unmeasured. M4 qualification continues.
 
 **All actions needed from Chad:** [consolidated instruction sheet](docs/CHAD-ACTIONS-P1-03.md)
-covers the review needed now and the later corrected reviews, demo and coaching
+covers the completed reviews and selection, plus later corrected reviews, demo and coaching
 handoff, with conditional instructor decisions kept separate.
 The earlier instruction sheet is available as a [November 14 PDF](docs/CHAD-ACTIONS-P1-03.pdf);
-the Markdown instructions contain the current selection decision.
+the Markdown instructions contain the current completed selection and next steps.
 
 **Fresh human review received:** Chad's revised ten-item answer sheet is frozen
 with all original ratings, pass reasons and comments preserved. The authoritative
@@ -25,12 +25,12 @@ The [matched comparison transport](docs/CONFIRMATION-TRANSPORT.md) is implemente
 offline, including a shared bounded ledger, native runtime checks and portable
 packaging. The comparison is now complete and fully archived.
 
-**Current decision:** [select the assessed judge](docs/CONFIRMATION-RESULTS.md).
+**Owner selection recorded:** [Qwen3.5 for assessed baseline calibration](docs/ASSESSED-BASELINE-MAC.md).
 Qwen3.5 matches **56/60**, versus Qwen3's **46/60**, with ten improvements and
 no regressions against the frozen human reference. Four candidate false approvals
-and reasoning limitations remain recorded. Codex recommends Qwen3.5 for full
-baseline calibration; Chad's model selection and the separate 50-item/20-human
-calibration gate remain pending. The Mac is released, with the owned server stopped.
+and reasoning limitations remain recorded. Chad selected Qwen3.5 with frozen V13
+and its settings. The separate 50-item/20-human calibration gate remains pending;
+Codex is preparing the portable assessed run and will announce Mac use.
 Cumulative starts are **212**, including both externally interrupted attempts.
 
 **Previous development result:** [Qwen3.5 V4](docs/QWEN35-V4.md#measured-result) completed

@@ -274,6 +274,24 @@ def test_interrupted_request_consumes_budget_and_remains_unknown(queue):
     assert "judge_requests_with_unknown_outcome" in report["readiness_reasons"]
 
 
+def test_pre_dispatch_stop_preserves_failures_without_unknown_start(queue):
+    root, _, config = queue
+    client = FakeJudge(fail=True)
+
+    def server_guard(record, number):
+        if client.calls >= 2:
+            raise KeyboardInterrupt
+
+    with pytest.raises(KeyboardInterrupt):
+        judge_run(root, "diagnostic", "server-stopped", config, client, before_attempt=server_guard)
+    result = judge_status(root, "diagnostic", "server-stopped")
+    assert result["status"] == "interrupted"
+    assert result["started_attempts"] == result["completed_attempts"] == 2
+    assert not result["unresolved_request_ids"]
+    attempts = read_records(root / "assessments/diagnostic/judges/server-stopped/attempts.jsonl")
+    assert all(a["error_type"] == "ValidationError" for a in attempts)
+
+
 def test_judge_resume_rejects_changed_config_and_missing_evidence(queue):
     root, _, config = queue
     judge_run(root, "diagnostic", "failed", config, FakeJudge(fail=True))

@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.21, November 15, 2026 |
-| Status | Baseline and human references frozen; fresh matched confirmation complete; owner judge selection and assessed calibration pending |
+| Revision | 0.22, November 15, 2026 |
+| Status | Baseline and human references frozen; fresh matched confirmation complete; Qwen3.5 owner selection recorded; assessed calibration pending |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
@@ -686,7 +686,7 @@ claimed. This SDD did not rerun those tests or models; the
 | MP1-D01 | Engineering benchmark replacement/requirement and adaptation disposition | Instructor, via Chad | Unqualified assignment acceptance |
 | MP1-D02 | Exact-80% improvement equality | Instructor | Acceptance of an equality-boundary result; conservative >80% remains the design rule |
 | MP1-D03 | Engineering-v1 source pack approved November 10 for local noncommercial coursework; public/commercial export remains outside approval | Chad | Local assessed-source prerequisite resolved; downstream export and engineering runtime verification remain separate |
-| MP1-D04 | Stronger judge model and supported settings; hosted change only if separately approved | Chad | Assessed judge/model checklist completion |
+| MP1-D04 | Qwen3.5 selected November 15 with frozen V13/settings and errors retained; see ASSESSED-BASELINE-MAC.md | Chad | Model selection resolved; assessed calibration remains a separate measured gate |
 | MP1-D05 | Assessed gate version, bounded collection policy and source-purpose extension | Chad through implementation-plan review | M3 collection; current smoke semantics cannot be relabeled |
 | MP1-D06 | Next-slice plan approved November 9; this SDD records its implementation and later design | Chad | Resolved for M2; later slices remain separately scoped |
 | MP1-D07 | Explicit instructor SDD format, if one exists beyond the supplied records | Instructor, via Chad | Claim of conformity to an unprovided template |
@@ -723,3 +723,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.19 | 2026-11-13 | Audit V4 at 57/60 over ten valid first attempts, retaining three errors and zero safety/API false approvals; cumulative 190. Prepare ten fresh unscored confirmation cases, Mac/NAS review packet and strict attributed-review intake. Human review and matched comparison remain pending; no qualification or assessed metrics claimed |
 | 0.20 | 2026-11-13 | Implement the separate fresh-confirmation transport, shared two-model request ledger, native runtime/weight checks, exact-input comparison reports and committed-code portable packaging. Actual blank reviews still block plan/package creation; no new model requests or qualification claimed |
 | 0.21 | 2026-11-15 | Freeze authentic revised confirmation reviews and complete the matched comparison: 56/60 versus 46/60. Preserve external-interruption recovery and native-template validator correction; 212 cumulative starts, 419 tests, all public explanations audited. Recommend Qwen3.5 for assessed calibration pending owner selection; no human-label changes or assessed readiness claimed |
+| 0.22 | 2026-11-15 | Record Chad's Qwen3.5 selection with frozen V13/settings and errors retained. Prepare portable assessed baseline wrapper, full provenance/qualification verification and pre-dispatch server guard; 427 tests. Separate 50-item/20-human calibration remains unmeasured |

@@ -9,19 +9,18 @@ these ratings. This supports selecting the distinct Qwen3.5 model for the next
 assessed calibration experiment. It does **not** establish calibration readiness,
 universal model superiority or error-free judging.
 
-## Decision needed from Chad
+## Owner selection recorded
 
-Read the results and limitations below, then reply:
+Chad selected the candidate on November 15, 2026 local time (November 16 UTC):
 
 > Select Qwen3.5-122B-A10B for assessed baseline calibration using the frozen V13 prompt and settings, with the reported errors retained.
 
-Alternatively, ask to continue judge development before selection. No new answer
-sheet is needed for this decision. The [assessed runbook, Step 8](ASSESSED-RUNBOOK.md#8-qualify-and-select-the-stronger-judge)
-assigns the evidence-based model selection to Chad. The selection receipt has not
-been issued on his behalf. The proposed selection leaves every course threshold
-unchanged and does not rewrite any human rating or declare the judge calibrated.
+The [attributed selection receipt and assessed run protocol](ASSESSED-BASELINE-MAC.md)
+preserve that instruction and the full evidence below. Selection leaves every
+course threshold unchanged and does not rewrite any human rating or declare the
+judge calibrated. No new answer sheet is needed for this step.
 
-After selection, Codex will prepare full judging of the frozen 50-item baseline
+Codex is preparing full judging of the frozen 50-item baseline
 and compare against the separate 20-item human reference. All six dimensions must
 reach at least 80% agreement with complete coverage before generator correction.
 This will require another announced Mac run; no model server is left running now.

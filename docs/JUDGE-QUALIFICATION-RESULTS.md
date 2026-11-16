@@ -7,9 +7,9 @@ context-anchor inconsistencies remain disclosed. Twenty valid judgments took 22
 starts, including two owner-confirmed external-interruption failures; cumulative
 starts are 212. Recovery and the comparator-template validation correction are
 documented without altering frozen labels/messages. The return and all code
-snapshots verify locally/NAS; the Mac is released. The recommendation is Qwen3.5
-for assessed baseline calibration, pending Chad's selection. No assessed
-calibration or final qualification is claimed.
+snapshots verify locally/NAS. Chad has now selected Qwen3.5 with frozen V13/settings
+and the reported errors retained. The [selection receipt and assessed-run protocol](ASSESSED-BASELINE-MAC.md)
+record the next 50-item/20-human calibration. Assessed calibration remains unmeasured.
 
 **Previous development checkpoint:** [Qwen3.5 V4](QWEN35-V4.md#measured-result) completes ten valid first
 attempts at **57/60**, dimensions **9,9,10,10,9,10**. One completeness false approval

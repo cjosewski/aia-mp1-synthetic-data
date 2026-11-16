@@ -144,6 +144,7 @@ def judge_run(
     client,
     *,
     resume: bool = False,
+    before_attempt=None,
 ) -> dict:
     parent, assessment, records, rubric = load_assessment(root, assessment_id)
     if config.temperature >= assessment["generator_temperature"]:
@@ -213,6 +214,8 @@ def judge_run(
                     continue
                 previous = [e for e in events if e["item_id"] == item_id]
                 for number in range(len(previous) + 1, config.max_attempts + 1):
+                    if before_attempt is not None:
+                        before_attempt(record, number)
                     messages = messages_for(prompt, rubric, record)
                     event = item_identity(assessment, record) | {
                         "judge_run_id": judge_run_id,
