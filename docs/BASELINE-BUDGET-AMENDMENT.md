@@ -1,6 +1,7 @@
 # Proposed 4096-thinking-token assessed baseline revision
 
-**Status: prepared decision record; approval and execution pending.**
+**Status: owner approved; preparing the frozen execution package.** Chad replied
+"Approved." to the proposal for the new 50-item calibration with the same 4096 cap.
 
 The [approved two-case probe](REASONING-BUDGET-PROBE.md#measured-result) returned
 two valid first attempts. It supports trying the same thinking cap in a new full
@@ -41,14 +42,15 @@ own agreement; no accuracy transfer from the earlier configuration is assumed.
 
 ## Owner decision
 
-The latest approval covered the two-case probe, capped at four requests. Applying
-the changed runtime to all fifty assessed items needs an explicit amendment to the
-earlier frozen-settings selection. This comes from the scope of Chad's instructions,
-not a skill requirement.
+The earlier approval covered only the two-case probe. Chad has now explicitly
+approved applying the changed runtime to all fifty assessed items. The attributed
+receipt is `qualification/baseline-budget4096-owner-amendment.json`; the exact reply
+is preserved separately from its recorded scope. No further approval is needed for
+this bounded run.
 
-Proposed approval text:
+Approved proposal:
 
 > Approve a new 50-item assessed baseline calibration with Qwen3.5, frozen V13 and a 4096 thinking-token cap, under the existing two-attempt-per-item budget. Preserve all earlier runs, errors and human ratings.
 
-The Mac is free. Codex will announce its use before an approved full run. No full
-run has been started, and no approval receipt for this amendment has been created.
+Mac use has been announced. The package will bind the amended qualification,
+implementation, new run/report IDs and every frozen input before inference.

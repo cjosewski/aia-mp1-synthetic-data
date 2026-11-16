@@ -1,13 +1,17 @@
 """Synthetic runtime checks: no live server, model requests or human ratings."""
 
+import json
 from copy import deepcopy
+from pathlib import Path
 
 import pytest
+from assessed_fixtures import fixture_config, qualified_judge
 
 from aia_mp1 import assessed_native as native
 from aia_mp1.canonical_development import QWEN_SETTINGS
 from aia_mp1.confirmation_transport import RUNTIME
 from aia_mp1.model_client import AttemptResult
+from aia_mp1.qualification import validate_qualification
 
 
 @pytest.fixture
@@ -33,6 +37,7 @@ def pinned(monkeypatch):
 
     monkeypatch.setattr(native, "LocalServer", Server)
     plan = {
+        "runtime": RUNTIME.copy(),
         "models": [{"model": props["model_path"]}],
         "settings": QWEN_SETTINGS,
         "cases": [
@@ -104,3 +109,63 @@ def test_model_mismatch_counts_as_failure_and_cannot_reset_stop(pinned, monkeypa
     assert client.failures == 2
     with pytest.raises(KeyboardInterrupt):
         client.before_attempt({"item_id": "synthetic-1"}, 3)
+
+
+def test_budget_requires_process_guard_and_stops_before_dispatch(pinned):
+    old, state = pinned
+    plan = old.plan | {"runtime": RUNTIME | {"reasoning_budget": 4096}}
+    with pytest.raises(ValueError, match="owned-process"):
+        native.PinnedClient(plan, old.endpoint, old.runtime)
+
+    def changed_process():
+        raise ValueError("Synthetic replacement server")
+
+    client = native.PinnedClient(plan, old.endpoint, old.runtime, verify_process=changed_process)
+    with pytest.raises(KeyboardInterrupt):
+        client.before_attempt({"item_id": "synthetic-1"}, 1)
+    assert client.stop_reason.startswith("pre-dispatch")
+    assert state["closed"] == 1
+
+
+def test_budget_configuration_requires_matching_selection_receipt(tmp_path):
+    generator = fixture_config(tmp_path)
+    old = qualified_judge(tmp_path, generator)
+    assert native.NativeJudgeConfig(**old.model_dump()).public_settings() == old.public_settings()
+    config = native.NativeJudgeConfig(**old.model_dump(), server_reasoning_budget=4096)
+    assessment = {
+        "generator_model_identity": generator.model_identity,
+        "generator_model_sha256": generator.model_sha256,
+    }
+    with pytest.raises(ValueError, match="model/settings"):
+        validate_qualification(config, assessment)
+    path = Path(config.qualification_path)
+    receipt = json.loads(path.read_text())
+    receipt["settings"]["server_reasoning_budget"] = 4096
+    path.write_text(json.dumps(receipt))
+    assert validate_qualification(config, assessment)["receipt"] == receipt
+
+
+@pytest.mark.parametrize("change", ["budget", "parent", "none"])
+def test_owned_runtime_matches_exact_budget_and_parent(tmp_path, monkeypatch, change):
+    runtime = tmp_path / "runtime"
+    runtime.mkdir()
+    (runtime / "owned-server.pid").write_text("123")
+    (runtime / "launcher.pid").write_text("100")
+    command = (
+        "/opt/homebrew/bin/llama-server --model /synthetic/model.gguf --host 127.0.0.1 "
+        "--port 8081 --ctx-size 16384 --parallel 1 --reasoning on "
+        "--reasoning-format deepseek --reasoning-budget " + ("-1" if change == "budget" else "4096")
+    )
+
+    def output(args, **kwargs):
+        return command if "command=" in args else ("99" if change == "parent" else "100")
+
+    monkeypatch.setattr(native.subprocess, "check_output", output)
+    if change == "none":
+        assert (
+            native.verify_owned_runtime(tmp_path, "/synthetic/model.gguf", 4096)["argv"][-1]
+            == "4096"
+        )
+    else:
+        with pytest.raises(ValueError, match="thinking budget differs"):
+            native.verify_owned_runtime(tmp_path, "/synthetic/model.gguf", 4096)

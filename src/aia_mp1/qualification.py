@@ -18,6 +18,8 @@ def validate_qualification(config, assessment: dict) -> dict:
     }
     if config.reasoning_effort is not None:
         expected_settings["reasoning_effort"] = config.reasoning_effort
+    if getattr(config, "server_reasoning_budget", None) is not None:
+        expected_settings["server_reasoning_budget"] = config.server_reasoning_budget
     for field in ("selected_by", "selected_at", "stronger_model_basis", "model_sha256"):
         if not isinstance(receipt.get(field), str) or not receipt[field].strip():
             raise ValueError("judge qualification is incomplete")

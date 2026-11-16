@@ -2,7 +2,12 @@
 
 import argparse
 import json
+import shlex
+import subprocess
 from pathlib import Path
+from typing import Literal
+
+from pydantic import Field
 
 from .assessment import load_assessment, read_json, read_text
 from .calibration import calibration_report
@@ -13,10 +18,16 @@ from .factcheck_transport import LocalServer, VerifiedTransport, loopback_url
 from .human_reference import load_reference
 from .judge import JudgeConfig, judge_directory, judge_run, judge_status, messages_for
 from .qualification import validate_qualification
-from .tracing import digest, read_records
+from .tracing import digest, read_records, run_directory
 
 
-def native_plan(config, assessment_id, judge_run_id):
+class NativeJudgeConfig(JudgeConfig):
+    server_reasoning_budget: Literal[4096] | None = Field(
+        default=None, exclude_if=lambda value: value is None
+    )
+
+
+def native_plan(config, assessment_id, judge_run_id, *, report_id=None):
     loopback_url(config.base_url)
     parent, assessment, records, rubric = load_assessment(Path(config.artifact_root), assessment_id)
     reference = load_reference(parent, assessment, records)
@@ -30,6 +41,16 @@ def native_plan(config, assessment_id, judge_run_id):
         or digest(prompt) != "66e59f09239a13e5a99919e95fbadff5094b30f4b309068e2bdfffba63efd000"
     ):
         raise ValueError("assessed configuration differs from selected frozen V13 settings")
+    runtime = RUNTIME.copy()
+    budget = getattr(config, "server_reasoning_budget", None)
+    if budget is not None:
+        if budget != 4096:
+            raise ValueError("only the approved 4096 thinking cap is supported")
+        runtime["reasoning_budget"] = budget
+        if qualification["receipt"].get("native_runtime") != runtime:
+            raise ValueError("qualification does not bind the amended native runtime")
+        if not report_id:
+            raise ValueError("amended run requires its own report identity")
     plan = {
         "protocol": "qwen35-assessed-native-v1",
         "assessment_id": assessment_id,
@@ -38,7 +59,7 @@ def native_plan(config, assessment_id, judge_run_id):
         "human_reference_sha256": reference["sha256"],
         "qualification_sha256": qualification["sha256"],
         "settings": QWEN_SETTINGS.copy(),
-        "runtime": RUNTIME.copy(),
+        "runtime": runtime,
         "models": [{"phase": "candidate", "model": config.model, "sha256": config.model_sha256}],
         "cases": [
             {"item_id": r["item_id"], "messages": messages_for(prompt, rubric, r)} for r in records
@@ -46,6 +67,9 @@ def native_plan(config, assessment_id, judge_run_id):
         "maximum_starts": len(records) * 2,
         "consecutive_failure_stop": 2,
     }
+    if report_id is not None:
+        run_directory(parent / "calibration", report_id)
+        plan["report_id"] = report_id
     plan["sha256"] = digest(plan)
     return plan
 
@@ -69,16 +93,56 @@ def verify_bundle(root):
             raise ValueError("unsafe assessed bundle path")
         if byte_hash(path) != expected:
             raise ValueError(f"assessed bundle changed: {relative}")
-    config = JudgeConfig.model_validate_json(read_text(root / "judge-config.json"))
+    config = NativeJudgeConfig.model_validate_json(read_text(root / "judge-config.json"))
     plan = read_json(root / "native-plan.json")
-    expected = native_plan(config, plan["assessment_id"], plan["judge_run_id"])
+    expected = native_plan(
+        config, plan["assessment_id"], plan["judge_run_id"], report_id=plan.get("report_id")
+    )
     if expected != plan or manifest["plan_sha256"] != plan["sha256"]:
         raise ValueError("assessed plan differs from frozen selection and evidence")
     return config, plan
 
 
+def verify_owned_runtime(root, model, budget):
+    pid = int((root / "runtime/owned-server.pid").read_text())
+    parent = int((root / "runtime/launcher.pid").read_text())
+    argv = shlex.split(
+        subprocess.check_output(
+            ["/bin/ps", "-ww", "-o", "command=", "-p", str(pid)], text=True
+        ).strip()
+    )
+    observed_parent = int(
+        subprocess.check_output(["/bin/ps", "-o", "ppid=", "-p", str(pid)], text=True)
+    )
+    expected = [
+        "/opt/homebrew/bin/llama-server",
+        "--model",
+        model,
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "8081",
+        "--ctx-size",
+        "16384",
+        "--parallel",
+        "1",
+        "--reasoning",
+        "on",
+        "--reasoning-format",
+        "deepseek",
+        "--reasoning-budget",
+        str(budget),
+    ]
+    if argv != expected or observed_parent != parent:
+        raise ValueError("owned server command, parent or approved thinking budget differs")
+    return {"pid": pid, "parent_pid": parent, "argv": argv}
+
+
 class PinnedClient:
-    def __init__(self, plan, endpoint, runtime, *, consecutive_failures=0):
+    def __init__(self, plan, endpoint, runtime, *, consecutive_failures=0, verify_process=None):
+        if "reasoning_budget" in plan["runtime"] and verify_process is None:
+            raise ValueError("budgeted run requires owned-process verification")
+        self.verify_process = verify_process
         self.plan, self.endpoint, self.runtime = plan, endpoint, runtime
         self.model = plan["models"][0]
         self.cases = {c["item_id"]: c for c in plan["cases"]}
@@ -93,6 +157,8 @@ class PinnedClient:
         self.current = self.cases[record["item_id"]]
         server = LocalServer(self.endpoint, "local-assessed")
         try:
+            if self.verify_process is not None:
+                self.verify_process()
             props = server.json("/props")
             first = self.runtime["properties"]
             if (
@@ -146,8 +212,18 @@ def execute(root, *, resume=False):
         raise ValueError("assessed run already exists; inspect before explicit resume")
     runtime_dir = root / "runtime"
     runtime_dir.mkdir(exist_ok=True)
+    verify_process = None
+    if config.server_reasoning_budget is not None:
+
+        def verify_process():
+            return verify_owned_runtime(root, config.model, config.server_reasoning_budget)
+
+        number = len(list(runtime_dir.glob("owned-launch-*.json"))) + 1
+        save(runtime_dir / f"owned-launch-{number:03d}.json", verify_process())
     runtime = prepare_runtime(plan, "candidate", runtime_dir, config.base_url)
-    client = PinnedClient(plan, config.base_url, runtime, consecutive_failures=failures)
+    client = PinnedClient(
+        plan, config.base_url, runtime, consecutive_failures=failures, verify_process=verify_process
+    )
     try:
         status = judge_run(
             evidence,
@@ -165,7 +241,7 @@ def execute(root, *, resume=False):
     if status["status"] != "complete":
         return 1
     report = calibration_report(
-        evidence, assessment_id, run_id, "baseline-qwen35-v13-agreement-001"
+        evidence, assessment_id, run_id, plan.get("report_id", "baseline-qwen35-v13-agreement-001")
     )
     save(root / "calibration-summary.json", report)
     print(json.dumps(report, indent=2), flush=True)

@@ -15,6 +15,13 @@ fi
 mkdir -p "$root/runtime"
 (set -C; printf '%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > "$root/runtime/invocation-started.txt")
 model="$(uv run --locked python -c 'import json,sys; print(json.load(open(sys.argv[1]))["model"])' "$root/judge-config.json")"
+budget="$(uv run --locked python -c 'import json,sys; print(json.load(open(sys.argv[1])).get("server_reasoning_budget", ""))' "$root/judge-config.json")"
+budget_args=()
+if [ -n "$budget" ]; then
+  if [ "$budget" != 4096 ]; then exit 2; fi
+  budget_args=(--reasoning-budget "$budget")
+fi
+printf '%s\n' "$$" > "$root/runtime/launcher.pid"
 server_pid=''
 server_started=false
 finish() {
@@ -58,7 +65,7 @@ trap 'exit 130' INT
 trap 'exit 143' TERM
 trap 'exit 129' HUP
 /opt/homebrew/bin/llama-server --model "$model" --host 127.0.0.1 --port 8081 \
-  --ctx-size 16384 --parallel 1 --reasoning on --reasoning-format deepseek \
+  --ctx-size 16384 --parallel 1 --reasoning on --reasoning-format deepseek "${budget_args[@]}" \
   > "$root/runtime/server.log" 2>&1 &
 server_pid=$!
 server_started=true
