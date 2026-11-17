@@ -25,6 +25,7 @@ from .recovery_checks import (
     check_span,
     validate_plan,
 )
+from .recovery_runtime import RuntimeEvidence, runtime_context
 from .schemas import NonBlank
 from .tracing import digest
 
@@ -60,11 +61,23 @@ class EvidencePlan(StrictModel):
     checks: Annotated[list[EvidenceCheck], Field(min_length=1)]
 
 
+class RuntimeCheck(EvidenceCheck):
+    evidence_kind: EvidenceKind | Literal["runtime_observation"]
+
+
+class RuntimeEvidencePlan(EvidencePlan):
+    protocol: Literal["recovery-evidence-v3"]
+    checks: Annotated[list[RuntimeCheck], Field(min_length=1)]
+    runtime_records: Annotated[list[RuntimeEvidence], Field(min_length=1)]
+
+
 def fingerprint(value: StrictModel) -> str:
     return digest(value.model_dump(mode="json"))
 
 
 def parse_plan(value: dict) -> CheckPlan | EvidencePlan:
+    if isinstance(value, dict) and value.get("protocol") == "recovery-evidence-v3":
+        return RuntimeEvidencePlan.model_validate(value)
     if isinstance(value, dict) and value.get("protocol") == "recovery-evidence-v2":
         return EvidencePlan.model_validate(value)
     return CheckPlan.model_validate(value)
@@ -83,6 +96,9 @@ def validate_evidence_plan(
     # Reuses the unchanged v1 coverage/source/permission validator. Do not mutate
     # the returned content catalog when introducing a different authority class.
     catalog = dict(validate_plan(parent, content, rubric, source_root))
+    if isinstance(plan, RuntimeEvidencePlan):
+        runtime_catalog, _ = runtime_context(plan.runtime_records, source_root)
+        catalog.update(runtime_catalog)
     if [n.note_id for n in plan.reasoning_notes] != [
         f"N{i:04d}" for i in range(1, len(plan.reasoning_notes) + 1)
     ]:
@@ -109,6 +125,7 @@ def validate_evidence_plan(
     covered = {key: set() for key in parents}
     signatures = set()
     used_notes = set()
+    used_runtime = set()
     for check in plan.checks:
         if check.parent_check_id not in parents:
             raise ValueError("unknown parent check")
@@ -125,7 +142,10 @@ def validate_evidence_plan(
             check.kind != original.kind
             or len(set(check.dimensions)) != len(check.dimensions)
             or not set(original.dimensions) <= set(check.dimensions)
-            or (check.evidence_kind == "api_contract" and "D3" not in check.dimensions)
+            or (
+                check.evidence_kind in {"api_contract", "runtime_observation"}
+                and "D3" not in check.dimensions
+            )
         ):
             raise ValueError("evidence classification cannot remove required dimension review")
         signature = (check.parent_check_id, fingerprint(subject), check.question.strip())
@@ -141,6 +161,7 @@ def validate_evidence_plan(
             "task_comparison": "task",
             "mathematical_derivation": "mathematical_derivation",
             "workflow_reasoning": "workflow_reasoning",
+            "runtime_observation": "runtime_observation",
         }[check.evidence_kind]
         for source in check.sources:
             row = catalog.get(source.passage_id)
@@ -151,6 +172,9 @@ def validate_evidence_plan(
                 version = content["primary_excerpts"][index]["version"]
             elif authority == "task":
                 version = "frozen-task"
+            elif authority == "runtime_observation":
+                version = row["version"]
+                used_runtime.add(row["record_id"])
             else:
                 version = row["version"]
                 used_notes.add(source.passage_id)
@@ -166,6 +190,10 @@ def validate_evidence_plan(
             raise ValueError("child checks leave parent text uncovered")
     if used_notes != {f"E.{n.note_id}" for n in plan.reasoning_notes}:
         raise ValueError("unbound reasoning notes are not allowed in the model context")
+    if isinstance(plan, RuntimeEvidencePlan) and used_runtime != {
+        r.record_id for r in plan.runtime_records
+    }:
+        raise ValueError("unbound runtime records are not allowed in the model context")
     return catalog
 
 
@@ -196,6 +224,13 @@ def inspect_evidence(
         "calibration_eligible": False,
         "model_calls": 0,
     }
+    if isinstance(plan, RuntimeEvidencePlan):
+        result["empirical_applicability_audit"] = "required"
+        result["unresolved_runtime_checks"] = [
+            c.check_id
+            for c in plan.checks
+            if any(catalog[s.passage_id].get("unresolved", False) for s in c.sources)
+        ]
     if response is None:
         return result
     if response.plan_sha256 != fingerprint(plan):
@@ -205,6 +240,11 @@ def inspect_evidence(
         raise ValueError("observations must cover every child check exactly once")
     for check in plan.checks:
         row = rows[check.check_id]
+        if (
+            check.check_id in result.get("unresolved_runtime_checks", [])
+            and row.status != "insufficient"
+        ):
+            raise ValueError("unknown or timed-out runtime outcomes cannot support a conclusion")
         allowed = {s.passage_id for s in check.sources}
         seen = set()
         for citation in row.citations:
@@ -230,7 +270,7 @@ def inspect_evidence(
 def evidence_request(plan: EvidencePlan, content: dict, rubric: dict, source_root: Path) -> dict:
     """Validated text view for later transport; building it never authorizes dispatch."""
     validate_evidence_plan(plan, content, rubric, source_root)
-    return deepcopy(
+    request = deepcopy(
         {
             "protocol": plan.protocol,
             "plan_sha256": fingerprint(plan),
@@ -251,6 +291,9 @@ def evidence_request(plan: EvidencePlan, content: dict, rubric: dict, source_roo
             ],
         }
     )
+    if isinstance(plan, RuntimeEvidencePlan):
+        _, request["runtime_records"] = runtime_context(plan.runtime_records, source_root)
+    return request
 
 
 def main(argv=None) -> int:
@@ -264,8 +307,11 @@ def main(argv=None) -> int:
         def load(path):
             return json.loads(path.read_text(encoding="utf-8"))
 
+        plan = parse_plan(load(args.plan))
+        if not isinstance(plan, EvidencePlan):
+            raise ValueError("evidence CLI requires a v2 or v3 evidence plan")
         result = inspect_evidence(
-            EvidencePlan.model_validate(load(args.plan)),
+            plan,
             load(args.input),
             load(args.rubric),
             args.sources,
@@ -277,7 +323,11 @@ def main(argv=None) -> int:
         )
         return 2
     print(json.dumps(result, indent=2))
-    return 1 if result["source_gaps"] or result["unresolved"] else 0
+    return (
+        1
+        if result["source_gaps"] or result["unresolved"] or result.get("unresolved_runtime_checks")
+        else 0
+    )
 
 
 if __name__ == "__main__":

@@ -3,20 +3,17 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
-**Applicability follow-up:** [five more preparation holds are removed](docs/M4-APPLICABILITY-FOLLOWUP.md),
-leaving **43 holds across 358 checks**, including one empty binding. The other
-315 questions are prepared, not verified facts. Existing ArcPy documentation
-and correction of two overbroad questions address these five checks. A separate
-ten-case OpenSeesPy 3.5.1.3 probe records version-specific counterexamples to
-claimed failure behavior; the findings remain outside model context and do not
-change human ratings. Ten packets replay; 815 previous seal entries verify.
-An unintended research-environment replacement was corrected; 94 recovery tests
-pass after restoring the project environment. No model calls, scores or Mac use.
-Next is the [measured-evidence supplement](docs/M4-EMPIRICAL-EVIDENCE-PLAN.md):
-explicit empirical provenance and limits, before any probe can enter a verifier
-packet. The proposed development trial remains unallocated and execution disabled.
-Application code and prompts are unchanged; the earlier v2 implementation retains
-its recorded 593 exercised tests.
+**Runtime evidence implemented:** [v3 adds a separate empirical authority](docs/M4-RUNTIME-EVIDENCE.md)
+with preserved protocol/script/lock/identity/output, complete case accounting,
+exact citations and mandatory applicability audits. Ten OpenSees checks now have
+runtime bindings, leaving **33 holds across 358 checks**, including one empty
+binding. The other 325 questions are prepared, not verified facts. Frozen reviews
+and measured agreement are unchanged. All ten packets and prior v2 views replay;
+966 previous seal entries verify. Full suite: 638 passed; focused runtime suite:
+46 passed, including one additional scoring-CLI test. No model calls or Mac use.
+Resolve remaining documentary gaps and empirical review before token/runtime
+preflight. The proposed development trial remains unallocated and execution
+disabled; the new verifier/scorer prompts are unmeasured.
 
 **Final V15 baseline complete; M4 still fails.** All fifty judgments arrived on
 their first attempt. Agreement is **95/120 (79.2%)**, with D1 **70%**, D2 85%,

@@ -21,7 +21,8 @@ from .recovery_checks import (
     check_span,
     inspect_offline,
 )
-from .recovery_evidence import EvidencePlan, inspect_evidence, parse_plan
+from .recovery_evidence import EvidencePlan, RuntimeEvidencePlan, inspect_evidence, parse_plan
+from .recovery_runtime import runtime_context
 from .schemas import NonBlank
 from .tracing import digest
 
@@ -47,6 +48,20 @@ class FactAudit(StrictModel):
 class EvidenceFactAudit(FactAudit):
     evidence_kinds_reviewed: bool
     authored_reasoning_checked: bool
+
+
+class RuntimeApplicabilityAudit(StrictModel):
+    record_id: NonBlank
+    accepted: bool
+    version_and_build_applicable: bool
+    scheduled_cases_complete: bool
+    script_matches_outputs: bool
+    qualifiers_and_limits_reviewed: bool
+    explanation: NonBlank
+
+
+class RuntimeFactAudit(EvidenceFactAudit):
+    runtime_records: list[RuntimeApplicabilityAudit]
 
 
 class Effect(StrictModel):
@@ -109,6 +124,23 @@ def build_scoring_input(
             audit.evidence_kinds_reviewed and audit.authored_reasoning_checked
         ):
             raise ValueError("v2 requires evidence-kind and authored-reasoning audit")
+        if isinstance(plan, RuntimeEvidencePlan):
+            if not isinstance(audit, RuntimeFactAudit):
+                raise ValueError("v3 requires explicit runtime applicability audits")
+            records = {r.record_id: r for r in audit.runtime_records}
+            if len(records) != len(audit.runtime_records) or set(records) != {
+                r.record_id for r in plan.runtime_records
+            }:
+                raise ValueError("runtime audits must cover every record exactly once")
+            if not all(
+                r.accepted
+                and r.version_and_build_applicable
+                and r.scheduled_cases_complete
+                and r.script_matches_outputs
+                and r.qualifiers_and_limits_reviewed
+                for r in records.values()
+            ):
+                raise ValueError("runtime applicability audit has unresolved objections")
     else:
         if type(audit) is not FactAudit:
             raise ValueError("v1 requires its original audit contract")
@@ -132,8 +164,10 @@ def build_scoring_input(
     ):
         raise ValueError("fact audit has unresolved objections")
     # Audits stay in the application envelope. Their commentary is not judge input.
-    return {
-        "protocol": "recovery-scoring-v2"
+    result = {
+        "protocol": "recovery-scoring-v3"
+        if isinstance(plan, RuntimeEvidencePlan)
+        else "recovery-scoring-v2"
         if isinstance(plan, EvidencePlan)
         else "recovery-scoring-v1",
         "fact_audit_sha256": fingerprint(audit),
@@ -149,6 +183,9 @@ def build_scoring_input(
             for row in rubric["dimensions"]
         },
     }
+    if isinstance(plan, RuntimeEvidencePlan):
+        _, result["runtime_records"] = runtime_context(plan.runtime_records, source_root)
+    return result
 
 
 def scoring_request(scoring_input: dict) -> dict:
@@ -171,12 +208,14 @@ def scoring_request(scoring_input: dict) -> dict:
             for i, row in enumerate(content["primary_excerpts"])
         ],
     }
-    if scoring_input["protocol"] == "recovery-scoring-v2":
-        request["protocol"] = "recovery-scoring-v2"
+    if scoring_input["protocol"] in {"recovery-scoring-v2", "recovery-scoring-v3"}:
+        request["protocol"] = scoring_input["protocol"]
         request["reasoning_notes"] = [
             {"passage_id": f"E.{n['note_id']}", "version": digest(n), **n}
             for n in scoring_input["plan"]["reasoning_notes"]
         ]
+    if scoring_input["protocol"] == "recovery-scoring-v3":
+        request["runtime_records"] = scoring_input["runtime_records"]
     return deepcopy(request)
 
 
@@ -299,7 +338,13 @@ def main(argv=None) -> int:
             return json.loads(path.read_text(encoding="utf-8"))
 
         plan = parse_plan(load(args.plan))
-        audit_class = EvidenceFactAudit if isinstance(plan, EvidencePlan) else FactAudit
+        audit_class = (
+            RuntimeFactAudit
+            if isinstance(plan, RuntimeEvidencePlan)
+            else EvidenceFactAudit
+            if isinstance(plan, EvidencePlan)
+            else FactAudit
+        )
         report = inspect_scores(
             plan,
             load(args.input),

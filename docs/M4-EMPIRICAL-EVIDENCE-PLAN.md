@@ -1,4 +1,7 @@
-# M4 measured-evidence supplement — proposed implementation
+# M4 measured-evidence supplement — design
+
+Implementation checkpoint: [M4 retained runtime evidence](M4-RUNTIME-EVIDENCE.md).
+This document preserves the design recorded before implementation.
 
 November 17, 2026. The current recovery protocol can bind API documentation,
 task text and attributed reasoning, but has no distinct authority for a retained
@@ -8,8 +11,8 @@ as documentation or silently admitted through a reasoning note.
 This supplement proposes one additional evidence kind, `runtime_observation`,
 in a separately versioned v3 plan. It changes evidence representation, not
 the six rubric anchors, frozen reviews, 80%-per-dimension requirement, proposed
-twenty-start ceiling or assessed allocations. Implementation is pending;
-the current v2 packet remains disabled.
+twenty-start ceiling or assessed allocations. At the planning checkpoint,
+implementation was pending and the v2 packet remained disabled.
 
 ## Required representation
 

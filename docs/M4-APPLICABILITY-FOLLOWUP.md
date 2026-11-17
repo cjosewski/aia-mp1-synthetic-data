@@ -1,5 +1,8 @@
 # M4 applicability review and exact-version research
 
+Historical checkpoint. The subsequent [runtime-evidence implementation](M4-RUNTIME-EVIDENCE.md)
+provides explicit empirical bindings for ten checks, leaving 33 preparation holds.
+
 November 17, 2026. Five preparation holds are removed, leaving **43 holds across
 358 checks**, including one empty binding. There are 315 prepared questions and
 43 attributed reasoning notes. No model findings or rubric scores were produced;

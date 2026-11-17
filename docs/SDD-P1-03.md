@@ -2,7 +2,7 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.42, November 17, 2026 |
+| Revision | 0.43, November 17, 2026 |
 | Status | Final V15 baseline complete at 79.2%; D1 70% and D6 65% fail original >=80% per-dimension criterion; M4 open, final assessed allocation consumed; corrected cohort preserved |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
@@ -468,9 +468,21 @@ Ten packets replay and 815 prior seal entries verify. Ten standalone exact-versi
 OpenSees cases reveal failure-behavior counterexamples; these research results
 remain outside model context and never replace frozen labels. The project Python
 environment was restored after unintended probe reuse; 94 recovery tests pass.
-The [empirical supplement](M4-EMPIRICAL-EVIDENCE-PLAN.md) is proposed, not yet
-implemented; it requires separate authority, provenance and applicability audits
-before runtime observations may be bound. Thresholds and allocations are unchanged.
+At that checkpoint the [empirical supplement](M4-EMPIRICAL-EVIDENCE-PLAN.md) was
+proposed, requiring separate authority, provenance and applicability audits
+before runtime observations could be bound. Thresholds and allocations are unchanged.
+
+The [v3 runtime implementation](M4-RUNTIME-EVIDENCE.md) now supplies that authority,
+artifact validation, complete process-case accounting and separate per-record
+applicability audits. Legacy audits cannot unlock empirical scoring; unknown
+outcomes remain unresolved. V1/v2 contracts are preserved. Ten checks in two
+structural cases migrate separately, leaving 33 preparation holds across the
+same 358 checks, one empty binding and 43 notes. All ten packets and real prior v2
+views replay; 966 earlier seal entries verify. The final full suite passes 638
+tests; a 46-test focused follow-up includes one additional scoring-CLI test.
+Mixed-case experiment IDs are preserved after a recorded incomplete preparation
+attempt. New prompts are unmeasured; actual verifier findings and accepting
+semantic audits remain absent. No model calls or live transport; M4 stays open.
 
 The [final V15 baseline result](V15-BASELINE-RESULTS.md) completes fifty first
 attempts, but reaches only 14,17,16,18,17,13 matches of twenty in D1–D6.
