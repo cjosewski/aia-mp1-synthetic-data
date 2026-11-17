@@ -1,5 +1,9 @@
 # M4 recovery source and checklist audit
 
+Subsequent checkpoint: [evidence v2](M4-EVIDENCE-V2.md) implements the role
+distinctions and prepares child questions for all 83 flagged spans. The original
+audit and sealed packet below remain unchanged; child applicability review remains.
+
 November 17, 2026. All **175 spans across ten development cases** received an
 attributed assistant source review. Thirteen of eighteen missing source bindings
 were repaired; **five remain unbound**. **83 spans need splitting** before a

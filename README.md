@@ -3,15 +3,15 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
-**Recovery source audit complete:** [all 175 draft spans were reviewed](docs/M4-SOURCE-AUDIT.md).
-Thirteen missing source bindings were repaired; five remain unbound and 83 spans
-need separate checks. Binding a source does not verify the whole claim. The next
-step is to distinguish API evidence, task comparisons and mathematical/workflow
-reasoning, then split and re-audit the checks before transport/token preflight.
-All ten plans replay and 106 previous seal entries verify. No new model calls,
-scores or Mac use occurred; the development trial remains unallocated.
-The [offline scoring implementation](docs/M4-RECOVERY-PREPARATION.md) previously
-passed **553 locked WSL tests**; this audit changes no application code or prompts.
+**Recovery evidence v2 implemented offline:** [the new contract](docs/M4-EVIDENCE-V2.md)
+separates API evidence, task comparisons and attributed mathematical/workflow
+reasoning. All 83 compound passages now have child-question drafts: **357 checks
+cover all 175 original spans**. Thirty-four child checks remain unbound; inherited
+citations and the new decomposition still require semantic review. All ten plans
+and parent reports replay; 250 previous seal entries verify. All **593 tests**
+were exercised successfully across the full and optional-dependency follow-up runs.
+No new model calls, scores or Mac use occurred. Next: complete child evidence and
+review it before transport/token preflight; the development trial remains unallocated.
 
 **Final V15 baseline complete; M4 still fails.** All fifty judgments arrived on
 their first attempt. Agreement is **95/120 (79.2%)**, with D1 **70%**, D2 85%,

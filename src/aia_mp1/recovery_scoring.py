@@ -21,6 +21,7 @@ from .recovery_checks import (
     check_span,
     inspect_offline,
 )
+from .recovery_evidence import EvidencePlan, inspect_evidence, parse_plan
 from .schemas import NonBlank
 from .tracing import digest
 
@@ -41,6 +42,11 @@ class FactAudit(StrictModel):
     sources_applicable_and_permitted: bool
     no_reference_rating_leakage: bool
     checks: list[CheckAudit]
+
+
+class EvidenceFactAudit(FactAudit):
+    evidence_kinds_reviewed: bool
+    authored_reasoning_checked: bool
 
 
 class Effect(StrictModel):
@@ -89,7 +95,7 @@ def fingerprint(model: StrictModel) -> str:
 
 
 def build_scoring_input(
-    plan: CheckPlan,
+    plan: CheckPlan | EvidencePlan,
     content: dict,
     rubric: dict,
     source_root: Path,
@@ -97,7 +103,16 @@ def build_scoring_input(
     audit: FactAudit,
 ) -> dict:
     """Recheck evidence before scoring; no unknown facts or unreviewed gaps."""
-    report = inspect_offline(plan, content, rubric, source_root, observations)
+    if isinstance(plan, EvidencePlan):
+        report = inspect_evidence(plan, content, rubric, source_root, observations)
+        if not isinstance(audit, EvidenceFactAudit) or not (
+            audit.evidence_kinds_reviewed and audit.authored_reasoning_checked
+        ):
+            raise ValueError("v2 requires evidence-kind and authored-reasoning audit")
+    else:
+        if type(audit) is not FactAudit:
+            raise ValueError("v1 requires its original audit contract")
+        report = inspect_offline(plan, content, rubric, source_root, observations)
     if report["unresolved"] or report["source_gaps"]:
         raise ValueError("unresolved facts prevent scoring")
     if audit.plan_sha256 != fingerprint(plan) or audit.observations_sha256 != fingerprint(
@@ -118,7 +133,9 @@ def build_scoring_input(
         raise ValueError("fact audit has unresolved objections")
     # Audits stay in the application envelope. Their commentary is not judge input.
     return {
-        "protocol": "recovery-scoring-v1",
+        "protocol": "recovery-scoring-v2"
+        if isinstance(plan, EvidencePlan)
+        else "recovery-scoring-v1",
         "fact_audit_sha256": fingerprint(audit),
         "plan": plan.model_dump(mode="json"),
         "observations": observations.model_dump(mode="json"),
@@ -142,24 +159,29 @@ def scoring_request(scoring_input: dict) -> dict:
     Actual transport/token preflight is deliberately not part of this module.
     """
     content = scoring_input["content"]
-    return deepcopy(
-        {
-            "scoring_input_sha256": digest(scoring_input),
-            "untrusted_item": content["untrusted_item"],
-            "untrusted_reference_context": content["untrusted_reference_context"],
-            "checks": scoring_input["plan"]["checks"],
-            "observations": scoring_input["observations"]["observations"],
-            "dimensions": scoring_input["dimensions"],
-            "primary_excerpts": [
-                {"passage_id": f"R.fact.{i}", "version": row["version"], "text": row["text"]}
-                for i, row in enumerate(content["primary_excerpts"])
-            ],
-        }
-    )
+    request = {
+        "scoring_input_sha256": digest(scoring_input),
+        "untrusted_item": content["untrusted_item"],
+        "untrusted_reference_context": content["untrusted_reference_context"],
+        "checks": scoring_input["plan"]["checks"],
+        "observations": scoring_input["observations"]["observations"],
+        "dimensions": scoring_input["dimensions"],
+        "primary_excerpts": [
+            {"passage_id": f"R.fact.{i}", "version": row["version"], "text": row["text"]}
+            for i, row in enumerate(content["primary_excerpts"])
+        ],
+    }
+    if scoring_input["protocol"] == "recovery-scoring-v2":
+        request["protocol"] = "recovery-scoring-v2"
+        request["reasoning_notes"] = [
+            {"passage_id": f"E.{n['note_id']}", "version": digest(n), **n}
+            for n in scoring_input["plan"]["reasoning_notes"]
+        ]
+    return deepcopy(request)
 
 
 def inspect_scores(
-    plan: CheckPlan,
+    plan: CheckPlan | EvidencePlan,
     content: dict,
     rubric: dict,
     source_root: Path,
@@ -276,13 +298,15 @@ def main(argv=None) -> int:
         def load(path):
             return json.loads(path.read_text(encoding="utf-8"))
 
+        plan = parse_plan(load(args.plan))
+        audit_class = EvidenceFactAudit if isinstance(plan, EvidencePlan) else FactAudit
         report = inspect_scores(
-            CheckPlan.model_validate(load(args.plan)),
+            plan,
             load(args.input),
             load(args.rubric),
             args.sources,
             Observations.model_validate(load(args.observations)),
-            FactAudit.model_validate(load(args.fact_audit)),
+            audit_class.model_validate(load(args.fact_audit)),
             Scores.model_validate(load(args.scores)),
             ScoreAudit.model_validate(load(args.score_audit)) if args.score_audit else None,
         )

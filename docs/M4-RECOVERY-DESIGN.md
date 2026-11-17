@@ -1,5 +1,9 @@
 # M4 recovery: evidence checks before dimension scores
 
+Subsequent revision: [evidence v2](M4-EVIDENCE-V2.md) implements distinct evidence
+kinds and child-check lineage after the source audit. The v1 contract below is
+preserved for replay; v2 remains offline and its real-item drafts unaccepted.
+
 November 17, 2026. **Offline design and contract prototype implemented; live
 execution is not enabled.** No new model calls, Mac use, review changes or assessed
 allocation. Cumulative recorded starts remain 388. M4 remains open.

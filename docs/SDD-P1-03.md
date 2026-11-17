@@ -2,7 +2,7 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.38, November 17, 2026 |
+| Revision | 0.39, November 17, 2026 |
 | Status | Final V15 baseline complete at 79.2%; D1 70% and D6 65% fail original >=80% per-dimension criterion; M4 open, final assessed allocation consumed; corrected cohort preserved |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
@@ -432,6 +432,17 @@ and workflow reasoning; the current v1 contract does not yet represent all these
 bases. No findings are promoted into model observations or human labels. All ten
 plans replay and 106 previous seal entries verify. Evidence-contract revision,
 atomic checks and renewed applicability audit precede live packaging.
+
+[Evidence v2](M4-EVIDENCE-V2.md) now represents primary API contracts, frozen-task
+comparisons and attributed mathematical/workflow reasoning separately. It embeds
+the unchanged v1 parent and requires complete child coverage and retained dimension
+routing. Authored reasoning cannot substitute for primary API evidence; v2 scoring
+requires explicit classification/reasoning audit in addition to existing gates.
+All 83 flagged parents have draft decompositions, producing 357 child checks with
+34 unbound (31 workflow, three API). Ten revised plans and parent reports replay;
+250 prior seal entries verify. All 593 tests were exercised successfully across
+the full and optional-renderer follow-up runs. New prompt drafts are unmeasured;
+semantic acceptance, remaining evidence and live transport/preflight are pending.
 
 The [final V15 baseline result](V15-BASELINE-RESULTS.md) completes fifty first
 attempts, but reaches only 14,17,16,18,17,13 matches of twenty in D1–D6.
@@ -875,3 +886,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.36 | 2026-11-17 | Prepare M4 recovery design and isolated offline source/checklist validator, with exact text coverage, primary technical evidence, mandatory tip review and unresolved findings. Structural success never qualifies calibration. No inference, Mac use or historical validator changes; scorer, source audit and execution package remain pending |
 | 0.37 | 2026-11-17 | Prepare ten exposed baseline source/checklist drafts (175 spans, 18 unbound checks) and integrate offline scoring with exact fact/score-audit lineage, mandatory finding dispositions, D4 applicability and unresolved/rejected outputs. All bindings still need semantic audit; no real observations or scores invented. 553 WSL tests pass; forty historical files unchanged, zero inference/Mac use, live execution remains disabled |
 | 0.38 | 2026-11-17 | Audit all 175 spans; repair thirteen missing bindings in a separate draft, retain five gaps and flag 83 spans for splitting. Distinguish API sources from task/math/workflow evidence; correct the Part.Cone existence distinction without changing frozen labels. Ten plans replay, fourteen downloaded files verify and 106 previous seal entries remain unchanged; no inference, scores or Mac use |
+| 0.39 | 2026-11-17 | Implement isolated v2 evidence kinds, attributed reasoning, parent/child coverage and explicit scoring audit gates. Prepare 357 child questions from 175 spans, decomposing all 83 flagged parents; retain 34 child evidence gaps and pending semantic review. Ten child/parent replays and 250 prior seal entries verify; 593 tests exercised across full/optional follow-up runs, zero model calls or Mac use |
