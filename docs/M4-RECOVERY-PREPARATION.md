@@ -1,5 +1,10 @@
 # M4 recovery preparation and offline scoring
 
+Subsequent checkpoint: the [source audit](M4-SOURCE-AUDIT.md) reviews all 175
+spans, repairs thirteen bindings in a separate revision, leaves five unbound
+and flags 83 spans for splitting. The original preparation below and its sealed
+packet remain unchanged. Neither revision is ready for model dispatch.
+
 November 17, 2026. The offline scorer and ten **draft** source checklists are
 prepared. No model calls or Mac use occurred. M4 remains open, the three assessed
 allocations remain consumed, and the proposed twenty-start development trial is

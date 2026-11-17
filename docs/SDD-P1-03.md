@@ -2,7 +2,7 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.37, November 17, 2026 |
+| Revision | 0.38, November 17, 2026 |
 | Status | Final V15 baseline complete at 79.2%; D1 70% and D6 65% fail original >=80% per-dimension criterion; M4 open, final assessed allocation consumed; corrected cohort preserved |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
@@ -425,6 +425,13 @@ score audits bind exact inputs; only a fully audited development judgment can
 be projected, always ineligible for calibration. Source completion, actual audits,
 transport and a frozen execution package remain; the proposed twenty-start
 development trial is not allocated or started. 553 locked WSL tests pass.
+The subsequent [source audit](M4-SOURCE-AUDIT.md) reviews every span and repairs
+thirteen bindings in a separate draft, leaving five unbound and 83 spans needing
+splitting. It distinguishes API evidence, task comparison, derived mathematics
+and workflow reasoning; the current v1 contract does not yet represent all these
+bases. No findings are promoted into model observations or human labels. All ten
+plans replay and 106 previous seal entries verify. Evidence-contract revision,
+atomic checks and renewed applicability audit precede live packaging.
 
 The [final V15 baseline result](V15-BASELINE-RESULTS.md) completes fifty first
 attempts, but reaches only 14,17,16,18,17,13 matches of twenty in D1–D6.
@@ -867,3 +874,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.35 | 2026-11-17 | Complete final V15 baseline at 95/120 (79.2%); D1 70% and D6 65% fail calibration. Preserve all errors, frozen references and the consumed third allocation; archive and replay results, release the Mac and leave M4 open |
 | 0.36 | 2026-11-17 | Prepare M4 recovery design and isolated offline source/checklist validator, with exact text coverage, primary technical evidence, mandatory tip review and unresolved findings. Structural success never qualifies calibration. No inference, Mac use or historical validator changes; scorer, source audit and execution package remain pending |
 | 0.37 | 2026-11-17 | Prepare ten exposed baseline source/checklist drafts (175 spans, 18 unbound checks) and integrate offline scoring with exact fact/score-audit lineage, mandatory finding dispositions, D4 applicability and unresolved/rejected outputs. All bindings still need semantic audit; no real observations or scores invented. 553 WSL tests pass; forty historical files unchanged, zero inference/Mac use, live execution remains disabled |
+| 0.38 | 2026-11-17 | Audit all 175 spans; repair thirteen missing bindings in a separate draft, retain five gaps and flag 83 spans for splitting. Distinguish API sources from task/math/workflow evidence; correct the Part.Cone existence distinction without changing frozen labels. Ten plans replay, fourteen downloaded files verify and 106 previous seal entries remain unchanged; no inference, scores or Mac use |

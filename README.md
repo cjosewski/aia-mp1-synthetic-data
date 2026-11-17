@@ -3,14 +3,15 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
-**Recovery scoring implemented offline:** the [preparation checkpoint](docs/M4-RECOVERY-PREPARATION.md)
-adds ten draft source/checklists (175 check spans, 18 unbound checks) and scoring
-with required fact and score audits. Source bindings still need semantic review;
-even an audited development judgment is ineligible for calibration.
-No new model calls or Mac use. The proposed bounded development trial is not
-allocated or started; source gaps, audits and live transport/preflight remain.
-The implementation passes **553 locked WSL tests**, including 28 new scoring
-checks; this is software validation, not model-quality evidence.
+**Recovery source audit complete:** [all 175 draft spans were reviewed](docs/M4-SOURCE-AUDIT.md).
+Thirteen missing source bindings were repaired; five remain unbound and 83 spans
+need separate checks. Binding a source does not verify the whole claim. The next
+step is to distinguish API evidence, task comparisons and mathematical/workflow
+reasoning, then split and re-audit the checks before transport/token preflight.
+All ten plans replay and 106 previous seal entries verify. No new model calls,
+scores or Mac use occurred; the development trial remains unallocated.
+The [offline scoring implementation](docs/M4-RECOVERY-PREPARATION.md) previously
+passed **553 locked WSL tests**; this audit changes no application code or prompts.
 
 **Final V15 baseline complete; M4 still fails.** All fifty judgments arrived on
 their first attempt. Agreement is **95/120 (79.2%)**, with D1 **70%**, D2 85%,
