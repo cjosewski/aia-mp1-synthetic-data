@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.34, November 17, 2026 |
-| Status | Original >=80% per-dimension criterion restored; M4 open, V15 fresh confirmation complete and full baseline evaluation next; corrected cohort and review packet preserved |
+| Revision | 0.35, November 17, 2026 |
+| Status | Final V15 baseline complete at 79.2%; D1 70% and D6 65% fail original >=80% per-dimension criterion; M4 open, final assessed allocation consumed; corrected cohort preserved |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
@@ -137,7 +137,7 @@ labeling displays the item and rubric without suggested model scores.
 | [generate.py](../src/aia_mp1/generate.py), [tracing.py](../src/aia_mp1/tracing.py) | Attempts, checkpoints, identity and resume validation | Implemented for smoke and explicitly assessed source packs |
 | [gate.py](../src/aia_mp1/gate.py), [cli.py](../src/aia_mp1/cli.py) | Saved-data gate and CLI | Implemented for kickoff checks |
 | [assessment.py](../src/aia_mp1/assessment.py), [evaluation_schemas.py](../src/aia_mp1/evaluation_schemas.py), [labels.py](../src/aia_mp1/labels.py) | Single-run assessment snapshots, review contracts and human CLI | Implemented for legacy single-run and multi-batch cohort inputs |
-| [judge.py](../src/aia_mp1/judge.py), [calibration.py](../src/aia_mp1/calibration.py) | Audited judge execution and agreement reports | Implemented; full baseline judging complete, calibration fails three dimensions |
+| [judge.py](../src/aia_mp1/judge.py), [calibration.py](../src/aia_mp1/calibration.py) | Audited judge execution and agreement reports | Implemented; V15 full baseline complete, calibration fails D1/D6; earlier V13 failure preserved |
 | [collection.py](../src/aia_mp1/collection.py), [cohort.py](../src/aia_mp1/cohort.py), [sources.py](../src/aia_mp1/sources.py) | Permission-checked contexts, bounded collection and immutable cohorts | Implemented |
 | [human_reference.py](../src/aia_mp1/human_reference.py), [qualification.py](../src/aia_mp1/qualification.py) | Blind-label freeze and attributed judge selection evidence | Implemented |
 | `analysis.py`, `analysis_export.py`, `analysis_cli.py` | Verified cohort metrics, exact comparison gates, five charts and local evidence export | Implemented; assessed comparison awaits qualified judging and corrected cohort |
@@ -413,6 +413,13 @@ affect a model. Test adversarial synthetic items and surface disagreements.
 
 ### 5.5 Phase A — calibrate the judge
 
+The [final V15 baseline result](V15-BASELINE-RESULTS.md) completes fifty first
+attempts, but reaches only 14,17,16,18,17,13 matches of twenty in D1–D6.
+D1 and D6 fail the restored rule. Nine gains and one regression versus V13
+do not establish readiness; all three human safety failures are still missed.
+The third assessed allocation is consumed. No automatic fourth version or
+qualified Phase B comparison follows from this result.
+
 The [final V15 baseline plan](V15-BASELINE-PLAN.md) pins the original fifty items,
 twenty human reviews, selected model/prompt/settings and final third allocation.
 Its separate WSL runner reuses the assessed ledger and calibration engine while
@@ -625,7 +632,22 @@ state or a successful CLI exit.
 
 ### 8.3 Observed implementation checkpoint
 
-November 17, current checkpoint: Chad restored the original >=80% agreement in
+November 17, current checkpoint: [final V15 assessed evaluation](V15-BASELINE-RESULTS.md)
+completed 50/50 valid first attempts, zero retries/failures/unknowns, in 88.52
+request minutes. Agreement is 95/120 (79.2%), versus V13's 87/120 (72.5%):
+nine gains and one regression. D1 70% and D6 65% fail the original rule; 24 false
+approvals, one false rejection and all three safety misses remain. All twenty
+human-paired explanations were audited. All 244 frozen files, exact calibration/
+analysis replay and 990 prior sealed entries verify. Five baseline charts and
+tables retain incomplete-comparison status. The 294-file complete archive is
+checksum-verified locally/NAS; 315 entries including canonical imports are sealed.
+The owned Mac server and tunnel are stopped, ports clear, Herd untouched.
+Executing code passed 499 locked WSL tests; cumulative starts are 388.
+AEC x D3 remains the worst model-rated segment (6/10 failures, tied with AEC x D6),
+but failed calibration prevents M5 acceptance. The third assessed allocation is
+consumed; corrected reviews, qualified comparison, demo and coaching remain.
+
+November 17, earlier confirmation checkpoint: Chad restored the original >=80% agreement in
 every dimension. M4 is reopened; V13's saved results still fail D1, D3 and D6.
 The [fresh V15 confirmation](V15-CONFIRMATION-RESULTS.md) is complete after all
 ten authentic reviews were frozen. Candidate 56/60 versus comparator 47/60;

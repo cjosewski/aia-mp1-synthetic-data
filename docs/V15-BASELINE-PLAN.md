@@ -1,5 +1,10 @@
 # Final V15 original-baseline evaluation
 
+**Completed November 17:** [fifty valid first attempts; calibration failed](V15-BASELINE-RESULTS.md).
+Agreement is 95/120 (79.2%); D1 70% and D6 65% miss the original criterion.
+The Mac is released, the complete archive is verified locally/NAS, and the
+third assessed allocation is consumed. The plan below is the preserved protocol.
+
 November 17, 2026. The [fresh paired confirmation](V15-CONFIRMATION-RESULTS.md)
 supports selecting Qwen3.5 with V15 for this bounded assessment, with both safety
 misses and both context regressions retained. Chad's standing authorization to

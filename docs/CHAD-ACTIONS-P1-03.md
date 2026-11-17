@@ -6,16 +6,20 @@ completion. This file explains your actions; Codex handles the implementation,
 model runs, analysis and evidence preparation.
 
 **The original 80%-in-every-dimension criterion is restored.** M4 is reopened;
-V13 misses D1, D3 and D6. The V15 development comparison completed at 90% or higher
-in every dimension, with two errors retained. Fresh confirmation is now complete:
-Qwen3.5 matches 56/60 versus Qwen3's 47/60, with all four candidate errors retained.
-Full assessed calibration remains. No repeat of your completed baseline reviews is needed. See the
+the [final V15 baseline](V15-BASELINE-RESULTS.md) completed fifty first attempts
+at 95/120 agreement (79.2%), but D1 70% and D6 65% fail. The smaller development
+and confirmation scores did not transfer. All errors and prior V13 results remain
+preserved. The Mac is free. No repeat of your completed baseline reviews is needed. See the
 [decision record](ACCEPTANCE-RESTORED-80.md).
 
 **Your ten V15 confirmation reviews are complete and frozen.** No further action
-is needed on that answer sheet. Codex handles the remaining baseline evaluation;
+is needed on that answer sheet. The baseline evaluation and audit are complete;
 the [confirmation result](V15-CONFIRMATION-RESULTS.md) retains every disagreement.
 The existing twenty-item M5 packet remains intact and can wait for calibration.
+The third and final assessed allocation is consumed. The [execution plan](V15-BASELINE-PLAN.md)
+does not authorize an automatic fourth version. A different judge or verification
+protocol needs a concrete new bounded plan; another wording-only rerun is not
+supported by the observed failures. No additional human rescoring is requested.
 Actions 3–4 happen later. Conditional items
 at the end apply only if an unresolved decision or failed evaluation requires them.
 
@@ -27,7 +31,8 @@ at the end apply only if an unresolved decision or failed evaluation requires th
 | 1d. Amend the assessed runtime | **Approved and complete** | Fifty first attempts complete; calibration failed three dimensions; all previous evidence preserved |
 | 1e. Decide on the V14 development comparison | **Approved and complete; did not advance** | Twenty valid first attempts; one improvement and two regressions; no third assessed run authorized |
 | 1f. Review ten new V15 confirmation answers | **Complete and frozen November 17** | All sixty ratings and comments retained; no repeat needed |
-| 2. Review twenty corrected-dataset answers | Packet ready; can wait for the judge check | Twenty authentic reviews in `M5-corrected-review-001/MY-ANSWERS.md` |
+| 1g. Final V15 assessed evaluation | **Complete; calibration failed** | No repeat review; preserve 79.2%, D1/D6 failures and all errors |
+| 2. Review twenty corrected-dataset answers | Packet preserved; wait for calibrated judge | Twenty authentic reviews in `M5-corrected-review-001/MY-ANSWERS.md` |
 | 3. Review and record the final demonstration | After final results and charts are ready | A reviewed 90–180 second demonstration video |
 | 4. Complete the coaching/submission step | When the evidence package and demonstration are ready | Instructor/coach decision, date, reviewer name and any requested changes |
 
@@ -215,9 +220,9 @@ Your standing permission already covers this work and Mac use. Codex will
 announce before starting an owned model server or taking desktop control. Your
 remaining role is to report any change in machine availability or permissions.
 
-## Action 2 — Review twenty corrected answers now
+## Action 2 — Review twenty corrected answers after calibration
 
-**Ready now:** `\\192.168.0.55\aia\Handoff\P1-03\M5-corrected-review-001`.
+**Packet preserved; can wait:** `\\192.168.0.55\aia\Handoff\P1-03\M5-corrected-review-001`.
 
 The corrected cohort has fifty retained items; twenty were selected before any
 judge run, four per category. The packet includes a 41-page PDF, matching Markdown,
@@ -307,7 +312,7 @@ chart generation and package verification do not require another approval from y
 - [x] Select the assessed judge with the measured limitations retained.
 - [x] Approve the two-case thinking-budget probe; both cases completed.
 - [x] Approve the full-run runtime amendment; fifty judgments are retained.
-- [ ] **Now:** complete the ten new reviews in `qwen35-v15-blind-confirmation-v1/MY-ANSWERS.md`.
+- [x] Complete and freeze the ten V15 reviews in `qwen35-v15-blind-confirmation-v1/MY-ANSWERS.md` (November 17).
 - [ ] **Next:** complete the twenty reviews in `M5-corrected-review-001/MY-ANSWERS.md` when the judge check is resolved.
 - [ ] **Later:** review the final results and record/review the demonstration.
 - [ ] **Later:** provide the final coaching/instructor decision and any conditions.

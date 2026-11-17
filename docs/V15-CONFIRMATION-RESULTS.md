@@ -1,5 +1,10 @@
 # V15 fresh confirmation results
 
+**Subsequent assessed result:** [V15 completed the original fifty-item baseline](V15-BASELINE-RESULTS.md)
+at 95/120 (79.2%), failing D1 and D6. The 93.3% confirmation result below did not
+transfer. The final assessed allocation is now consumed; M4 remains open.
+The following sections preserve the earlier confirmation decision and evidence.
+
 November 17, 2026. Chad submitted all ten reviews and sixty ratings before
 either model received the confirmation examples. His exact answer sheet,
 comments and declarations are preserved. This authored challenge screen is

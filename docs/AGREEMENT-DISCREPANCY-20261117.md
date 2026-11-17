@@ -4,11 +4,12 @@ Recorded November 17, 2026, after Chad raised this concern:
 
 > I think it's important to log the discrpency. The previous test logged 74%. Not it's > 90%.
 
-**Disposition: the apparent increase is not a measured full-baseline improvement.**
-The saved assessed report records **72.5% agreement**, and the V15 development
-report records **96.7% agreement on a different, smaller, exposed set**. The gap
-must remain visible in project reporting. V15 has not been measured on the full
-assessed baseline; M4 remains open.
+**Final disposition: the high small-sample scores did not transfer.** The saved
+V13 assessed report remains **72.5%**. The [completed V15 original-baseline run](V15-BASELINE-RESULTS.md)
+now measures **79.2% on the same twenty human reviews**: nine gained matches and
+one regression, a net **+6.67 percentage points**. D1 70% and D6 65% still fail
+the original criterion. V15's **96.7% development** and **93.3% fresh authored
+confirmation** used different, smaller sets. M4 remains open.
 
 ## Reconciled measurements
 
@@ -17,6 +18,8 @@ assessed baseline; M4 remains open.
 | November 16 assessed baseline, Qwen3.5/V13 | 20 selected from a fifty-item judged cohort | 87/120 = **72.5%** | 50%, 85%, 65%, 90%, 85%, 60% | Fails original criterion in D1, D3 and D6 |
 | November 17 development, matched Qwen3.5/V13 control | 10 previously reviewed authored challenge examples | 57/60 = **95%** | 90%, 100%, 100%, 100%, 80%, 100% | Same prompt version as the assessed baseline, different examples/reference |
 | November 17 development, Qwen3.5/V15 | The same 10 development examples as the control | 58/60 = **96.7%** | 90%, 100%, 90%, 100%, 100%, 100% | Development screen only; two false rejections retained |
+| November 17 fresh authored confirmation, Qwen3.5/V15 | 10 new blind human reviews | 56/60 = **93.3%** | 100%, 80%, 100%, 100%, 80%, 100% | Both safety failures missed; two context false rejections |
+| November 17 original assessed baseline, Qwen3.5/V15 | Same 20 frozen reviews and fifty-item cohort as assessed V13 | 95/120 = **79.2%** | 70%, 85%, 80%, 90%, 85%, 65% | Fails D1/D6; 24 false approvals and one false rejection |
 
 The exact **74%** recalled in the concern was not found in the checked baseline
 and development reports or the repository's results summaries. The frozen human
@@ -58,14 +61,17 @@ interchangeable. The rubric and frozen human ratings were not changed to raise
 agreement. Changing the acceptance threshold affects the pass/fail decision,
 not any measured percentage.
 
-## Required follow-through
+## Completed follow-through
 
 **November 17 follow-through:** the new [blind confirmation](V15-CONFIRMATION-RESULTS.md)
 is complete: frozen V15/Qwen3.5 matches 56/60 (93.3%), versus Qwen3's 47/60
 (78.3%), with four candidate errors retained. It is another ten-item authored
 sample, not the original assessed population. Selection supports the remaining
-baseline evaluation; the 72.5% assessed result remains unchanged and transfer
-remains unverified.
+baseline evaluation. That final evaluation is now complete at 79.2%; the earlier
+72.5% record remains unchanged. Fifty valid first attempts, exact report replay,
+all twenty human-paired public explanations and preserved source hashes establish
+the direct comparison. This is calibration-set evidence, not independent
+generalization. All three human-rated baseline safety failures remain missed.
 
 1. Keep **72.5% assessed baseline** and **96.7% exposed development** separately
    labeled in summaries. Do not present them as a before/after improvement pair.
@@ -80,9 +86,11 @@ remains unverified.
    eligible coverage. A high pooled percentage cannot hide a failing dimension.
    Preserve a failed result if the development score does not transfer.
 
-The measurement distinction is reconciled; transfer of V15 performance to the
-assessed baseline remains **unverified**. No additional inference, changed human
-rating or revised review-packet content is part of this documentation update.
+All four follow-through controls above have been applied. The required
+per-dimension result failed and is preserved. No human rating, rubric or
+review-packet content changed. The final assessed allocation is consumed; no
+automatic fourth version follows. See the full result for execution identities,
+paired changes, public-explanation defects and the verified local/NAS archive.
 
 ## Evidence
 
@@ -93,6 +101,9 @@ rating or revised review-packet content is part of this documentation update.
 - [V14 comparison](JUDGE-V14-RESULTS.md) retains the preceding V13 control result.
 - [Restored acceptance rule](ACCEPTANCE-RESTORED-80.md) retains the historical
   amendment without changing measured results.
+- [Final V15 baseline](V15-BASELINE-RESULTS.md):
+  `assessments/baseline-review-001/calibration/baseline-qwen35-v15-budget4096-agreement-003/report.json`;
+  replay and paired audit in `qualification/v15-baseline-audit-20261117/`.
 
 Raw paths are relative to workspace `artifacts/evidence/P1-03/`, outside Git.
 The dated discrepancy verification receipt records the source-file hashes and

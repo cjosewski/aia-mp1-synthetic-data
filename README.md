@@ -3,29 +3,30 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
-**Your ten new reviews are complete and frozen.** The
-[fresh V15 comparison](docs/V15-CONFIRMATION-RESULTS.md) matches **56/60 (93.3%)**
-for Qwen3.5 versus **47/60 (78.3%)** for Qwen3. D1–D6 agreement is
-100%, 80%, 100%, 100%, 80%, 100%. Both safety failures were missed; those errors
-and two context false rejections remain recorded. Twenty valid first attempts,
-all 120 explanations audited, exact report replay and verified local/NAS archive.
-The Mac servers are stopped. The [final original-baseline runner](docs/V15-BASELINE-PLAN.md)
-is ready with frozen V15/settings under your standing completion authorization.
-After a zero-request preflight interruption and a port conflict, Chad authorized
-using another port. The replacement uses local **18083** to Mac **8081**;
-the other session's Herd workload on 18081 is preserved.
-No repeat of these reviews is needed. M4 remains open until assessed calibration;
-the twenty-item M5 review packet is preserved.
+**Final V15 baseline complete; M4 still fails.** All fifty judgments arrived on
+their first attempt. Agreement is **95/120 (79.2%)**, with D1 **70%**, D2 85%,
+D3 80%, D4 90%, D5 85% and D6 **65%**. D1 and D6 miss the required 80% each.
+[Complete result and evidence](docs/V15-BASELINE-RESULTS.md) retain nine gains,
+one regression, all 24 false approvals and one false rejection. All three
+human-identified safety failures were missed. Your reviews remain frozen.
 
-**Score discrepancy:** the assessed baseline remains **72.5% (87/120)**. V15's
-**96.7% (58/60)** is from a different, exposed ten-item development set; the matched
-V13 control already scored **95% (57/60)** there. This is one additional matching
-rating on development, not demonstrated baseline improvement.
+**The Mac is free.** The owned server and tunnel stopped, their ports are clear,
+and Herd was untouched. Execution used local **18083** to Mac **8081**, preserving
+the other session's workload on 18081. The complete archive is checksum-verified
+on the NAS; all 244 frozen inputs, report replay and 990 previous seal entries
+verify. The [third and final allocated assessed run](docs/V15-BASELINE-PLAN.md)
+is consumed. A new judge/protocol plan is needed before further assessed calls;
+no automatic rerun or repeat human review follows. The M5 packet is preserved.
+
+**Score discrepancy:** the original V13 result stays **72.5% (87/120)**; V15 now
+measures **79.2% on the same original human reference**, a gain of eight ratings
+(6.67 percentage points). Its **96.7% exposed development** and **93.3% fresh
+authored confirmation** scores used different examples and did not transfer.
 [Discrepancy record](docs/AGREEMENT-DISCREPANCY-20261117.md).
 
 **Current acceptance rule:** Chad [restored 80% in every dimension](docs/ACCEPTANCE-RESTORED-80.md)
-on November 17. **M4 is reopened:** V13 fails D1, D3 and D6 despite 72.5% overall
-agreement. New calibration and analysis CLI reports default to the original course
+on November 17. **M4 remains open:** V15 fails D1/D6; V13's earlier D1/D3/D6
+failures remain preserved. Calibration and analysis CLI reports default to the original course
 policy. The superseded 70%-overall receipt and all errors remain preserved.
 A bounded [V15 development comparison](docs/JUDGE-V15-PLAN.md) and fresh confirmation are complete.
 The existing corrected cohort and human review packet remain intact; no corrected
@@ -37,15 +38,14 @@ comparison thresholds and local evidence export.
 **499 WSL tests pass** with the locked analysis environment and optional PDF renderer,
 including the acceptance amendment, review export/intake, PDF content preservation,
 original report replay, incomplete-evidence rejection and runtime ownership guards.
-The [full baseline calibration](docs/BASELINE-BUDGET-RESULTS.md) completed 50/50
-first attempts, but agreement fails D1 (50%), D3 (65%) and D6 (60%). D2 is 85%,
-D4 90% and D5 85%. Those are the original-rule results; the restored original rule above now
-governs acceptance. Corrected data remain unmeasured.
+The new baseline-only report has five PNGs, five SVGs and five source tables.
+Its incomplete banner concerns failed calibration and the unfinished comparison;
+baseline judgment coverage is complete. Corrected quality remains unmeasured.
 
 **Previous development result:** the [approved V13/V14 comparison](docs/JUDGE-V14-RESULTS.md)
 completed twenty valid first attempts. V14 matches 55/60 versus V13's 56/60, with
 one improvement, two regressions and a new safety false approval. Both score 7/10
-on D5. V14 does not advance; the final assessed allocation remains unused.
+on D5. V14 did not advance; the final assessed allocation was unused at that checkpoint.
 The Mac is free, and all original ratings and assessed evidence are unchanged.
 
 **All actions needed from Chad:** [consolidated instruction sheet](docs/CHAD-ACTIONS-P1-03.md)
