@@ -1,5 +1,7 @@
 # V13 versus V14 — completed development comparison
 
+**November 17 superseding decision:** [80% in every dimension is restored](ACCEPTANCE-RESTORED-80.md). M4 is reopened. The dated 70%-overall decisions below remain historical evidence.
+
 **Subsequent owner decision:** [70% overall calibration agreement](ACCEPTANCE-AMENDMENT-70.md)
 allows the completed V13 baseline to proceed without another judge experiment.
 The V14 comparison and its original non-advancement decision below are preserved.

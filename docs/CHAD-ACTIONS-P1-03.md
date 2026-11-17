@@ -1,15 +1,15 @@
 # P1-03 — Everything needed from Chad
 
-Updated November 16, 2026. This is your consolidated instruction sheet.
+Updated November 17, 2026. This is your consolidated instruction sheet.
 The [live project checklist](https://github.com/cjosewski/aia-plan/issues/4) tracks
 completion. This file explains your actions; Codex handles the implementation,
 model runs, analysis and evidence preparation.
 
-**Your 70% overall agreement amendment is confirmed.** The existing full V13
-baseline has 87/120 matches (72.5%), complete coverage and twenty frozen human
-reviews. It meets the amended agreement requirement; all original errors remain
-recorded. No further judge-development or confirmation review is needed for this
-baseline. See the [decision record](ACCEPTANCE-AMENDMENT-70.md).
+**The original 80%-in-every-dimension criterion is restored.** M4 is reopened;
+V13 misses D1, D3 and D6. Codex is preparing one bounded V15 development attempt.
+No repeat of your completed baseline reviews is needed. A successful development
+candidate will need fresh blind confirmation before assessed use. See the
+[decision record](ACCEPTANCE-RESTORED-80.md).
 
 **Your twenty-item M5 review is ready.** Open
 `\\192.168.0.55\aia\Handoff\P1-03\M5-corrected-review-001`, read `RUNBOOK.md` and

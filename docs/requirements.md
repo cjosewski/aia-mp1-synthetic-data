@@ -4,11 +4,11 @@ This is the technical requirements record for P1-03, Mini Project 1. The [live e
 
 ## Source verification and early start
 
-**November 16 owner amendment:** Chad set judge calibration acceptance to
-**70% overall agreement across D1–D6**, explicitly confirming that no instructor
-approval is required for this change. The [decision record](ACCEPTANCE-AMENDMENT-70.md)
-supersedes only the original 80%-in-each-dimension calibration gate. Scoring
-anchors, frozen labels, dataset quality targets and original reports are preserved.
+**November 17 restoration:** Chad restored **at least 80% agreement in every
+individual dimension D1–D6**. The [decision record](ACCEPTANCE-RESTORED-80.md)
+supersedes the November 16 70%-overall operational amendment. Frozen labels,
+scoring anchors, all historical reports and other quality targets are preserved.
+M4 is reopened; the new bounded development attempt does not establish readiness.
 
 On November 9, 2026, the live brief's schema, six quality dimensions and success metrics were read through the signed-in course portal. The lower visualization and example-log sections were not independently reread; their checklist below comes from issue #4, also read that day. This document summarizes those sources rather than reproducing the course post.
 
@@ -86,7 +86,7 @@ D3 originally concerns ordinary homeowner tools; D4 concerns when repair work ne
 | 5. Analyze | Category/variant segment metrics, exact human/judge agreement counts, gate statistics and five charts |
 | 6. Iterate | Phase A calibrates the judge on fixed items; Phase B corrects the worst segment × dimension and reruns generation/evaluation |
 
-Each stage must be runnable independently against saved artifacts. Under the November 16 owner amendment, Phase A must reach at least 70% overall human/judge agreement across all compared criterion ratings before Phase B. Freeze the calibrated judge for the baseline/corrected comparison. Retain every prompt revision and an iteration entry with date, change, hypothesis, result, decision and next step.
+Each stage must be runnable independently against saved artifacts. Under the restored original criterion, Phase A must reach at least 80% human/judge agreement in every dimension before Phase B. Freeze the calibrated judge for the baseline/corrected comparison. Retain every prompt revision and an iteration entry with date, change, hypothesis, result, decision and next step.
 
 Required charts are dimension pass rates before/after, a segment heatmap, agreement by dimension, category distribution and before/after paired bars. Required handoff material includes separate baseline/corrected JSONL, gate reports, labels, traces, prompt revisions, reproducible evaluation instructions, dependency lock, code identity, README, a 90–180 second demo and coaching-call approval.
 
@@ -98,7 +98,7 @@ Required charts are dimension pass rates before/after, a segment heatmap, agreem
 | Structural validity | At least 95%; report valid initial responses / initial generation slots separately from retries and retained-item validity |
 | Baseline overall failure | At least 15%, established honestly |
 | Corrected overall pass | At least 80% passing all six dimensions |
-| Human/judge agreement | At least 70% overall across D1–D6; report all dimension counts and limitations |
+| Human/judge agreement | At least 80% separately in every dimension D1–D6; report counts and limitations |
 | Relative failure reduction | `(baseline_failure - corrected_failure) / baseline_failure`; target strictly greater than 0.80 until the source's equality ambiguity is resolved |
 
 The portal states corrected failure at most 20% of baseline, while describing that as greater than 80% reduction. Issue #4 uses at least 0.80. The implementation's conservative target is strictly greater than 80%; an exact-80% result must disclose this unresolved boundary.

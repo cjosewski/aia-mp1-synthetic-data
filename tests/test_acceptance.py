@@ -5,7 +5,7 @@ from test_evaluation import FakeJudge, label_all
 from test_evaluation import assessed_queue as _assessed_queue
 from test_evaluation import queue as _queue
 
-from aia_mp1.acceptance import OWNER_POLICY, acceptance_result
+from aia_mp1.acceptance import COURSE_POLICY, OWNER_POLICY, acceptance_result
 from aia_mp1.analysis import load_analysis, write_analysis
 from aia_mp1.analysis_export import chart_tables
 from aia_mp1.calibration import agreement, calibration_report
@@ -84,6 +84,8 @@ def test_owner_receipt_and_cli_preserve_course_results_and_analysis_replay(asses
                 "judged",
                 "--report-id",
                 "owner",
+                "--acceptance-policy",
+                OWNER_POLICY,
             ]
         )
         == 0
@@ -106,6 +108,72 @@ def test_owner_receipt_and_cli_preserve_course_results_and_analysis_replay(asses
     assert table[0]["threshold_role"] == "original_course_reference"
     assert table[0]["overall_agreement"] == 0.725
     assert table[0]["overall_required"] == 0.7
+    # Restored defaults must reject the same complete evidence that the explicit
+    # historical owner policy accepts, without changing either saved receipt.
+    assert (
+        main(
+            [
+                "calibrate",
+                "--artifact-root",
+                str(root),
+                "--assessment-id",
+                "diagnostic",
+                "--judge-run-id",
+                "judged",
+                "--report-id",
+                "restored-default",
+            ]
+        )
+        == 1
+    )
+    restored = calibration_report(root, "diagnostic", "judged", "preview-restored", write=False)
+    assert restored["status"] == "pending"
+    assert "per_dimension_agreement_not_met" in restored["readiness_reasons"]
+    from aia_mp1.analysis_cli import main as analysis_main
+
+    assert (
+        analysis_main(
+            [
+                "report",
+                "--artifact-root",
+                str(root),
+                "--report-id",
+                "restored-analysis",
+                "--baseline",
+                "diagnostic",
+                "--baseline-judge",
+                "judged",
+            ]
+        )
+        == 1
+    )
+    assert (
+        load_analysis(root, "restored-analysis").get("acceptance_policy", COURSE_POLICY)
+        == COURSE_POLICY
+    )
+    assert original_path.read_bytes() == original_bytes
+
+
+@pytest.mark.parametrize("weak_dimension_matches,passed", [(15, False), (16, True)])
+def test_restored_policy_requires_each_dimension_despite_high_overall(
+    weak_dimension_matches, passed
+):
+    records = [{"item_id": str(i)} for i in range(20)]
+    selected = [r["item_id"] for r in records]
+    labels = {i: {"decisions": dict.fromkeys(DIMENSIONS, 1)} for i in selected}
+    judges = {
+        item: {
+            d: {
+                "decision": int(d != "D6" or index < weak_dimension_matches),
+                "justification": "Synthetic",
+            }
+            for d in DIMENSIONS
+        }
+        for index, item in enumerate(selected)
+    }
+    result = acceptance_result(agreement(records, selected, labels, judges), COURSE_POLICY)
+    assert result["agreement"] > 0.95
+    assert result["threshold_met"] is passed
 
 
 def test_owner_policy_still_requires_complete_population(assessed_queue):

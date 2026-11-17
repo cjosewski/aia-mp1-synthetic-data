@@ -1,5 +1,7 @@
 # Owner acceptance amendment — 70% overall agreement
 
+**November 17 superseding decision:** [80% in every dimension is restored](ACCEPTANCE-RESTORED-80.md). M4 is reopened. The dated 70%-overall decisions below remain historical evidence.
+
 November 16, 2026. Chad Josewski directed:
 
 > This can't go on. I'm changing the acceptance criteria to 70%. No instructor approval is needed.

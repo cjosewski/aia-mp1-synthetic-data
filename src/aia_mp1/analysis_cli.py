@@ -5,7 +5,7 @@ import json
 import sys
 from pathlib import Path
 
-from .acceptance import OWNER_POLICY, POLICIES
+from .acceptance import COURSE_POLICY, POLICIES
 from .analysis import load_analysis, output_directory, write_analysis
 from .analysis_export import export_local, render_charts
 
@@ -18,7 +18,7 @@ def main(argv=None) -> int:
         p.add_argument("--artifact-root", type=Path, default=Path("../artifacts/evidence/P1-03"))
         p.add_argument("--report-id", required=True)
         if command == "report":
-            p.add_argument("--acceptance-policy", choices=POLICIES, default=OWNER_POLICY)
+            p.add_argument("--acceptance-policy", choices=POLICIES, default=COURSE_POLICY)
             p.add_argument("--baseline", required=True, help="baseline assessment ID")
             p.add_argument("--baseline-judge")
             p.add_argument("--corrected", help="corrected assessment ID")

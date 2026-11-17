@@ -10,13 +10,13 @@ category. The twenty-item PDF/Markdown review packet is in
 `REVIEW-PACKET.pdf`, then complete `MY-ANSWERS.md`. No corrected judge results exist
 yet. The Mac is free; quality improvement remains unmeasured pending human review.
 
-**Current acceptance rule:** Chad confirmed [70% overall human/judge agreement](docs/ACCEPTANCE-AMENDMENT-70.md)
-on November 16. The saved V13 baseline has **87/120 matches (72.5%)** and complete
-coverage; its new validated receipt is **ready and M4 is complete**. New calibration
-and analysis CLI reports use this owner policy; original
-80%-per-dimension reports and all 33 false approvals remain preserved. M5 generator
-correction [collection is complete and awaiting human review](docs/M5-CORRECTION-PLAN.md). No additional judge experiment is
-needed to satisfy the amended baseline agreement requirement.
+**Current acceptance rule:** Chad [restored 80% in every dimension](docs/ACCEPTANCE-RESTORED-80.md)
+on November 17. **M4 is reopened:** V13 fails D1, D3 and D6 despite 72.5% overall
+agreement. New calibration and analysis CLI reports default to the original course
+policy. The superseded 70%-overall receipt and all errors remain preserved.
+A bounded [V15 development comparison](docs/JUDGE-V15-PLAN.md) is being prepared.
+The existing corrected cohort and human review packet remain intact; no corrected
+judging or quality-improvement claim can proceed until calibration succeeds.
 
 **Reporting implementation:** the [analysis runbook](docs/ANALYSIS-RUNBOOK.md)
 covers verified cohort reports, five charts with plotted-data tables, exact
@@ -26,7 +26,7 @@ including the acceptance amendment, review export/intake, PDF content preservati
 original report replay, incomplete-evidence rejection and runtime ownership guards.
 The [full baseline calibration](docs/BASELINE-BUDGET-RESULTS.md) completed 50/50
 first attempts, but agreement fails D1 (50%), D3 (65%) and D6 (60%). D2 is 85%,
-D4 90% and D5 85%. Those are the original-rule results; the amendment above now
+D4 90% and D5 85%. Those are the original-rule results; the restored original rule above now
 governs acceptance. Corrected data remain unmeasured.
 
 **Latest development result:** the [approved V13/V14 comparison](docs/JUDGE-V14-RESULTS.md)
@@ -62,7 +62,7 @@ case matched 6/6; semantic limitations remain. A
 [new full baseline revision](docs/BASELINE-BUDGET-RESULTS.md) completed fifty valid
 first attempts, retaining 33 false approvals and no false rejections across the
 twenty human reviews. Calibration failed the original criterion; see the current
-owner amendment above. The Mac is free. The
+current acceptance rule above. The Mac is free. The
 [V14 comparison](docs/JUDGE-V14-RESULTS.md) is complete and failed its advancement
 conditions. No third assessed run or new human scoring has started.
 The earlier development checkpoint had **212 starts**, including both
@@ -285,7 +285,7 @@ disagreements and category breakdowns. Exit 1 with `status: pending` is expected
 for this diagnostic queue, even with perfect observed agreement. Readiness needs
 complete population judgments, the full frozen human selection, at least 20
 complete labels, at least 50 balanced retained items, a qualified distinct judge,
-and >=70% overall agreement across all six dimensions under the owner amendment. The receipt freezes effective label IDs,
+and >=80% agreement separately in every dimension under the restored original rule. The receipt freezes effective label IDs,
 rubric, judge prompt/model/settings and input hashes. It measures calibration-set
 agreement, not independent generalization or professional correctness.
 

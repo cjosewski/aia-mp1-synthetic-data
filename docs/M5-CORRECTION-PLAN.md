@@ -1,5 +1,7 @@
 # M5 — corrected generator cohort
 
+**November 17 superseding decision:** [80% in every dimension is restored](ACCEPTANCE-RESTORED-80.md). M4 is reopened. The dated 70%-overall decisions below remain historical evidence.
+
 November 16, 2026. Proceed under the owner's [70% overall agreement amendment](ACCEPTANCE-AMENDMENT-70.md).
 The baseline is the completed fifty-item V13 evaluation with twenty frozen human
 reviews. Reassess its saved results under the amended policy; do not run a third

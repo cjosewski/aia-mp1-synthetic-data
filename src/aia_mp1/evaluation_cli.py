@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from .acceptance import OWNER_POLICY, POLICIES
+from .acceptance import COURSE_POLICY, POLICIES
 from .assessment import create_assessment, create_cohort_assessment
 from .calibration import calibration_report
 from .evaluation_schemas import DIMENSIONS, Judgment
@@ -44,7 +44,7 @@ def add_commands(commands):
     judge_info = commands.add_parser("judge-status", help="validate and summarize judge evidence")
     calibration = commands.add_parser("calibrate", help="save an exact agreement/readiness report")
     calibration.add_argument("--report-id", required=True)
-    calibration.add_argument("--acceptance-policy", choices=POLICIES, default=OWNER_POLICY)
+    calibration.add_argument("--acceptance-policy", choices=POLICIES, default=COURSE_POLICY)
     for command in (assessment, label, status, judge, judge_info, calibration, reference):
         command.add_argument("--assessment-id", required=True)
         command.add_argument(
