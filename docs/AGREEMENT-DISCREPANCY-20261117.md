@@ -60,6 +60,13 @@ not any measured percentage.
 
 ## Required follow-through
 
+**November 17 follow-through:** the new [blind confirmation](V15-CONFIRMATION-RESULTS.md)
+is complete: frozen V15/Qwen3.5 matches 56/60 (93.3%), versus Qwen3's 47/60
+(78.3%), with four candidate errors retained. It is another ten-item authored
+sample, not the original assessed population. Selection supports the remaining
+baseline evaluation; the 72.5% assessed result remains unchanged and transfer
+remains unverified.
+
 1. Keep **72.5% assessed baseline** and **96.7% exposed development** separately
    labeled in summaries. Do not present them as a before/after improvement pair.
 2. Freeze Chad's ten new blind confirmation reviews before either comparison

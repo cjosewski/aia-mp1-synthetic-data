@@ -1,5 +1,10 @@
 # V15 fresh confirmation: operator procedure
 
+**Execution complete November 17:** [measured result and selection](V15-CONFIRMATION-RESULTS.md).
+The actual reviews are frozen; twenty valid first attempts and all public
+explanations are preserved. The preparation and procedure below remain historical
+reproduction instructions. Do not rerun the completed ledger.
+
 This procedure is for Codex after Chad completes the new ten-item review. It
 replaces the old V13 transport for this packet only; historical bundles and
 ledgers remain unchanged. Python runs in WSL2 Ubuntu. The Mac runs only the owned

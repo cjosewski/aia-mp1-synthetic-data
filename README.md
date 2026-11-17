@@ -3,15 +3,16 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
-**Next action: ten fresh confirmation reviews.** The [V15 development result](docs/JUDGE-V15-RESULTS.md)
-reached 90%, 100%, 90%, 100%, 100%, 100% agreement on the exposed development set,
-with two false rejections retained. It advances to fresh confirmation, not assessed
-readiness. Open `\\192.168.0.55\aia\Handoff\P1-03\qwen35-v15-blind-confirmation-v1`,
-read `RUNBOOK.md` and `REVIEW-PACKET.pdf`, then complete `MY-ANSWERS.md`.
-The Mac is free. The existing twenty-item M5 review packet is preserved and can wait.
-The [V15 confirmation runner](docs/V15-CONFIRMATION-TRANSPORT.md) and package builder
-are ready offline. Real packaging and inference require your frozen review;
-the actual blank answer sheet and missing-reference paths both fail safely.
+**Your ten new reviews are complete and frozen.** The
+[fresh V15 comparison](docs/V15-CONFIRMATION-RESULTS.md) matches **56/60 (93.3%)**
+for Qwen3.5 versus **47/60 (78.3%)** for Qwen3. D1–D6 agreement is
+100%, 80%, 100%, 100%, 80%, 100%. Both safety failures were missed; those errors
+and two context false rejections remain recorded. Twenty valid first attempts,
+all 120 explanations audited, exact report replay and verified local/NAS archive.
+The Mac servers are stopped. Codex is preparing the remaining original-baseline
+evaluation with frozen V15/settings under your standing completion authorization.
+No repeat of these reviews is needed. M4 remains open until assessed calibration;
+the twenty-item M5 review packet is preserved.
 
 **Score discrepancy:** the assessed baseline remains **72.5% (87/120)**. V15's
 **96.7% (58/60)** is from a different, exposed ten-item development set; the matched
@@ -23,7 +24,7 @@ rating on development, not demonstrated baseline improvement.
 on November 17. **M4 is reopened:** V13 fails D1, D3 and D6 despite 72.5% overall
 agreement. New calibration and analysis CLI reports default to the original course
 policy. The superseded 70%-overall receipt and all errors remain preserved.
-A bounded [V15 development comparison](docs/JUDGE-V15-PLAN.md) is complete.
+A bounded [V15 development comparison](docs/JUDGE-V15-PLAN.md) and fresh confirmation are complete.
 The existing corrected cohort and human review packet remain intact; no corrected
 judging or quality-improvement claim can proceed until calibration succeeds.
 

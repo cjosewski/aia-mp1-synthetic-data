@@ -80,7 +80,14 @@ Raw evidence remains outside Git under `artifacts/evidence/P1-03/qualification/`
 `restore80-v15-20261117` contains the replay, semantic review, advancement decision
 and preservation checks. Human-readable summaries do not replace these records.
 
-## Next human action
+## Completed subsequent confirmation
+
+November 17: Chad completed the review below. The [fresh matched result](V15-CONFIRMATION-RESULTS.md)
+is 56/60 versus 47/60, with two safety false approvals and two context false
+rejections retained. Full assessed calibration is next. No repeat of this review
+is needed; the original preparation instructions follow for traceability.
+
+## Original human-review instructions
 
 Open `\\192.168.0.55\aia\Handoff\P1-03\qwen35-v15-blind-confirmation-v1`.
 Read `RUNBOOK.md` and the 21-page `REVIEW-PACKET.pdf`, then complete that folder's

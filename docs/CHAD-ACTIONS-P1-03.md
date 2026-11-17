@@ -7,15 +7,16 @@ model runs, analysis and evidence preparation.
 
 **The original 80%-in-every-dimension criterion is restored.** M4 is reopened;
 V13 misses D1, D3 and D6. The V15 development comparison completed at 90% or higher
-in every dimension, with two errors retained. It now needs fresh blind confirmation
-before assessed use. No repeat of your completed baseline reviews is needed. See the
+in every dimension, with two errors retained. Fresh confirmation is now complete:
+Qwen3.5 matches 56/60 versus Qwen3's 47/60, with all four candidate errors retained.
+Full assessed calibration remains. No repeat of your completed baseline reviews is needed. See the
 [decision record](ACCEPTANCE-RESTORED-80.md).
 
-**Do the ten new V15 confirmation reviews first.** Open
-`\\192.168.0.55\aia\Handoff\P1-03\qwen35-v15-blind-confirmation-v1`, read `RUNBOOK.md`
-and `REVIEW-PACKET.pdf`, then fill in `MY-ANSWERS.md`. The Mac is free. See Action 1f
-below. The existing twenty-item M5 packet remains intact and can wait until this
-judge check is complete. Actions 3–4 happen later. Conditional items
+**Your ten V15 confirmation reviews are complete and frozen.** No further action
+is needed on that answer sheet. Codex handles the remaining baseline evaluation;
+the [confirmation result](V15-CONFIRMATION-RESULTS.md) retains every disagreement.
+The existing twenty-item M5 packet remains intact and can wait for calibration.
+Actions 3–4 happen later. Conditional items
 at the end apply only if an unresolved decision or failed evaluation requires them.
 
 | Action | When | What you provide |
@@ -25,7 +26,7 @@ at the end apply only if an unresolved decision or failed evaluation requires th
 | 1c. Decide on the limited thinking-budget probe | **Approved and complete** | Two valid first attempts; original errors preserved |
 | 1d. Amend the assessed runtime | **Approved and complete** | Fifty first attempts complete; calibration failed three dimensions; all previous evidence preserved |
 | 1e. Decide on the V14 development comparison | **Approved and complete; did not advance** | Twenty valid first attempts; one improvement and two regressions; no third assessed run authorized |
-| 1f. Review ten new V15 confirmation answers | **Do this next** in `qwen35-v15-blind-confirmation-v1` | Ten authentic reviews in that folder's `MY-ANSWERS.md`; these are new examples |
+| 1f. Review ten new V15 confirmation answers | **Complete and frozen November 17** | All sixty ratings and comments retained; no repeat needed |
 | 2. Review twenty corrected-dataset answers | Packet ready; can wait for the judge check | Twenty authentic reviews in `M5-corrected-review-001/MY-ANSWERS.md` |
 | 3. Review and record the final demonstration | After final results and charts are ready | A reviewed 90–180 second demonstration video |
 | 4. Complete the coaching/submission step | When the evidence package and demonstration are ready | Instructor/coach decision, date, reviewer name and any requested changes |
@@ -34,7 +35,10 @@ The fresh ten-item review adds work to the earlier estimate. Reference checking,
 the twenty-item corrected review and the final demonstration still determine
 your remaining involvement; no completion date is promised by the development result.
 
-## Action 1f — Review the new V15 confirmation packet now
+## Action 1f — Completed V15 confirmation review
+
+Completed November 17. The instructions below are retained for traceability;
+do not edit the frozen submission. Request an explicit amendment if necessary.
 
 1. Open `\\192.168.0.55\aia\Handoff\P1-03\qwen35-v15-blind-confirmation-v1`.
    On the Mac, connect to `smb://192.168.0.55/aia` in Finder and open

@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.31, November 17, 2026 |
-| Status | Original >=80% per-dimension criterion restored; M4 open, V15 development complete and fresh human confirmation pending; corrected cohort and review packet preserved |
+| Revision | 0.32, November 17, 2026 |
+| Status | Original >=80% per-dimension criterion restored; M4 open, V15 fresh confirmation complete and full baseline evaluation next; corrected cohort and review packet preserved |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
@@ -620,6 +620,18 @@ state or a successful CLI exit.
 
 November 17, current checkpoint: Chad restored the original >=80% agreement in
 every dimension. M4 is reopened; V13's saved results still fail D1, D3 and D6.
+The [fresh V15 confirmation](V15-CONFIRMATION-RESULTS.md) is complete after all
+ten authentic reviews were frozen. Candidate 56/60 versus comparator 47/60;
+candidate D1–D6 counts 10,8,10,10,8,10. Both safety failures are missed and two
+context false rejections retained. Twenty valid first attempts, all 120 public
+explanations audited, 195 frozen files and exact replay verified; cumulative
+starts 338. All 471 previous seal entries remain unchanged. Both owned servers
+are stopped and the complete archive is verified locally/NAS. Select frozen
+V15/settings for the remaining assessed-baseline evaluation under standing
+authorization, with limitations retained. Full assessed readiness remains
+unmeasured; 483 WSL tests passed for the executing implementation.
+
+November 17, earlier development checkpoint:
 The [V15 development result](JUDGE-V15-RESULTS.md) completed twenty valid first
 attempts: 58/60 matches versus V13's 57/60, with D1–D6 counts 9,10,9,10,10,10 of
 ten. Three improvements and two Revit false rejections are retained. All 120
@@ -807,3 +819,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.29 | 2026-11-17 | Restore original 80%-in-every-dimension criterion and CLI defaults; reopen M4; preserve historical 70% receipts and corrected cohort. Prepare bounded V15 task-contract comparison with no human-label or rubric changes |
 | 0.30 | 2026-11-17 | Complete V15 development at 58/60 vs V13 57/60, at least 90% each dimension, with two false rejections retained. Twenty valid first attempts, 191 frozen files/replay verified, all 120 public explanations inspected, 318 cumulative starts; Mac released. Publish ten fresh unscored confirmation examples and verified PDF/NAS handoff. M4 remains open and final assessed version unused; 468 tests |
 | 0.31 | 2026-11-17 | Implement separate V15 confirmation package/client and native Mac phases with shared limits, pinned model-specific templates and process checks. Verify 483 WSL tests and real blank-review/missing-reference rejection without output; no Mac use or inference. Authentic review remains required before packaging and dispatch |
+| 0.32 | 2026-11-17 | Freeze ten authentic V15 reviews and complete matched confirmation: 56/60 vs 47/60, eleven gains/two context regressions, two shared safety misses retained. Twenty valid first attempts, all 120 explanations audited, 195 frozen files/replay verified; 338 cumulative starts, owned servers stopped. Select frozen V15 for remaining assessed evaluation under standing authorization; M4 remains open |
