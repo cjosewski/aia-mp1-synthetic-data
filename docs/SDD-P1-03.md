@@ -2,7 +2,7 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.36, November 17, 2026 |
+| Revision | 0.37, November 17, 2026 |
 | Status | Final V15 baseline complete at 79.2%; D1 70% and D6 65% fail original >=80% per-dimension criterion; M4 open, final assessed allocation consumed; corrected cohort preserved |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
@@ -418,9 +418,13 @@ validator following the V15 failure. Fixed application checks cover task and
 candidate text, require primary technical evidence and account for every tip.
 Exact citations establish traceability only: even structurally valid observations
 remain ineligible for calibration pending semantic audit. Historical validators,
-rubric and human reviews are unchanged. Production source checklists, scorer
-integration and a frozen bounded execution package remain future work; the
-proposed twenty-start development trial is not allocated or started.
+rubric and human reviews are unchanged. The [preparation checkpoint](M4-RECOVERY-PREPARATION.md)
+adds ten draft checklists and offline scorer integration. Eighteen of 175 check
+spans have no bound source, and all bindings require semantic review. Fact and
+score audits bind exact inputs; only a fully audited development judgment can
+be projected, always ineligible for calibration. Source completion, actual audits,
+transport and a frozen execution package remain; the proposed twenty-start
+development trial is not allocated or started. 553 locked WSL tests pass.
 
 The [final V15 baseline result](V15-BASELINE-RESULTS.md) completes fifty first
 attempts, but reaches only 14,17,16,18,17,13 matches of twenty in D1–D6.
@@ -862,3 +866,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.34 | 2026-11-17 | Preserve zero-request preflight interruption after workstation restart; leave priority Herd workload on local 18081 unchanged. At Chad's direction prepare replacement package with local 18083 to Mac 8081 and pinned interruption receipt; same final allocation/model/prompt/reviews. Verify 499 locked WSL tests, including selected-port and receipt checks |
 | 0.35 | 2026-11-17 | Complete final V15 baseline at 95/120 (79.2%); D1 70% and D6 65% fail calibration. Preserve all errors, frozen references and the consumed third allocation; archive and replay results, release the Mac and leave M4 open |
 | 0.36 | 2026-11-17 | Prepare M4 recovery design and isolated offline source/checklist validator, with exact text coverage, primary technical evidence, mandatory tip review and unresolved findings. Structural success never qualifies calibration. No inference, Mac use or historical validator changes; scorer, source audit and execution package remain pending |
+| 0.37 | 2026-11-17 | Prepare ten exposed baseline source/checklist drafts (175 spans, 18 unbound checks) and integrate offline scoring with exact fact/score-audit lineage, mandatory finding dispositions, D4 applicability and unresolved/rejected outputs. All bindings still need semantic audit; no real observations or scores invented. 553 WSL tests pass; forty historical files unchanged, zero inference/Mac use, live execution remains disabled |

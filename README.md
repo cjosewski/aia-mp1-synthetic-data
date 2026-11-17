@@ -3,13 +3,14 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
-**Recovery design prepared:** the [M4 evidence-checking design](docs/M4-RECOVERY-DESIGN.md)
-and isolated offline validator account for task obligations, technical claims and
-every tip, retaining source gaps and requiring a separate semantic audit.
+**Recovery scoring implemented offline:** the [preparation checkpoint](docs/M4-RECOVERY-PREPARATION.md)
+adds ten draft source/checklists (175 check spans, 18 unbound checks) and scoring
+with required fact and score audits. Source bindings still need semantic review;
+even an audited development judgment is ineligible for calibration.
 No new model calls or Mac use. The proposed bounded development trial is not
-allocated or started; scorer integration and audited source checklists remain.
-The updated implementation passes **525 locked WSL tests**, including 26 new
-synthetic recovery checks; this is software validation, not model-quality evidence.
+allocated or started; source gaps, audits and live transport/preflight remain.
+The implementation passes **553 locked WSL tests**, including 28 new scoring
+checks; this is software validation, not model-quality evidence.
 
 **Final V15 baseline complete; M4 still fails.** All fifty judgments arrived on
 their first attempt. Agreement is **95/120 (79.2%)**, with D1 **70%**, D2 85%,

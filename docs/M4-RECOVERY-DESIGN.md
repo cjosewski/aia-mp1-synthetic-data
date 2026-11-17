@@ -3,6 +3,9 @@
 November 17, 2026. **Offline design and contract prototype implemented; live
 execution is not enabled.** No new model calls, Mac use, review changes or assessed
 allocation. Cumulative recorded starts remain 388. M4 remains open.
+The subsequent [preparation/scoring checkpoint](M4-RECOVERY-PREPARATION.md)
+adds ten draft checklists and offline scoring with explicit audit lineage;
+source completeness and live execution remain pending.
 
 ## Problem and intended change
 
@@ -27,8 +30,9 @@ This recovery separates three questions:
 3. Given those findings, what does each **unchanged rubric dimension** require?
 
 Only the first question has an automated structural answer. The other two need
-semantic review and measured evaluation. The prototype does not project its
-findings into canonical judgments or human labels.
+semantic review and measured evaluation. Facts alone cannot become judgments.
+The subsequent offline scorer can emit an audited development judgment shape,
+but never human labels or an eligible calibration receipt.
 
 ## Implemented offline boundary
 
@@ -99,9 +103,9 @@ before declaring an essential step missing; code snippets are not universally
 required by the rubric. Keep mathematical givens unchanged and independently
 check any decisive numerical claim. Record every unsupported decisive conclusion.
 
-The proposed scorer will receive the frozen checklist and findings. Its output
-will have six application-defined dimension keys and check-ID dispositions;
-it will not be asked to reproduce rubric text as an ID or choose interchangeable
+The offline scorer receives the frozen checklist and findings. Its output
+has six application-defined dimension keys and check-ID dispositions;
+it is not asked to reproduce rubric text as an ID or choose interchangeable
 candidate/source namespaces. Application code must attach the frozen rubric and
 original candidate evidence. All relevant findings, including tips and conflicts,
 must have dispositions. An unresolved decisive fact prevents canonical projection.
@@ -114,10 +118,11 @@ human ratings and their effect on agreement. Similarly, never change human D1/D6
 ratings to fit the new checklist. Explanation accuracy and binary agreement are
 separate reported outcomes.
 
-**Not implemented yet:** production checklists/source expansion, semantic audit
-receipts, simplified scorer/projection, staged transport integration, token
-preflight and a frozen execution package. The CLI below has no execution switch.
-This prototype is therefore not a repaired live V8 run or a qualified judge.
+**Implemented offline:** ten draft source/checklists, semantic-audit receipt
+contracts and simplified scoring/projection; see the preparation checkpoint.
+Actual semantic audits, complete source coverage, staged transport integration,
+token preflight and a frozen execution package remain pending. The CLI below has
+no execution switch. This is not a repaired live V8 run or a qualified judge.
 
 ## Proposed bounded development trial — not allocated or started
 
