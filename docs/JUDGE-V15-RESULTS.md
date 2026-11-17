@@ -101,6 +101,8 @@ recorded separately without modifying the frozen packet manifest.
 
 After Chad's authentic review is frozen, prepare and freeze the executable matched
 confirmation transport using V15 for Qwen3.5 and Qwen3-30B-A3B on identical inputs.
+The [separate V15 runner and operator procedure](V15-CONFIRMATION-TRANSPORT.md)
+are implemented offline; real package creation still requires that review.
 The packet bounds this to twenty initial requests and forty starts maximum, with
 the same 4096 reasoning cap and explicit ownership/identity checks. Preserve and
 inspect every outcome before a stronger-judge selection. A successful selection

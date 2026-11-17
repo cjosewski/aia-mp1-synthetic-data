@@ -2,7 +2,7 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.30, November 17, 2026 |
+| Revision | 0.31, November 17, 2026 |
 | Status | Original >=80% per-dimension criterion restored; M4 open, V15 development complete and fresh human confirmation pending; corrected cohort and review packet preserved |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
@@ -413,6 +413,13 @@ affect a model. Test adversarial synthetic items and surface disagreements.
 
 ### 5.5 Phase A — calibrate the judge
 
+The [V15 fresh-confirmation transport](V15-CONFIRMATION-TRANSPORT.md) uses a
+separate pinned protocol and package: WSL Python, owned native Mac inference,
+model-specific templates, shared bounded ledger and process-identity checks
+before every start. Authentic review freeze precedes real packaging and dispatch.
+Historical V13 recovery permissions do not carry over. This software is verified
+offline; it is not evidence of confirmation or assessed calibration success.
+
 The [November 17 restoration](ACCEPTANCE-RESTORED-80.md) reinstates the original
 80%-in-every-dimension criterion. Acceptance remains a separate versioned policy;
 frozen scoring rubrics and prior reports are unchanged. New CLI reports default
@@ -799,3 +806,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.28 | 2026-11-16 | Complete corrected-001 from frozen 0e9a93b: 250 valid first attempts, no retries/unknowns, fifty balanced retained items. Verify matched recorded runtime controls and disclose Windows-to-Mac host change. Freeze corrected-review-001 and deliver the twenty-item PDF/Markdown packet; preserve 99 prior sealed entries. Mac released; 456 tests; authentic reviews and corrected judging pending |
 | 0.29 | 2026-11-17 | Restore original 80%-in-every-dimension criterion and CLI defaults; reopen M4; preserve historical 70% receipts and corrected cohort. Prepare bounded V15 task-contract comparison with no human-label or rubric changes |
 | 0.30 | 2026-11-17 | Complete V15 development at 58/60 vs V13 57/60, at least 90% each dimension, with two false rejections retained. Twenty valid first attempts, 191 frozen files/replay verified, all 120 public explanations inspected, 318 cumulative starts; Mac released. Publish ten fresh unscored confirmation examples and verified PDF/NAS handoff. M4 remains open and final assessed version unused; 468 tests |
+| 0.31 | 2026-11-17 | Implement separate V15 confirmation package/client and native Mac phases with shared limits, pinned model-specific templates and process checks. Verify 483 WSL tests and real blank-review/missing-reference rejection without output; no Mac use or inference. Authentic review remains required before packaging and dispatch |

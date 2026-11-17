@@ -9,6 +9,9 @@ with two false rejections retained. It advances to fresh confirmation, not asses
 readiness. Open `\\192.168.0.55\aia\Handoff\P1-03\qwen35-v15-blind-confirmation-v1`,
 read `RUNBOOK.md` and `REVIEW-PACKET.pdf`, then complete `MY-ANSWERS.md`.
 The Mac is free. The existing twenty-item M5 review packet is preserved and can wait.
+The [V15 confirmation runner](docs/V15-CONFIRMATION-TRANSPORT.md) and package builder
+are ready offline. Real packaging and inference require your frozen review;
+the actual blank answer sheet and missing-reference paths both fail safely.
 
 **Score discrepancy:** the assessed baseline remains **72.5% (87/120)**. V15's
 **96.7% (58/60)** is from a different, exposed ten-item development set; the matched
@@ -27,7 +30,7 @@ judging or quality-improvement claim can proceed until calibration succeeds.
 **Reporting implementation:** the [analysis runbook](docs/ANALYSIS-RUNBOOK.md)
 covers verified cohort reports, five charts with plotted-data tables, exact
 comparison thresholds and local evidence export.
-**468 WSL tests pass** with the locked analysis environment and optional PDF renderer,
+**483 WSL tests pass** with the locked analysis environment and optional PDF renderer,
 including the acceptance amendment, review export/intake, PDF content preservation,
 original report replay, incomplete-evidence rejection and runtime ownership guards.
 The [full baseline calibration](docs/BASELINE-BUDGET-RESULTS.md) completed 50/50

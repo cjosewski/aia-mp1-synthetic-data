@@ -1,5 +1,10 @@
 # Fresh confirmation transport
 
+**Historical V13 procedure:** the new V15 packet uses the separate
+[V15 confirmation operator procedure](V15-CONFIRMATION-TRANSPORT.md), WSL client,
+4096 reasoning cap and prior count 318. Do not apply the historical commands or
+recovery amendment below to the V15 review.
+
 This operator procedure follows the [human review](QWEN35-CONFIRMATION-RUNBOOK.md).
 The software is implemented and tested offline. Chad's resubmitted ten-item
 review was frozen on November 16 UTC (November 15 local), before model calls.

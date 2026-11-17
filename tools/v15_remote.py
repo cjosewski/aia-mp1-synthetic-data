@@ -7,7 +7,13 @@ import subprocess
 from pathlib import PurePosixPath
 
 from aia_mp1.canonical_development import QWEN_FILES, QWEN_MODEL_SHA, save
-from aia_mp1.confirmation_transport import RUNTIME, verify_thinking_template, wire_for
+from aia_mp1.confirmation_transport import (
+    GENERATOR_SHA,
+    QWEN3_TEMPLATE_SHA,
+    RUNTIME,
+    verify_thinking_template,
+    wire_for,
+)
 from aia_mp1.factcheck_transport import LocalServer
 from aia_mp1.tracing import now
 
@@ -63,7 +69,7 @@ def validate_owned(text, model):
     return {"pid": pid, "parent_pid": parent, "argv": argv, "host": lines[0]}
 
 
-def owned(model):
+def owned(model, remote_root=REMOTE_ROOT):
     text = remote(
         """set -eu
 root="$1"
@@ -73,17 +79,22 @@ cat "$root/runtime/owned-server.pid" "$root/runtime/launcher.pid"
 /bin/ps -o ppid= -p "$pid"
 /bin/ps -ww -o command= -p "$pid"
 """,
-        REMOTE_ROOT,
+        remote_root,
     )
     return validate_owned(text, model)
 
 
-def preflight(plan, directory):
+def preflight(plan, directory, *, phase="candidate", remote_root=REMOTE_ROOT):
     if platform.system() != "Linux" or "microsoft" not in platform.release().lower():
         raise ValueError("Python must run in WSL")
-    model = plan["models"][0]
+    model = next(m for m in plan["models"] if m["phase"] == phase)
     observed_files = []
-    for expected in QWEN_FILES:
+    expected_files = (
+        QWEN_FILES
+        if phase == "candidate"
+        else [{"name": PurePosixPath(model["model"]).name, "sha256": GENERATOR_SHA}]
+    )
+    for expected in expected_files:
         path = PurePosixPath(model["model"]).parent / expected["name"]
         result = remote(
             """set -eu
@@ -96,9 +107,14 @@ def preflight(plan, directory):
         observed_files.append(
             {"name": path.name, "bytes": int(result[0]), "sha256": result[1].split()[0]}
         )
-    if observed_files != QWEN_FILES or model["sha256"] != QWEN_MODEL_SHA:
+    if (
+        phase == "candidate" and (observed_files != QWEN_FILES or model["sha256"] != QWEN_MODEL_SHA)
+    ) or (
+        phase == "comparator"
+        and (observed_files[0]["sha256"] != GENERATOR_SHA or model["sha256"] != GENERATOR_SHA)
+    ):
         raise ValueError("Mac weight identity differs")
-    process = owned(model["model"])
+    process = owned(model["model"], remote_root)
     server = LocalServer(ENDPOINT, "local-confirmation")
     try:
         props = server.json("/props")
@@ -108,7 +124,8 @@ def preflight(plan, directory):
             or props["total_slots"] != RUNTIME["parallel"]
             or props["default_generation_settings"]["n_ctx"] != RUNTIME["ctx_size"]
             or props["model_path"] != model["model"]
-            or hashlib.sha256(props["chat_template"].encode()).hexdigest() != TEMPLATE_SHA
+            or hashlib.sha256(props["chat_template"].encode()).hexdigest()
+            != (TEMPLATE_SHA if phase == "candidate" else QWEN3_TEMPLATE_SHA)
             or len(models) != 1
             or models[0]["id"] != model["model"]
             or server.json("/health")["status"] != "ok"
@@ -118,16 +135,17 @@ def preflight(plan, directory):
         for case in plan["cases"]:
             wire = wire_for(plan, model, case)
             rendered = server.json("/apply-template", wire)["prompt"]
-            verify_thinking_template("candidate", props, rendered)
+            verify_thinking_template(phase, props, rendered)
             check = server.token_fit(wire, RUNTIME["ctx_size"])
             if not check["fits"]:
                 raise ValueError("input plus output exceeds context")
             checks.append({"item_id": case["item_id"], **check})
         save(
-            directory / "candidate-runtime.json",
+            directory / f"{phase}-runtime.json",
             {
                 "recorded_at": now(),
                 "plan_sha256": plan["sha256"],
+                "phase": phase,
                 "properties": props,
                 "token_checks": checks,
                 "weights": observed_files,
