@@ -9,6 +9,12 @@ is free.
 
 ## Measured development result
 
+**Discrepancy recorded:** the assessed baseline remains **87/120 (72.5%)**.
+The **58/60 (96.7%)** below uses a different, exposed development set. V13 already
+scores **57/60 (95%)** on this same set, so V15's paired gain is one matching
+rating, not an assessed increase from 72.5% to 96.7%. See the
+[measurement reconciliation and unresolved transfer risk](AGREEMENT-DISCREPANCY-20261117.md).
+
 Both arms used Qwen3.5-122B-A10B Q4_K_M, the same ten exposed development examples,
 the unchanged frozen human reference, identical user messages and the same
 runtime/settings. Only the judge prompt differed. No assessed item was judged.

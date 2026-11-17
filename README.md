@@ -10,6 +10,12 @@ readiness. Open `\\192.168.0.55\aia\Handoff\P1-03\qwen35-v15-blind-confirmation-
 read `RUNBOOK.md` and `REVIEW-PACKET.pdf`, then complete `MY-ANSWERS.md`.
 The Mac is free. The existing twenty-item M5 review packet is preserved and can wait.
 
+**Score discrepancy:** the assessed baseline remains **72.5% (87/120)**. V15's
+**96.7% (58/60)** is from a different, exposed ten-item development set; the matched
+V13 control already scored **95% (57/60)** there. This is one additional matching
+rating on development, not demonstrated baseline improvement.
+[Discrepancy record](docs/AGREEMENT-DISCREPANCY-20261117.md).
+
 **Current acceptance rule:** Chad [restored 80% in every dimension](docs/ACCEPTANCE-RESTORED-80.md)
 on November 17. **M4 is reopened:** V13 fails D1, D3 and D6 despite 72.5% overall
 agreement. New calibration and analysis CLI reports default to the original course

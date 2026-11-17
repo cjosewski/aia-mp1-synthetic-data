@@ -1,5 +1,11 @@
 # Qwen3.5 V13 baseline with a 4096 thinking-token cap
 
+**November 17 clarification:** the original 80%-per-dimension criterion has been
+[restored](ACCEPTANCE-RESTORED-80.md). This assessed result remains **72.5%**;
+the later **96.7% V15 development score uses different examples** and does not
+replace it. See the [logged discrepancy](AGREEMENT-DISCREPANCY-20261117.md).
+The amendment paragraph below records the earlier November 16 decision.
+
 **Subsequent owner amendment:** on November 16 Chad confirmed
 [70% overall agreement](ACCEPTANCE-AMENDMENT-70.md). The saved 87/120 result meets
 that requirement. This original report retains the 80%-per-dimension verdict and
