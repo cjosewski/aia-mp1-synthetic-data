@@ -3,16 +3,18 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
-**Child-check preparation reviewed:** the [follow-up](docs/M4-PREPARATION-REVIEW.md)
-reduces 34 empty evidence bindings to one and records dispositions for 358 checks.
-It also identifies **56 source-applicability holds**, including the empty binding;
-the other 302 questions are prepared, not verified facts. Draft questions now test
-whether the candidate fulfills the task and avoid adding unsupported requirements.
-All ten revised cases replay; 385 previous seal entries verify. No new model calls,
-scores or Mac use occurred. Resolve the holds before transport/token preflight;
-the proposed development trial remains unallocated and execution disabled.
-The [v2 implementation](docs/M4-EVIDENCE-V2.md) previously exercised 593 tests
-successfully; this checkpoint changes evidence and an unmeasured prompt, not code.
+**Contract-source follow-up:** [eight preparation holds are removed](docs/M4-CONTRACT-FOLLOWUP.md),
+leaving **48 holds across 358 checks**, including one empty binding. The other
+310 questions are prepared, not verified facts. New SciPy/NumPy and FreeCAD
+sources address six checks; two Revit holds were preparation errors corrected
+using an already retained sample. A separate WSL research probe confirms that
+some malformed RHS shapes broadcast instead of raising an exception; it changes
+no human ratings and is excluded from model context. Both ten-case revisions
+replay; 539 previous seal entries verify. No model calls, scores or Mac use.
+Resolve the holds before transport/token preflight; the proposed development
+trial remains unallocated and execution disabled. The [v2 implementation](docs/M4-EVIDENCE-V2.md)
+previously exercised 593 tests successfully; this checkpoint changes evidence
+and documentation, not application code or prompts.
 
 **Final V15 baseline complete; M4 still fails.** All fifty judgments arrived on
 their first attempt. Agreement is **95/120 (79.2%)**, with D1 **70%**, D2 85%,

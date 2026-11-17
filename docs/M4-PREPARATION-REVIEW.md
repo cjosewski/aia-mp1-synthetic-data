@@ -1,5 +1,9 @@
 # M4 child-check preparation review
 
+Historical checkpoint. The subsequent [contract-source follow-up](M4-CONTRACT-FOLLOWUP.md)
+removes eight holds, leaving 48 with the same 358 checks. The counts below remain
+the recorded preparation-review result.
+
 November 17, 2026. The evidence follow-up reduces **34 unbound checks to one**
 and records a preparation disposition for **358 checks**. The review also identifies
 **56 source-applicability holds**, including that one unbound check. The other

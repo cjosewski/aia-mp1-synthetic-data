@@ -2,7 +2,7 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.40, November 17, 2026 |
+| Revision | 0.41, November 17, 2026 |
 | Status | Final V15 baseline complete at 79.2%; D1 70% and D6 65% fail original >=80% per-dimension criterion; M4 open, final assessed allocation consumed; corrected cohort preserved |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
@@ -450,7 +450,16 @@ explicit workflow reasoning and one additional unit-contract child. It records
 including that binding. Candidate-relative questions and unmeasured verifier v3
 avoid task-restatement passes and added obligations. No model findings or human
 labels are produced. Ten cases replay and 385 previous seal entries verify;
-the current completeness gate prevents dispatch until the holds are resolved.
+the completeness gate prevents dispatch until the holds are resolved.
+
+The subsequent [contract-source follow-up](M4-CONTRACT-FOLLOWUP.md) removes eight
+preparation holds, leaving 48 across the same 358 checks and one empty binding.
+SciPy/NumPy and FreeCAD primary sources address six; two stale Revit objections
+are corrected using an already retained framing sample. A separate three-case
+WSL research probe records broadcastable versus nonbroadcastable RHS behavior,
+outside model context and without changing human labels. Both ten-case revisions
+replay and 539 prior seal entries verify. No application/prompt changes, model
+calls, new scores or Mac use; all execution remains disabled pending evidence.
 
 The [final V15 baseline result](V15-BASELINE-RESULTS.md) completes fifty first
 attempts, but reaches only 14,17,16,18,17,13 matches of twenty in D1–D6.
