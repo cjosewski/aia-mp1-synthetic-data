@@ -2,7 +2,7 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.41, November 17, 2026 |
+| Revision | 0.42, November 17, 2026 |
 | Status | Final V15 baseline complete at 79.2%; D1 70% and D6 65% fail original >=80% per-dimension criterion; M4 open, final assessed allocation consumed; corrected cohort preserved |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
@@ -460,6 +460,17 @@ WSL research probe records broadcastable versus nonbroadcastable RHS behavior,
 outside model context and without changing human labels. Both ten-case revisions
 replay and 539 prior seal entries verify. No application/prompt changes, model
 calls, new scores or Mac use; all execution remains disabled pending evidence.
+
+The [applicability follow-up](M4-APPLICABILITY-FOLLOWUP.md) addresses five more
+holds through retained ArcPy sections and two scoped workflow questions. The
+current packet has 358 checks, 43 holds, one empty binding and 43 reasoning notes.
+Ten packets replay and 815 prior seal entries verify. Ten standalone exact-version
+OpenSees cases reveal failure-behavior counterexamples; these research results
+remain outside model context and never replace frozen labels. The project Python
+environment was restored after unintended probe reuse; 94 recovery tests pass.
+The [empirical supplement](M4-EMPIRICAL-EVIDENCE-PLAN.md) is proposed, not yet
+implemented; it requires separate authority, provenance and applicability audits
+before runtime observations may be bound. Thresholds and allocations are unchanged.
 
 The [final V15 baseline result](V15-BASELINE-RESULTS.md) completes fifty first
 attempts, but reaches only 14,17,16,18,17,13 matches of twenty in D1–D6.

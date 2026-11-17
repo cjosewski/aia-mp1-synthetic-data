@@ -1,5 +1,8 @@
 # M4 contract-source follow-up
 
+Historical checkpoint. The subsequent [applicability review](M4-APPLICABILITY-FOLLOWUP.md)
+leaves 43 holds; the counts below preserve this earlier result.
+
 November 17, 2026. Eight preparation holds are removed through more precise
 source bindings. The current packet has **358 checks: 310 prepared questions
 and 48 remaining holds**, including one empty binding. Prepared questions are

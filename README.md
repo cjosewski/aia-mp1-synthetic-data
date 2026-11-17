@@ -3,18 +3,20 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
-**Contract-source follow-up:** [eight preparation holds are removed](docs/M4-CONTRACT-FOLLOWUP.md),
-leaving **48 holds across 358 checks**, including one empty binding. The other
-310 questions are prepared, not verified facts. New SciPy/NumPy and FreeCAD
-sources address six checks; two Revit holds were preparation errors corrected
-using an already retained sample. A separate WSL research probe confirms that
-some malformed RHS shapes broadcast instead of raising an exception; it changes
-no human ratings and is excluded from model context. Both ten-case revisions
-replay; 539 previous seal entries verify. No model calls, scores or Mac use.
-Resolve the holds before transport/token preflight; the proposed development
-trial remains unallocated and execution disabled. The [v2 implementation](docs/M4-EVIDENCE-V2.md)
-previously exercised 593 tests successfully; this checkpoint changes evidence
-and documentation, not application code or prompts.
+**Applicability follow-up:** [five more preparation holds are removed](docs/M4-APPLICABILITY-FOLLOWUP.md),
+leaving **43 holds across 358 checks**, including one empty binding. The other
+315 questions are prepared, not verified facts. Existing ArcPy documentation
+and correction of two overbroad questions address these five checks. A separate
+ten-case OpenSeesPy 3.5.1.3 probe records version-specific counterexamples to
+claimed failure behavior; the findings remain outside model context and do not
+change human ratings. Ten packets replay; 815 previous seal entries verify.
+An unintended research-environment replacement was corrected; 94 recovery tests
+pass after restoring the project environment. No model calls, scores or Mac use.
+Next is the [measured-evidence supplement](docs/M4-EMPIRICAL-EVIDENCE-PLAN.md):
+explicit empirical provenance and limits, before any probe can enter a verifier
+packet. The proposed development trial remains unallocated and execution disabled.
+Application code and prompts are unchanged; the earlier v2 implementation retains
+its recorded 593 exercised tests.
 
 **Final V15 baseline complete; M4 still fails.** All fifty judgments arrived on
 their first attempt. Agreement is **95/120 (79.2%)**, with D1 **70%**, D2 85%,
