@@ -63,7 +63,7 @@ def baseline(tmp_path, monkeypatch):
             old.model_dump()
             | runner.QWEN_SETTINGS
             | {
-                "base_url": runner.v15_remote.ENDPOINT,
+                "base_url": runner.ENDPOINT,
                 "model_sha256": runner.QWEN_MODEL_SHA,
                 "purpose": "baseline",
                 "server_reasoning_budget": 4096,
@@ -142,7 +142,11 @@ def bundle(baseline, tmp_path, monkeypatch):
 
     monkeypatch.setattr(builder, "git", git)
     destination = tmp_path / runner.BUNDLE_NAME
-    receipt = builder.prepare(root, selection, destination)
+    recovery = tmp_path / "synthetic-interruption.json"
+    recovery.write_text(json.dumps({"synthetic": True, "model_request_starts": 0}))
+    monkeypatch.setattr(runner, "RECOVERY_SHA", byte_hash(recovery))
+    monkeypatch.setattr(builder, "RECOVERY_SHA", byte_hash(recovery))
+    receipt = builder.prepare(root, selection, destination, recovery)
     assert byte_hash(destination.with_name(destination.name + ".zip")) == receipt["archive_sha256"]
     return destination
 
@@ -186,6 +190,7 @@ def test_changed_owned_process_prevents_first_request_start(bundle, monkeypatch)
     monkeypatch.setattr(runner.platform, "release", lambda: "synthetic-microsoft")
 
     def preflight(plan, directory, **kwargs):
+        assert kwargs["endpoint"] == "http://127.0.0.1:18083/v1"
         (directory / "candidate-runtime.json").write_text(
             json.dumps({"properties": {}, "owned_process": {"pid": 123}})
         )
@@ -221,3 +226,12 @@ def test_non_wsl_or_nonfrozen_client_never_contacts_mac(tmp_path, monkeypatch):
     monkeypatch.setattr(runner.platform, "release", lambda: "synthetic-microsoft")
     with pytest.raises(ValueError, match="frozen baseline project"):
         runner.execute(tmp_path)
+
+
+def test_recovery_receipt_required_before_packaging(tmp_path):
+    wrong = tmp_path / "wrong.json"
+    wrong.write_text('{"synthetic": true}')
+    destination = tmp_path / runner.BUNDLE_NAME
+    with pytest.raises(ValueError, match="zero-request interruption"):
+        builder.prepare(tmp_path / "missing", tmp_path / "missing", destination, wrong)
+    assert not destination.exists()

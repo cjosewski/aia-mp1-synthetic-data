@@ -11,6 +11,9 @@ and two context false rejections remain recorded. Twenty valid first attempts,
 all 120 explanations audited, exact report replay and verified local/NAS archive.
 The Mac servers are stopped. The [final original-baseline runner](docs/V15-BASELINE-PLAN.md)
 is ready with frozen V15/settings under your standing completion authorization.
+After a zero-request preflight interruption and a port conflict, Chad authorized
+using another port. The replacement uses local **18083** to Mac **8081**;
+the other session's Herd workload on 18081 is preserved.
 No repeat of these reviews is needed. M4 remains open until assessed calibration;
 the twenty-item M5 review packet is preserved.
 
@@ -31,7 +34,7 @@ judging or quality-improvement claim can proceed until calibration succeeds.
 **Reporting implementation:** the [analysis runbook](docs/ANALYSIS-RUNBOOK.md)
 covers verified cohort reports, five charts with plotted-data tables, exact
 comparison thresholds and local evidence export.
-**493 WSL tests pass** with the locked analysis environment and optional PDF renderer,
+**499 WSL tests pass** with the locked analysis environment and optional PDF renderer,
 including the acceptance amendment, review export/intake, PDF content preservation,
 original report replay, incomplete-evidence rejection and runtime ownership guards.
 The [full baseline calibration](docs/BASELINE-BUDGET-RESULTS.md) completed 50/50

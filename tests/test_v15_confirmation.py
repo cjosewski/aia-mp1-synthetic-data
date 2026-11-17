@@ -207,7 +207,10 @@ def test_unfrozen_client_rejected_before_ledger_creation(packaged):
 
 
 @pytest.mark.parametrize("defect", [None, "weight", "template", "budget", "overflow"])
-def test_comparator_remote_preflight_uses_its_own_identity(fresh, tmp_path, monkeypatch, defect):
+@pytest.mark.parametrize("endpoint", ["http://127.0.0.1:18081/v1", "http://127.0.0.1:18083/v1"])
+def test_comparator_remote_preflight_uses_its_own_identity(
+    fresh, tmp_path, monkeypatch, defect, endpoint
+):
     packet_dir, review, models = fresh
     plan = runner.make_plan(packet_dir, review, models)
     template = "Synthetic comparator template"
@@ -234,7 +237,7 @@ def test_comparator_remote_preflight_uses_its_own_identity(fresh, tmp_path, monk
 
     class Server:
         def __init__(self, *a):
-            pass
+            assert a[0] == endpoint
 
         def json(self, path, wire=None):
             return {
@@ -267,10 +270,18 @@ def test_comparator_remote_preflight_uses_its_own_identity(fresh, tmp_path, monk
     output.mkdir()
     if defect:
         with pytest.raises(ValueError):
-            remote.preflight(plan, output, phase="comparator", remote_root="/synthetic/comparator")
+            remote.preflight(
+                plan,
+                output,
+                phase="comparator",
+                remote_root="/synthetic/comparator",
+                endpoint=endpoint,
+            )
         assert not (output / "comparator-runtime.json").exists()
     else:
-        remote.preflight(plan, output, phase="comparator", remote_root="/synthetic/comparator")
+        remote.preflight(
+            plan, output, phase="comparator", remote_root="/synthetic/comparator", endpoint=endpoint
+        )
         assert roots == ["/synthetic/comparator"]
         result = json.loads((output / "comparator-runtime.json").read_text())
         assert result["phase"] == "comparator" and len(result["token_checks"]) == 10

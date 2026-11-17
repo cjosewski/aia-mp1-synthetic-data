@@ -2,7 +2,7 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.33, November 17, 2026 |
+| Revision | 0.34, November 17, 2026 |
 | Status | Original >=80% per-dimension criterion restored; M4 open, V15 fresh confirmation complete and full baseline evaluation next; corrected cohort and review packet preserved |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
@@ -828,3 +828,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.31 | 2026-11-17 | Implement separate V15 confirmation package/client and native Mac phases with shared limits, pinned model-specific templates and process checks. Verify 483 WSL tests and real blank-review/missing-reference rejection without output; no Mac use or inference. Authentic review remains required before packaging and dispatch |
 | 0.32 | 2026-11-17 | Freeze ten authentic V15 reviews and complete matched confirmation: 56/60 vs 47/60, eleven gains/two context regressions, two shared safety misses retained. Twenty valid first attempts, all 120 explanations audited, 195 frozen files/replay verified; 338 cumulative starts, owned servers stopped. Select frozen V15 for remaining assessed evaluation under standing authorization; M4 remains open |
 | 0.33 | 2026-11-17 | Add frozen WSL execution/package tools for final original-baseline V15 allocation, preserving both prior assessed versions, exact human reference and original 80%-per-dimension criterion. Verify 493 locked WSL tests plus lint/format; reject altered evidence/settings, budget reset and changed runtime before dispatch. Full assessed V15 result remains unmeasured |
+| 0.34 | 2026-11-17 | Preserve zero-request preflight interruption after workstation restart; leave priority Herd workload on local 18081 unchanged. At Chad's direction prepare replacement package with local 18083 to Mac 8081 and pinned interruption receipt; same final allocation/model/prompt/reviews. Verify 499 locked WSL tests, including selected-port and receipt checks |

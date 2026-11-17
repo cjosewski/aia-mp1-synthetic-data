@@ -6,6 +6,24 @@ misses and both context regressions retained. Chad's standing authorization to
 pursue completion at the original **80% in every dimension** covers this work.
 No new owner quote or instructor acceptance is implied.
 
+**Port change after interrupted preflight:** the workstation execution session
+restarted before any model request or new judge directory existed. All 243
+original frozen files verified; the client log and runtime directory were empty.
+Local port 18081 was then occupied by another Herd workload, which takes priority
+and was left untouched. The owned Mac server was stopped and port 8081 cleared.
+Chad instructed: "Use a differnt port. Evaluation on the Mac will not conflict."
+The replacement package uses **local loopback port 18083**, forwarding to the
+same **Mac loopback port 8081**. Its identity is `MP1-QWEN35-V15-BASELINE-003R1`.
+The original package and interruption receipt remain preserved; zero inference
+starts and zero assessed versions were consumed by that preflight. This is the
+same final allocation, prompt, weights, numerical settings and human reference.
+
+The replacement passed **499 locked WSL tests in 104.91 seconds**, including
+both tunnel-port preflights and rejection of an altered interruption receipt.
+The original interrupted package is archived locally/NAS as
+`MP1-QWEN35-V15-BASELINE-003-PREFLIGHT-INTERRUPTED.zip`, SHA-256
+`b7acdefc0c6687af91ed513f084fb2d15bfb0073727684a1aad48520604bbb52`.
+
 The question is whether V15 transfers to the original assessed baseline. The
 reported 93.3% fresh-confirmation result and 96.7% exposed-development result
 cannot replace its saved 72.5% V13 result. This run will evaluate the **same fifty
@@ -57,7 +75,7 @@ the attributed V15 qualification and the complete original baseline evidence,
 including both previous assessed versions. It rejects missing/tampered reviews,
 altered model/settings, extra or missing prior allocations, active source writers,
 symlinks and existing output paths. The new package is
-`qualification/MP1-QWEN35-V15-BASELINE-003`, outside Git. Raw source material stays
+`qualification/MP1-QWEN35-V15-BASELINE-003R1`, outside Git. Raw source material stays
 within the approved local coursework scope.
 
 After tests pass and the implementation is committed, prepare in WSL:
@@ -66,14 +84,15 @@ After tests pass and the implementation is committed, prepare in WSL:
 uv run --locked python tools/prepare_v15_baseline.py \
   --evidence-root ../artifacts/evidence/P1-03 \
   --qualification ../artifacts/evidence/P1-03/qualification/qwen35-v15-assessed-selection-003 \
-  --destination ../artifacts/evidence/P1-03/qualification/MP1-QWEN35-V15-BASELINE-003
+  --destination ../artifacts/evidence/P1-03/qualification/MP1-QWEN35-V15-BASELINE-003R1 \
+  --preflight-recovery ../artifacts/evidence/P1-03/qualification/v15-baseline-preparation-20261117/preflight-interruption.json
 ```
 
 Warn Chad before using the Mac. Verify its availability and port 8081, copy and
 checksum the packaged launcher, and use the same owned native launcher with
 argument `candidate`. The remote root is
-`/Users/chadjosewski/AIA/MP1-handoff/MP1-QWEN35-V15-BASELINE-003`.
-Use an SSH loopback tunnel from workstation port 18081 to Mac port 8081. The Mac
+`/Users/chadjosewski/AIA/MP1-handoff/MP1-QWEN35-V15-BASELINE-003R1`.
+Use an SSH loopback tunnel from workstation port 18083 to Mac port 8081. The Mac
 runs only inference; Python and dependencies remain in WSL. Do not change Herd.
 
 From the frozen package's `project` directory in WSL, use a separate persistent

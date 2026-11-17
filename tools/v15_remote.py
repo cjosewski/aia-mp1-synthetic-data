@@ -84,7 +84,7 @@ cat "$root/runtime/owned-server.pid" "$root/runtime/launcher.pid"
     return validate_owned(text, model)
 
 
-def preflight(plan, directory, *, phase="candidate", remote_root=REMOTE_ROOT):
+def preflight(plan, directory, *, phase="candidate", remote_root=REMOTE_ROOT, endpoint=ENDPOINT):
     if platform.system() != "Linux" or "microsoft" not in platform.release().lower():
         raise ValueError("Python must run in WSL")
     model = next(m for m in plan["models"] if m["phase"] == phase)
@@ -115,7 +115,7 @@ def preflight(plan, directory, *, phase="candidate", remote_root=REMOTE_ROOT):
     ):
         raise ValueError("Mac weight identity differs")
     process = owned(model["model"], remote_root)
-    server = LocalServer(ENDPOINT, "local-confirmation")
+    server = LocalServer(endpoint, "local-confirmation")
     try:
         props = server.json("/props")
         models = server.json("/v1/models")["data"]
@@ -153,6 +153,7 @@ def preflight(plan, directory, *, phase="candidate", remote_root=REMOTE_ROOT):
                 "client_platform": platform.platform(),
                 "python": platform.python_version(),
                 "transport": "WSL client via SSH loopback tunnel; native Mac inference",
+                "endpoint": endpoint,
             },
         )
     finally:

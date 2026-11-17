@@ -9,8 +9,15 @@ import zipfile
 from pathlib import Path
 
 from prepare_v15_confirmation import REPOSITORY, git
-from v15_baseline import ASSESSMENT_ID, BUNDLE_NAME, PRIOR_RUNS, make_plan, verify
-from v15_remote import ENDPOINT
+from v15_baseline import (
+    ASSESSMENT_ID,
+    BUNDLE_NAME,
+    ENDPOINT,
+    PRIOR_RUNS,
+    RECOVERY_SHA,
+    make_plan,
+    verify,
+)
 
 from aia_mp1.assessed_native import NativeJudgeConfig
 from aia_mp1.assessment import load_assessment, read_json, save_new
@@ -35,9 +42,11 @@ def copy_regular(source, target):
         raise ValueError("only regular input files are supported")
 
 
-def prepare(evidence, qualification, destination):
+def prepare(evidence, qualification, destination, recovery):
     if destination.name != BUNDLE_NAME or destination.resolve().is_relative_to(REPOSITORY):
         raise ValueError("use the designated external baseline bundle")
+    if byte_hash(recovery) != RECOVERY_SHA:
+        raise ValueError("replacement requires the inspected zero-request interruption")
     receipt = read_json(qualification / "qualification.json")
     config = NativeJudgeConfig(
         **{
@@ -102,6 +111,7 @@ def prepare(evidence, qualification, destination):
     for source in inputs:
         copy_regular(source, destination / "evidence" / source.relative_to(evidence))
     copy_regular(qualification, destination / "qualification")
+    copy_regular(recovery, destination / "preflight-interruption.json")
     save_new(
         destination / "judge-config.json",
         config.model_dump()
@@ -157,6 +167,7 @@ def main():
     parser.add_argument("--evidence-root", type=Path, required=True)
     parser.add_argument("--qualification", type=Path, required=True)
     parser.add_argument("--destination", type=Path, required=True)
+    parser.add_argument("--preflight-recovery", type=Path, required=True)
     args = parser.parse_args()
     print(
         json.dumps(
@@ -164,6 +175,7 @@ def main():
                 args.evidence_root.resolve(),
                 args.qualification.resolve(),
                 args.destination.resolve(),
+                args.preflight_recovery.resolve(),
             ),
             indent=2,
         )

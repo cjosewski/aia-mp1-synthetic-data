@@ -21,7 +21,9 @@ from aia_mp1.judge import judge_directory, judge_run, messages_for
 from aia_mp1.qualification import validate_qualification
 from aia_mp1.tracing import digest
 
-BUNDLE_NAME = "MP1-QWEN35-V15-BASELINE-003"
+BUNDLE_NAME = "MP1-QWEN35-V15-BASELINE-003R1"
+ENDPOINT = "http://127.0.0.1:18083/v1"
+RECOVERY_SHA = "5c04acb494470fbe573ae2516d0923fa42fca78fca9fad83e1c172bd10965303"
 ASSESSMENT_ID = "baseline-review-001"
 ASSESSMENT_SHA = "dd0cfe746464e441ce42f1dfd706af7b65e10a2c3b8b2b304709b877a4f06932"
 REFERENCE_SHA = "1e555ed74a0417120ac4d16052c3082e02e8e03550c3e2e09a64eda89856e4a8"
@@ -48,7 +50,7 @@ def make_plan(config):
     if (
         config.model_sha256 != QWEN_MODEL_SHA
         or {k: getattr(config, k) for k in QWEN_SETTINGS} != QWEN_SETTINGS
-        or config.base_url != v15_remote.ENDPOINT
+        or config.base_url != ENDPOINT
         or config.purpose != "baseline"
         or config.max_attempts != 2
         or config.reasoning_effort is not None
@@ -82,6 +84,8 @@ def make_plan(config):
         "prior_starts": 338,
         "prior_assessed_versions": sorted(PRIOR_RUNS),
         "remote_root": REMOTE_ROOT,
+        "endpoint": ENDPOINT,
+        "pre_dispatch_interruption_sha256": RECOVERY_SHA,
         "acceptance_policy": "course-per-dimension-80-v1",
     }
     plan["sha256"] = digest(plan)
@@ -95,6 +99,7 @@ def verify(root):
         "plan.json",
         "qualification/qualification.json",
         "run-on-mac.sh",
+        "preflight-interruption.json",
         "project/uv.lock",
         "project/pyproject.toml",
         "project/prompts/judge-v15-task-contract.md",
@@ -107,6 +112,8 @@ def verify(root):
     )
     if not required.issubset(manifest["files_sha256"]):
         raise ValueError("baseline bundle omits required frozen files")
+    if byte_hash(root / "preflight-interruption.json") != RECOVERY_SHA:
+        raise ValueError("replacement package requires the inspected zero-request interruption")
     for relative, expected in manifest["files_sha256"].items():
         path = root / relative
         if (
@@ -149,7 +156,7 @@ def execute(root):
         )
     runtime_dir = root / "runtime"
     runtime_dir.mkdir()
-    v15_remote.preflight(plan, runtime_dir, remote_root=REMOTE_ROOT)
+    v15_remote.preflight(plan, runtime_dir, remote_root=REMOTE_ROOT, endpoint=ENDPOINT)
     runtime = read_json(runtime_dir / "candidate-runtime.json")
 
     def check_owned():
