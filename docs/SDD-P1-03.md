@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.29, November 17, 2026 |
-| Status | Original >=80% per-dimension criterion restored; M4 reopened, V15 development preparation; corrected cohort and review packet preserved |
+| Revision | 0.30, November 17, 2026 |
+| Status | Original >=80% per-dimension criterion restored; M4 open, V15 development complete and fresh human confirmation pending; corrected cohort and review packet preserved |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
@@ -613,8 +613,14 @@ state or a successful CLI exit.
 
 November 17, current checkpoint: Chad restored the original >=80% agreement in
 every dimension. M4 is reopened; V13's saved results still fail D1, D3 and D6.
-The [V15 development protocol](JUDGE-V15-PLAN.md) uses a matched V13 control and
-does not consume the final assessed version. The corrected cohort and review
+The [V15 development result](JUDGE-V15-RESULTS.md) completed twenty valid first
+attempts: 58/60 matches versus V13's 57/60, with D1–D6 counts 9,10,9,10,10,10 of
+ten. Three improvements and two Revit false rejections are retained. All 120
+public justifications were inspected; all 191 frozen files and the report replay
+verify. The predeclared advancement conditions are met, and a new ten-item blind
+review packet is available on the NAS. This does not consume the final assessed
+version or establish readiness. The Mac is free; 468 WSL tests pass.
+The corrected cohort and review
 packet remain preserved. Any revised qualified judge must score both cohorts,
 and the measured worst baseline segment must be rechecked before Phase B claims.
 
@@ -792,3 +798,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.27 | 2026-11-16 | Apply owner-confirmed 70% overall agreement as a separate versioned acceptance policy. New baseline receipt ready at 87/120; original calibration/analysis and 79 prior sealed entries preserved. M4 complete, no inference. Prepare API-contract generator correction for AEC × D3; freeze M5 controls. 449 tests pass |
 | 0.28 | 2026-11-16 | Complete corrected-001 from frozen 0e9a93b: 250 valid first attempts, no retries/unknowns, fifty balanced retained items. Verify matched recorded runtime controls and disclose Windows-to-Mac host change. Freeze corrected-review-001 and deliver the twenty-item PDF/Markdown packet; preserve 99 prior sealed entries. Mac released; 456 tests; authentic reviews and corrected judging pending |
 | 0.29 | 2026-11-17 | Restore original 80%-in-every-dimension criterion and CLI defaults; reopen M4; preserve historical 70% receipts and corrected cohort. Prepare bounded V15 task-contract comparison with no human-label or rubric changes |
+| 0.30 | 2026-11-17 | Complete V15 development at 58/60 vs V13 57/60, at least 90% each dimension, with two false rejections retained. Twenty valid first attempts, 191 frozen files/replay verified, all 120 public explanations inspected, 318 cumulative starts; Mac released. Publish ten fresh unscored confirmation examples and verified PDF/NAS handoff. M4 remains open and final assessed version unused; 468 tests |

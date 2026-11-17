@@ -4,6 +4,10 @@ November 17, 2026. Authorized by Chad's instruction to try to meet the original
 80%-in-every-dimension criterion. This is one bounded experiment, not an unlimited
 prompt search or a claim of successful calibration.
 
+**Execution complete:** [results and next review](JUDGE-V15-RESULTS.md). V15
+matches 58/60 versus V13's 57/60 and advances to fresh blind confirmation with
+two false rejections retained. The preparation record below is preserved.
+
 ## Hypothesis and controls
 
 The [V15 prompt](../prompts/judge-v15-task-contract.md) replaces V13's extended

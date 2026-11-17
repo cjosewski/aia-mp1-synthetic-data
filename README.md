@@ -3,25 +3,25 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
-**M5 review is ready:** [corrected collection results](docs/M5-COLLECTION-RESULTS.md)
-record 250/250 schema-valid first attempts and a frozen fifty-item cohort, ten per
-category. The twenty-item PDF/Markdown review packet is in
-`\\192.168.0.55\aia\Handoff\P1-03\M5-corrected-review-001`. Read `RUNBOOK.md` and
-`REVIEW-PACKET.pdf`, then complete `MY-ANSWERS.md`. No corrected judge results exist
-yet. The Mac is free; quality improvement remains unmeasured pending human review.
+**Next action: ten fresh confirmation reviews.** The [V15 development result](docs/JUDGE-V15-RESULTS.md)
+reached 90%, 100%, 90%, 100%, 100%, 100% agreement on the exposed development set,
+with two false rejections retained. It advances to fresh confirmation, not assessed
+readiness. Open `\\192.168.0.55\aia\Handoff\P1-03\qwen35-v15-blind-confirmation-v1`,
+read `RUNBOOK.md` and `REVIEW-PACKET.pdf`, then complete `MY-ANSWERS.md`.
+The Mac is free. The existing twenty-item M5 review packet is preserved and can wait.
 
 **Current acceptance rule:** Chad [restored 80% in every dimension](docs/ACCEPTANCE-RESTORED-80.md)
 on November 17. **M4 is reopened:** V13 fails D1, D3 and D6 despite 72.5% overall
 agreement. New calibration and analysis CLI reports default to the original course
 policy. The superseded 70%-overall receipt and all errors remain preserved.
-A bounded [V15 development comparison](docs/JUDGE-V15-PLAN.md) is being prepared.
+A bounded [V15 development comparison](docs/JUDGE-V15-PLAN.md) is complete.
 The existing corrected cohort and human review packet remain intact; no corrected
 judging or quality-improvement claim can proceed until calibration succeeds.
 
 **Reporting implementation:** the [analysis runbook](docs/ANALYSIS-RUNBOOK.md)
 covers verified cohort reports, five charts with plotted-data tables, exact
 comparison thresholds and local evidence export.
-**456 WSL tests pass** with the locked analysis environment and optional PDF renderer,
+**468 WSL tests pass** with the locked analysis environment and optional PDF renderer,
 including the acceptance amendment, review export/intake, PDF content preservation,
 original report replay, incomplete-evidence rejection and runtime ownership guards.
 The [full baseline calibration](docs/BASELINE-BUDGET-RESULTS.md) completed 50/50
@@ -29,7 +29,7 @@ first attempts, but agreement fails D1 (50%), D3 (65%) and D6 (60%). D2 is 85%,
 D4 90% and D5 85%. Those are the original-rule results; the restored original rule above now
 governs acceptance. Corrected data remain unmeasured.
 
-**Latest development result:** the [approved V13/V14 comparison](docs/JUDGE-V14-RESULTS.md)
+**Previous development result:** the [approved V13/V14 comparison](docs/JUDGE-V14-RESULTS.md)
 completed twenty valid first attempts. V14 matches 55/60 versus V13's 56/60, with
 one improvement, two regressions and a new safety false approval. Both score 7/10
 on D5. V14 does not advance; the final assessed allocation remains unused.

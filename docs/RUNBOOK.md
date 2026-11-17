@@ -426,7 +426,7 @@ must stay `pending` for assessed calibration even if every observed decision agr
 
 The later assignment evaluation needs the separately scoped assessed collection,
 stronger judge selection, at least 50 retained items per baseline/corrected cohort,
-at least 20 human reviews per cohort, >=70% overall agreement across all six dimensions, generator
+at least 20 human reviews per cohort, >=80% agreement in every dimension, generator
 correction and the required charts. See [requirements](requirements.md) and
 [the approved implementation plan](implementation-plan.md) for the boundary.
 

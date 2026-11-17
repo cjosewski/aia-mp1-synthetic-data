@@ -78,7 +78,7 @@ def render(packet: Path) -> dict:
         "For every item, compare the generated answer with the exact reference task "
         "and all six rubric anchors. Record 1 for pass or 0 for fail, plus comments "
         "explaining failures and uncertainty. No target number of passing ratings "
-        "is required. The 70% agreement threshold applies later to the judge."
+        "is required. The 80%-in-every-dimension agreement threshold applies later to the judge."
     )
     text(
         "Complete the reviewer, assistance, personal-adoption and blind-review "

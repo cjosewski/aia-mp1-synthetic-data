@@ -6,16 +6,16 @@ completion. This file explains your actions; Codex handles the implementation,
 model runs, analysis and evidence preparation.
 
 **The original 80%-in-every-dimension criterion is restored.** M4 is reopened;
-V13 misses D1, D3 and D6. Codex is preparing one bounded V15 development attempt.
-No repeat of your completed baseline reviews is needed. A successful development
-candidate will need fresh blind confirmation before assessed use. See the
+V13 misses D1, D3 and D6. The V15 development comparison completed at 90% or higher
+in every dimension, with two errors retained. It now needs fresh blind confirmation
+before assessed use. No repeat of your completed baseline reviews is needed. See the
 [decision record](ACCEPTANCE-RESTORED-80.md).
 
-**Your twenty-item M5 review is ready.** Open
-`\\192.168.0.55\aia\Handoff\P1-03\M5-corrected-review-001`, read `RUNBOOK.md` and
-`REVIEW-PACKET.pdf`, then fill in `MY-ANSWERS.md`. The Mac is free. Collection is
-complete; no corrected judge outputs have been generated. See Action 2 below.
-Action 2 is ready now. Actions 3–4 happen later. Conditional items
+**Do the ten new V15 confirmation reviews first.** Open
+`\\192.168.0.55\aia\Handoff\P1-03\qwen35-v15-blind-confirmation-v1`, read `RUNBOOK.md`
+and `REVIEW-PACKET.pdf`, then fill in `MY-ANSWERS.md`. The Mac is free. See Action 1f
+below. The existing twenty-item M5 packet remains intact and can wait until this
+judge check is complete. Actions 3–4 happen later. Conditional items
 at the end apply only if an unresolved decision or failed evaluation requires them.
 
 | Action | When | What you provide |
@@ -25,13 +25,43 @@ at the end apply only if an unresolved decision or failed evaluation requires th
 | 1c. Decide on the limited thinking-budget probe | **Approved and complete** | Two valid first attempts; original errors preserved |
 | 1d. Amend the assessed runtime | **Approved and complete** | Fifty first attempts complete; calibration failed three dimensions; all previous evidence preserved |
 | 1e. Decide on the V14 development comparison | **Approved and complete; did not advance** | Twenty valid first attempts; one improvement and two regressions; no third assessed run authorized |
-| 2. Review twenty corrected-dataset answers | **Ready now** in `M5-corrected-review-001` | Twenty authentic reviews in that folder's `MY-ANSWERS.md` |
+| 1f. Review ten new V15 confirmation answers | **Do this next** in `qwen35-v15-blind-confirmation-v1` | Ten authentic reviews in that folder's `MY-ANSWERS.md`; these are new examples |
+| 2. Review twenty corrected-dataset answers | Packet ready; can wait for the judge check | Twenty authentic reviews in `M5-corrected-review-001/MY-ANSWERS.md` |
 | 3. Review and record the final demonstration | After final results and charts are ready | A reviewed 90–180 second demonstration video |
 | 4. Complete the coaching/submission step | When the evidence package and demonstration are ready | Instructor/coach decision, date, reviewer name and any requested changes |
 
-Allow roughly **3–5 hours of your involvement** across the planned reviews and
-demo, depending on reference checking. Coaching scheduling and any extra review
-round are separate. This is an estimate, not a completion guarantee.
+The fresh ten-item review adds work to the earlier estimate. Reference checking,
+the twenty-item corrected review and the final demonstration still determine
+your remaining involvement; no completion date is promised by the development result.
+
+## Action 1f — Review the new V15 confirmation packet now
+
+1. Open `\\192.168.0.55\aia\Handoff\P1-03\qwen35-v15-blind-confirmation-v1`.
+   On the Mac, connect to `smb://192.168.0.55/aia` in Finder and open
+   `Handoff/P1-03/qwen35-v15-blind-confirmation-v1`.
+2. Read `RUNBOOK.md` and the 21-page `REVIEW-PACKET.pdf`. The Markdown packet
+   contains the same task, candidate-answer and source material.
+3. Open **this folder's** `MY-ANSWERS.md` in a plain-text editor. Do not use the
+   older answer sheet at the root of `Handoff/P1-03`.
+4. Fill in your name, review date and assistance/exposure declarations honestly.
+   For each C01–C10, enter your own six 0/1 ratings and a brief technical comment.
+   Use the supplied rubric, read all answer fields and keep item IDs unchanged.
+5. Save after each example. Leave uncertain ratings blank and explain the
+   uncertainty; do not force a pass or fail to reach a target.
+6. Tell Codex when the file is saved. Codex checks completeness, preserves your
+   exact submission and freezes the human reference before any model comparison.
+
+You are reading and scoring answers. No code execution, software installation,
+Herd server or terminal command is required. These are assistant-authored
+challenge examples, separate from both assessed cohorts. No model has judged
+them and no suggested ratings are included. Do not ask either comparison model
+to score them during this blind review. Disclose any assistance and personally
+verify the decisions you adopt.
+
+The [development result](JUDGE-V15-RESULTS.md) explains why this fresh review is
+needed. After submission, Codex handles the bounded matched comparison and, if
+supported, full baseline calibration under **80% in every dimension**. The old
+review instructions below are retained as history; do not repeat those examples.
 
 ## Action 1 — Completed ten-case review (retained instructions)
 
@@ -272,8 +302,9 @@ chart generation and package verification do not require another approval from y
 - [x] Complete and submit the ten fresh confirmation reviews.
 - [x] Select the assessed judge with the measured limitations retained.
 - [x] Approve the two-case thinking-budget probe; both cases completed.
-- [x] Approve the full-run runtime amendment; execution is in progress.
-- [ ] **Now:** complete the twenty reviews in `M5-corrected-review-001/MY-ANSWERS.md`.
+- [x] Approve the full-run runtime amendment; fifty judgments are retained.
+- [ ] **Now:** complete the ten new reviews in `qwen35-v15-blind-confirmation-v1/MY-ANSWERS.md`.
+- [ ] **Next:** complete the twenty reviews in `M5-corrected-review-001/MY-ANSWERS.md` when the judge check is resolved.
 - [ ] **Later:** review the final results and record/review the demonstration.
 - [ ] **Later:** provide the final coaching/instructor decision and any conditions.
 - [ ] **If applicable:** supply an existing unresolved instructor decision or respond

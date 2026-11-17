@@ -111,7 +111,7 @@ def prepare_review(root: Path, assessment_id: str, output: Path) -> dict:
                 f"Fail: {dimension['fail_anchor']}\n",
             ]
         packet += [
-            "The 70% overall agreement rule evaluates the judge after your review. "
+            "The 80%-in-every-dimension agreement rule evaluates the judge after your review. "
             "It is not a target for your ratings and does not change these anchors.\n"
         ]
         answers = [

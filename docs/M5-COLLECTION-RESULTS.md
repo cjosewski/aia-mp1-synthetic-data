@@ -1,5 +1,10 @@
 # M5 corrected collection — ready for human review
 
+**November 17 update:** [80% in every dimension is restored](ACCEPTANCE-RESTORED-80.md).
+M4 is reopened. The collection and review packet below remain preserved, but
+corrected judging now awaits a judge meeting the original calibration criterion.
+The dated November 16 70%-overall decision and planned V13 judging are historical.
+
 November 16, 2026. **Collection is complete and the Mac is free.** The corrected
 cohort contains fifty items, ten per category. Its twenty-item blind review packet
 is available at `\\192.168.0.55\aia\Handoff\P1-03\M5-corrected-review-001`.
