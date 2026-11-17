@@ -2,7 +2,7 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.39, November 17, 2026 |
+| Revision | 0.40, November 17, 2026 |
 | Status | Final V15 baseline complete at 79.2%; D1 70% and D6 65% fail original >=80% per-dimension criterion; M4 open, final assessed allocation consumed; corrected cohort preserved |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
@@ -443,6 +443,14 @@ All 83 flagged parents have draft decompositions, producing 357 child checks wit
 250 prior seal entries verify. All 593 tests were exercised successfully across
 the full and optional-renderer follow-up runs. New prompt drafts are unmeasured;
 semantic acceptance, remaining evidence and live transport/preflight are pending.
+
+The [preparation review](M4-PREPARATION-REVIEW.md) adds applicable NumPy context,
+explicit workflow reasoning and one additional unit-contract child. It records
+358 preparation dispositions, with one empty binding and 56 applicability holds
+including that binding. Candidate-relative questions and unmeasured verifier v3
+avoid task-restatement passes and added obligations. No model findings or human
+labels are produced. Ten cases replay and 385 previous seal entries verify;
+the current completeness gate prevents dispatch until the holds are resolved.
 
 The [final V15 baseline result](V15-BASELINE-RESULTS.md) completes fifty first
 attempts, but reaches only 14,17,16,18,17,13 matches of twenty in D1–D6.
@@ -887,3 +895,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.37 | 2026-11-17 | Prepare ten exposed baseline source/checklist drafts (175 spans, 18 unbound checks) and integrate offline scoring with exact fact/score-audit lineage, mandatory finding dispositions, D4 applicability and unresolved/rejected outputs. All bindings still need semantic audit; no real observations or scores invented. 553 WSL tests pass; forty historical files unchanged, zero inference/Mac use, live execution remains disabled |
 | 0.38 | 2026-11-17 | Audit all 175 spans; repair thirteen missing bindings in a separate draft, retain five gaps and flag 83 spans for splitting. Distinguish API sources from task/math/workflow evidence; correct the Part.Cone existence distinction without changing frozen labels. Ten plans replay, fourteen downloaded files verify and 106 previous seal entries remain unchanged; no inference, scores or Mac use |
 | 0.39 | 2026-11-17 | Implement isolated v2 evidence kinds, attributed reasoning, parent/child coverage and explicit scoring audit gates. Prepare 357 child questions from 175 spans, decomposing all 83 flagged parents; retain 34 child evidence gaps and pending semantic review. Ten child/parent replays and 250 prior seal entries verify; 593 tests exercised across full/optional follow-up runs, zero model calls or Mac use |
+| 0.40 | 2026-11-17 | Review child preparation, add licensed NumPy evidence and scoped workflow notes, correct question overreach and draft candidate-relative verifier v3. Record 358 checks, one empty binding and 56 applicability holds; no fact verdicts or accepting audits. Ten-case replay and 385 previous seal entries verify; application code unchanged, no inference or Mac use |

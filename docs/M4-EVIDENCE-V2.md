@@ -1,5 +1,9 @@
 # M4 evidence contract v2 and child-check drafts
 
+Subsequent checkpoint: the [preparation review](M4-PREPARATION-REVIEW.md) repairs
+evidence/question issues, adds one child and records 56 source-applicability holds.
+The draft below and its sealed packet remain preserved; live execution is disabled.
+
 November 17, 2026. The offline contract now distinguishes API documentation,
 original-task comparisons, mathematical derivations and workflow reasoning.
 All **83 compound spans** flagged by the [source audit](M4-SOURCE-AUDIT.md) have
