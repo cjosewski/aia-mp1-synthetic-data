@@ -9,8 +9,8 @@ for Qwen3.5 versus **47/60 (78.3%)** for Qwen3. D1–D6 agreement is
 100%, 80%, 100%, 100%, 80%, 100%. Both safety failures were missed; those errors
 and two context false rejections remain recorded. Twenty valid first attempts,
 all 120 explanations audited, exact report replay and verified local/NAS archive.
-The Mac servers are stopped. Codex is preparing the remaining original-baseline
-evaluation with frozen V15/settings under your standing completion authorization.
+The Mac servers are stopped. The [final original-baseline runner](docs/V15-BASELINE-PLAN.md)
+is ready with frozen V15/settings under your standing completion authorization.
 No repeat of these reviews is needed. M4 remains open until assessed calibration;
 the twenty-item M5 review packet is preserved.
 
@@ -31,7 +31,7 @@ judging or quality-improvement claim can proceed until calibration succeeds.
 **Reporting implementation:** the [analysis runbook](docs/ANALYSIS-RUNBOOK.md)
 covers verified cohort reports, five charts with plotted-data tables, exact
 comparison thresholds and local evidence export.
-**483 WSL tests pass** with the locked analysis environment and optional PDF renderer,
+**493 WSL tests pass** with the locked analysis environment and optional PDF renderer,
 including the acceptance amendment, review export/intake, PDF content preservation,
 original report replay, incomplete-evidence rejection and runtime ownership guards.
 The [full baseline calibration](docs/BASELINE-BUDGET-RESULTS.md) completed 50/50

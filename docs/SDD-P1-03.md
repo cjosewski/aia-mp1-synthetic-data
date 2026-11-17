@@ -2,7 +2,7 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.32, November 17, 2026 |
+| Revision | 0.33, November 17, 2026 |
 | Status | Original >=80% per-dimension criterion restored; M4 open, V15 fresh confirmation complete and full baseline evaluation next; corrected cohort and review packet preserved |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
@@ -413,6 +413,13 @@ affect a model. Test adversarial synthetic items and surface disagreements.
 
 ### 5.5 Phase A — calibrate the judge
 
+The [final V15 baseline plan](V15-BASELINE-PLAN.md) pins the original fifty items,
+twenty human reviews, selected model/prompt/settings and final third allocation.
+Its separate WSL runner reuses the assessed ledger and calibration engine while
+the owned Mac supplies inference. Frozen packaging retains both prior versions;
+changed evidence/process identity prevents dispatch. Original 80%-per-dimension
+acceptance remains explicit, with no automatic recovery or fourth version.
+
 The [V15 fresh-confirmation transport](V15-CONFIRMATION-TRANSPORT.md) uses a
 separate pinned protocol and package: WSL Python, owned native Mac inference,
 model-specific templates, shared bounded ledger and process-identity checks
@@ -820,3 +827,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.30 | 2026-11-17 | Complete V15 development at 58/60 vs V13 57/60, at least 90% each dimension, with two false rejections retained. Twenty valid first attempts, 191 frozen files/replay verified, all 120 public explanations inspected, 318 cumulative starts; Mac released. Publish ten fresh unscored confirmation examples and verified PDF/NAS handoff. M4 remains open and final assessed version unused; 468 tests |
 | 0.31 | 2026-11-17 | Implement separate V15 confirmation package/client and native Mac phases with shared limits, pinned model-specific templates and process checks. Verify 483 WSL tests and real blank-review/missing-reference rejection without output; no Mac use or inference. Authentic review remains required before packaging and dispatch |
 | 0.32 | 2026-11-17 | Freeze ten authentic V15 reviews and complete matched confirmation: 56/60 vs 47/60, eleven gains/two context regressions, two shared safety misses retained. Twenty valid first attempts, all 120 explanations audited, 195 frozen files/replay verified; 338 cumulative starts, owned servers stopped. Select frozen V15 for remaining assessed evaluation under standing authorization; M4 remains open |
+| 0.33 | 2026-11-17 | Add frozen WSL execution/package tools for final original-baseline V15 allocation, preserving both prior assessed versions, exact human reference and original 80%-per-dimension criterion. Verify 493 locked WSL tests plus lint/format; reject altered evidence/settings, budget reset and changed runtime before dispatch. Full assessed V15 result remains unmeasured |
