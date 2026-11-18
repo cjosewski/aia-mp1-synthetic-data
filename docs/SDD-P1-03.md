@@ -493,8 +493,9 @@ and 1,217 entries across seven prior seals verify. The named AsDouble exception
 remains unresolved. No application/prompt changes, model calls, accepting audits,
 new ratings or Mac use; context preflight and staged transport remain pending.
 
-**November 18 continuation:** the separate unit-convention, simulation-scope and
-FreeCAD document-creation revisions now leave **19 holds, 339 prepared questions and zero empty source
+**November 18 continuation:** separate unit-convention, simulation-scope,
+FreeCAD document-creation and structural-runtime binding revisions now leave
+**16 holds, 342 prepared questions and zero empty source
 bindings across 358 checks**. All ten packets replay; the newest packet is
 verified on NAS across 176 files. The question-scope correction does not rescore
 the candidate or change human labels. Details and manifest identity are in the

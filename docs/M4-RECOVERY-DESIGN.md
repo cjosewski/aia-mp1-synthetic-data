@@ -310,6 +310,30 @@ preserved and unqualified until M4 succeeds.
 
 ## Offline use and verification
 
+### November 18 structural runtime bindings
+
+`m4-structural-bindings-20261118/packet-structural` binds three previously held
+questions to existing v3 runtime captures: b01-item-0013 K0013/K0024 use the
+positive and scaled-modulus runs, and b02-item-0008 K0018 uses recorded node-call
+returns. These are explicitly classified as runtime observations, not API
+documentation. The original questions retain their focus with added limits.
+
+Both E=29000 and E=29 cases initialized and analyzed successfully; the recorded
+displacement ratio is 1000. That does not make E=29 universally invalid: it may
+represent a different material, and no physical unit labels were supplied to the
+engine. Logged node-definition returns are null, distinct from printed model
+information and configured DOF counts. The verifier must decide what these
+limited observations establish and report residual uncertainty; the explicit
+runtime-applicability audit remains required.
+
+All ten cases replay: **358 checks, 342 prepared questions, 16 holds and zero empty
+bindings**. Candidate/task text, dimensions, parent/check identities and every
+runtime record are unchanged. No rerun, accepting fact audit, model score or human
+rating was produced. NAS archive `Handoff/P1-03/operator/m4-structural-bindings-20261118`
+has **176 verified files**, manifest SHA-256
+`7b58e82212085565f41a3a79061e9915ea3812a38a7fc6710ac5c51177006a52`.
+Previous packets remain intact; changed requests need fresh exact token preflight.
+
 ### November 18 FreeCAD document-creation binding
 
 The subsequent `m4-freecad-attachment-20261118/packet-freecad` adds a byte-exact
