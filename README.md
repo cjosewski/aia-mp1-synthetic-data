@@ -11,7 +11,8 @@ frozen reviews and measured agreement are unchanged. The
 serialization, bounded durable scheduling, saved-response validation, accepting
 fact/score audits, durable rejection stops and transport-failure recording that
 preserves unknown outcomes, plus an internal single-request transport adapter.
-**690 locked WSL tests pass**; top-level runtime/evidence orchestration remains.
+**699 locked WSL tests pass**. The packet-readiness gate replays all ten cases
+and correctly blocks the actual 20 holds; top-level orchestration remains.
 
 The [Mac capacity check](docs/M4-TOKEN-SIZING.md) fits all ten prior draft verifier
 requests in 65,536 tokens, including schema/template and an 8,192-token output

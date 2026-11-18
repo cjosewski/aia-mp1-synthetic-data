@@ -240,6 +240,21 @@ the reused transport helper to the journal's implementation fingerprint, all
 18 transport/journal tests passed again in 5.38 seconds. Ruff lint/format and
 diff checks passed. The nine new transport tests use synthetic intercepted HTTP.
 
+`recovery_packet.inspect_packet` replays the complete ten-case preparation set,
+requiring two cases per category, distinct safe case IDs, exact source-backed
+drafts, matching structural reports, and attributed preparation entries for every
+check. It rejects hidden holds, omitted checks and preparation records that claim
+fact acceptance. Its fingerprint binds the selection, rubric, case inputs/plans
+and preparation reviews. `require_ready` additionally refuses unresolved holds
+or source gaps, and can require an exact previously frozen fingerprint. A ready
+preparation packet still requires semantic audits and runtime/dispatch preflight;
+it is neither execution authorization nor calibration evidence.
+The actual latest packet replays all ten cases and 358 checks, with 20 holds and
+no source gaps; `require_ready` correctly refuses it. Receipt:
+`qualification/m4-packet-gate-20261118/verification.json`. Software verification:
+**699 tests passed in 127.63 seconds** in locked WSL, including nine new packet
+adversaries; Ruff lint/format and diff checks passed. No inference calls occurred.
+
 Prepare ten previously exposed original-baseline cases, two per category. Include
 all three known human D2 failures and cases that distinguish missing obligations,
 invalid tips and valid API claims wrongly rejected. Publish the exact item list
