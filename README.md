@@ -9,10 +9,14 @@ fact audits before scoring. A separate
 [candidate-applicability diagnostic](docs/M4-CANDIDATE-CHALLENGE-RESULT.md)
 correctly challenged the source-ID trial's ArcPy prerequisite error, but
 produced no assessed rating. V15 remains 95/120, with D1 and D6 below the
-required 80% each. The dedicated Mac server and tunnel are stopped.
+required 80% each. The current matched comparison uses a dedicated Mac server
+and tunnel, with unrelated Herd services preserved.
 Chad approved a [GPT-6.2 Astra frontier judge comparison](docs/M4-FRONTIER-JUDGE-COMPARISON.md)
-with a $25 cap; its paired source-free input bundle is prepared, with no hosted or local judge
-request made. Provider selection and a secure API credential remain pending.
+with a $25 cap. Its [hosted arm](docs/M4-FRONTIER-PAIRED-RESULT.md) returned
+50/50 valid judgments and reached at least 80% agreement in each dimension for
+an estimated $1.99. The matched local arm is in progress. The newly supplied
+[course customization guidance](docs/COURSE-BRIEF-RECONCILIATION-20261118.md)
+keeps D3/D4 adaptation and hosted judge compliance unresolved; M4 is open.
 
 **Earlier recovery preparation checkpoint — November 18:** the separate preparation packet
 has **358 checks, 342 prepared questions and 16 holds**, with no empty source

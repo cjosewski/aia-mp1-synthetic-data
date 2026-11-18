@@ -82,6 +82,12 @@ Human reviewers and the eventual independent judge use the same versioned rubric
 
 D3 originally concerns ordinary homeowner tools; D4 concerns when repair work needs professional help. The engineering mappings above come from issue #4. Disclose them with the adaptation; do not present a local rubric as an instructor-approved amendment. Cheap checks can flag obvious defects but do not replace human or judge assessments.
 
+On November 18 Chad supplied the course's customization guidance, which says
+to change topic without changing technical libraries or criteria. The
+[reconciliation](COURSE-BRIEF-RECONCILIATION-20261118.md) identifies D3/D4 and
+hosted-judge setting/toolchain conflicts explicitly. No instructor acceptance
+of those exceptions is inferred from the earlier permission to start.
+
 ## Full pipeline and evidence
 
 | Stage | Required behavior and evidence |

@@ -56,7 +56,9 @@ discrepancies are retained rather than silently accepting the numeric gate:
   distance units. The property exists, but that is not what it does.
 - `b02-item-0040` and `b02-item-0020` D4 pass despite replacing the exact
   mathematical systems in the task. Their failures remain visible in D1 and
-  D5. This reflects a narrow reading of D4 as professional sign-off only.
+  D5. The frozen D4 anchor is specifically about professional sign-off, so
+  these two model decisions follow that anchor even though the frozen human
+  ratings applied D4 more broadly. Neither side of the disagreement is erased.
 - `b02-item-0010` D3 rejects the SciPy/NumPy versions named by the candidate.
   This disagreement with the frozen human rating is technically supported:
   [SciPy 1.16 requires NumPy >=1.25.2](https://docs.scipy.org/doc/scipy-1.16.1/dev/toolchain.html),
@@ -65,6 +67,13 @@ discrepancies are retained rather than silently accepting the numeric gate:
 These findings hold qualification pending the matched local result and a
 conservative explanation-audit decision. The 80% threshold and human labels
 are unchanged.
+
+Chad's November 18 copy of the [course brief](COURSE-BRIEF-RECONCILIATION-20261118.md)
+also requires a judge temperature lower than the generator's and Instructor
+for structured judge output. Astra does not accept a temperature parameter,
+and this isolated arm used OpenAI strict JSON Schema with Pydantic validation
+rather than Instructor. Its numeric pass is therefore not, by itself, a
+course-conforming assessed-judge qualification.
 
 ## Local control
 
