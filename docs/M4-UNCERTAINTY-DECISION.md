@@ -67,7 +67,21 @@ that the ten-case trial will advance, or authorize a fourth assessed allocation.
 The proposed twenty-start development limit remains unchanged. Any later assessed
 extension still needs its own concrete recorded decision.
 
-## Decision needed
+## Decision and implementation status
+
+Chad's November 18 instruction, “Proceed to close the rating gap. Stop when
+that's achieved and give a short report,” authorizes the bounded recovery work
+needed to close M4. This includes implementing the separately versioned
+uncertainty handling proposed above. The strict historical protocol and frozen
+ratings remain unchanged. **The policy is not implemented yet**; this records
+authorization to work, not a claim that any current unknown is immaterial or
+that calibration has passed.
+
+The ArcPy research probe was also run under that instruction. It failed at the
+ArcGIS license gate before importing ArcPy; see
+[the preserved outcome](M4-ARCPY-LICENSE-RESULTS.md). Its eleven GIS holds remain.
+
+### Earlier pending decision text (historical)
 
 Approve or decline this explicit change to the recovery's evidence-to-rating
 rules before enabling it. Approval concerns handling honest uncertainty, not
