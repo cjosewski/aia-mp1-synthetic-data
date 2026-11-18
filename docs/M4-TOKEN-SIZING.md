@@ -47,3 +47,47 @@ context must be tested on the separately owned evaluation server; it must not
 change Herd's shared services. Recheck the scorer with its actual accepted
 observations as well. No context choice, new allocation, calibration readiness
 or model-quality improvement is established by this sizing exercise.
+
+## Subsequent 65,536-token capacity check
+
+A separately owned native Mac server successfully loaded the same local model
+path with one slot, 65,536 context tokens and a 4,096-token reasoning budget on
+loopback port 8082. Herd/shared services were unchanged. The WSL client used an
+owned SSH tunnel and called only health, model/properties, template rendering
+and tokenization endpoints; it made no inference requests.
+
+All ten **draft fact-stage requests** fit after locked Instructor serialization,
+the actual server chat template, a recorded draft system prompt, and an
+8,192-token output allowance:
+
+| Baseline item suffix | Rendered prompt tokens | Prompt + output allowance |
+| --- | ---: | ---: |
+| b01-item-0013 | 43,059 | 51,251 |
+| b01-item-0050 | 19,520 | 27,712 |
+| b02-item-0007 | 22,005 | 30,197 |
+| b02-item-0008 | 44,306 | 52,498 |
+| b02-item-0011 | 11,359 | 19,551 |
+| b02-item-0014 | 19,166 | 27,358 |
+| b02-item-0019 | 14,364 | 22,556 |
+| b02-item-0040 | 16,441 | 24,633 |
+| b02-item-0047 | 14,263 | 22,455 |
+| b03-item-0011 | 12,756 | 20,948 |
+
+The maximum leaves 13,038 tokens of context headroom for these exact draft
+requests. This does not establish that the output allowance is sufficient for
+complete model answers, that long-context inference meets the timeout, or that
+the later scorer input fits. Source holds and final prompt/runtime freeze remain
+open. Model weights were not rehashed in this capacity experiment.
+
+The retained server log contains unused-tensor warnings, including the additional
+`blk.48`/`nextn` tensors. Startup nonetheless reached healthy status; no claim
+about inference correctness follows. Mock HTTP 400 messages printed during
+Instructor serialization were intentional offline interception, not live model
+failures. They did not consume model-start allocations.
+
+Evidence: `qualification/m4-context64k-preflight-20261118/`, including the launcher,
+WSL sizing script, exact wire receipts, ten fit receipts, runtime properties,
+draft prompt, server log and shutdown receipt. The owned server exited zero with
+`owned_server_stopped: true`; port 8082 had no listener afterward. Its SSH tunnel
+was also stopped. The Mac is released. Future inference must independently
+revalidate runtime identity and fit after the remaining evidence changes.

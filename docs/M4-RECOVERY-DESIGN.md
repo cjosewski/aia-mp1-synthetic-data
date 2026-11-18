@@ -241,6 +241,11 @@ The [November 18 draft sizing measurement](M4-TOKEN-SIZING.md) finds five compac
 verifier inputs larger than the previous 16,384-token context, with a maximum
 of 43,519 input tokens before instructions/schema/output. Compact JSON alone
 does not resolve the context constraint. No inference was attempted.
+The subsequent separately owned 65,536-token Mac capacity check fits all ten
+draft fact requests including actual template/schema and an 8,192-token output
+allowance (maximum total 52,498). This is preparation only: final freeze, source
+holds, model identity and the actual scorer memo still require preflight. The
+temporary server/tunnel were stopped and no inference allocation was consumed.
 
 Advance only with ten complete audited pairs, at least 8/10 agreement in every
 dimension, no D2/D3 false approvals, more total matches than paired saved V15,
