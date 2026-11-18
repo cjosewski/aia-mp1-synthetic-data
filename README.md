@@ -10,6 +10,9 @@ fact audits before scoring. A separate
 correctly challenged the source-ID trial's ArcPy prerequisite error, but
 produced no assessed rating. V15 remains 95/120, with D1 and D6 below the
 required 80% each. The dedicated Mac server and tunnel are stopped.
+Chad proposed a [frontier judge comparison](docs/M4-FRONTIER-JUDGE-COMPARISON.md);
+its paired source-free input bundle is prepared, with no hosted or local judge
+request made. Provider selection and a secure API credential remain pending.
 
 **Earlier recovery preparation checkpoint — November 18:** the separate preparation packet
 has **358 checks, 342 prepared questions and 16 holds**, with no empty source
