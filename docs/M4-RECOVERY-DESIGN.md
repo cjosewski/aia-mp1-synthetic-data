@@ -143,6 +143,15 @@ audits. Historical V8 schemas, allocation and transport remain unchanged.
 Ten focused synthetic tests pass, covering schema selection, input preservation,
 settings/schema/body drift, unsupported fields/stages and malformed messages.
 
+`recovery_schedule.py` separately replays the proposed ten-case, twenty-start
+schedule. Every stage has one attempt; failed verification skips its scorer,
+unknown outcomes prevent further starts, two consecutive structural failures
+stop the schedule, and a rejected semantic audit halts it. Successful structural
+validation waits for an audit before advancing. All ten cases remain in the
+coverage denominator. Six synthetic schedule tests pass. This pure state machine
+has no persistence or dispatch and does not authenticate audit receipts; the
+future durable runner must derive events from the actual artifact validators.
+
 Prepare ten previously exposed original-baseline cases, two per category. Include
 all three known human D2 failures and cases that distinguish missing obligations,
 invalid tips and valid API claims wrongly rejected. Publish the exact item list
