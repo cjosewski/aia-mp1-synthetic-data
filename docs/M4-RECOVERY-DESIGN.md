@@ -167,10 +167,22 @@ waiting verifier completion to frozen plan/input/rubric hashes. It parses the
 retained raw chat completion and invokes `build_scoring_input`, including the
 version-specific source, reasoning and runtime-applicability audit checks. Only
 successful validation appends an accepting event. Invalid or stale artifacts
-leave the journal unchanged and scoring blocked. Six focused synthetic tests
-cover this path. Rejecting-audit handling, response finishing, score-audit
-integration and live request/runtime preflight remain runner work. An accepted
-technical audit is not an authentic human label or permission to dispatch.
+leave the journal unchanged and scoring blocked.
+
+The accepting score-audit adapter reconstructs observations, the accepted fact
+audit, and scores from saved journal payloads. It revalidates the source bundle
+and requires the scorer start to bind the exact released scoring input. Only a
+complete, accepted six-dimension review advances to the next case. Twelve focused
+synthetic tests cover both adapters, including changed source permissions, stale
+scoring inputs and unresolved scores. Rejecting-audit handling, response finishing
+and live request/runtime preflight remain runner work. An accepted technical
+audit is not an authentic human label or permission to dispatch; the resulting
+development judgment remains ineligible for assessed calibration.
+
+Score-audit integration verification: **674 tests passed in 119.53 seconds** in
+the locked WSL environment with the analysis extra and ReportLab. Focused tests
+passed 12/12; Ruff lint/format and `git diff --check` passed. These are software
+checks only; no model requests or real review acceptances were produced.
 
 Prepare ten previously exposed original-baseline cases, two per category. Include
 all three known human D2 failures and cases that distinguish missing obligations,

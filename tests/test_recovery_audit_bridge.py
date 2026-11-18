@@ -9,7 +9,7 @@ from test_factcheck import bundle as bundle
 from test_recovery_checks import packet as packet
 from test_recovery_scoring import scoring as scoring
 
-from aia_mp1.recovery_audit_bridge import accept_fact_audit, case_binding
+from aia_mp1.recovery_audit_bridge import accept_fact_audit, accept_score_audit, case_binding
 from aia_mp1.recovery_ledger import RecoveryLedger
 from aia_mp1.tracing import digest
 
@@ -70,3 +70,60 @@ def test_stale_or_unverified_artifacts_do_not_append_acceptance(scoring, tmp_pat
         accept_fact_audit(ledger, *args[:4], args[5])
     assert (ledger.directory / "events.jsonl").read_bytes() == before
     assert ledger.read()[2]["awaiting_audit"]
+
+
+def score_ready(tmp_path, args, scores, stale=False):
+    ledger = prepared(tmp_path, args)
+    accepted = accept_fact_audit(ledger, *args[:4], args[5])
+    payload = {
+        "case_binding": case_binding(*args[:3]),
+        "scoring_input_sha256": "a" * 64 if stale else digest(accepted["scoring_input"]),
+        "request": {"synthetic": True},
+    }
+    start = {
+        "kind": "start",
+        "item_id": "synthetic-0",
+        "stage": "score",
+        "request_sha256": digest(payload),
+    }
+    ledger.append(start, payload)
+    raw = envelope(scores.model_dump(mode="json"))
+    ledger.append(
+        {
+            "kind": "finish",
+            "start_sha256": digest(start),
+            "completion_sha256": digest(raw),
+            "structurally_valid": True,
+        },
+        raw,
+    )
+    return ledger
+
+
+def test_saved_score_and_fact_audits_release_next_case(scoring, tmp_path):
+    args, scores, audit = scoring
+    ledger = score_ready(tmp_path, args, scores)
+    result = accept_score_audit(ledger, *args[:4], audit)
+    assert result["state"]["next_request"] == {"item_id": "synthetic-1", "stage": "facts"}
+    assert result["report"]["status"] == "audited_development"
+    assert not result["report"]["calibration_eligible"]
+
+
+@pytest.mark.parametrize("attack", ["start", "scores", "audit", "source", "unresolved"])
+def test_score_acceptance_revalidates_entire_saved_chain(scoring, tmp_path, attack):
+    args, scores, audit = deepcopy(scoring)
+    if attack == "scores":
+        scores.scoring_input_sha256 = "b" * 64
+    if attack == "unresolved":
+        scores.D1.decision = None
+    ledger = score_ready(tmp_path, args, scores, stale=attack == "start")
+    if attack == "audit":
+        audit.dimensions[0].accepted = False
+    if attack == "source":
+        # Source permission is revalidated even after the fact audit was accepted.
+        (args[3] / "permission.txt").write_text("Changed permission", encoding="utf-8")
+    before = (ledger.directory / "events.jsonl").read_bytes()
+    with pytest.raises(ValueError):
+        accept_score_audit(ledger, *args[:4], audit)
+    assert (ledger.directory / "events.jsonl").read_bytes() == before
+    assert ledger.read()[2]["awaiting_audit"]["stage"] == "score"
