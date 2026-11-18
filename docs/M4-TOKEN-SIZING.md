@@ -91,3 +91,26 @@ draft prompt, server log and shutdown receipt. The owned server exited zero with
 `owned_server_stopped: true`; port 8082 had no listener afterward. Its SSH tunnel
 was also stopped. The Mac is released. Future inference must independently
 revalidate runtime identity and fit after the remaining evidence changes.
+
+## Subsequent on-disk identity check
+
+On November 18 UTC (November 17 local time), a separate read-only SSH capture
+hashed both Qwen model shards. Their sizes and SHA-256 values match the frozen
+`canonical_development.QWEN_FILES` records. Size, modification time and inode
+were unchanged before and after each hash. The server executable reported
+0.9.0, build 12110, commit `cd959bae9`; its SHA-256 was
+`2a6f9083aa03d0092aa797872a4876ce912653d3d1c0095ce30f6de6758d563c`.
+This hashes the executable file, not its entire dynamically linked runtime.
+
+Evidence is retained at
+`qualification/m4-mac-identity-20261117T205905/`, including the shell script,
+raw output, exit receipt and verification script/results. The remote shell
+exited 1: its final timestamp command received a trailing carriage return and
+failed **after** all three complete hash/metadata captures and version output.
+That error is retained; this is not reported as a clean execution. Both model
+hash comparisons nevertheless pass against the frozen values.
+
+No server was launched and no inference occurred. Port 8082 was unoccupied in
+the preceding read-only check. These observations establish on-disk identity
+at capture time, not the identity of a future loaded model. Fresh process,
+server-property, response-identity and exact-request token checks remain required.
