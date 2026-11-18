@@ -310,6 +310,27 @@ preserved and unqualified until M4 succeeds.
 
 ## Offline use and verification
 
+### November 18 FreeCAD document-creation binding
+
+The subsequent `m4-freecad-attachment-20261118/packet-freecad` adds a byte-exact
+excerpt of `DocumentPy::addObject` from the already retained, permission-cleared
+FreeCAD 1.0.2 source to the cone item's K0023 bindings. It also binds the retained
+`Part::Cone` property implementation. Together with the existing example and
+`ConePy` constructor source, this covers the distinction between conical geometry
+and document-object creation without inventing an absent `Part.Cone` API.
+
+The check's question, subject and dimensions are unchanged. Candidate/task text
+and human ratings are unchanged. All ten cases replay through the packet gate:
+**358 checks, 339 prepared questions, 19 holds and no empty source bindings**.
+This clears a preparation hold, not a factual verdict or accepting audit.
+No inference or new runtime experiment occurred.
+
+NAS archive: `Handoff/P1-03/operator/m4-freecad-attachment-20261118`, **176 files
+verified**, manifest SHA-256
+`e98ff00803e267abf51c58d999788b841d1255d1891051748c5b90a15574c627`.
+The previous simulation-scope packet remains intact. Updated input bytes require
+new exact token preflight before execution.
+
 ### November 18 simulation scope revision
 
 The separately archived `m4-simulation-scope-20261118/packet-simulation-scope`
