@@ -3,16 +3,22 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
-**Revit evidence added:** [pinned Revit 2025 contracts](docs/M4-REVIT-CONTRACTS.md)
-resolve eleven preparation holds, leaving **22 holds across 358 checks**, including
-one empty binding. The other 336 questions are prepared, not verified facts.
-All ten packets and twelve source extractions replay; 1,217 previous seal entries
-verify. Frozen reviews and measured agreement are unchanged. The separate
-[runtime-evidence protocol](docs/M4-RUNTIME-EVIDENCE.md) retains its complete
-provenance and mandatory applicability audits. No model calls or Mac use.
-Resolve remaining evidence questions before token/runtime preflight and staged
-transport. The proposed development trial remains unallocated and execution
-disabled; the verifier/scorer prompts are unmeasured.
+**Recovery checkpoint — November 18:** the latest separate preparation packet
+has **358 checks, 338 prepared questions and 20 holds**, with no empty source
+bindings. All ten packets replay. Prepared questions are not verified facts;
+frozen reviews and measured agreement are unchanged. The
+[recovery design](docs/M4-RECOVERY-DESIGN.md) now includes exact request
+serialization, bounded durable scheduling, saved-response validation, accepting
+fact/score audits and durable rejection stops. **679 locked WSL tests pass.**
+
+The [Mac capacity check](docs/M4-TOKEN-SIZING.md) fits all ten prior draft verifier
+requests in 65,536 tokens, including schema/template and an 8,192-token output
+allowance; the maximum is 52,498. No inference calls were made. The temporary
+server and tunnel are stopped. Final source resolution, prompt/settings freeze,
+model identity, scorer-input preflight and dispatch integration remain. The
+proposed twenty-start development trial is not allocated; no readiness is claimed.
+The [owner instruction sheet](docs/CHAD-ACTIONS-P1-03.md) records the pending
+scoped Windows Python exception for the prepared ArcGIS Pro 3.7 probe.
 
 **Final V15 baseline complete; M4 still fails.** All fifty judgments arrived on
 their first attempt. Agreement is **95/120 (79.2%)**, with D1 **70%**, D2 85%,

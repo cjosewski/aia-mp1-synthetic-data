@@ -2,7 +2,7 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.44, November 17, 2026 |
+| Revision | 0.45, November 18, 2026 |
 | Status | Final V15 baseline complete at 79.2%; D1 70% and D6 65% fail original >=80% per-dimension criterion; M4 open, final assessed allocation consumed; corrected cohort preserved |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
@@ -492,6 +492,29 @@ Ten packets and prior structural reports replay, twelve HTML extractions replay,
 and 1,217 entries across seven prior seals verify. The named AsDouble exception
 remains unresolved. No application/prompt changes, model calls, accepting audits,
 new ratings or Mac use; context preflight and staged transport remain pending.
+
+**November 18 continuation:** the separate unit-convention and simulation-scope
+revisions now leave **20 holds, 338 prepared questions and zero empty source
+bindings across 358 checks**. All ten packets replay; the newest packet is
+verified on NAS across 175 files. The question-scope correction does not rescore
+the candidate or change human labels. Details and manifest identity are in the
+[recovery design](M4-RECOVERY-DESIGN.md).
+
+The recovery implementation now serializes exact Instructor wire requests,
+persists the bounded schedule and raw responses, derives schema validity,
+reconstructs accepted fact/score review lineage, and retains technical rejections
+that halt the trial. **679 locked WSL tests pass.** Live dispatch, final runtime
+freeze and transport-failure capture remain unfinished.
+
+The [context-capacity experiment](M4-TOKEN-SIZING.md) found the previous 16,384
+context inadequate. A separately owned 65,536-token Mac server loaded successfully
+and fit all ten prior draft verifier requests, with the largest requiring 52,498
+tokens including its 8,192 output allowance. No inference requests were made;
+the temporary server/tunnel stopped. This is not a throughput, answer-quality or
+final scorer-context result. The revised inputs require fresh exact preflight.
+ArcGIS Pro 3.7 is installed, but the prepared native ArcPy probe awaits a scoped
+exception to the WSL-only Python rule; its results would need applicability review
+against frozen 3.6 tasks. M4 remains open and cumulative model starts stay 388.
 
 The [final V15 baseline result](V15-BASELINE-RESULTS.md) completes fifty first
 attempts, but reaches only 14,17,16,18,17,13 matches of twenty in D1–D6.

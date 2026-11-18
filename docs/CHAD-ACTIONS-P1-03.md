@@ -1,6 +1,6 @@
 # P1-03 — Everything needed from Chad
 
-Updated November 17, 2026. This is your consolidated instruction sheet.
+Updated November 18, 2026. This is your consolidated instruction sheet.
 The [live project checklist](https://github.com/cjosewski/aia-plan/issues/4) tracks
 completion. This file explains your actions; Codex handles the implementation,
 model runs, analysis and evidence preparation.
@@ -32,6 +32,7 @@ at the end apply only if an unresolved decision or failed evaluation requires th
 | 1e. Decide on the V14 development comparison | **Approved and complete; did not advance** | Twenty valid first attempts; one improvement and two regressions; no third assessed run authorized |
 | 1f. Review ten new V15 confirmation answers | **Complete and frozen November 17** | All sixty ratings and comments retained; no repeat needed |
 | 1g. Final V15 assessed evaluation | **Complete; calibration failed** | No repeat review; preserve 79.2%, D1/D6 failures and all errors |
+| 1h. ArcPy runtime probe | **Scoped exception requested** | Allow ArcGIS Pro's bundled Windows Python for the prepared synthetic-data probe described below |
 | 2. Review twenty corrected-dataset answers | Packet preserved; wait for calibrated judge | Twenty authentic reviews in `M5-corrected-review-001/MY-ANSWERS.md` |
 | 3. Review and record the final demonstration | After final results and charts are ready | A reviewed 90–180 second demonstration video |
 | 4. Complete the coaching/submission step | When the evidence package and demonstration are ready | Instructor/coach decision, date, reviewer name and any requested changes |
@@ -39,6 +40,26 @@ at the end apply only if an unresolved decision or failed evaluation requires th
 The fresh ten-item review adds work to the earlier estimate. Reference checking,
 the twenty-item corrected review and the final demonstration still determine
 your remaining involvement; no completion date is promised by the development result.
+
+## Action 1h — Scoped ArcPy execution exception
+
+ArcGIS Pro 3.7 is verified installed. The prepared test creates three new synthetic
+scratch cases (shapefile, 32-bit geodatabase OIDs and 64-bit geodatabase OIDs),
+with two authored points and an explicitly declared CRS. Each process has a
+90-second limit; a timeout stops the remaining schedule. Existing datasets are
+not inputs. Raw output and errors will be retained, with no automatic retry.
+
+The only pending authorization is using ArcGIS Pro's bundled **Windows Python**
+for this probe. [AGENTS.md](../AGENTS.md) currently says, “Run Python, dependency
+resolution and tests in WSL2 Ubuntu.” Project tests continue in WSL. To grant the
+exception, reply: “Approved: use ArcGIS Pro's Windows Python for this probe.”
+The prepared protocol and scripts are under workspace
+`artifacts/evidence/P1-03/qualification/m4-arcpy-probe-plan-20261118/`.
+
+The frozen GIS tasks specify 3.6; observations from 3.7 will remain cross-version
+research until applicability is reviewed. Installation alone is not a passing
+API result or a change to those frozen tasks. Codex can continue other recovery
+work while this exception is pending. No repeated baseline review is needed.
 
 ## Action 1f — Completed V15 confirmation review
 
