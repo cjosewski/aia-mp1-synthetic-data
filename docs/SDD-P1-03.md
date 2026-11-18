@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.53, November 18, 2026 |
-| Status | Frozen AEC baseline ready for human review on the course rubric. Calibration and improvement remain unmeasured for this assessment. |
+| Revision | 0.54, November 18, 2026 |
+| Status | The 20-item AEC human reference is frozen. Chad confirmed that D3 assessed API correctness, so course calibration awaits replacement D3 tool-realism ratings on the same items. |
 | Project | P1-03 / Mini Project 1, Synthetic Data and Evaluation on AEC data |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |

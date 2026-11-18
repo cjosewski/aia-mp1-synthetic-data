@@ -151,7 +151,7 @@ def cohort_snapshot(
         before = _sources(root, parent, cohort, judge_dir)
         current_labels = load_labels(parent, assessment, records)
         reference = (
-            load_reference(parent, assessment, records)
+            load_reference(parent, assessment, records, for_scoring=True)
             if (parent / "human-reference.json").exists()
             else None
         )

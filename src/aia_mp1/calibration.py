@@ -97,7 +97,7 @@ def calibration_report(
         if assessment["assessment_eligible"]:
             from .human_reference import load_reference
 
-            reference = load_reference(parent, assessment, records)
+            reference = load_reference(parent, assessment, records, for_scoring=True)
             labels = reference["labels"]
         judge_manifest, events, attempts, results = validate_judge(
             judge_dir, assessment, records, rubric

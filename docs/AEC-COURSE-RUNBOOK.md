@@ -8,7 +8,16 @@ Review 20 AEC questions and answers, four from each original category: GIS scrip
 4. Add notes after the sixth decision. The CLI saves each finished item. Enter q to quit, then reopen the launcher to resume. If you recognize an item whose judge scores you have seen, disclose that before declaring a blind review.
 5. When all twenty are saved, tell Codex whether you finished before seeing judge ratings for these items.
 
-## Open the same review manually
+## D3 correction for the November 18 baseline
+
+Chad confirmed that his 20 original D3 ratings assessed API correctness. The frozen review is retained for audit. Calibration requires human and judge decisions on the same criterion.
+
+1. Open `\\192.168.0.55\aia\Handoff\P1-03\AEC-baseline-review-001` on the Windows project workstation and double-click `Review-AEC-D3.cmd`.
+2. Confirm the opening statement if it applies. The CLI retrieves the same 20 items and carries forward your D1, D2, D4, D5 and D6 ratings with their original label IDs.
+3. For each tool list, enter **1** if every tool is something a typical homeowner already owns or could buy at a general hardware store for under $50, and none is a professional, specialty or trade-only tool. Otherwise enter **0**. An optional note can identify the deciding tool. Skip an uncertain item with **s** or save your place and exit with **q**.
+4. When the remaining count reaches zero, tell Codex. Keep the judge results closed until the replacement human reference is frozen.
+
+## Open the original six-dimension review manually
 
 From Windows Terminal, enter `wsl -d Ubuntu`. In Ubuntu:
 

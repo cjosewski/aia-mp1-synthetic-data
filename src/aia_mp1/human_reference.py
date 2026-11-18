@@ -45,7 +45,9 @@ def freeze_reference(root: Path, assessment_id: str, reviewer: str, *, declare_b
         return reference
 
 
-def load_reference(directory: Path, assessment: dict, records: list[dict]) -> dict:
+def load_reference(
+    directory: Path, assessment: dict, records: list[dict], *, for_scoring=False
+) -> dict:
     reference = read_json(directory / "human-reference.json")
     load_labels(directory, assessment, records)
     text = read_text(directory / "human-labels.jsonl")
@@ -75,4 +77,10 @@ def load_reference(directory: Path, assessment: dict, records: list[dict]) -> di
         )
     ):
         raise ValueError("frozen human reference differs from its independent ledger prefix")
+    withdrawal = directory / "human-reference-withdrawal.json"
+    if for_scoring and (withdrawal.exists() or withdrawal.is_symlink()):
+        notice = read_json(withdrawal)
+        if notice["human_reference_sha256"] != reference["sha256"]:
+            raise ValueError("withdrawal does not match the frozen human reference")
+        raise ValueError(f"Human reference withdrawn from scoring: {notice['reason']}")
     return reference
