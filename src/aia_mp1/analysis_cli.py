@@ -8,6 +8,7 @@ from pathlib import Path
 from .acceptance import COURSE_POLICY, POLICIES
 from .analysis import load_analysis, output_directory, write_analysis
 from .analysis_export import export_local, render_charts
+from .schemas import DOMAIN
 
 
 def main(argv=None) -> int:
@@ -44,7 +45,9 @@ def main(argv=None) -> int:
             result = load_analysis(args.artifact_root, args.report_id)
             if args.command == "charts":
                 render_charts(
-                    result, output_directory(args.artifact_root, args.report_id) / "charts"
+                    result,
+                    output_directory(args.artifact_root, args.report_id)
+                    / ("visualizations" if DOMAIN == "home-diy" else "charts"),
                 )
             elif args.command == "export":
                 export_local(

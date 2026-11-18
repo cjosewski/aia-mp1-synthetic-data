@@ -2,20 +2,26 @@
 
 from __future__ import annotations
 
-from typing import Annotated, Any, Literal
+import os
+from typing import Annotated, Any, Literal, get_args
 
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_validator
 
-CATEGORIES: tuple[str, ...] = (
-    "gis_scripting",
-    "aec_automation",
-    "structural_analysis",
-    "cad_apis",
-    "simulation",
-)
-Category = Literal[
+DOMAIN = os.environ.get("AIA_MP1_DOMAIN", "engineering")
+if DOMAIN not in {"engineering", "home-diy"}:
+    raise ValueError("AIA_MP1_DOMAIN must be engineering or home-diy")
+EngineeringCategory = Literal[
     "gis_scripting", "aec_automation", "structural_analysis", "cad_apis", "simulation"
 ]
+RepairCategory = Literal[
+    "appliance_repair",
+    "plumbing_repair",
+    "electrical_repair",
+    "hvac_maintenance",
+    "general_home_repair",
+]
+Category = RepairCategory if DOMAIN == "home-diy" else EngineeringCategory
+CATEGORIES: tuple[str, ...] = get_args(Category)
 NonBlank = Annotated[str, StringConstraints(strict=True, strip_whitespace=True, min_length=1)]
 
 

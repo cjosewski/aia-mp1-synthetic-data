@@ -9,7 +9,7 @@ from .acceptance import COURSE_POLICY, OWNER_POLICY
 from .analysis import file_hash, load_analysis, output_directory
 from .assessment import save_new
 from .evaluation_schemas import DIMENSIONS
-from .schemas import CATEGORIES
+from .schemas import CATEGORIES, DOMAIN
 from .tracing import now
 
 PHASES = ("baseline", "corrected")
@@ -87,6 +87,7 @@ def chart_tables(report: dict) -> dict:
                     "after_deduplication": row.get("after_deduplication"),
                     "retained": row.get("retained"),
                     "target": 10,
+                    **({"benchmark_count": 1000} if DOMAIN == "home-diy" else {}),
                 }
             )
         row = snapshot["judge_quality"]["overall"] if snapshot else {}
@@ -266,6 +267,28 @@ def render_charts(report: dict, target: Path) -> dict:
         "04-category-distribution",
         "Schema-valid candidates before gate/quota and retained cohort counts",
     )
+    if DOMAIN == "home-diy":
+        fig, ax = plt.subplots(figsize=(10, 6))
+        rows = tables["categories"]
+        for index, phase in enumerate(PHASES):
+            phase_rows = [r for r in rows if r["cohort"] == phase]
+            values = [r["retained"] for r in phase_rows]
+            if all(v is not None for v in values):
+                ax.bar(np.arange(5) + (index - 1) * 0.24, values, 0.24, label=phase)
+        ax.bar(
+            np.arange(5) + 0.24,
+            [r["benchmark_count"] for r in rows[:5]],
+            0.24,
+            label="Published benchmark",
+        )
+        ax.set(
+            yscale="log",
+            ylabel="Items (log scale)",
+            xticks=np.arange(5),
+            xticklabels=[c.replace("_", "\n") for c in CATEGORIES],
+        )
+        ax.legend()
+        save(fig, "06-course-benchmark", "Retained repair items and benchmark counts")
     fig, ax = plt.subplots(figsize=(8, 5))
     for index, field in enumerate(("pass", "fail")):
         values = [

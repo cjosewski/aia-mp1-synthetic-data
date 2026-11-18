@@ -3,7 +3,7 @@
 import json
 from pathlib import Path
 
-from .schemas import CATEGORIES
+from .schemas import CATEGORIES, DOMAIN
 from .tracing import digest
 
 
@@ -15,6 +15,19 @@ def _text(value, name):
 
 def validate_pack(pack: dict) -> dict:
     """Validate a self-contained snapshot; permission is an attributed decision."""
+    if DOMAIN == "home-diy":
+        if set(pack) != {"pack_id", "topics"} or pack["pack_id"] != "original-diy-topics-v1":
+            raise ValueError("DIY generation requires the original DIY topic list")
+        topics = pack["topics"]
+        if set(topics) != set(CATEGORIES) or any(
+            not isinstance(group, list)
+            or len(group) != 10
+            or not all(isinstance(t, str) and t.strip() for t in group)
+            or len(set(group)) != 10
+            for group in topics.values()
+        ):
+            raise ValueError("expected ten distinct original topics in each DIY category")
+        return pack
     if pack.get("schema_version") != "1":
         raise ValueError("unsupported reference pack version")
     if set(pack) != {
@@ -112,6 +125,18 @@ def load_pack(path: Path) -> dict:
 
 
 def context_for(pack: dict, category: str, ordinal: int) -> dict:
+    if DOMAIN == "home-diy":
+        topic = pack["topics"][category][ordinal % 10]
+        return {
+            "pack_sha256": digest(pack),
+            "sources": [],
+            "task": {
+                "id": f"{category}-{ordinal % 10 + 1}",
+                "category": category,
+                "brief": topic,
+                "source_refs": [pack["pack_id"]],
+            },
+        }
     tasks = [t for t in pack["tasks"] if t["category"] == category]
     task = tasks[ordinal % len(tasks)]
     sources = {s["id"]: s for s in pack["sources"]}

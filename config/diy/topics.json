@@ -1,0 +1,10 @@
+{
+  "pack_id": "original-diy-topics-v1",
+  "topics": {
+    "appliance_repair": ["Loose refrigerator shelf", "Dirty dishwasher filter", "Dryer lint screen buildup", "Washer detergent drawer residue", "Refrigerator door gasket leak", "Microwave turntable slips", "Oven rack sticks", "Freezer drawer binds", "Vacuum brush roll tangles", "Dishwasher rack wheel comes off"],
+    "plumbing_repair": ["Faucet aerator sprays sideways", "Toilet chain slips", "Showerhead sprays unevenly", "Sink stopper sticks", "Toilet handle loosens", "Bathtub overflow trim rattles", "Pop-up drain rod disconnects", "Shower hose washer leaks", "Under-sink slip joint drips", "Toilet seat shifts"],
+    "electrical_repair": ["Table lamp bulb flickers", "Battery doorbell stops ringing", "Ceiling fan remote loses pairing", "Plug-in lamp timer loses schedule", "Night light stays off", "Switched outlet seems dead", "Power strip trips repeatedly", "Outdoor fixture cover admits water", "Plug-in undercabinet light falls loose", "Battery motion light triggers constantly"],
+    "hvac_maintenance": ["Return filter fits loosely", "Supply register rattles", "Thermostat battery indicator blinks", "Vent blocked by furniture", "Window AC washable filter clogs", "Return grille accumulates dust", "Thermostat schedule resets", "Portable AC exhaust hose slips", "Humidifier wick needs replacement", "Mini-split user filter collects dust"],
+    "general_home_repair": ["Interior door hinge squeaks", "Cabinet pull spins", "Window screen tears", "Drawer rubs on its runner", "Drywall has a small nail hole", "Weatherstripping peels away", "Closet door guide shifts", "Shelf bracket loosens", "Bathroom caulk separates", "Felt chair pad slips"]
+  }
+}

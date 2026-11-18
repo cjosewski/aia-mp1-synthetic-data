@@ -4,6 +4,11 @@ This repository owns the implementation, [SDD](docs/SDD-P1-03.md) and [operator 
 
 ## Current boundary
 
+November 18: Chad directed the submission to use the original course brief.
+Use `AIA_MP1_DOMAIN=home-diy`, `config/diy/`, and
+`docs/DIY-COURSE-RUNBOOK.md` for assessed course work. Earlier engineering
+cohorts, gates, review instructions and judge comparisons are historical.
+
 On November 10 Chad approved `docs/assessed-collection-plan.md` with "Approved. Go."
 The assessed source/collection/cohort and frozen blind-reference workflow is now
 implemented. `docs/ASSESSED-RUNBOOK.md` owns its operating instructions;

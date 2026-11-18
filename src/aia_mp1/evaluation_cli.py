@@ -9,6 +9,7 @@ from .evaluation_schemas import DIMENSIONS, Judgment
 from .judge import JudgeConfig, judge_run, judge_status
 from .labels import interactive_label, label_status, record_label
 from .model_client import InstructorClient
+from .schemas import DOMAIN
 
 
 def add_commands(commands):
@@ -19,7 +20,11 @@ def add_commands(commands):
     source.add_argument("--run-id")
     source.add_argument("--cohort-id")
     assessment.add_argument("--purpose", choices=("diagnostic", "baseline", "corrected"))
-    assessment.add_argument("--rubric", type=Path, default=Path("config/rubric.json"))
+    assessment.add_argument(
+        "--rubric",
+        type=Path,
+        default=Path("config/diy/rubric.json" if DOMAIN == "home-diy" else "config/rubric.json"),
+    )
     assessment.add_argument("--label-count", type=int)
     assessment.add_argument("--seed", default="mp1-v1")
     label = commands.add_parser(

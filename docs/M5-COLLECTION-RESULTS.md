@@ -1,5 +1,8 @@
 # M5 corrected collection — ready for human review
 
+**Historical engineering cohort.** Chad selected the original course criteria
+on November 18. The current review is the [new DIY baseline](DIY-COURSE-RUNBOOK.md).
+
 **November 17 update:** [80% in every dimension is restored](ACCEPTANCE-RESTORED-80.md).
 M4 is reopened. The collection and review packet below remain preserved, but
 corrected judging now awaits a judge meeting the original calibration criterion.

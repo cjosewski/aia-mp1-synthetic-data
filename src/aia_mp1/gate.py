@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 import unicodedata
 
-from .schemas import CATEGORIES, GeneratedItem, QAItem
+from .schemas import CATEGORIES, DOMAIN, GeneratedItem, QAItem
 
 _HAZARD = re.compile(
     r"\b(?:units?|crs|coordinates?|data loss|overwrite|instability|unstable|"
@@ -45,6 +45,8 @@ def _tip_text(text: str) -> str:
 
 
 def _heuristic_checks(item: QAItem) -> dict[str, dict]:
+    if DOMAIN == "home-diy":
+        return _repair_checks(item)
     safety = item.safety_info
     safety_pass = (
         len(safety) >= 40 and bool(_HAZARD.search(safety)) and bool(_PRECAUTION.search(safety))
@@ -74,6 +76,85 @@ def _heuristic_checks(item: QAItem) -> dict[str, dict]:
             "status": "passed" if tip_pass else "failed",
             "reason": "Each tip has at least 20 characters and is neither a generic phrase nor a repeated step; usefulness remains ungraded.",
         },
+    }
+
+
+def _repair_checks(item: QAItem) -> dict[str, dict]:
+    problem = set(_normalized(item.equipment_problem).split()) - {
+        "the",
+        "and",
+        "for",
+        "with",
+        "does",
+        "when",
+        "from",
+        "that",
+        "this",
+        "not",
+    }
+    safety = _normalized(item.safety_info)
+    tips = [_tip_text(t) for t in item.tips]
+    steps = {_tip_text(s) for s in item.steps}
+    text = _normalized(" ".join([item.question, item.answer, *item.steps, item.safety_info]))
+    specialist = re.search(r"\b(gas line|breaker panel|refrigerant circuit)\b", text)
+    checks = {
+        "D1": (
+            len(item.answer) >= 100 and len(steps) >= 3,
+            "Answer length and three distinct steps",
+        ),
+        "D2": (
+            len(safety) >= 80
+            and bool(
+                set(safety.split())
+                & {
+                    "avoid",
+                    "wear",
+                    "unplug",
+                    "disconnect",
+                    "close",
+                    "turn",
+                    "shut",
+                    "isolate",
+                    "switch",
+                    "keep",
+                    "verify",
+                    "ensure",
+                    "protect",
+                    "allow",
+                    "use",
+                    "stop",
+                }
+            ),
+            "Specific safety field length and a precaution verb",
+        ),
+        "D3": (
+            all(
+                not re.search(
+                    r"\b(trade only|professional grade|refrigerant recovery machine)\b",
+                    _normalized(tool),
+                )
+                for tool in item.tools_required
+            ),
+            "Screen for explicitly specialist tools",
+        ),
+        "D4": (
+            not specialist
+            or bool(re.search(r"\b(professional|plumber|electrician|technician)\b", text)),
+            "Specialist work mentions professional help",
+        ),
+        "D5": (
+            bool(problem & set(_normalized(item.question).split()))
+            and bool(problem & set(_normalized(item.answer).split())),
+            "Problem terms in question and answer",
+        ),
+        "D6": (
+            all(len(t) >= 20 and t not in steps and t not in _GENERIC_TIPS for t in tips),
+            "Tips have detail and differ from steps and generic advice",
+        ),
+    }
+    return {
+        d: {"kind": "heuristic", "status": "passed" if passed else "failed", "reason": reason}
+        for d, (passed, reason) in checks.items()
     }
 
 
@@ -146,6 +227,21 @@ def evaluate_gate(records: list[GeneratedItem], *, expected_count: int) -> dict:
         "quality_status": "pending",
         "course_acceptance": "not_evaluated",
         "expected_count": expected_count,
+        **(
+            {
+                "benchmark": {
+                    "dataset": "dipenbhuva/home-diy-repair-qa",
+                    "revision": "074f64327b4d19fd83052f614ca9d25f89cfe6ee",
+                    "counts": dict.fromkeys(CATEGORIES, 1000),
+                },
+                "drops_per_check": {
+                    d: sum(d in row["reasons"] for row in results)
+                    for d in ("D1", "D2", "D3", "D4", "D5", "D6")
+                },
+            }
+            if DOMAIN == "home-diy"
+            else {}
+        ),
         "minimum_assessed_size_met": len(accepted_ids) >= 50,
         "schema_pass_rate": None,
         "schema_pass_rate_note": "Read initial-attempt validity from the generation attempt ledger, not retained items.",

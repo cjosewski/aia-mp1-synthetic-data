@@ -2,13 +2,18 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.51, November 18, 2026 |
-| Status | V15 baseline remains 95/120 and fails D1/D6; matched source-free comparison completed 50/50 per arm, Astra 102/120 with every dimension >=80%, local Qwen 91/120 with D1/D6 failures; explanation and course-conformity findings keep M4 open |
-| Project | P1-03 / Mini Project 1, engineering code Q&A |
+| Revision | 0.52, November 18, 2026 |
+| Status | Fresh DIY baseline collected and frozen, 50 items across five repair categories. Twenty selected items await human review. Baseline quality, calibration and generator improvement remain unmeasured. |
+| Project | P1-03 / Mini Project 1, Home DIY Repair |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
 | Execution checklist | [aia-plan issue #4](https://github.com/cjosewski/aia-plan/issues/4) |
 | Purpose | Full-project software design and requirement-to-evidence traceability, requested by Chad November 9 |
+
+The [DIY runbook](DIY-COURSE-RUNBOOK.md) and [course rubric](../config/diy/rubric.json)
+govern the current submission. The domain selects the five repair categories
+through generation, collection, review, judging and analysis. Engineering
+records and design history below describe the earlier experiment.
 
 This SDD describes all six assignment stages, including work beyond the current
 implementation plan. On November 9 Chad stated, "The assignment has been accepted.

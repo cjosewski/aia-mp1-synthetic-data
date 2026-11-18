@@ -2,6 +2,21 @@
 
 Record one entry for each generator or judge prompt change. Link measured results to immutable run artifacts; an unmeasured hypothesis is not a successful experiment.
 
+## Home DIY submission — baseline, November 18, 2026
+
+- **Change.** Started a new baseline using the original repair categories and
+  rubric, the course benchmark and an original category-conditioned prompt.
+- **Hypothesis.** The generator and six pre-checks can supply ten eligible
+  items per category within the existing collection budget.
+- **Result.** Two batches produced 100 schema-valid first attempts in 100
+  requests. The first batch passed 48/50 through screening, with two D2
+  rejections. The second passed 50/50. The collection retained ten per
+  category. Evidence is in `home-diy/cohorts/diy-baseline-001` under P1-03.
+- **Decision.** Freeze the 50-item cohort and its 20-item blind review sample.
+- **Next step.** Collect authentic baseline ratings, freeze them and evaluate
+  the independent lower-temperature judge on all fifty items. Baseline
+  all-six failure and human/judge agreement are pending.
+
 | Date | Change | Hypothesis | Result | Decision | Next step |
 | --- | --- | --- | --- | --- | --- |
 | 2026-11-17 | Add pinned, licensed Revit 2025 reference contracts in a separate packet; no application/prompt change | Complete member contracts can resolve gaps left by partial samples | Eleven holds resolved: 358 checks, 336 prepared questions, 22 holds, one empty binding, 43 notes. Ten packets/prior structural reports and twelve HTML extractions replay; 1,217 prior seal entries verify. Initial extraction omitted dynamic placeholders; preserved and replaced by admitted R2. AsDouble exception claim remains held | Preserve frozen ratings, all check questions and 80% each; no model calls, accepting audits or Mac use; 388 starts unchanged | Resolve remaining shared contracts and empirical applicability before exact token/runtime preflight and bounded transport; see M4-REVIT-CONTRACTS.md |

@@ -1,0 +1,85 @@
+{
+  "schema_version": "1",
+  "version": "home-diy-v1",
+  "verified_at": "2026-11-18",
+  "source": "https://community.newline.co/ai-accelerator-cohort-2026/community?space=7764533d-9888-422e-a11c-83e00817859b",
+  "status": "original_course_criteria",
+  "label_values": [
+    0,
+    1
+  ],
+  "dimensions": [
+    {
+      "id": "D1",
+      "name": "Answer Completeness",
+      "pass_anchor": "Covers the tools, concrete actions, hazards and advice needed to complete the task end to end.",
+      "fail_anchor": "Omits an essential stage or leaves the reader unable to finish the task.",
+      "pass_rate_minimum": 0.85
+    },
+    {
+      "id": "D2",
+      "name": "Safety Specificity",
+      "pass_anchor": "Identifies the task-specific hazard and a concrete precaution.",
+      "fail_anchor": "Uses generic caution or omits the relevant hazard or precaution.",
+      "pass_rate_minimum": 0.9
+    },
+    {
+      "pass_rate_minimum": 0.95,
+      "fail_anchor": "Lists a trade-only, professional or specialty tool, or a tool beyond the ordinary homeowner affordability rule.",
+      "pass_anchor": "Every listed tool is ordinary household equipment or available at a general hardware store for under $50.",
+      "id": "D3",
+      "name": "Tool Realism"
+    },
+    {
+      "pass_rate_minimum": 0.95,
+      "fail_anchor": "Gives DIY instructions for work that requires professional help or omits the necessary referral.",
+      "pass_anchor": "The work fits realistic homeowner capability and clearly directs the homeowner to professional help when needed.",
+      "id": "D4",
+      "name": "Scope Appropriateness"
+    },
+    {
+      "id": "D5",
+      "name": "Context Clarity",
+      "pass_anchor": "The question and answer contain sufficient context and directly address equipment_problem.",
+      "fail_anchor": "Leaves the problem ambiguous or answers a different problem.",
+      "pass_rate_minimum": 0.9
+    },
+    {
+      "id": "D6",
+      "name": "Tip Usefulness",
+      "pass_anchor": "Adds nonobvious, task-specific advice beyond the steps.",
+      "fail_anchor": "Repeats a step or offers generic encouragement without additional task-specific value.",
+      "pass_rate_minimum": 0.85
+    }
+  ],
+  "overall_pass": {
+    "rule": "all_six_dimensions_pass",
+    "pass_rate_minimum": 0.8
+  },
+  "human_judge_agreement": {
+    "per_dimension_minimum": 0.8,
+    "missing_labels": "unresolved_not_pass"
+  },
+  "dataset": {
+    "minimum_items_per_run": 50,
+    "minimum_human_labels_per_run": 20,
+    "human_labeled_runs": [
+      "baseline",
+      "corrected"
+    ],
+    "category_count": 5,
+    "target_fraction_per_category": 0.2
+  },
+  "structural_validity_minimum": 0.95,
+  "baseline_overall_failure_minimum": 0.15,
+  "relative_failure_reduction": {
+    "formula": "(baseline_failure - corrected_failure) / baseline_failure",
+    "conservative_target": {
+      "operator": ">",
+      "value": 0.8
+    },
+    "zero_baseline": "undefined",
+    "equality_boundary": "unresolved_portal_prose_and_numeric_criterion_disagree"
+  },
+  "implementation_note": "Reference rubric only. Structural gate heuristics do not provide human labels, LLM judgments or course acceptance."
+}

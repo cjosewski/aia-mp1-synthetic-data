@@ -49,8 +49,10 @@ def run_command(args):
             "status": "ready",
             "pack_id": pack["pack_id"],
             "sha256": digest(pack),
-            "tasks": len(pack["tasks"]),
-            "sources": len(pack["sources"]),
+            "tasks": sum(map(len, pack["topics"].values()))
+            if "topics" in pack
+            else len(pack["tasks"]),
+            "sources": len(pack.get("sources", [])),
         }, 0
     if args.command == "collect":
         config = load_config(args.config)

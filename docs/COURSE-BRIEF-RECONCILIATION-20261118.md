@@ -1,5 +1,10 @@
 # Course brief reconciliation — November 18, 2026
 
+**Decision.** Chad selected the original course criteria. Use the DIY rubric,
+benchmark and lower-temperature Instructor judge for the submission. The table
+below records the engineering discrepancies that prompted the decision.
+[Current runbook](DIY-COURSE-RUNBOOK.md)
+
 Chad supplied the Mini Project 1 course text in this session. This record
 compares its explicit constraints with the engineering-code adaptation already
 underway. It does not revise frozen human ratings, the original 80% agreement

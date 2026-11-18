@@ -4,6 +4,13 @@ This is the technical requirements record for P1-03, Mini Project 1. The [live e
 
 ## Source verification and early start
 
+**November 18 submission decision.** Chad directed the project to use the
+criteria in the course brief. Use Home DIY Repair, the original five categories,
+original D1–D6 anchors, the published benchmark distribution and an independent
+Instructor/Pydantic judge at a lower temperature than the generator. The
+engineering adaptation below is historical. Start the measured sequence with
+a new DIY baseline and authentic reviews. [Operating instructions](DIY-COURSE-RUNBOOK.md)
+
 **November 17 restoration:** Chad restored **at least 80% agreement in every
 individual dimension D1–D6**. The [decision record](ACCEPTANCE-RESTORED-80.md)
 supersedes the November 16 70%-overall operational amendment. Frozen labels,

@@ -1,0 +1,19 @@
+{
+  "domain": "home-diy",
+  "base_url": "http://127.0.0.1:18086/v1",
+  "model": "mp1-diy-qwen30b",
+  "model_identity": "unsloth/Qwen3-30B-A3B-GGUF@d5b1d57bd0b504ac62ae6c725904e96ef228dc74/Qwen3-30B-A3B-Q4_K_M.gguf",
+  "model_sha256": "9f1a24700a339b09c06009b729b5c809e0b64c213b8af5b711b3dbdfd0c5ba48",
+  "purpose": "baseline",
+  "reference_pack_path": "config/diy/topics.json",
+  "api_key_env": "MP1_DIY_LOCAL_TOKEN",
+  "api_key_file": null,
+  "mode": "json",
+  "temperature": 0.6,
+  "timeout_seconds": 120.0,
+  "max_tokens": 4096,
+  "max_attempts": 2,
+  "artifact_root": "../artifacts/evidence/P1-03/home-diy",
+  "prompt_path": "prompts/diy-generator-v1.md",
+  "prompt_variant": "home-diy-baseline-v1"
+}

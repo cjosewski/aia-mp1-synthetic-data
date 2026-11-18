@@ -17,6 +17,8 @@ from pydantic import (
     model_validator,
 )
 
+from .schemas import DOMAIN
+
 Nonblank = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 
@@ -24,6 +26,9 @@ class RunConfig(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True, allow_inf_nan=False)
 
     base_url: Nonblank
+    domain: Literal["engineering", "home-diy"] = Field(
+        default="engineering", exclude_if=lambda v: v == "engineering"
+    )
     model: Nonblank
     purpose: Literal["smoke", "baseline", "corrected"] = "smoke"
     reference_pack_path: Nonblank | None = None
@@ -67,6 +72,8 @@ class RunConfig(BaseModel):
 
     @model_validator(mode="after")
     def credential_source(self):
+        if self.domain != DOMAIN:
+            raise ValueError("config domain must match AIA_MP1_DOMAIN")
         if bool(self.api_key_env) == bool(self.api_key_file):
             raise ValueError("set exactly one of api_key_env and api_key_file")
         if len(set(self.source_refs)) != len(self.source_refs):

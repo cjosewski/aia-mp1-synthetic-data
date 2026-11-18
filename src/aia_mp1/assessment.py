@@ -7,7 +7,7 @@ from pathlib import Path
 from .evaluation_schemas import DIMENSIONS
 from .gate import evaluate_gate
 from .generate import generation_metrics, implementation_identity, validate_evidence
-from .schemas import CATEGORIES, GeneratedItem
+from .schemas import CATEGORIES, DOMAIN, GeneratedItem
 from .tracing import digest, now, read_records, run_directory
 
 SOURCE_FILES = (
@@ -95,6 +95,10 @@ def source_snapshot(root: Path, run_id: str) -> tuple[dict, list[dict], dict, di
 
 
 def validate_rubric(rubric: dict) -> None:
+    if DOMAIN == "home-diy" and rubric != read_json(
+        Path(__file__).resolve().parents[2] / "config/diy/rubric.json"
+    ):
+        raise ValueError("DIY assessment requires the course DIY rubric")
     dimensions = rubric["dimensions"]
     if [row["id"] for row in dimensions] != list(DIMENSIONS):
         raise ValueError("rubric must contain ordered D1-D6 exactly once")
