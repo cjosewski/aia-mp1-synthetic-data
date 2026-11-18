@@ -9,6 +9,7 @@ from .recovery_scoring import (
     UncertaintyScoreAudit,
     fingerprint,
 )
+from .recovery_source_contract import require_source_contract
 from .recovery_source_refs import SourceObservations
 from .recovery_source_scoring import (
     SourceScores,
@@ -20,6 +21,7 @@ from .tracing import digest
 
 def _require_source_protocol(manifest):
     experiment = manifest["experiment"]
+    require_source_contract(experiment)
     if (
         experiment.get("source_protocol") != "recovery-source-refs-v1"
         or experiment.get("uncertainty_policy") != "audited-materiality-v1"

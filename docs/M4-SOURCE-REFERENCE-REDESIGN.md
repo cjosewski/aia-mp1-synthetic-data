@@ -44,13 +44,23 @@ separate accepted technical audits before releasing the next stage. Six
 synthetic lineage tests pass. The adapter uses the existing bounded schedule;
 it does not dispatch a model request.
 
+The versioned request, preflight, transport and runner modules now connect the
+frozen ten-case packet to those adapters. A new request replays packet hashes,
+source permissions, prompts and settings. Before any dispatch, the runner checks
+the owned Windows tunnel, Mac process and model shard hashes, then measures the
+exact serialized request against server context. It saves a create-only preflight
+receipt and durably records the single start before network I/O. Missing or
+unknown outcomes are not retried. The new source-code contract hash is frozen
+separately in the experiment; the three earlier journals still replay against
+their original implementation hash. The runner is implemented but **has made no
+live source-ID model request**.
+
 The prototype leaves the earlier exact-offset implementation and its
-hash-pinned journals unchanged. It has **no live dispatch, source-ID contract
-hash gate, preflight runner or assessed projection yet**. The next integration
-must freeze the new code identity in a fresh immutable journal and bind
-single-start transport, source/packet fingerprints, Mac/tunnel ownership and
-exact-wire token checks. It must not reinterpret earlier trial outputs as valid
-ID responses.
+hash-pinned journals unchanged. The remaining work is to freeze a fresh
+source-ID development journal, make a bounded live measurement with separate
+technical audits, and, only after the development gate advances, run a distinct
+assessed extension. No source-ID result is currently eligible for assessed
+calibration. Earlier trial outputs cannot be reinterpreted as valid ID responses.
 
 All ten corrected-packet cases replayed offline with 358 checks, including two
 runtime-evidence cases and no model call. The first case's frozen request and
@@ -66,8 +76,8 @@ and wire SHA-256
 it caused **zero** model starts. Candidate source-ID facts and score prompts
 are saved beside it, with hashes in `source-id-prompt-identity.json`. No score
 wire has been prepared because no new facts audit has been accepted.
-The locked WSL suite passed **781 tests**, with one existing optional
-`reportlab` import skip. All **32 focused source-ID, wire and audit tests** passed.
+The locked WSL suite passed **802 tests**, with one existing optional
+`reportlab` import skip. The source-ID CLI help command passed in WSL.
 
 ## Measurement gate
 

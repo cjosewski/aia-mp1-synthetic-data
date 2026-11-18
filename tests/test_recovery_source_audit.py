@@ -16,6 +16,7 @@ from aia_mp1.recovery_source_audit import (
     accept_source_score_audit,
     record_source_completion,
 )
+from aia_mp1.recovery_source_contract import source_contract_hash
 from aia_mp1.recovery_source_scoring import SourceScores
 from aia_mp1.tracing import digest
 
@@ -29,6 +30,7 @@ def started_facts(tmp_path, evidence, *, raw=None, stale=False):
         cases,
         {
             "source_protocol": "recovery-source-refs-v1",
+            "source_contract_sha256": source_contract_hash(),
             "uncertainty_policy": "audited-materiality-v1",
             "prepared_insufficient": [],
             "case_bindings": {cases[0]: binding},
