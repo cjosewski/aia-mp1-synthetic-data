@@ -246,6 +246,24 @@ Oversized inputs are reported as not fitting, with no model start. This is a
 read-only evidence producer, not an execution permit: remote process ownership,
 weight identity, persistence and dispatch-boundary integration remain required.
 The same construction handles the actual accepted fact memo when scoring is next.
+`recovery_process.preflight_owned` surrounds that HTTP preflight with read-only
+native Mac process observations through the trusted SSH reader. It checks the
+recorded parent relationship against the live process, confirms that the same
+PID owns the frozen port, and requires the exact executable/model/loopback host,
+context, slot and reasoning arguments. PID and process start time must remain
+unchanged across the observations. PID files alone are not accepted as ownership.
+The adapter starts, signals and reconfigures no service; `kill -0` only checks
+that the recorded launcher exists. Remote paths with ambiguous whitespace in
+the observed command are rejected rather than guessed.
+
+This does not yet verify model weights or the SSH tunnel's endpoint mapping,
+nor does it authorize inference. Those checks, persisted receipts and the final
+dispatch boundary remain open. The proposed uncertainty policy is not enabled.
+Process-check verification: **722 tests passed in 148.93 seconds** in locked
+WSL Ubuntu; 26 focused process/preflight/journal tests passed. Synthetic captures
+exercise wrong parent/listener, duplicate listeners, changed port/context/budget,
+invalid paths and a process restart during preflight. Ruff lint/format and diff
+checks pass. No remote machine was contacted by this verification.
 Preflight verification: **712 tests passed in 146.46 seconds** in locked WSL;
 the focused preflight/request/journal set passed 19 tests. Synthetic checks cover
 overflow, changed templates/build/context, drift during tokenization and changed

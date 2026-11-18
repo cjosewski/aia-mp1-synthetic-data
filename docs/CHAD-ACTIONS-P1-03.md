@@ -33,6 +33,7 @@ at the end apply only if an unresolved decision or failed evaluation requires th
 | 1f. Review ten new V15 confirmation answers | **Complete and frozen November 17** | All sixty ratings and comments retained; no repeat needed |
 | 1g. Final V15 assessed evaluation | **Complete; calibration failed** | No repeat review; preserve 79.2%, D1/D6 failures and all errors |
 | 1h. ArcPy runtime probe | **Scoped exception requested** | Allow ArcGIS Pro's bundled Windows Python for the prepared synthetic-data probe described below |
+| 1i. Recovery uncertainty policy | **Decision requested; not enabled** | Approve or decline the proposed evidence-to-rating rules linked below; the 80%-per-dimension threshold stays unchanged |
 | 2. Review twenty corrected-dataset answers | Packet preserved; wait for calibrated judge | Twenty authentic reviews in `M5-corrected-review-001/MY-ANSWERS.md` |
 | 3. Review and record the final demonstration | After final results and charts are ready | A reviewed 90–180 second demonstration video |
 | 4. Complete the coaching/submission step | When the evidence package and demonstration are ready | Instructor/coach decision, date, reviewer name and any requested changes |
@@ -40,6 +41,21 @@ at the end apply only if an unresolved decision or failed evaluation requires th
 The fresh ten-item review adds work to the earlier estimate. Reference checking,
 the twenty-item corrected review and the final demonstration still determine
 your remaining involvement; no completion date is promised by the development result.
+
+## Action 1i — Recovery uncertainty policy
+
+Read the [concrete proposal](M4-UNCERTAINTY-DECISION.md). Five non-GIS claims
+remain unresolved independently of the pending ArcPy probe. The current recovery
+gate requires every factual claim to be resolved before any dimension can be
+scored. The proposal preserves unknowns and requires an explicit materiality
+audit before an otherwise justified rubric decision can proceed. Material
+uncertainty still prevents a binary result; incomplete coverage cannot qualify.
+
+Approval is requested because this changes the recovery's evidence-to-rating
+rules. It is not a reduction of the 80%-per-dimension criterion and does not
+authorize another assessed allocation. Reply “Approve the proposed recovery
+uncertainty policy” to approve, or state that the strict protocol should remain.
+No policy change is enabled while this decision is pending.
 
 ## Action 1h — Scoped ArcPy execution exception
 

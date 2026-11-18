@@ -11,13 +11,15 @@ frozen reviews and measured agreement are unchanged. The
 serialization, bounded durable scheduling, saved-response validation, accepting
 fact/score audits, durable rejection stops and transport-failure recording that
 preserves unknown outcomes, plus an internal single-request transport adapter.
-**712 locked WSL tests pass**. Frozen request construction now connects to the
+**722 locked WSL tests pass**. Frozen request construction now connects to the
 packet gate and accepted fact reviews. The packet-readiness gate replays all ten cases
 and reports the actual 16 holds; top-level orchestration remains.
 Returned completions with missing or different model names are retained and halt
 the schedule before audit; this does not replace loaded-model verification.
 Read-only preflight compares frozen server properties before and after exact-wire
 tokenization and reports whether the request plus output allowance fits.
+The native-process wrapper checks live parent/listener ownership and frozen
+arguments on both sides of preflight; weight and tunnel checks remain separate.
 
 The [Mac capacity check](docs/M4-TOKEN-SIZING.md) fits all ten prior draft verifier
 requests in 65,536 tokens, including schema/template and an 8,192-token output
