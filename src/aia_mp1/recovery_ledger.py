@@ -23,6 +23,7 @@ def contract_hash():
                 "recovery_requests.py",
                 "recovery_preflight.py",
                 "recovery_process.py",
+                "recovery_tunnel.py",
                 "recovery_wire.py",
                 "model_client.py",
                 "factcheck_transport.py",

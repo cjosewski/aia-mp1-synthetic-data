@@ -267,6 +267,17 @@ The SSH tunnel's endpoint mapping, persisted receipts and the final dispatch
 boundary remain open. These checks do not authorize inference. The proposed
 uncertainty policy is not enabled. Hashing uses read-only shell commands through
 the trusted SSH reader, with a 600-second limit per file and no automatic retry.
+
+`recovery_tunnel` adds a read-only contract for a trusted Windows process reader.
+It requires the local HTTP endpoint to match the frozen local port, one exact
+`-L` forward to the frozen Mac port, the expected SSH destination/host alias,
+and the same Windows PID and start time on both sides of Mac preflight. Synthetic
+tests cover foreign listeners, port/destination drift, extra forwards and a
+tunnel restart. The OS reader and launcher integration are not implemented;
+these pure checks alone cannot establish ownership of a real tunnel.
+Tunnel-contract verification: **741 tests passed in 147.48 seconds** in locked
+WSL Ubuntu; 26 focused tunnel/process/journal tests passed. Ruff lint and format
+checks pass. No Mac or Windows tunnel was contacted during these tests.
 File-check verification: **732 tests passed in 136.95 seconds** in locked WSL.
 After adding two post-preflight metadata assertions, all **38 focused runtime,
 process, file and journal tests passed in 5.60 seconds**. Lint, formatting and
