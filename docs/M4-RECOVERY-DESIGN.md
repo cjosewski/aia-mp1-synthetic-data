@@ -232,9 +232,22 @@ input hash for the later acceptance audit.
 This is an **internal transport adapter**, not an operator command or an experiment
 authorization. The top-level runner must still construct frozen prompts/inputs,
 clear source holds, verify actual model/runtime identity, run fresh token-fit
-checks and validate response model identity. A transport policy or schema-valid
+checks. A transport policy or schema-valid
 response alone does not satisfy these gates. No real journal is allocated and
 no live evaluation has used the adapter.
+
+The transport now compares each returned completion envelope's model name with
+the frozen request. A missing, blank or different name retains the redacted raw
+response in a `response_identity_failure` journal event and halts all remaining
+slots. It does not offer the response for a technical audit, grant a retry or
+classify the received response as an unknown transport outcome. This check
+applies to either stage. Matching names still do not prove loaded-weight identity;
+fresh runtime and file-identity checks remain necessary. No aliases are inferred.
+Identity-stop verification: **705 tests passed in 138.81 seconds** in locked
+WSL Ubuntu, including retained wrong/missing/blank model responses and refusal
+of subsequent dispatch. The focused transport/schedule/journal set passed all
+27 tests. Ruff lint/format and diff checks pass. All transport was synthetic;
+no model starts or quality measurements were added.
 Verification: **690 tests passed in 128.67 seconds** in locked WSL. After adding
 the reused transport helper to the journal's implementation fingerprint, all
 18 transport/journal tests passed again in 5.38 seconds. Ruff lint/format and

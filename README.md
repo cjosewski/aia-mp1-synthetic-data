@@ -11,9 +11,11 @@ frozen reviews and measured agreement are unchanged. The
 serialization, bounded durable scheduling, saved-response validation, accepting
 fact/score audits, durable rejection stops and transport-failure recording that
 preserves unknown outcomes, plus an internal single-request transport adapter.
-**702 locked WSL tests pass**. Frozen request construction now connects to the
+**705 locked WSL tests pass**. Frozen request construction now connects to the
 packet gate and accepted fact reviews. The packet-readiness gate replays all ten cases
 and reports the actual 16 holds; top-level orchestration remains.
+Returned completions with missing or different model names are retained and halt
+the schedule before audit; this does not replace loaded-model verification.
 
 The [Mac capacity check](docs/M4-TOKEN-SIZING.md) fits all ten prior draft verifier
 requests in 65,536 tokens, including schema/template and an 8,192-token output

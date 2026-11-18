@@ -66,6 +66,21 @@ def replay(case_ids: list[str], events: list[dict]) -> dict:
                     states[item]["score"] = "skipped"
                 failures += 1
             pending = None
+        elif kind == "response_identity_failure":
+            if (
+                pending is None
+                or halt is not None
+                or set(event) != {"kind", "start_sha256", "completion_sha256"}
+                or event["start_sha256"] != digest(pending)
+                or not _sha(event["completion_sha256"])
+            ):
+                raise ValueError("identity failure must match the sole pending start")
+            item, stage = pending["item_id"], pending["stage"]
+            states[item][stage] = "failed"
+            if stage == "facts":
+                states[item]["score"] = "skipped"
+            pending = None
+            halt = "response_model_identity_failed"
         elif kind == "transport_failure":
             if (
                 pending is None

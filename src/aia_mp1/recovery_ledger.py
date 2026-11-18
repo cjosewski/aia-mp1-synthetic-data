@@ -77,6 +77,7 @@ class RecoveryLedger:
             "finish": "completion_sha256",
             "audit": "audit_sha256",
             "transport_failure": "failure_sha256",
+            "response_identity_failure": "completion_sha256",
         }.get(record.get("kind"))
         if field is None or record.get(field) != digest(payload):
             raise ValueError("event does not match its retained payload")

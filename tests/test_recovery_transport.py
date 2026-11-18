@@ -43,6 +43,7 @@ def test_one_started_request_retains_outcome_without_retry(tmp_path, request_dat
     ledger, args = setup(tmp_path, request_data)
     calls = []
     raw = envelope({"plan_sha256": "a" * 64, "observations": []})
+    raw["model"] = request_data["model"]
 
     def send(request):
         state = ledger.read()[2]
@@ -138,7 +139,9 @@ def test_score_stage_uses_score_schema_and_retains_input_binding(tmp_path, reque
         assert ledger.read()[2]["starts"] == 2
         assert "Scores" in json.loads(request.content)["messages"][0]["content"]
         # Valid observation schema must not pass as a score response.
-        return httpx.Response(200, json=envelope({"plan_sha256": "a" * 64, "observations": []}))
+        raw = envelope({"plan_sha256": "a" * 64, "observations": []})
+        raw["model"] = request_data["model"]
+        return httpx.Response(200, json=raw)
 
     result = dispatch_next(*args, transport=httpx.MockTransport(send))
     assert result["state"]["cases"]["synthetic-0"]["score"] == "failed"
@@ -146,3 +149,32 @@ def test_score_stage_uses_score_schema_and_retains_input_binding(tmp_path, reque
         json.loads(line) for line in (ledger.directory / "events.jsonl").read_text().splitlines()
     ]
     assert rows[-2]["payload"]["scoring_input_sha256"] == "d" * 64
+
+
+@pytest.mark.parametrize("model", ["other-model", None, ""])
+def test_wrong_or_missing_response_model_is_retained_and_halts(tmp_path, request_data, model):
+    ledger, args = setup(tmp_path, request_data)
+    raw = envelope({"plan_sha256": "a" * 64, "observations": []})
+    if model is None:
+        del raw["model"]
+    else:
+        raw["model"] = model
+    calls = []
+
+    def send(request):
+        calls.append(request)
+        return httpx.Response(200, json=raw)
+
+    result = dispatch_next(*args, transport=httpx.MockTransport(send))
+    state = result["state"]
+    assert state["halt"] == "response_model_identity_failed"
+    assert state["next_request"] is None and state["awaiting_audit"] is None
+    assert not state["unknown_outcome"] and state["starts"] == 1
+    assert not result["calibration_eligible"]
+    rows = [
+        json.loads(line) for line in (ledger.directory / "events.jsonl").read_text().splitlines()
+    ]
+    assert rows[-1]["payload"] == raw
+    with pytest.raises(ValueError):
+        dispatch_next(*args, transport=httpx.MockTransport(send))
+    assert len(calls) == 1

@@ -105,5 +105,22 @@ def dispatch_next(
     if result.raw_response is None:
         # Client-boundary bugs and process interruptions do not release an attempt.
         raise ValueError("response missing after dispatch; pending outcome requires inspection")
+    raw = result.raw_response
+    if isinstance(raw, dict) and "choices" in raw and raw.get("model") != request["model"]:
+        # A returned completion is known, but cannot belong to the frozen model.
+        # Preserve it exactly, halt all later slots, and never offer it for audit.
+        state = ledger.append(
+            {
+                "kind": "response_identity_failure",
+                "start_sha256": digest(start),
+                "completion_sha256": digest(raw),
+            },
+            raw,
+        )
+        return {
+            "state": state,
+            "outcome": "response_identity_failure",
+            "calibration_eligible": False,
+        }
     finished = record_completion(ledger, digest(start), result.raw_response)
     return {**finished, "outcome": "response_retained", "calibration_eligible": False}
