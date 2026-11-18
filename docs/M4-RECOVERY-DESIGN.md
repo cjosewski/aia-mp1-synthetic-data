@@ -273,8 +273,19 @@ It requires the local HTTP endpoint to match the frozen local port, one exact
 `-L` forward to the frozen Mac port, the expected SSH destination/host alias,
 and the same Windows PID and start time on both sides of Mac preflight. Synthetic
 tests cover foreign listeners, port/destination drift, extra forwards and a
-tunnel restart. The OS reader and launcher integration are not implemented;
-these pure checks alone cannot establish ownership of a real tunnel.
+tunnel restart. `read_windows_tunnel` now invokes a read-only PowerShell script
+from WSL Python. It queries the frozen PID's executable, command line and
+creation time, parses argv with `CommandLineToArgvW`, and requires exactly one
+IPv4 loopback listener on the frozen local port with that PID. A missing
+listener stops the check. The script never starts or stops SSH. The PID must
+be frozen after launch. On this workstation the script was exercised against
+an absent port and stopped as expected; no live tunnel has produced a successful
+end-to-end ownership receipt. Launcher integration and persisted preflight
+receipts remain open.
+Windows-reader verification: **742 tests passed in 143.74 seconds** in locked
+WSL Ubuntu; 17 focused tunnel/journal tests passed. The script's absent-port
+path was observed on Windows. A successful live tunnel observation has not
+occurred. Ruff lint/format and diff checks pass; no inference ran.
 Tunnel-contract verification: **741 tests passed in 147.48 seconds** in locked
 WSL Ubuntu; 26 focused tunnel/process/journal tests passed. Ruff lint and format
 checks pass. No Mac or Windows tunnel was contacted during these tests.

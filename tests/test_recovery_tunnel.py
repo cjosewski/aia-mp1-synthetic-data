@@ -4,7 +4,7 @@ from copy import deepcopy
 
 import pytest
 
-from aia_mp1.recovery_tunnel import observe_tunnel, preflight_with_tunnel
+from aia_mp1.recovery_tunnel import observe_tunnel, preflight_with_tunnel, read_windows_tunnel
 
 
 @pytest.fixture
@@ -14,6 +14,7 @@ def experiment():
         "owned_process": {"port": 8082},
         "owned_tunnel": {
             "ssh_executable": "C:/Windows/ssh.exe",
+            "pid": 123,
             "ssh_host_alias": "mac.local",
             "ssh_destination": "user@mac",
             "local_port": 18082,
@@ -82,6 +83,25 @@ def test_tunnel_restart_during_preflight_stops(monkeypatch, experiment, observat
         return {"journal_head_sha256": "head", "execution_enabled": False}
 
     monkeypatch.setattr("aia_mp1.recovery_tunnel.preflight_owned", mac)
-    with pytest.raises(ValueError, match="changed across"):
+    with pytest.raises(ValueError, match="SSH tunnel owner"):
         preflight_with_tunnel(Journal(), None, "key", None, read)
     assert calls == ["tunnel", "mac", "tunnel"]
+
+
+def test_windows_reader_uses_bounded_native_queries(monkeypatch, experiment, observation):
+    import subprocess
+
+    calls = []
+    monkeypatch.setattr("aia_mp1.recovery_tunnel.platform.system", lambda: "Linux")
+    monkeypatch.setattr("aia_mp1.recovery_tunnel.platform.release", lambda: "WSL2-microsoft")
+
+    def run(args, **kwargs):
+        calls.append((args, kwargs))
+        if args[0] == "wslpath":
+            return subprocess.CompletedProcess(args, 0, "C:\\synthetic\\reader.ps1\n", "")
+        return subprocess.CompletedProcess(args, 0, __import__("json").dumps(observation), "")
+
+    monkeypatch.setattr("aia_mp1.recovery_tunnel.subprocess.run", run)
+    assert read_windows_tunnel(experiment["owned_tunnel"]) == observation
+    assert calls[1][0][-4:] == ["-ProcessId", "123", "-LocalPort", "18082"]
+    assert all(call[1]["check"] and call[1]["timeout"] <= 20 for call in calls)

@@ -1,8 +1,46 @@
 """Read-only ownership contract for the Windows SSH forwarding process."""
 
+import json
+import platform
+import subprocess
+from pathlib import Path
 from urllib.parse import urlsplit
 
 from .recovery_process import preflight_owned
+
+
+def read_windows_tunnel(tunnel):
+    """Observe the frozen SSH PID and listener using Windows, from WSL Python."""
+    if platform.system() != "Linux" or "microsoft" not in platform.release().lower():
+        raise ValueError("Windows tunnel reader requires WSL2")
+    script = Path(__file__).resolve().parents[2] / "tools/recovery_windows_tunnel.ps1"
+    if not script.is_file():
+        raise ValueError("Windows tunnel observation script is missing")
+    windows_script = subprocess.run(
+        ["wslpath", "-w", str(script)],
+        capture_output=True,
+        text=True,
+        timeout=10,
+        check=True,
+    ).stdout.strip()
+    result = subprocess.run(
+        [
+            "powershell.exe",
+            "-NoProfile",
+            "-NonInteractive",
+            "-File",
+            windows_script,
+            "-ProcessId",
+            str(tunnel["pid"]),
+            "-LocalPort",
+            str(tunnel["local_port"]),
+        ],
+        capture_output=True,
+        text=True,
+        timeout=20,
+        check=True,
+    )
+    return json.loads(result.stdout)
 
 
 def observe_tunnel(experiment, read_windows):
@@ -11,6 +49,7 @@ def observe_tunnel(experiment, read_windows):
     tunnel = experiment.get("owned_tunnel")
     if not isinstance(tunnel, dict) or set(tunnel) != {
         "ssh_executable",
+        "pid",
         "ssh_host_alias",
         "ssh_destination",
         "local_port",
@@ -19,7 +58,9 @@ def observe_tunnel(experiment, read_windows):
         raise ValueError("frozen tunnel identity is required")
     endpoint = urlsplit(policy["endpoint"])
     if (
-        endpoint.scheme != "http"
+        type(tunnel["pid"]) is not int
+        or tunnel["pid"] <= 1
+        or endpoint.scheme != "http"
         or endpoint.hostname != "127.0.0.1"
         or endpoint.port != tunnel["local_port"]
         or endpoint.path != "/v1"
@@ -52,6 +93,7 @@ def observe_tunnel(experiment, read_windows):
     if (
         type(observation["pid"]) is not int
         or observation["pid"] <= 1
+        or observation["pid"] != tunnel["pid"]
         or observation["listener_pid"] != observation["pid"]
         or observation["executable"] != tunnel["ssh_executable"]
         or not isinstance(argv, list)
