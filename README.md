@@ -12,9 +12,12 @@ produced no assessed rating. V15 remains 95/120, with D1 and D6 below the
 required 80% each. The current matched comparison uses a dedicated Mac server
 and tunnel, with unrelated Herd services preserved.
 Chad approved a [GPT-6.2 Astra frontier judge comparison](docs/M4-FRONTIER-JUDGE-COMPARISON.md)
-with a $25 cap. Its [hosted arm](docs/M4-FRONTIER-PAIRED-RESULT.md) returned
-50/50 valid judgments and reached at least 80% agreement in each dimension for
-an estimated $1.99. The matched local arm is in progress. The newly supplied
+with a $25 cap. The [matched result](docs/M4-FRONTIER-PAIRED-RESULT.md) has
+50/50 valid judgments in each arm: Astra agrees with the frozen human ratings
+on 102/120 criteria and reaches at least 80% in every dimension, while local
+Qwen agrees on 91/120 and misses D1/D6. Astra's token-cost estimate is $1.99.
+Both arms' explanations were audited; the dedicated Mac server and tunnel are
+stopped. The newly supplied
 [course customization guidance](docs/COURSE-BRIEF-RECONCILIATION-20261118.md)
 keeps D3/D4 adaptation and hosted judge compliance unresolved; M4 is open.
 

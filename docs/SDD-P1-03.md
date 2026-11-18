@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.50, November 18, 2026 |
-| Status | V15 baseline remains 95/120 and fails D1/D6; source-free GPT-6.2 Astra completed 50/50 and reached >=80% agreement in each dimension at estimated $1.99; matched local control is running; explanation and course-conformity findings keep M4 open |
+| Revision | 0.51, November 18, 2026 |
+| Status | V15 baseline remains 95/120 and fails D1/D6; matched source-free comparison completed 50/50 per arm, Astra 102/120 with every dimension >=80%, local Qwen 91/120 with D1/D6 failures; explanation and course-conformity findings keep M4 open |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
@@ -971,3 +971,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.48 | 2026-11-18 | Prepare an alternate local-versus-frontier judge comparison proposal after Chad's suggestion. Detect that all fifty source contexts are local-only; quarantine an untransmitted draft that retained a private rubric URL, then create a source-free, label-free fifty-item paired input bundle. No hosted call, new rating or local-only scope amendment yet. |
 | 0.49 | 2026-11-18 | Record Chad's explicit GPT-6.2 Astra and $25 approval for a source-free matched judge comparison. Add isolated hosted/local adapters, bounded cost preflight and create-only request ledgers. Chad identified an external credential file; no hosted calls or new ratings yet. Local generation and historical evidence remain unchanged. |
 | 0.50 | 2026-11-18 | Complete fifty strict-schema Astra judgments at estimated $1.98774 and 102/120 agreement, with all six dimensions >=80%; preserve a separate HTTP 400 JSON-mode start. Review all 120 human-paired justifications and record overstatements. Start matching Qwen control, preserving its first 4,096-token length-stop and new 8,192-token run. Chad's copied course brief explicitly raises D3/D4 customization, lower-temperature and Instructor compliance questions; no instructor disposition or M4 completion is inferred. |
+| 0.51 | 2026-11-18 | Complete the matched source-free local Qwen control at 50/50 and 91/120 agreement, with D1 9/20 and D6 14/20 below threshold; preserve the separately stopped 4,096-token attempt. Audit all 120 local explanations, record false approvals and false API rationales, and compare to Astra's 102/120 and six dimensions at or above 80%. Stop the dedicated Mac server and tunnel. The numeric hosted result remains a development comparison pending explanation and course-conformity disposition; M4 is open. |

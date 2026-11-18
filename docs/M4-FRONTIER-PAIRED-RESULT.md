@@ -64,9 +64,8 @@ discrepancies are retained rather than silently accepting the numeric gate:
   [SciPy 1.16 requires NumPy >=1.25.2](https://docs.scipy.org/doc/scipy-1.16.1/dev/toolchain.html),
   whereas the candidate lists NumPy 1.23.5. The human rating is not rewritten.
 
-These findings hold qualification pending the matched local result and a
-conservative explanation-audit decision. The 80% threshold and human labels
-are unchanged.
+These findings hold qualification pending a conservative explanation-audit
+decision. The 80% threshold and human labels are unchanged.
 
 Chad's November 18 copy of the [course brief](COURSE-BRIEF-RECONCILIATION-20261118.md)
 also requires a judge temperature lower than the generator's and Instructor
@@ -81,6 +80,48 @@ The first local control used the same inputs with Qwen's historical 4,096-token
 output cap. It stopped after two valid judgments when item 3 ended at the
 length limit, leaving three starts and three recorded outcomes. That run is
 preserved at `qualification/m4-local-pair-20261118/`. A new control with an
-8,192-token output cap is in progress at
-`qualification/m4-local-pair-b8192-20261118/`. It uses the same frozen
-messages; the output-budget change is disclosed as a separate run.
+8,192-token output cap completed 50/50 valid judgments, without retries or
+unknown outcomes, at `qualification/m4-local-pair-b8192-20261118/`. It used
+the same frozen messages; the output-budget change is disclosed as a separate
+run. The dedicated Mac server and Windows tunnel were stopped afterward.
+
+## Matched result
+
+The complete arms used the same fifty source-free items, frozen V15 messages,
+human reference and six-dimensional scoring. The comparison record is
+`artifacts/evidence/P1-03/qualification/m4-paired-comparison-20261118.json`.
+The source-rich historical V15 run is not a matched arm.
+
+| Measure | Local Qwen3.5-122B-A10B | GPT-6.2 Astra |
+| --- | ---: | ---: |
+| Complete judgments | 50/50 | 50/50 |
+| D1 agreement | 9/20 (45%) | 17/20 (85%) |
+| D2 agreement | 16/20 (80%) | 17/20 (85%) |
+| D3 agreement | 18/20 (90%) | 17/20 (85%) |
+| D4 agreement | 18/20 (90%) | 18/20 (90%) |
+| D5 agreement | 16/20 (80%) | 16/20 (80%) |
+| D6 agreement | 14/20 (70%) | 17/20 (85%) |
+| Total criterion matches | 91/120 (75.8%) | 102/120 (85%) |
+| All-six passes among fifty | 25 | 6 |
+
+The hosted arm improves agreement by eleven decisions on these twenty
+human-reviewed items. Its lower all-six pass count reflects stricter scoring,
+not a corrected-generator quality measurement. A twenty-item reference does
+not establish population-level reliability; D5 is exactly on the boundary.
+
+All 120 local justifications on reviewed items were inspected in the local
+`explanation-audit.md`. Qwen falsely approves eleven D1 failures and six D6
+failures. Examples include `b02-item-0011` (credits CRS preservation without
+exporting an identifier or WKT), `b02-item-0047` (credits a complete Mark
+transaction without Start/Set/Commit), and `b03-item-0011` (credits a complete
+coordinate export without preserving CRS metadata, while approving the unsafe
+unknown-CRS tip). Its `b01-item-0031` D3 justification also incorrectly says
+ArcPy's geometry `+` and `|` operators are invalid, and `b01-item-0023` D3
+incorrectly treats `nodeReaction()` as an invented OpenSeesPy API. These are
+explanation errors even where a fail rating matches the human. The local arm
+does not meet the 80%-each agreement gate.
+
+The hosted arm meets the numeric gate, with the explanation discrepancies above
+and the course-brief conflicts retained. No assessed M4 qualification is
+claimed from this experiment. Authentic corrected-cohort reviews and a
+course-conforming judge disposition are still needed before M5 comparison.
