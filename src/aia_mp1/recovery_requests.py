@@ -44,6 +44,10 @@ def prepare_next(ledger, packet_root):
         raise ValueError("case changed during preparation replay")
     if stage == "facts":
         body = evidence_request(plan, content, rubric, packet_root / "sources")
+        if packet["protocol"] == "recovery-preparation-v2":
+            body["prepared_insufficient"] = [
+                row for row in packet["insufficient_claims"] if row["item_id"] == item
+            ]
     else:
         accepted, _, _ = accepted_fact_material(
             ledger, item, plan, content, rubric, packet_root / "sources"
