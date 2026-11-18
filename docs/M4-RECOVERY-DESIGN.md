@@ -130,6 +130,19 @@ no execution switch. This is not a repaired live V8 run or a qualified judge.
 
 ## Proposed bounded development trial — not allocated or started
 
+Offline request preparation is now available in `recovery_wire.py`. It captures
+the locked Instructor serialization separately for recovery `Observations` and
+`Scores`, retaining the complete schema-bearing request and fingerprints of the
+logical request, schema and wire body. Verification regenerates the wire and
+rejects drift, including timeout changes that do not appear in the HTTP body.
+Only an intercepted local mock is used; this module has no live endpoint or
+dispatch capability. It does not establish token fit, allocate starts, validate
+source applicability or replace the required durable scheduler and semantic
+audits. Historical V8 schemas, allocation and transport remain unchanged.
+
+Ten focused synthetic tests pass, covering schema selection, input preservation,
+settings/schema/body drift, unsupported fields/stages and malformed messages.
+
 Prepare ten previously exposed original-baseline cases, two per category. Include
 all three known human D2 failures and cases that distinguish missing obligations,
 invalid tips and valid API claims wrongly rejected. Publish the exact item list
