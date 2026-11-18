@@ -37,13 +37,20 @@ request, schema, serialized body and timeout; verifying it repeats serialization
 and rejects drift. It has no live endpoint or dispatch capability. Nine focused
 wire tests passed.
 
+`recovery_source_audit.py` binds raw saved completions to the source-ID schemas
+and reconstructs the accepted fact/score lineage from a durable recovery ledger.
+It preserves malformed responses, blocks stale case bindings and requires
+separate accepted technical audits before releasing the next stage. Six
+synthetic lineage tests pass. The adapter uses the existing bounded schedule;
+it does not dispatch a model request.
+
 The prototype leaves the earlier exact-offset implementation and its
-hash-pinned journals unchanged. It has **no live dispatch, durable versioned
-journal, preflight runner or assessed projection yet**. The next integration
-must bind the ID protocol to a new immutable journal and retain raw completions,
-single-start transport semantics, source/packet fingerprints, Mac/tunnel
-ownership and exact-wire token checks. It must not reinterpret earlier trial
-outputs as valid ID responses.
+hash-pinned journals unchanged. It has **no live dispatch, source-ID contract
+hash gate, preflight runner or assessed projection yet**. The next integration
+must freeze the new code identity in a fresh immutable journal and bind
+single-start transport, source/packet fingerprints, Mac/tunnel ownership and
+exact-wire token checks. It must not reinterpret earlier trial outputs as valid
+ID responses.
 
 All ten corrected-packet cases replayed offline with 358 checks, including two
 runtime-evidence cases and no model call. The first case's frozen request and
@@ -59,8 +66,8 @@ and wire SHA-256
 it caused **zero** model starts. Candidate source-ID facts and score prompts
 are saved beside it, with hashes in `source-id-prompt-identity.json`. No score
 wire has been prepared because no new facts audit has been accepted.
-The locked WSL suite passed **775 tests**, with one existing optional
-`reportlab` import skip. All **26 focused source-ID and wire tests** passed.
+The locked WSL suite passed **781 tests**, with one existing optional
+`reportlab` import skip. All **32 focused source-ID, wire and audit tests** passed.
 
 ## Measurement gate
 
