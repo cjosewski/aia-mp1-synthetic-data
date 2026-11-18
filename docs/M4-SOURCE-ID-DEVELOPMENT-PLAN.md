@@ -1,7 +1,8 @@
 # M4 bounded source-ID development trial
 
 November 18, 2026. Prepared under Chad's instruction to continue closing the
-rating gap. **No source-ID model start has occurred yet.** This is a new
+rating gap. **Historical plan; execution stopped after one rejected fact audit.**
+See the [result](M4-SOURCE-ID-TRIAL-RESULT.md). This is a new
 development protocol after three rejected exact-offset trials, not a fourth
 assessed allocation. The twenty original human labels, unchanged D1–D6 rubric,
 V13/V15 results and restored 80%-in-every-dimension criterion remain frozen.

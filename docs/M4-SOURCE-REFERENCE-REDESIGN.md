@@ -1,6 +1,8 @@
 # M4 source-reference redesign
 
-November 18, 2026. The three bounded recovery trials stopped before scoring.
+November 18, 2026. The three bounded exact-citation recovery trials stopped
+before scoring. A subsequent [source-ID development trial](M4-SOURCE-ID-TRIAL-RESULT.md)
+also stopped at technical audit after one structurally valid facts response.
 The final verifier recognized the ArcPy CRS defects, but 17 of 24 citations
 failed exact-quote/character-offset validation. Earlier [V7 passage-ID
 development](JUDGE-PASSAGE-PROTOCOL.md) accepted all five first responses while
@@ -52,14 +54,14 @@ exact serialized request against server context. It saves a create-only prefligh
 receipt and durably records the single start before network I/O. Missing or
 unknown outcomes are not retried. The new source-code contract hash is frozen
 separately in the experiment; the three earlier journals still replay against
-their original implementation hash. The runner is implemented but **has made no
-live source-ID model request**.
+their original implementation hash. The runner made one live source-ID model
+request in the separately frozen development trial. Its raw response and audit
+rejection are retained.
 
 The prototype leaves the earlier exact-offset implementation and its
-hash-pinned journals unchanged. The remaining work is to freeze a fresh
-source-ID development journal, make a bounded live measurement with separate
-technical audits, and, only after the development gate advances, run a distinct
-assessed extension. No source-ID result is currently eligible for assessed
+hash-pinned journals unchanged. The first source-ID trial halted because the
+model treated a Geometry property reference as proof that the candidate
+retrieved a Geometry object. No source-ID result is eligible for assessed
 calibration. Earlier trial outputs cannot be reinterpreted as valid ID responses.
 
 All ten corrected-packet cases replayed offline with 358 checks, including two
@@ -73,8 +75,9 @@ source-ID prompt and has schema SHA-256
 `7db4ad70b00287184f464c131963d61fcd55ebafd7adb9ed2261164f07fc6c54`
 and wire SHA-256
 `268d9296c14560241fc77997c0ed79a1b08bf949b4182a11db4197ae048c0c8f`;
-it caused **zero** model starts. Candidate source-ID facts and score prompts
-are saved beside it, with hashes in `source-id-prompt-identity.json`. No score
+it caused **zero** model starts. The later live trial is separate. Candidate
+source-ID facts and score prompts are saved beside it, with hashes in
+`source-id-prompt-identity.json`. No score
 wire has been prepared because no new facts audit has been accepted.
 The locked WSL suite passed **802 tests**, with one existing optional
 `reportlab` import skip. The source-ID CLI help command passed in WSL.

@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.45, November 18, 2026 |
-| Status | Final V15 baseline complete at 79.2%; D1 70% and D6 65% fail original >=80% per-dimension criterion; M4 open, final assessed allocation consumed; corrected cohort preserved |
+| Revision | 0.46, November 18, 2026 |
+| Status | Final V15 baseline complete at 79.2%; D1 70% and D6 65% fail original >=80% per-dimension criterion; fourth source-ID development trial halted on semantic audit; M4 open, final assessed allocation consumed; corrected cohort preserved |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
@@ -966,3 +966,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.38 | 2026-11-17 | Audit all 175 spans; repair thirteen missing bindings in a separate draft, retain five gaps and flag 83 spans for splitting. Distinguish API sources from task/math/workflow evidence; correct the Part.Cone existence distinction without changing frozen labels. Ten plans replay, fourteen downloaded files verify and 106 previous seal entries remain unchanged; no inference, scores or Mac use |
 | 0.39 | 2026-11-17 | Implement isolated v2 evidence kinds, attributed reasoning, parent/child coverage and explicit scoring audit gates. Prepare 357 child questions from 175 spans, decomposing all 83 flagged parents; retain 34 child evidence gaps and pending semantic review. Ten child/parent replays and 250 prior seal entries verify; 593 tests exercised across full/optional follow-up runs, zero model calls or Mac use |
 | 0.40 | 2026-11-17 | Review child preparation, add licensed NumPy evidence and scoped workflow notes, correct question overreach and draft candidate-relative verifier v3. Record 358 checks, one empty binding and 56 applicability holds; no fact verdicts or accepting audits. Ten-case replay and 385 previous seal entries verify; application code unchanged, no inference or Mac use |
+| 0.46 | 2026-11-18 | Record the first source-ID development trial: one structurally valid ArcPy facts response, one decisive K0020 source-applicability audit rejection, zero accepted facts or score starts. Halted journal and raw output remain outside Git; dedicated Mac server and tunnel stopped. V15 agreement and M4 readiness are unchanged. |
