@@ -9,7 +9,8 @@ bindings. All ten packets replay. Prepared questions are not verified facts;
 frozen reviews and measured agreement are unchanged. The
 [recovery design](docs/M4-RECOVERY-DESIGN.md) now includes exact request
 serialization, bounded durable scheduling, saved-response validation, accepting
-fact/score audits and durable rejection stops. **679 locked WSL tests pass.**
+fact/score audits, durable rejection stops and transport-failure recording that
+preserves unknown outcomes. **681 locked WSL tests pass.**
 
 The [Mac capacity check](docs/M4-TOKEN-SIZING.md) fits all ten prior draft verifier
 requests in 65,536 tokens, including schema/template and an 8,192-token output

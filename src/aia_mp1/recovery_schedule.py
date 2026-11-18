@@ -20,6 +20,7 @@ def replay(case_ids: list[str], events: list[dict]) -> dict:
     auditing = None
     failures = 0
     halt = None
+    transport_failure = None
 
     def next_request():
         if pending or auditing or halt or failures >= 2 or len(starts) >= 20:
@@ -47,6 +48,7 @@ def replay(case_ids: list[str], events: list[dict]) -> dict:
         elif kind == "finish":
             if (
                 pending is None
+                or transport_failure is not None
                 or set(event) != {"kind", "start_sha256", "completion_sha256", "structurally_valid"}
                 or event["start_sha256"] != digest(pending)
                 or not _sha(event["completion_sha256"])
@@ -64,6 +66,17 @@ def replay(case_ids: list[str], events: list[dict]) -> dict:
                     states[item]["score"] = "skipped"
                 failures += 1
             pending = None
+        elif kind == "transport_failure":
+            if (
+                pending is None
+                or transport_failure is not None
+                or set(event) != {"kind", "start_sha256", "failure_sha256"}
+                or event["start_sha256"] != digest(pending)
+                or not _sha(event["failure_sha256"])
+            ):
+                raise ValueError("transport failure must match the sole pending start")
+            transport_failure = dict(event)
+            halt = "transport_outcome_unknown"
         elif kind == "audit":
             if (
                 auditing is None
@@ -90,6 +103,7 @@ def replay(case_ids: list[str], events: list[dict]) -> dict:
         "halt": halt or ("two_structural_failures" if failures >= 2 else None),
         "next_request": next_request(),
         "unknown_outcome": pending is not None,
+        "transport_failure": transport_failure,
         "coverage_denominator": len(case_ids),
         "execution_enabled": False,
         "calibration_eligible": False,

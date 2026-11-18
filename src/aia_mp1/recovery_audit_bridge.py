@@ -93,6 +93,36 @@ def record_completion(ledger, start_sha256, raw):
     return {"state": state, "schema_error_type": error_type, "execution_enabled": False}
 
 
+def record_transport_failure(ledger, start_sha256, error: Exception):
+    """Persist an explicit transport exception without assuming the server stopped.
+
+    Exception messages, request objects and headers can contain credentials;
+    retain only the exception class and the unresolved-outcome classification.
+    The pending start remains consumed and cannot be finished or retried by this
+    runner. Any later-discovered response requires separate evidence inspection.
+    """
+    if not isinstance(error, Exception):
+        raise ValueError("an actual transport exception is required")
+    _, _, state, _ = ledger.read()
+    pending = state["pending"]
+    if pending is None or digest(pending) != start_sha256:
+        raise ValueError("transport failure does not match the pending request")
+    payload = {
+        "error_type": type(error).__name__,
+        "classification": "transport_exception_server_outcome_unknown",
+        "retry_permitted": False,
+    }
+    state = ledger.append(
+        {
+            "kind": "transport_failure",
+            "start_sha256": start_sha256,
+            "failure_sha256": digest(payload),
+        },
+        payload,
+    )
+    return {"state": state, "execution_enabled": False}
+
+
 def case_binding(plan, content, rubric):
     return {
         "plan_sha256": fingerprint(plan),

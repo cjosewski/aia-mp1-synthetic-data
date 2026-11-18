@@ -503,8 +503,11 @@ the candidate or change human labels. Details and manifest identity are in the
 The recovery implementation now serializes exact Instructor wire requests,
 persists the bounded schedule and raw responses, derives schema validity,
 reconstructs accepted fact/score review lineage, and retains technical rejections
-that halt the trial. **679 locked WSL tests pass.** Live dispatch, final runtime
-freeze and transport-failure capture remain unfinished.
+that halt the trial. The subsequent transport-failure adapter durably records
+an exception while preserving the consumed start's unknown outcome and stopping
+the schedule. **679 locked WSL tests passed at the preceding checkpoint**;
+the recovery design records subsequent validation. Live dispatch and final
+runtime freeze remain unfinished.
 
 The [context-capacity experiment](M4-TOKEN-SIZING.md) found the previous 16,384
 context inadequate. A separately owned 65,536-token Mac server loaded successfully

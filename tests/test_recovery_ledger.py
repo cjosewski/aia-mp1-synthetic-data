@@ -5,6 +5,7 @@ import json
 import pytest
 
 from aia_mp1.assessment import exclusive
+from aia_mp1.recovery_audit_bridge import record_completion, record_transport_failure
 from aia_mp1.recovery_ledger import RecoveryLedger
 from aia_mp1.tracing import digest
 
@@ -35,6 +36,34 @@ def test_reopen_preserves_unknown_start_and_prevents_retry(ledger):
     with pytest.raises(ValueError):
         reopened.append(record, payload)
     assert reopened.read()[2]["starts"] == 1
+
+
+@pytest.mark.parametrize("error_type", [TimeoutError, ConnectionError])
+def test_transport_failure_survives_reopen_without_leaking_details(ledger, error_type):
+    start, payload = begin(ledger)
+    secret = "synthetic-sensitive-header-do-not-retain"
+    original = (ledger.directory / "events.jsonl").read_bytes()
+    with pytest.raises(ValueError):
+        record_transport_failure(ledger, "b" * 64, error_type(secret))
+    assert (ledger.directory / "events.jsonl").read_bytes() == original
+    result = record_transport_failure(ledger, digest(start), error_type(secret))
+    assert secret not in (ledger.directory / "events.jsonl").read_text()
+    reopened = RecoveryLedger(ledger.directory)
+    state = reopened.read()[2]
+    assert state == result["state"]
+    assert state["starts"] == 1 and state["unknown_outcome"]
+    assert state["halt"] == "transport_outcome_unknown"
+    assert state["next_request"] is None
+    assert state["coverage_denominator"] == 10
+    for action in (
+        lambda: reopened.append(start, payload),
+        lambda: record_transport_failure(reopened, digest(start), error_type(secret)),
+        lambda: record_completion(reopened, digest(start), {"choices": []}),
+    ):
+        before = (ledger.directory / "events.jsonl").read_bytes()
+        with pytest.raises(ValueError):
+            action()
+        assert (ledger.directory / "events.jsonl").read_bytes() == before
 
 
 def test_raw_completion_and_audit_retained(ledger):
