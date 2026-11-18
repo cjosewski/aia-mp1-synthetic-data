@@ -506,8 +506,10 @@ reconstructs accepted fact/score review lineage, and retains technical rejection
 that halt the trial. The subsequent transport-failure adapter durably records
 an exception while preserving the consumed start's unknown outcome and stopping
 the schedule. **679 locked WSL tests passed at the preceding checkpoint**;
-the recovery design records subsequent validation. Live dispatch and final
-runtime freeze remain unfinished.
+the recovery design records subsequent validation. An internal single-request
+transport adapter now connects durable starts, exact wire checking and result
+recording; top-level runtime/evidence orchestration and final freeze remain
+unfinished. It has not been used for real evaluation.
 
 The [context-capacity experiment](M4-TOKEN-SIZING.md) found the previous 16,384
 context inadequate. A separately owned 65,536-token Mac server loaded successfully
