@@ -31,6 +31,12 @@ applicability audits; unresolved runtime outcomes remain insufficient. The
 output is development-only and never a human
 label or assessed calibration receipt.
 
+`recovery_source_wire.py` captures the locked Instructor request for each new
+response schema through an intercepted local mock. The receipt binds the
+request, schema, serialized body and timeout; verifying it repeats serialization
+and rejects drift. It has no live endpoint or dispatch capability. Nine focused
+wire tests passed.
+
 The prototype leaves the earlier exact-offset implementation and its
 hash-pinned journals unchanged. It has **no live dispatch, durable versioned
 journal, preflight runner or assessed projection yet**. The next integration
@@ -45,8 +51,16 @@ the all-case validation receipt are under workspace
 `artifacts/evidence/P1-03/qualification/m4-source-refs-offline-20261118/`;
 first-case request SHA-256 is
 `6b1e311ccb689369cb03368f1b840a194e76463ecf9d7ddd1fe2b558aada4769`.
-The locked WSL suite passed **766 tests**, with one existing optional
-`reportlab` import skip. All **17 focused source-ID tests** passed.
+The first-case source-ID facts wire receipt in the same directory uses the new
+source-ID prompt and has schema SHA-256
+`7db4ad70b00287184f464c131963d61fcd55ebafd7adb9ed2261164f07fc6c54`
+and wire SHA-256
+`268d9296c14560241fc77997c0ed79a1b08bf949b4182a11db4197ae048c0c8f`;
+it caused **zero** model starts. Candidate source-ID facts and score prompts
+are saved beside it, with hashes in `source-id-prompt-identity.json`. No score
+wire has been prepared because no new facts audit has been accepted.
+The locked WSL suite passed **775 tests**, with one existing optional
+`reportlab` import skip. All **26 focused source-ID and wire tests** passed.
 
 ## Measurement gate
 
