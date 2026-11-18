@@ -1,5 +1,9 @@
 # M4 retained runtime evidence
 
+Subsequent checkpoint: [Revit 2025 contracts](M4-REVIT-CONTRACTS.md) resolve eleven
+more preparation holds in a separate packet, leaving 22. The implementation and
+historical runtime packet below remain unchanged; no model measurement was added.
+
 November 17, 2026. The separately versioned `recovery-evidence-v3` implementation
 adds empirical observations without treating them as API documentation. Ten
 OpenSees preparation checks now have applicable runtime bindings. The current

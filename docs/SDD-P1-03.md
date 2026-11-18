@@ -2,7 +2,7 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.43, November 17, 2026 |
+| Revision | 0.44, November 17, 2026 |
 | Status | Final V15 baseline complete at 79.2%; D1 70% and D6 65% fail original >=80% per-dimension criterion; M4 open, final assessed allocation consumed; corrected cohort preserved |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
@@ -483,6 +483,15 @@ tests; a 46-test focused follow-up includes one additional scoring-CLI test.
 Mixed-case experiment IDs are preserved after a recorded incomplete preparation
 attempt. New prompts are unmeasured; actual verifier findings and accepting
 semantic audits remain absent. No model calls or live transport; M4 stays open.
+
+The [Revit 2025 contract follow-up](M4-REVIT-CONTRACTS.md) resolves eleven further
+preparation holds through pinned, MIT-licensed reference documentation. The new
+packet has 358 checks, 336 prepared questions, 22 holds, one empty binding and
+43 notes. Candidate/task/rubric/check text and runtime records are unchanged.
+Ten packets and prior structural reports replay, twelve HTML extractions replay,
+and 1,217 entries across seven prior seals verify. The named AsDouble exception
+remains unresolved. No application/prompt changes, model calls, accepting audits,
+new ratings or Mac use; context preflight and staged transport remain pending.
 
 The [final V15 baseline result](V15-BASELINE-RESULTS.md) completes fifty first
 attempts, but reaches only 14,17,16,18,17,13 matches of twenty in D1–D6.

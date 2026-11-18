@@ -3,17 +3,16 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
-**Runtime evidence implemented:** [v3 adds a separate empirical authority](docs/M4-RUNTIME-EVIDENCE.md)
-with preserved protocol/script/lock/identity/output, complete case accounting,
-exact citations and mandatory applicability audits. Ten OpenSees checks now have
-runtime bindings, leaving **33 holds across 358 checks**, including one empty
-binding. The other 325 questions are prepared, not verified facts. Frozen reviews
-and measured agreement are unchanged. All ten packets and prior v2 views replay;
-966 previous seal entries verify. Full suite: 638 passed; focused runtime suite:
-46 passed, including one additional scoring-CLI test. No model calls or Mac use.
-Resolve remaining documentary gaps and empirical review before token/runtime
-preflight. The proposed development trial remains unallocated and execution
-disabled; the new verifier/scorer prompts are unmeasured.
+**Revit evidence added:** [pinned Revit 2025 contracts](docs/M4-REVIT-CONTRACTS.md)
+resolve eleven preparation holds, leaving **22 holds across 358 checks**, including
+one empty binding. The other 336 questions are prepared, not verified facts.
+All ten packets and twelve source extractions replay; 1,217 previous seal entries
+verify. Frozen reviews and measured agreement are unchanged. The separate
+[runtime-evidence protocol](docs/M4-RUNTIME-EVIDENCE.md) retains its complete
+provenance and mandatory applicability audits. No model calls or Mac use.
+Resolve remaining evidence questions before token/runtime preflight and staged
+transport. The proposed development trial remains unallocated and execution
+disabled; the verifier/scorer prompts are unmeasured.
 
 **Final V15 baseline complete; M4 still fails.** All fifty judgments arrived on
 their first attempt. Agreement is **95/120 (79.2%)**, with D1 **70%**, D2 85%,
