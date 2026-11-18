@@ -10,6 +10,13 @@ supersedes the November 16 70%-overall operational amendment. Frozen labels,
 scoring anchors, all historical reports and other quality targets are preserved.
 M4 is reopened; the new bounded development attempt does not establish readiness.
 
+**November 18 hosted judge amendment:** Chad approved GPT-6.2 Astra and a $25
+cap for a source-free comparison with a matched local Qwen judge. The fifty
+baseline source excerpts are local-only, so neither hosted prompts nor the
+hosted result bundle may contain them or human ratings. This does not change
+the generation endpoint, frozen labels, original per-dimension 80% threshold,
+or historical judge receipts. See [comparison record](M4-FRONTIER-JUDGE-COMPARISON.md).
+
 On November 9, 2026, the live brief's schema, six quality dimensions and success metrics were read through the signed-in course portal. The lower visualization and example-log sections were not independently reread; their checklist below comes from issue #4, also read that day. This document summarizes those sources rather than reproducing the course post.
 
 Chad approved the first implementation slice on November 9 at 14:25 EST. He reported that Courses 1–4 are complete and that the instructor permits him to start MP1 now. He expects to finish Courses 5–8 within a week. This is an early-start decision, not evidence that Courses 5–8 or their exercises are complete. It does not resolve the benchmark adaptation or establish project acceptance.

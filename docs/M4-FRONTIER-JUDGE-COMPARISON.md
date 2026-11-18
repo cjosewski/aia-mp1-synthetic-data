@@ -1,9 +1,11 @@
-# M4 frontier judge comparison proposal
+# M4 frontier judge comparison amendment
 
 November 18, 2026. Chad proposed comparing the local judge with a frontier
 model after the source-ID trial failed and the candidate-applicability
-diagnostic caught its first ArcPy error. **This proposal is not an executed
-assessment or a change to the local-only default.** The original 80% agreement
+diagnostic caught its first ArcPy error. Chad then approved **GPT-6.2 Astra with
+a $25 cap**. This is a separate, source-free hosted judge experiment; generation
+and ordinary assessed collection remain local. It is not yet an executed
+assessment. The original 80% agreement
 requirement in each of D1–D6, the twenty frozen human reviews, all V13/V15
 results and their reported errors remain unchanged.
 
@@ -41,9 +43,9 @@ or explicit failure; an unknown outcome consumes its slot and stops pending
 inspection. Never overwrite the historical local baseline or its calibration
 report.
 
-## Conditional OpenAI implementation
+## Approved OpenAI implementation
 
-If Chad selects OpenAI, the proposed frontier candidate is
+The approved frontier candidate is
 [`gpt-6.2-astra`](https://developers.openai.com/api/docs/models/gpt-6.2-astra),
 which the provider describes as a frontier reasoning model with Chat
 Completions and structured-output support. The existing Qwen V15 client sends
@@ -55,11 +57,12 @@ hosted adapter, API key source and result directory. A hosted endpoint is never
 an automatic fallback for Herd.
 
 Before dispatch, count the exact fifty prompts and set a hard input cap of
-10,000 tokens per item, maximum 8,192 output tokens, at most fifty starts and
-zero automatic retries. At the [listed Standard rates](https://developers.openai.com/api/docs/pricing)
-of $8 per million input tokens and $40 per million output tokens, those caps
-bound the fifty-call token charge at about **$20.40** before any pricing change
-or provider-specific fee. Stop if the measured preflight cannot stay inside
+12,000 budgeted input tokens per item (with at most 10,000 UTF-8 message bytes),
+maximum 8,192 output tokens, at most fifty starts and zero automatic retries.
+At the [listed Standard rates](https://developers.openai.com/api/docs/pricing)
+of $8 per million input tokens, $10 per million cache writes and $40 per
+million output tokens, the conservative $10 input bound makes the fifty-call
+maximum **$22.384** before any pricing change or provider-specific fee. Stop if the preflight cannot stay inside
 the cap. Record actual usage and billed estimate from returned tokens; do not
 represent a budget estimate as a measured cost.
 
@@ -76,9 +79,10 @@ model/fingerprint if present, prompt and code hashes and request time.
 
 ## Execution boundary
 
-The current workspace has no frontier API credential configured. Provider
-selection and a credential supplied through the user's secure environment are
-needed before live inference. Do not paste a secret into chat or commit it.
+The Windows and WSL process environments have no `OPENAI_API_KEY` configured.
+Chad supplied the external `D:\_Repos\_AIA\.env` path; its `AIA_GPT` entry is
+read as data by the isolated runner without logging the secret. Do not paste a
+secret into chat or commit it.
 The source-free paired input bundle is prepared outside Git at
 `artifacts/evidence/P1-03/qualification/m4-frontier-pair-v2-20261118/`:
 fifty messages, ten in each category, SHA-256
@@ -88,9 +92,58 @@ bundle retained a private project URL from rubric metadata; it is marked
 `do_not_send` and was never transmitted. The v2 builder strips that metadata
 and local-only source records, preserving the six scoring anchors.
 
-Prepare the separate adapter, offline validator and create-only ledger before
-inference. A chosen provider and endpoint would be recorded as
-an explicit owner amendment to the runbook's local-only judge procedure;
+The separate hosted adapter and create-only ledger use fifty starts, zero SDK
+retries, medium reasoning effort, JSON output validation and a conservative
+input/cache-write rate in their preflight. The local control still needs a
+matching source-free run. This approval is an explicit owner amendment to the
+runbook's local-only judge procedure;
 historical local evidence remains intact. If the provider does not meet the
 six separate human-agreement gates, M4 stays open and no alternate threshold
 is inferred.
+
+## Operator commands
+
+Run these in WSL2 Ubuntu with `AIA_MP1_TOOLS` set and
+`source tools/environment.sh` completed. Keep each output path new. The
+`--preflight` command performs the full input and human-reference integrity
+check without contacting OpenAI:
+
+```bash
+ROOT=/mnt/d/_Repos/_AIA/artifacts/evidence/P1-03
+BUNDLE="$ROOT/qualification/m4-frontier-pair-v2-20261118"
+uv run --locked python tools/run_frontier_pair.py \
+  --bundle "$BUNDLE" --artifact-root "$ROOT" --preflight
+```
+
+Set `OPENAI_API_KEY` in the dispatch process through a secure local environment,
+or pass `--credential-file /mnt/d/_Repos/_AIA/.env` to read Chad's `AIA_GPT`
+entry. The file path is external to Git. Do not put the key value in the command
+line, runbook, repository or chat. Check the
+account's data-controls and current Standard prices before starting. The
+hosted arm writes each start before its request and stops after its first
+invalid or unknown result; never rerun the command against the same output.
+
+```bash
+uv run --locked python tools/run_frontier_pair.py \
+  --bundle "$BUNDLE" --artifact-root "$ROOT" \
+  --credential-file /mnt/d/_Repos/_AIA/.env \
+  --output "$ROOT/qualification/m4-frontier-astra-20261118"
+```
+
+For the local control, first verify that the owned loopback tunnel points to
+the dedicated Mac Qwen3.5-122B-A10B-Q4_K_M server and does not conflict with
+other Herd work. The exact served model ID comes from `/v1/models`. Warn Chad
+before taking control of the Mac. Then run:
+
+```bash
+uv run --locked python tools/run_local_pair.py \
+  --bundle "$BUNDLE" --artifact-root "$ROOT" \
+  --endpoint http://127.0.0.1:PORT/v1 --model EXACT_SERVED_MODEL_ID \
+  --output "$ROOT/qualification/m4-local-pair-20261118"
+```
+
+After both arms have fifty valid results, `tools/report_paired_judges.py`
+creates a separate, local-only agreement report. Inspect all 120 public
+justifications and complete the technical explanation audit before a
+qualification claim. Neither the human reference nor this comparison report
+is sent to OpenAI.

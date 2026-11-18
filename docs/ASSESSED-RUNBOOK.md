@@ -212,6 +212,16 @@ existing credential source. Set temperature below the generator's and exactly
 two attempts per item. Match the receipt's mode, temperature, token and timeout
 settings. Preserve local-only serving; a hosted fallback needs separate scope.
 
+**November 18 amendment:** Chad approved GPT-6.2 Astra with a $25 ceiling for
+the isolated [source-free paired comparison](M4-FRONTIER-JUDGE-COMPARISON.md).
+This does not change this runbook's local assessed collection or enable a
+hosted fallback. The paired input bundle contains no local-only source excerpts
+or human labels. Run `tools/run_frontier_pair.py --preflight` before any hosted
+dispatch, use a new external result directory, and stop on any incomplete or
+failed start. The matching local control uses `tools/run_local_pair.py` with the
+same bundle and frozen prompt. Neither result qualifies M4 until all fifty
+judgments, the twenty-label D1–D6 agreement and explanation audit are recorded.
+
 Chad has loaded Llama-3.3-70B-Instruct Q4_K_M in Herd. Codex verified the endpoint,
 served identity, weight checksum and structured JSON output; see
 [source/model readiness](SOURCE-READINESS.md#model-review). The separate ten-example

@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.48, November 18, 2026 |
-| Status | Final V15 baseline complete at 79.2%; D1 70% and D6 65% fail original >=80% per-dimension criterion; candidate-applicability diagnostic found K0020; source-free frontier comparison proposed but unrun; M4 open, final assessed allocation consumed; corrected cohort preserved |
+| Revision | 0.49, November 18, 2026 |
+| Status | Final V15 baseline complete at 79.2%; D1 70% and D6 65% fail original >=80% per-dimension criterion; source-free GPT-6.2 Astra comparison approved at $25 cap but unrun; M4 open, final assessed allocation consumed; corrected cohort preserved |
 | Project | P1-03 / Mini Project 1, engineering code Q&A |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
@@ -969,3 +969,4 @@ schedule, shared-core contracts or acceptance conclusions implicitly.
 | 0.46 | 2026-11-18 | Record the first source-ID development trial: one structurally valid ArcPy facts response, one decisive K0020 source-applicability audit rejection, zero accepted facts or score starts. Halted journal and raw output remain outside Git; dedicated Mac server and tunnel stopped. V15 agreement and M4 readiness are unchanged. |
 | 0.47 | 2026-11-18 | Add a one-start candidate-applicability diagnostic with frozen source response, exact wire, owned Mac preflight and separate technical audit. The challenger identified K0020 among 19 tentative supports; traceability limitation noted. No score or assessed calibration follows. Preserve V15 and M4 open status. |
 | 0.48 | 2026-11-18 | Prepare an alternate local-versus-frontier judge comparison proposal after Chad's suggestion. Detect that all fifty source contexts are local-only; quarantine an untransmitted draft that retained a private rubric URL, then create a source-free, label-free fifty-item paired input bundle. No hosted call, new rating or local-only scope amendment yet. |
+| 0.49 | 2026-11-18 | Record Chad's explicit GPT-6.2 Astra and $25 approval for a source-free matched judge comparison. Add isolated hosted/local adapters, bounded cost preflight and create-only request ledgers. Chad identified an external credential file; no hosted calls or new ratings yet. Local generation and historical evidence remain unchanged. |
