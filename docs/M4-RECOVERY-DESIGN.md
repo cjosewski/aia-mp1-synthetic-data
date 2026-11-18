@@ -152,6 +152,16 @@ coverage denominator. Six synthetic schedule tests pass. This pure state machine
 has no persistence or dispatch and does not authenticate audit receipts; the
 future durable runner must derive events from the actual artifact validators.
 
+`recovery_ledger.py` now persists that schedule in an external, single-writer
+journal with full artifact payloads, a hash chain, implementation identity and
+an independently checked head. Reopening a start without a finish preserves the
+unknown outcome and blocks another start. Changed payloads, incomplete tails,
+event/head mismatches and symlink journal files fail inspection; there is no
+automatic repair. Seven focused synthetic tests cover these cases, retention,
+payload mismatches and writer exclusion. This is storage, not semantic approval:
+the runner must still derive completion/audit statuses from the real validators
+and enforce source/runtime/token preflight. No live dispatch is connected.
+
 Prepare ten previously exposed original-baseline cases, two per category. Include
 all three known human D2 failures and cases that distinguish missing obligations,
 invalid tips and valid API claims wrongly rejected. Publish the exact item list
