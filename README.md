@@ -4,11 +4,12 @@ Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
 **Current M4 checkpoint — November 18:** three exact-citation recovery trials
-and one [source-ID trial](docs/M4-SOURCE-ID-TRIAL-RESULT.md) each stopped at a
-technical fact audit before scoring. The source-ID response was structurally
-valid but made a material source-applicability error. V15 remains the assessed
-baseline at 95/120, with D1 and D6 below the required 80% each. The dedicated
-Mac server and tunnel are stopped.
+and one [source-ID trial](docs/M4-SOURCE-ID-TRIAL-RESULT.md) stopped at technical
+fact audits before scoring. A separate
+[candidate-applicability diagnostic](docs/M4-CANDIDATE-CHALLENGE-RESULT.md)
+correctly challenged the source-ID trial's ArcPy prerequisite error, but
+produced no assessed rating. V15 remains 95/120, with D1 and D6 below the
+required 80% each. The dedicated Mac server and tunnel are stopped.
 
 **Earlier recovery preparation checkpoint — November 18:** the separate preparation packet
 has **358 checks, 342 prepared questions and 16 holds**, with no empty source

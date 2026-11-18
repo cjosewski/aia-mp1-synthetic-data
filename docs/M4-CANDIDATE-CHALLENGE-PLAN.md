@@ -1,6 +1,8 @@
 # M4 candidate-applicability diagnostic
 
-November 18, 2026. This is a **single-start development diagnostic**, prepared
+November 18, 2026. **Completed:** see the
+[diagnostic result](M4-CANDIDATE-CHALLENGE-RESULT.md). This is a single-start
+development diagnostic, prepared
 after the [source-ID trial](M4-SOURCE-ID-TRIAL-RESULT.md) stopped on a candidate
 prerequisite error. It does not amend that rejected response, score a case,
 replace the V15 baseline, or qualify a judge. The original human reviews and
