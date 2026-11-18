@@ -1,8 +1,10 @@
-"""Bind accepting fact audits to frozen cases and retained raw completions."""
+"""Bind technical audits and completion records to retained model responses."""
 
 import json
+from typing import Literal
 
-from .evidence_judge import completion_json
+from .evidence_judge import StrictModel, completion_json
+from .factcheck import SHA
 from .recovery_checks import Observations
 from .recovery_evidence import EvidencePlan, RuntimeEvidencePlan
 from .recovery_scoring import (
@@ -14,7 +16,47 @@ from .recovery_scoring import (
     fingerprint,
     inspect_scores,
 )
+from .schemas import NonBlank
 from .tracing import digest
+
+
+class AuditRejection(StrictModel):
+    """Attributed technical stop, never a human rating or accepting audit."""
+
+    finish_sha256: SHA
+    auditor: NonBlank
+    origin: Literal["assistant_review", "human_review"]
+    reviewed_at: NonBlank
+    reason: NonBlank
+
+
+def reject_audit(ledger, rejection: AuditRejection):
+    """Retain an objection and halt without rewriting any prior response or audit.
+
+    An auditor may stop at the first decisive problem; a full accepting review
+    is therefore not required. Attribution is a record, not authentication.
+    """
+    rejection = AuditRejection.model_validate(rejection.model_dump(mode="json"))
+    _, _, state, _ = ledger.read()
+    waiting = state["awaiting_audit"]
+    if waiting is None or waiting["finish_sha256"] != rejection.finish_sha256:
+        raise ValueError("rejection must identify the completion awaiting review")
+    payload = {
+        "rejection": rejection.model_dump(mode="json"),
+        "item_id": waiting["item_id"],
+        "stage": waiting["stage"],
+        "calibration_eligible": False,
+    }
+    state = ledger.append(
+        {
+            "kind": "audit",
+            "finish_sha256": rejection.finish_sha256,
+            "audit_sha256": digest(payload),
+            "accepted": False,
+        },
+        payload,
+    )
+    return {"state": state, "execution_enabled": False}
 
 
 def record_completion(ledger, start_sha256, raw):

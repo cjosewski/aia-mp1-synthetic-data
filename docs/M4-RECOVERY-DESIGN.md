@@ -174,8 +174,8 @@ audit, and scores from saved journal payloads. It revalidates the source bundle
 and requires the scorer start to bind the exact released scoring input. Only a
 complete, accepted six-dimension review advances to the next case. Twelve focused
 synthetic tests cover both adapters, including changed source permissions, stale
-scoring inputs and unresolved scores. Rejecting-audit handling
-and live request/runtime preflight remain runner work. An accepted technical
+scoring inputs and unresolved scores. Live request/runtime preflight remains
+runner work. An accepted technical
 audit is not an authentic human label or permission to dispatch; the resulting
 development judgment remains ineligible for assessed calibration.
 
@@ -195,6 +195,18 @@ exception capture and live dispatch remain unimplemented in this adapter.
 Response-recording verification: **677 tests passed in 127.65 seconds** in the
 locked WSL environment; Ruff lint/format and `git diff --check` passed. No live
 requests or changes to frozen ratings were made.
+
+`reject_audit` records an attributed, nonblank technical objection against the
+exact completion awaiting review. Either stage can be rejected at the first
+decisive problem without completing an accepting audit. The journal preserves
+the original response, records the rejection reason, and halts the entire trial;
+reopening cannot release another request. The review origin is disclosed, but
+does not authenticate the reviewer or create a human rating. Stale, empty and
+duplicate rejections are refused. No real technical rejection was authored by
+these synthetic tests.
+Rejection integration verification: **679 tests passed in 127.63 seconds** in
+locked WSL; 17 focused adapter tests, Ruff lint/format and `git diff --check`
+also passed. No live requests or authentic human labels were produced.
 
 Prepare ten previously exposed original-baseline cases, two per category. Include
 all three known human D2 failures and cases that distinguish missing obligations,

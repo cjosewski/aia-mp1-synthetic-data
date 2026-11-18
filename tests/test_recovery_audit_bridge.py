@@ -11,10 +11,12 @@ from test_recovery_checks import packet as packet
 from test_recovery_scoring import scoring as scoring
 
 from aia_mp1.recovery_audit_bridge import (
+    AuditRejection,
     accept_fact_audit,
     accept_score_audit,
     case_binding,
     record_completion,
+    reject_audit,
 )
 from aia_mp1.recovery_ledger import RecoveryLedger
 from aia_mp1.tracing import digest
@@ -154,3 +156,36 @@ def test_invalid_returns_are_retained_and_halt_after_two(tmp_path, raw):
     assert result["state"]["halt"] == "two_structural_failures"
     assert result["state"]["starts"] == 2
     assert result["state"]["coverage_denominator"] == 10
+
+
+@pytest.mark.parametrize("stage", ["facts", "score"])
+def test_rejection_preserves_response_and_prevents_further_requests(scoring, tmp_path, stage):
+    args, scores, _ = scoring
+    ledger = prepared(tmp_path, args) if stage == "facts" else score_ready(tmp_path, args, scores)
+    finish = ledger.read()[2]["awaiting_audit"]["finish_sha256"]
+    rejection = AuditRejection(
+        finish_sha256=finish,
+        auditor="Synthetic technical reviewer",
+        origin="assistant_review",
+        reviewed_at="synthetic-only",
+        reason="Synthetic decisive unsupported claim; not a real review.",
+    )
+    original = (ledger.directory / "events.jsonl").read_bytes()
+    stale = rejection.model_copy(update={"finish_sha256": "a" * 64})
+    with pytest.raises(ValueError, match="awaiting review"):
+        reject_audit(ledger, stale)
+    blank = rejection.model_copy(update={"reason": " "})
+    with pytest.raises(ValueError):
+        reject_audit(ledger, blank)
+    assert (ledger.directory / "events.jsonl").read_bytes() == original
+    result = reject_audit(ledger, rejection)
+    assert (ledger.directory / "events.jsonl").read_bytes().startswith(original)
+    reopened = RecoveryLedger(ledger.directory).read()[2]
+    assert reopened == result["state"]
+    assert reopened["halt"] == "semantic_audit_rejected"
+    assert reopened["next_request"] is None
+    assert reopened["coverage_denominator"] == 10
+    last = json.loads((ledger.directory / "events.jsonl").read_text().splitlines()[-1])
+    assert last["payload"]["rejection"]["reason"] == rejection.reason
+    with pytest.raises(ValueError):
+        reject_audit(ledger, rejection)
