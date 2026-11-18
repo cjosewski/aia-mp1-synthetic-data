@@ -281,7 +281,14 @@ listener stops the check. The script never starts or stops SSH. The PID must
 be frozen after launch. On this workstation the script was exercised against
 an absent port and stopped as expected; no live tunnel has produced a successful
 end-to-end ownership receipt. Launcher integration and persisted preflight
-receipts remain open.
+receipts remain open. The journal contract hash now includes the Windows
+observation script, `uv.lock` and `pyproject.toml` as well as the Python modules.
+Changing any of these files makes an existing journal fail to reopen for
+execution until the change is reviewed as a separate experiment. Existing
+records are not rewritten. No live recovery journal had been allocated here.
+Contract verification: **743 tests passed in 145.95 seconds** in locked WSL;
+18 focused journal/tunnel tests passed. The changed-script test rejects a frozen
+journal without modifying its records. Ruff lint/format and diff checks pass.
 Windows-reader verification: **742 tests passed in 143.74 seconds** in locked
 WSL Ubuntu; 17 focused tunnel/journal tests passed. The script's absent-port
 path was observed on Windows. A successful live tunnel observation has not

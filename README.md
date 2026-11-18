@@ -11,7 +11,7 @@ frozen reviews and measured agreement are unchanged. The
 serialization, bounded durable scheduling, saved-response validation, accepting
 fact/score audits, durable rejection stops and transport-failure recording that
 preserves unknown outcomes, plus an internal single-request transport adapter.
-The **742-test locked WSL suite passes**. Frozen request construction connects to the
+The **743-test locked WSL suite passes**. Frozen request construction connects to the
 packet gate and accepted fact reviews. The packet-readiness gate replays all ten cases
 and reports the actual 16 holds; top-level orchestration remains.
 Returned completions with missing or different model names are retained and halt

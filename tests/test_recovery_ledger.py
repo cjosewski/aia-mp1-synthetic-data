@@ -38,6 +38,20 @@ def test_reopen_preserves_unknown_start_and_prevents_retry(ledger):
     assert reopened.read()[2]["starts"] == 1
 
 
+def test_changed_windows_reader_invalidates_frozen_journal(ledger, monkeypatch):
+    original = type(ledger.directory).read_text
+
+    def altered(path, *args, **kwargs):
+        content = original(path, *args, **kwargs)
+        if path.name == "recovery_windows_tunnel.ps1":
+            return content + "\n# synthetic changed reader"
+        return content
+
+    monkeypatch.setattr(type(ledger.directory), "read_text", altered)
+    with pytest.raises(ValueError, match="implementation changed"):
+        ledger.read()
+
+
 @pytest.mark.parametrize("error_type", [TimeoutError, ConnectionError])
 def test_transport_failure_survives_reopen_without_leaking_details(ledger, error_type):
     start, payload = begin(ledger)

@@ -12,34 +12,36 @@ from .tracing import append_record, digest, now, write_checkpoint
 
 def contract_hash():
     root = Path(__file__).parent
-    return digest(
-        {
-            name: digest((root / name).read_text("utf-8"))
-            for name in (
-                "recovery_ledger.py",
-                "recovery_schedule.py",
-                "recovery_transport.py",
-                "recovery_packet.py",
-                "recovery_requests.py",
-                "recovery_preflight.py",
-                "recovery_process.py",
-                "recovery_tunnel.py",
-                "recovery_wire.py",
-                "model_client.py",
-                "factcheck_transport.py",
-                "recovery_audit_bridge.py",
-                "recovery_checks.py",
-                "recovery_evidence.py",
-                "recovery_runtime.py",
-                "recovery_scoring.py",
-                "factcheck.py",
-                "tracing.py",
-                "assessment.py",
-                "factcheck_stages.py",
-                "evidence_judge.py",
-            )
-        }
-    )
+    code = {
+        name: digest((root / name).read_text("utf-8"))
+        for name in (
+            "recovery_ledger.py",
+            "recovery_schedule.py",
+            "recovery_transport.py",
+            "recovery_packet.py",
+            "recovery_requests.py",
+            "recovery_preflight.py",
+            "recovery_process.py",
+            "recovery_tunnel.py",
+            "recovery_wire.py",
+            "model_client.py",
+            "factcheck_transport.py",
+            "recovery_audit_bridge.py",
+            "recovery_checks.py",
+            "recovery_evidence.py",
+            "recovery_runtime.py",
+            "recovery_scoring.py",
+            "factcheck.py",
+            "tracing.py",
+            "assessment.py",
+            "factcheck_stages.py",
+            "evidence_judge.py",
+        )
+    }
+    project = root.parents[1]
+    for name in ("tools/recovery_windows_tunnel.ps1", "uv.lock", "pyproject.toml"):
+        code[name] = digest((project / name).read_text("utf-8"))
+    return digest(code)
 
 
 class RecoveryLedger:
