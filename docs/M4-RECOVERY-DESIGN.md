@@ -236,6 +236,21 @@ checks. A transport policy or schema-valid
 response alone does not satisfy these gates. No real journal is allocated and
 no live evaluation has used the adapter.
 
+`recovery_preflight.preflight_next` rebuilds the next request through the frozen
+packet and accepted-fact gates, then checks the live server build, full default
+settings, chat template, single slot and model path against frozen properties.
+The model listing and health must agree. It renders and tokenizes the exact
+schema-bearing wire and includes the full requested output allowance. A second
+server observation and journal-head check detect changes during that operation.
+Oversized inputs are reported as not fitting, with no model start. This is a
+read-only evidence producer, not an execution permit: remote process ownership,
+weight identity, persistence and dispatch-boundary integration remain required.
+The same construction handles the actual accepted fact memo when scoring is next.
+Preflight verification: **712 tests passed in 146.46 seconds** in locked WSL;
+the focused preflight/request/journal set passed 19 tests. Synthetic checks cover
+overflow, changed templates/build/context, drift during tokenization and changed
+preparation before any HTTP request. Ruff lint/format and diff checks pass.
+
 The transport now compares each returned completion envelope's model name with
 the frozen request. A missing, blank or different name retains the redacted raw
 response in a `response_identity_failure` journal event and halts all remaining
