@@ -17,7 +17,7 @@ from .assessment import (
 from .config import RunConfig
 from .evaluation_schemas import Judgment
 from .generate import implementation_identity
-from .schemas import NonBlank
+from .schemas import DOMAIN, NonBlank
 from .tracing import (
     append_record,
     artifact_hashes,
@@ -33,8 +33,10 @@ class JudgeConfig(RunConfig):
     temperature: float = Field(default=0.1, ge=0, le=2)
     max_tokens: int = Field(default=4096, ge=1, le=8192)
     max_attempts: int = Field(default=2, ge=1, le=5)
-    prompt_path: NonBlank = "prompts/judge-v1.md"
-    prompt_variant: NonBlank = "judge-v1"
+    prompt_path: NonBlank = (
+        "prompts/aec-course-judge-v1.md" if DOMAIN == "aec-course" else "prompts/judge-v1.md"
+    )
+    prompt_variant: NonBlank = "aec-course-judge-v1" if DOMAIN == "aec-course" else "judge-v1"
     stronger_model_basis: NonBlank | None = None
     qualification_path: NonBlank | None = None
     reasoning_effort: Literal["low", "medium", "high"] | None = Field(

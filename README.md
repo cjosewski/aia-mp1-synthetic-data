@@ -3,10 +3,7 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
-**Current course submission — Home DIY Repair.** Chad selected the criteria in
-the original course brief on November 18. Start with the
-[DIY baseline and human review runbook](docs/DIY-COURSE-RUNBOOK.md). The earlier
-engineering assessments and model comparisons are historical experiments.
+**Current course submission — AEC data, original course criteria.** Review the frozen AEC baseline with the course D1–D6 rubric. [Active review runbook](docs/AEC-COURSE-RUNBOOK.md).
 
 **Engineering M4 checkpoint — November 18:** three exact-citation recovery trials
 and one [source-ID trial](docs/M4-SOURCE-ID-TRIAL-RESULT.md) stopped at technical

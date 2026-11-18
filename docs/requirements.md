@@ -4,12 +4,7 @@ This is the technical requirements record for P1-03, Mini Project 1. The [live e
 
 ## Source verification and early start
 
-**November 18 submission decision.** Chad directed the project to use the
-criteria in the course brief. Use Home DIY Repair, the original five categories,
-original D1–D6 anchors, the published benchmark distribution and an independent
-Instructor/Pydantic judge at a lower temperature than the generator. The
-engineering adaptation below is historical. Start the measured sequence with
-a new DIY baseline and authentic reviews. [Operating instructions](DIY-COURSE-RUNBOOK.md)
+**Current submission decision.** Retain all five approved AEC categories. Apply the course criteria and six-stage method exactly. The active rubric is [course-brief-v1](../config/aec-course/rubric.json). Use a lower-temperature independent Instructor/Pydantic judge. [Operating instructions](AEC-COURSE-RUNBOOK.md)
 
 **November 17 restoration:** Chad restored **at least 80% agreement in every
 individual dimension D1–D6**. The [decision record](ACCEPTANCE-RESTORED-80.md)
@@ -76,18 +71,7 @@ The initial assessed batch target is 50 retained items, ten per category. Exact 
 
 ## Six quality dimensions
 
-Human reviewers and the eventual independent judge use the same versioned rubric in [config/rubric.json](../config/rubric.json). Each dimension is binary. An overall pass requires all six dimensions to pass for the same item.
-
-| ID | Dimension | Pass anchor | Corrected pass rate |
-| --- | --- | --- | ---: |
-| D1 | Answer Completeness | Covers the tools, concrete actions, hazards and advice needed to finish the task | ≥85% |
-| D2 | Safety Specificity | Identifies the actual hazard and a specific precaution; generic caution fails | ≥90% |
-| D3 | Tool Realism → API realism | APIs and libraries exist and are available in the stated installation/version | ≥95% |
-| D4 | Scope Appropriateness | Identifies when licensed-engineer review or sign-off is required | ≥95% |
-| D5 | Context Clarity | Provides enough context and directly addresses `equipment_problem` | ≥90% |
-| D6 | Tip Usefulness | Adds task-specific insight beyond repeated steps or generic encouragement | ≥85% |
-
-D3 originally concerns ordinary homeowner tools; D4 concerns when repair work needs professional help. The engineering mappings above come from issue #4. Disclose them with the adaptation; do not present a local rubric as an instructor-approved amendment. Cheap checks can flag obvious defects but do not replace human or judge assessments.
+Use [the course rubric](../config/aec-course/rubric.json) for human and judge labels. D1 completeness ≥85%, D2 specific safety ≥90%, D3 tool realism ≥95%, D4 appropriate scope ≥95%, D5 context clarity ≥90%, D6 useful tips ≥85%. Every item must pass all six for overall pass. The earlier engineering-v1 rubric checked API validity and sign-off under D3 and D4. Its results are historical.
 
 On November 18 Chad supplied the course's customization guidance, which says
 to change topic without changing technical libraries or criteria. The
@@ -102,7 +86,7 @@ of those exceptions is inferred from the earlier permission to start.
 | 1. Generate | Category-parameterized prompt, Pydantic/Instructor output, prompt variant, model, timestamp and raw response per attempt |
 | 2. Gate | Schema validation, cheap dimension checks, deduplication, category counts, retention/rejection reasons and batch result |
 | 3. Human labels | Resumable CLI; authentic human labels on at least 20 baseline and 20 corrected items, with trace IDs, timestamp and rubric version |
-| 4. Judge | Independent prompt, lower temperature where supported, structured six-dimensional judgments and prompt version |
+| 4. Judge | Independent prompt, lower temperature than the generator, Instructor/Pydantic structured six-dimensional judgments and prompt version |
 | 5. Analyze | Category/variant segment metrics, exact human/judge agreement counts, gate statistics and five charts |
 | 6. Iterate | Phase A calibrates the judge on fixed items; Phase B corrects the worst segment × dimension and reruns generation/evaluation |
 
@@ -133,7 +117,7 @@ The initial-attempt denominator and separate retry/retention reporting are local
 
 Before adding external source material, record its URL, version/revision, retrieval date, license/terms and permitted use. Public accessibility is not permission to redistribute. Employer/client material, proprietary physiology and medical simulation are excluded.
 
-The course benchmark `dipenbhuva/home-diy-repair-qa` supplies a uniform five-category distribution reference, not labels for generated items. Whether the engineering adaptation needs a replacement benchmark remains an instructor question. Starting MP1 early does not decide that question.
+The course benchmark `dipenbhuva/home-diy-repair-qa` supplies a uniform five-category distribution reference, not labels for generated items. The active AEC assessment compares the observed category shares with the published uniform target of 20% each.
 
 ## Runtime and failure behavior
 

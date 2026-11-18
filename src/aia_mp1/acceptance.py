@@ -5,7 +5,9 @@ from .tracing import digest
 
 COURSE_POLICY = "course-per-dimension-80-v1"
 OWNER_POLICY = "owner-overall-70-20261116"
-POLICIES = (COURSE_POLICY,) if DOMAIN == "home-diy" else (OWNER_POLICY, COURSE_POLICY)
+POLICIES = (
+    (COURSE_POLICY,) if DOMAIN in {"home-diy", "aec-course"} else (OWNER_POLICY, COURSE_POLICY)
+)
 
 
 def acceptance_result(summary: dict, policy_id: str) -> dict:

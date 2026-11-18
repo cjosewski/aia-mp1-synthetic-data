@@ -23,7 +23,13 @@ def add_commands(commands):
     assessment.add_argument(
         "--rubric",
         type=Path,
-        default=Path("config/diy/rubric.json" if DOMAIN == "home-diy" else "config/rubric.json"),
+        default=Path(
+            "config/aec-course/rubric.json"
+            if DOMAIN == "aec-course"
+            else "config/diy/rubric.json"
+            if DOMAIN == "home-diy"
+            else "config/rubric.json"
+        ),
     )
     assessment.add_argument("--label-count", type=int)
     assessment.add_argument("--seed", default="mp1-v1")

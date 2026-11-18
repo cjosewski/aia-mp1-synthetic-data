@@ -4,10 +4,7 @@ This repository owns the implementation, [SDD](docs/SDD-P1-03.md) and [operator 
 
 ## Current boundary
 
-November 18: Chad directed the submission to use the original course brief.
-Use `AIA_MP1_DOMAIN=home-diy`, `config/diy/`, and
-`docs/DIY-COURSE-RUNBOOK.md` for assessed course work. Earlier engineering
-cohorts, gates, review instructions and judge comparisons are historical.
+Chad confirmed the approved AEC domain and the original course evaluation criteria and method. Use AIA_MP1_DOMAIN=aec-course, config/aec-course/ and docs/AEC-COURSE-RUNBOOK.md for assessed work. The DIY cohort is a retired experiment.
 
 On November 10 Chad approved `docs/assessed-collection-plan.md` with "Approved. Go."
 The assessed source/collection/cohort and frozen blind-reference workflow is now

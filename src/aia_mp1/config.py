@@ -26,7 +26,7 @@ class RunConfig(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True, allow_inf_nan=False)
 
     base_url: Nonblank
-    domain: Literal["engineering", "home-diy"] = Field(
+    domain: Literal["engineering", "home-diy", "aec-course"] = Field(
         default="engineering", exclude_if=lambda v: v == "engineering"
     )
     model: Nonblank

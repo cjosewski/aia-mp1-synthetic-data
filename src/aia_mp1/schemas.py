@@ -8,8 +8,8 @@ from typing import Annotated, Any, Literal, get_args
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_validator
 
 DOMAIN = os.environ.get("AIA_MP1_DOMAIN", "engineering")
-if DOMAIN not in {"engineering", "home-diy"}:
-    raise ValueError("AIA_MP1_DOMAIN must be engineering or home-diy")
+if DOMAIN not in {"engineering", "home-diy", "aec-course"}:
+    raise ValueError("AIA_MP1_DOMAIN must be engineering, home-diy or aec-course")
 EngineeringCategory = Literal[
     "gis_scripting", "aec_automation", "structural_analysis", "cad_apis", "simulation"
 ]

@@ -95,6 +95,10 @@ def source_snapshot(root: Path, run_id: str) -> tuple[dict, list[dict], dict, di
 
 
 def validate_rubric(rubric: dict) -> None:
+    if DOMAIN == "aec-course" and rubric != read_json(
+        Path(__file__).resolve().parents[2] / "config/aec-course/rubric.json"
+    ):
+        raise ValueError("AEC course assessment requires the original course rubric")
     if DOMAIN == "home-diy" and rubric != read_json(
         Path(__file__).resolve().parents[2] / "config/diy/rubric.json"
     ):

@@ -2,7 +2,15 @@
 
 Record one entry for each generator or judge prompt change. Link measured results to immutable run artifacts; an unmeasured hypothesis is not a successful experiment.
 
-## Home DIY submission — baseline, November 18, 2026
+## AEC course baseline — November 18, 2026
+
+- **Change.** Restore the original five AEC categories. Use the course anchors for human and independent model scoring. Replay all four original baseline generation batches through the six first-pass checks before selecting review items.
+- **Hypothesis.** The original AEC generation records can supply a balanced population after excluding the fifty previously judged items, without repeating inference.
+- **Result.** All 200 first attempts were schema-valid. The collection retained 50, ten per category. Rejection reasons include 40 D2 flags, 12 D5 flags, nine cross-batch duplicates, 50 previously judged records and 58 quota exclusions. Reasons overlap. The frozen AEC review queue contains twenty items.
+- **Decision.** Use this baseline and retain all earlier evidence under its original purpose.
+- **Next step.** Complete authentic human labels, freeze the reference and calibrate on these fixed items. Agreement and generator improvement remain unmeasured under this rubric.
+
+## Retired Home DIY experiment — baseline, November 18, 2026
 
 - **Change.** Started a new baseline using the original repair categories and
   rubric, the course benchmark and an original category-conditioned prompt.

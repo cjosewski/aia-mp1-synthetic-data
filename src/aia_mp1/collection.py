@@ -124,6 +124,7 @@ def inspect_batch(root: Path, run_id: str, identity: dict) -> dict:
 
 def summarize(root: Path, manifest: dict) -> dict:
     counts = dict.fromkeys(CATEGORIES, 0)
+    previously_judged = set(manifest.get("baseline_replay", {}).get("excluded_item_ids", []))
     members, decisions, batches, seen, reasons = [], [], [], {}, []
     initial_valid = requests = planned = 0
     for run_id in manifest["batches"]:
@@ -159,6 +160,8 @@ def summarize(root: Path, manifest: dict) -> dict:
             duplicate_of = previous[1] if previous else None
             seen.setdefault(question, (run_id, record["item_id"]))
             rejection = list(by_item[record["item_id"]]["reasons"])
+            if record["item_id"] in previously_judged:
+                rejection.append("prior_judge_exposure")
             if previous and previous[0] != run_id:
                 rejection.append("cross_batch_duplicate")
             category = record["category"]

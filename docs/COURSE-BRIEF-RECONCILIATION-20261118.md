@@ -1,9 +1,6 @@
 # Course brief reconciliation — November 18, 2026
 
-**Decision.** Chad selected the original course criteria. Use the DIY rubric,
-benchmark and lower-temperature Instructor judge for the submission. The table
-below records the engineering discrepancies that prompted the decision.
-[Current runbook](DIY-COURSE-RUNBOOK.md)
+**Owner clarification.** Use the approved AEC domain with the original course criteria and six-stage method. The original DIY subject was introduced in error. The table below records earlier discrepancies. [Active runbook](AEC-COURSE-RUNBOOK.md)
 
 Chad supplied the Mini Project 1 course text in this session. This record
 compares its explicit constraints with the engineering-code adaptation already

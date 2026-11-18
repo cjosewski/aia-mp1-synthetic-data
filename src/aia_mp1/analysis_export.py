@@ -87,7 +87,7 @@ def chart_tables(report: dict) -> dict:
                     "after_deduplication": row.get("after_deduplication"),
                     "retained": row.get("retained"),
                     "target": 10,
-                    **({"benchmark_count": 1000} if DOMAIN == "home-diy" else {}),
+                    **({"benchmark_count": 1000} if DOMAIN in {"home-diy", "aec-course"} else {}),
                 }
             )
         row = snapshot["judge_quality"]["overall"] if snapshot else {}
@@ -267,7 +267,7 @@ def render_charts(report: dict, target: Path) -> dict:
         "04-category-distribution",
         "Schema-valid candidates before gate/quota and retained cohort counts",
     )
-    if DOMAIN == "home-diy":
+    if DOMAIN in {"home-diy", "aec-course"}:
         fig, ax = plt.subplots(figsize=(10, 6))
         rows = tables["categories"]
         for index, phase in enumerate(PHASES):
@@ -279,7 +279,9 @@ def render_charts(report: dict, target: Path) -> dict:
             np.arange(5) + 0.24,
             [r["benchmark_count"] for r in rows[:5]],
             0.24,
-            label="Published benchmark",
+            label="Course benchmark (1,000 per repair category)"
+            if DOMAIN == "aec-course"
+            else "Published benchmark",
         )
         ax.set(
             yscale="log",
@@ -288,7 +290,13 @@ def render_charts(report: dict, target: Path) -> dict:
             xticklabels=[c.replace("_", "\n") for c in CATEGORIES],
         )
         ax.legend()
-        save(fig, "06-course-benchmark", "Retained repair items and benchmark counts")
+        save(
+            fig,
+            "06-course-benchmark",
+            "AEC category counts vs uniform course reference"
+            if DOMAIN == "aec-course"
+            else "Retained repair items and benchmark counts",
+        )
     fig, ax = plt.subplots(figsize=(8, 5))
     for index, field in enumerate(("pass", "fail")):
         values = [

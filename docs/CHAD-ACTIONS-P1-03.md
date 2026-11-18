@@ -1,8 +1,6 @@
 # P1-03 — Everything needed from Chad
 
-**Current action for the course submission.** Complete the twenty fresh DIY
-baseline reviews using the [DIY review runbook](DIY-COURSE-RUNBOOK.md). Earlier
-engineering review packets and actions below describe the previous track.
+**Current action.** Complete the twenty selected AEC baseline reviews using the [AEC course runbook](AEC-COURSE-RUNBOOK.md). The directions below describe earlier checkpoints.
 
 Updated November 18, 2026. This is your consolidated instruction sheet.
 The [live project checklist](https://github.com/cjosewski/aia-plan/issues/4) tracks

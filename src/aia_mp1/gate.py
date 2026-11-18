@@ -4,8 +4,9 @@ from __future__ import annotations
 
 import re
 import unicodedata
+from typing import get_args
 
-from .schemas import CATEGORIES, DOMAIN, GeneratedItem, QAItem
+from .schemas import CATEGORIES, DOMAIN, GeneratedItem, QAItem, RepairCategory
 
 _HAZARD = re.compile(
     r"\b(?:units?|crs|coordinates?|data loss|overwrite|instability|unstable|"
@@ -45,7 +46,7 @@ def _tip_text(text: str) -> str:
 
 
 def _heuristic_checks(item: QAItem) -> dict[str, dict]:
-    if DOMAIN == "home-diy":
+    if DOMAIN in {"home-diy", "aec-course"}:
         return _repair_checks(item)
     safety = item.safety_info
     safety_pass = (
@@ -232,14 +233,22 @@ def evaluate_gate(records: list[GeneratedItem], *, expected_count: int) -> dict:
                 "benchmark": {
                     "dataset": "dipenbhuva/home-diy-repair-qa",
                     "revision": "074f64327b4d19fd83052f614ca9d25f89cfe6ee",
-                    "counts": dict.fromkeys(CATEGORIES, 1000),
+                    "counts": dict.fromkeys(get_args(RepairCategory), 1000),
+                    **(
+                        {
+                            "comparison_basis": "uniform fraction across five subject categories",
+                            "target_fraction_per_category": 0.2,
+                        }
+                        if DOMAIN == "aec-course"
+                        else {}
+                    ),
                 },
                 "drops_per_check": {
                     d: sum(d in row["reasons"] for row in results)
                     for d in ("D1", "D2", "D3", "D4", "D5", "D6")
                 },
             }
-            if DOMAIN == "home-diy"
+            if DOMAIN in {"home-diy", "aec-course"}
             else {}
         ),
         "minimum_assessed_size_met": len(accepted_ids) >= 50,

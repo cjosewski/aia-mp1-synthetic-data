@@ -47,7 +47,7 @@ def main(argv=None) -> int:
                 render_charts(
                     result,
                     output_directory(args.artifact_root, args.report_id)
-                    / ("visualizations" if DOMAIN == "home-diy" else "charts"),
+                    / ("visualizations" if DOMAIN in {"home-diy", "aec-course"} else "charts"),
                 )
             elif args.command == "export":
                 export_local(

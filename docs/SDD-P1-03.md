@@ -2,18 +2,15 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.52, November 18, 2026 |
-| Status | Fresh DIY baseline collected and frozen, 50 items across five repair categories. Twenty selected items await human review. Baseline quality, calibration and generator improvement remain unmeasured. |
-| Project | P1-03 / Mini Project 1, Home DIY Repair |
+| Revision | 0.53, November 18, 2026 |
+| Status | Frozen AEC baseline ready for human review on the course rubric. Calibration and improvement remain unmeasured for this assessment. |
+| Project | P1-03 / Mini Project 1, Synthetic Data and Evaluation on AEC data |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |
 | Execution checklist | [aia-plan issue #4](https://github.com/cjosewski/aia-plan/issues/4) |
 | Purpose | Full-project software design and requirement-to-evidence traceability, requested by Chad November 9 |
 
-The [DIY runbook](DIY-COURSE-RUNBOOK.md) and [course rubric](../config/diy/rubric.json)
-govern the current submission. The domain selects the five repair categories
-through generation, collection, review, judging and analysis. Engineering
-records and design history below describe the earlier experiment.
+The [AEC runbook](AEC-COURSE-RUNBOOK.md) and [course rubric](../config/aec-course/rubric.json) govern the submission. The original AEC generation records supply the baseline. Historical evaluations and the separate DIY experiment retain their original provenance.
 
 This SDD describes all six assignment stages, including work beyond the current
 implementation plan. On November 9 Chad stated, "The assignment has been accepted.
@@ -43,7 +40,7 @@ six dimensions, libraries, stages and thresholds recorded in the sources.
 | --- | --- |
 | [Requirements record](requirements.md) | November 9 portal reconciliation of schema, rubric and success criteria; lower visualization/example-log sections were not independently reread |
 | [Issue #4](https://github.com/cjosewski/aia-plan/issues/4) | Live execution checklist, re-theme, stronger judge selection and deliverables; read November 9 for this SDD |
-| [Rubric](../config/rubric.json) | Machine-readable anchors and thresholds, `engineering-v1`; adaptation acceptance remains pending |
+| [Course rubric](../config/aec-course/rubric.json) | Human and judge use the same original D1–D6 anchors and thresholds on the AEC population |
 | [Source manifest](../config/sources.json) / [assessed source decision](REFERENCE-PACK-REVIEW.md) | Smoke manifest stays separate; external engineering-v1 pack approved November 10 for local noncommercial assessed coursework |
 | [Program source record](https://github.com/cjosewski/aia-plan/blob/main/docs/research/track-program-requirements.md) | Dated generic Evidence Pack requirements; not a newly verified assignment template |
 | [P1-03 checkpoint](https://github.com/cjosewski/aia-plan/blob/main/docs/progress/P1-03.md) | Authorization, observations and retained evidence; not a second live checklist |
@@ -98,14 +95,13 @@ contains the full pass/fail anchors; its version and hash accompany every review
 | --- | --- | ---: |
 | D1 | Answer completeness | 85% |
 | D2 | Task-specific hazard and concrete precaution | 90% |
-| D3 | API/library realism and availability in the stated installation/version | 95% |
-| D4 | Appropriate licensed-engineer review or sign-off boundary | 95% |
+| D3 | Every listed tool meets the original homeowner availability/under-$50 and non-specialist criteria | 95% |
+| D4 | Realistic DIY capability and clear professional referral when needed | 95% |
 | D5 | Clear context that addresses `equipment_problem` | 90% |
 | D6 | Useful task-specific advice beyond repeated steps | 85% |
 | Overall | All six pass for the same item | 80% |
 
-D3/D4 engineering interpretations are disclosed adaptations. Early-start
-permission does not establish instructor approval of those interpretations.
+Earlier D3/D4 scores used engineering-specific anchors. Current assessments use the original course rubric linked above.
 
 ## 3. Architecture and runtime
 
