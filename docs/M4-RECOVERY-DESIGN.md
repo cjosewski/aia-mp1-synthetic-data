@@ -289,6 +289,24 @@ records are not rewritten. No live recovery journal had been allocated here.
 Contract verification: **743 tests passed in 145.95 seconds** in locked WSL;
 18 focused journal/tunnel tests passed. The changed-script test rejects a frozen
 journal without modifying its records. Ruff lint/format and diff checks pass.
+
+`recovery_runner.run_next` now ties the frozen packet, one released journal slot,
+owned tunnel, Mac process, exact model files, live server properties and exact
+wire token fit to the single-attempt transport. It requires an explicit
+20-start development allocation reference in the frozen experiment. A
+preflight receipt is created outside Git before dispatch, including failures
+that exceed context. Receipts are create-only; an interrupted or repeated
+preflight cannot overwrite one. The runner sends at most one request and
+returns to the technical-audit barrier. It does not auto-score, retry, allocate
+an assessed run or loop across cases.
+
+This is an internal integration seam, not an operator command. The real packet
+still has 16 source holds, so `require_ready` stops it before inference. A
+bounded development allocation has not been created; the proposed uncertainty
+policy remains pending. No live end-to-end request has used this runner.
+Runner verification: **747 tests passed in 145.82 seconds** in locked WSL,
+including 17 focused runner/request/journal tests. Ruff lint/format and diff
+checks pass. Synthetic dispatch mocks do not count as model starts.
 Windows-reader verification: **742 tests passed in 143.74 seconds** in locked
 WSL Ubuntu; 17 focused tunnel/journal tests passed. The script's absent-port
 path was observed on Windows. A successful live tunnel observation has not
