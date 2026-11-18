@@ -174,7 +174,7 @@ audit, and scores from saved journal payloads. It revalidates the source bundle
 and requires the scorer start to bind the exact released scoring input. Only a
 complete, accepted six-dimension review advances to the next case. Twelve focused
 synthetic tests cover both adapters, including changed source permissions, stale
-scoring inputs and unresolved scores. Rejecting-audit handling, response finishing
+scoring inputs and unresolved scores. Rejecting-audit handling
 and live request/runtime preflight remain runner work. An accepted technical
 audit is not an authentic human label or permission to dispatch; the resulting
 development judgment remains ineligible for assessed calibration.
@@ -183,6 +183,18 @@ Score-audit integration verification: **674 tests passed in 119.53 seconds** in
 the locked WSL environment with the analysis extra and ReportLab. Focused tests
 passed 12/12; Ruff lint/format and `git diff --check` passed. These are software
 checks only; no model requests or real review acceptances were produced.
+
+`record_completion` now derives response-schema validity from the retained raw
+chat completion and the pending stage's schema. It requires the exact durable
+start identity, preserves malformed replies, and does not accept a caller's
+validity flag. Schema-valid responses still wait for semantic review. Missing
+outcomes stay pending; late or duplicate completions cannot finish a different
+request. Malformed responses consume their slot and the existing two-consecutive-
+failure stop applies without reducing the ten-case denominator. Transport
+exception capture and live dispatch remain unimplemented in this adapter.
+Response-recording verification: **677 tests passed in 127.65 seconds** in the
+locked WSL environment; Ruff lint/format and `git diff --check` passed. No live
+requests or changes to frozen ratings were made.
 
 Prepare ten previously exposed original-baseline cases, two per category. Include
 all three known human D2 failures and cases that distinguish missing obligations,

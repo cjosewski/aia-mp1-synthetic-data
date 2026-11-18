@@ -17,6 +17,40 @@ from .recovery_scoring import (
 from .tracing import digest
 
 
+def record_completion(ledger, start_sha256, raw):
+    """Retain a returned response and derive schema validity, never semantic truth.
+
+    Call only for an actual response, not a missing/unknown transport outcome.
+    The caller supplies the durable start identity to prevent a late response
+    from being attributed to a subsequent request. Invalid returns consume their
+    allocated slot; valid returns still require the separate semantic audit.
+    """
+    _, _, state, _ = ledger.read()
+    pending = state["pending"]
+    if pending is None or digest(pending) != start_sha256:
+        raise ValueError("completion does not match the pending request")
+    if not isinstance(raw, (dict, str)):
+        raise ValueError(
+            "retain a response object or original response text; missing outcome stays pending"
+        )
+    schema = Observations if pending["stage"] == "facts" else Scores
+    error_type = None
+    try:
+        schema.model_validate(completion_json(raw))
+    except (ValueError, KeyError, TypeError, IndexError, AttributeError) as exc:
+        error_type = type(exc).__name__
+    state = ledger.append(
+        {
+            "kind": "finish",
+            "start_sha256": start_sha256,
+            "completion_sha256": digest(raw),
+            "structurally_valid": error_type is None,
+        },
+        raw,
+    )
+    return {"state": state, "schema_error_type": error_type, "execution_enabled": False}
+
+
 def case_binding(plan, content, rubric):
     return {
         "plan_sha256": fingerprint(plan),

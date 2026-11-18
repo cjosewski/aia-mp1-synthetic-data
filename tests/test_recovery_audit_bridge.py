@@ -1,5 +1,6 @@
 """Synthetic audit binding; no real item receives an accepting audit."""
 
+import json
 from copy import deepcopy
 
 import pytest
@@ -9,7 +10,12 @@ from test_factcheck import bundle as bundle
 from test_recovery_checks import packet as packet
 from test_recovery_scoring import scoring as scoring
 
-from aia_mp1.recovery_audit_bridge import accept_fact_audit, accept_score_audit, case_binding
+from aia_mp1.recovery_audit_bridge import (
+    accept_fact_audit,
+    accept_score_audit,
+    case_binding,
+    record_completion,
+)
 from aia_mp1.recovery_ledger import RecoveryLedger
 from aia_mp1.tracing import digest
 
@@ -33,15 +39,7 @@ def prepared(tmp_path, args, raw=None, stale=False):
     }
     ledger.append(start, payload)
     raw = raw if raw is not None else envelope(observations.model_dump(mode="json"))
-    ledger.append(
-        {
-            "kind": "finish",
-            "start_sha256": digest(start),
-            "completion_sha256": digest(raw),
-            "structurally_valid": True,
-        },
-        raw,
-    )
+    record_completion(ledger, digest(start), raw)
     return ledger
 
 
@@ -69,7 +67,10 @@ def test_stale_or_unverified_artifacts_do_not_append_acceptance(scoring, tmp_pat
     with pytest.raises(ValueError):
         accept_fact_audit(ledger, *args[:4], args[5])
     assert (ledger.directory / "events.jsonl").read_bytes() == before
-    assert ledger.read()[2]["awaiting_audit"]
+    if attack == "raw":
+        assert ledger.read()[2]["cases"]["synthetic-0"]["facts"] == "failed"
+    else:
+        assert ledger.read()[2]["awaiting_audit"]
 
 
 def score_ready(tmp_path, args, scores, stale=False):
@@ -88,15 +89,7 @@ def score_ready(tmp_path, args, scores, stale=False):
     }
     ledger.append(start, payload)
     raw = envelope(scores.model_dump(mode="json"))
-    ledger.append(
-        {
-            "kind": "finish",
-            "start_sha256": digest(start),
-            "completion_sha256": digest(raw),
-            "structurally_valid": True,
-        },
-        raw,
-    )
+    record_completion(ledger, digest(start), raw)
     return ledger
 
 
@@ -127,3 +120,37 @@ def test_score_acceptance_revalidates_entire_saved_chain(scoring, tmp_path, atta
         accept_score_audit(ledger, *args[:4], audit)
     assert (ledger.directory / "events.jsonl").read_bytes() == before
     assert ledger.read()[2]["awaiting_audit"]["stage"] == "score"
+
+
+@pytest.mark.parametrize("raw", ["not JSON", {"choices": []}, envelope({"wrong": "schema"})])
+def test_invalid_returns_are_retained_and_halt_after_two(tmp_path, raw):
+    cases = [f"synthetic-{i}" for i in range(10)]
+    ledger = RecoveryLedger.create(tmp_path / "journal", cases, {"synthetic": True})
+    for item in cases[:2]:
+        payload = {"synthetic": item}
+        start = {
+            "kind": "start",
+            "item_id": item,
+            "stage": "facts",
+            "request_sha256": digest(payload),
+        }
+        ledger.append(start, payload)
+        before = (ledger.directory / "events.jsonl").read_bytes()
+        with pytest.raises(ValueError, match="missing outcome"):
+            record_completion(ledger, digest(start), None)
+        assert ledger.read()[2]["unknown_outcome"]
+        with pytest.raises(ValueError, match="pending"):
+            record_completion(ledger, "a" * 64, raw)
+        assert (ledger.directory / "events.jsonl").read_bytes() == before
+        result = record_completion(ledger, digest(start), raw)
+        assert result["schema_error_type"]
+        rows = [
+            json.loads(line)
+            for line in (ledger.directory / "events.jsonl").read_text().splitlines()
+        ]
+        assert rows[-1]["payload"] == raw
+        with pytest.raises(ValueError, match="pending"):
+            record_completion(ledger, digest(start), raw)
+    assert result["state"]["halt"] == "two_structural_failures"
+    assert result["state"]["starts"] == 2
+    assert result["state"]["coverage_denominator"] == 10
