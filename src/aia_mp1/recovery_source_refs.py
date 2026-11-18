@@ -11,7 +11,13 @@ from typing import Literal
 from .evidence_judge import StrictModel
 from .factcheck import SHA
 from .recovery_checks import CheckID, SourceBinding
-from .recovery_evidence import EvidencePlan, evidence_request, fingerprint, validate_evidence_plan
+from .recovery_evidence import (
+    EvidencePlan,
+    RuntimeEvidencePlan,
+    evidence_request,
+    fingerprint,
+    validate_evidence_plan,
+)
 from .schemas import NonBlank
 
 
@@ -47,12 +53,18 @@ def inspect_source_observations(
     A source ID identifies the entire immutable, versioned source passage. Its
     relevance to the specific claim is a separate semantic-audit decision.
     """
-    validate_evidence_plan(plan, content, rubric, source_root)
+    catalog = validate_evidence_plan(plan, content, rubric, source_root)
     if response.plan_sha256 != fingerprint(plan):
         raise ValueError("source observations belong to a different evidence plan")
     if [row.check_id for row in response.observations] != [check.check_id for check in plan.checks]:
         raise ValueError("source observations must cover every ordered check exactly once")
     unresolved, contradicted = [], []
+    unresolved_runtime = [
+        check.check_id
+        for check in plan.checks
+        if isinstance(plan, RuntimeEvidencePlan)
+        and any(catalog[source.passage_id].get("unresolved", False) for source in check.sources)
+    ]
     for check, row in zip(plan.checks, response.observations, strict=True):
         allowed = {(s.passage_id, s.version) for s in check.sources}
         cited = [(s.passage_id, s.version) for s in row.sources]
@@ -60,6 +72,10 @@ def inspect_source_observations(
             raise ValueError(f"{check.check_id}: duplicate or unbound source reference")
         if row.status != "insufficient" and not cited:
             raise ValueError(f"{check.check_id}: conclusion requires a bound source reference")
+        if check.check_id in unresolved_runtime and row.status != "insufficient":
+            raise ValueError(
+                f"{check.check_id}: unresolved runtime outcome cannot support a finding"
+            )
         if row.status == "insufficient":
             unresolved.append(check.check_id)
         elif row.status == "contradicted":
@@ -69,6 +85,7 @@ def inspect_source_observations(
         "plan_sha256": response.plan_sha256,
         "checks": len(plan.checks),
         "unresolved": unresolved,
+        "unresolved_runtime_checks": unresolved_runtime,
         "contradicted": contradicted,
         "semantic_audit": "required",
         "calibration_eligible": False,

@@ -26,7 +26,9 @@ shape. The scorer returns effects for every required check and candidate passage
 IDs for each resolved dimension. It cannot convert an insufficient fact into
 support or a defect, reverse an audited contradiction, pass with a decisive
 defect, or omit required materiality review. Fact and score audits remain
-attributed and separate. The output is development-only and never a human
+attributed and separate. Runtime evidence also requires complete record-level
+applicability audits; unresolved runtime outcomes remain insufficient. The
+output is development-only and never a human
 label or assessed calibration receipt.
 
 The prototype leaves the earlier exact-offset implementation and its
@@ -37,13 +39,14 @@ single-start transport semantics, source/packet fingerprints, Mac/tunnel
 ownership and exact-wire token checks. It must not reinterpret earlier trial
 outputs as valid ID responses.
 
-The first corrected-packet case replayed offline with 26 checks and no model
-call. Its frozen request is under workspace
+All ten corrected-packet cases replayed offline with 358 checks, including two
+runtime-evidence cases and no model call. The first case's frozen request and
+the all-case validation receipt are under workspace
 `artifacts/evidence/P1-03/qualification/m4-source-refs-offline-20261118/`;
-request SHA-256 is
+first-case request SHA-256 is
 `6b1e311ccb689369cb03368f1b840a194e76463ecf9d7ddd1fe2b558aada4769`.
-The locked WSL suite passed **764 tests**, with one existing optional
-`reportlab` import skip; the new 15 focused source-ID tests passed.
+The locked WSL suite passed **766 tests**, with one existing optional
+`reportlab` import skip. All **17 focused source-ID tests** passed.
 
 ## Measurement gate
 

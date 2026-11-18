@@ -3,7 +3,15 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
-**Recovery checkpoint — November 18:** the latest separate preparation packet
+**Current M4 checkpoint — November 18:** three bounded recovery trials each
+retained one facts response and stopped at technical audit before scoring.
+The [trial results](docs/M4-BOUNDED-TRIAL-RESULTS.md) explain the task-fulfillment
+and exact-citation failures. A separate [source-ID redesign](docs/M4-SOURCE-REFERENCE-REDESIGN.md)
+now has an offline fact/score prototype and tests, but no live qualification
+result. V15 remains the assessed baseline at 95/120, with D1 and D6 below the
+required 80% each. The Mac server and dedicated tunnel are stopped.
+
+**Earlier recovery preparation checkpoint — November 18:** the separate preparation packet
 has **358 checks, 342 prepared questions and 16 holds**, with no empty source
 bindings. All ten packets replay. Prepared questions are not verified facts;
 frozen reviews and measured agreement are unchanged. The

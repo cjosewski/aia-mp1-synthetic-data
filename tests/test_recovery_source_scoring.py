@@ -8,11 +8,13 @@ from test_factcheck import bundle as bundle
 from test_recovery_checks import packet as packet
 from test_recovery_evidence import audit_for
 from test_recovery_evidence import evidence as evidence
+from test_recovery_runtime import runtime as runtime
+from test_recovery_runtime import runtime_audit, update_result
 from test_recovery_source_refs import response_for
 
-from aia_mp1.recovery_evidence import EvidencePlan
+from aia_mp1.recovery_evidence import parse_plan
 from aia_mp1.recovery_scoring import UncertaintyScoreAudit, fingerprint
-from aia_mp1.recovery_source_refs import SourceObservations
+from aia_mp1.recovery_source_refs import SourceObservations, inspect_source_observations
 from aia_mp1.recovery_source_scoring import (
     SourceScores,
     build_source_scoring_input,
@@ -24,7 +26,7 @@ from aia_mp1.tracing import digest
 
 def setup(evidence, *, uncertain=False):
     raw_plan, content, rubric, root = evidence
-    plan = EvidencePlan.model_validate(raw_plan)
+    plan = parse_plan(raw_plan)
     raw = response_for(raw_plan)
     if uncertain:
         raw["observations"][0]["status"] = "insufficient"
@@ -153,3 +155,28 @@ def test_uncertain_fact_cannot_become_support_or_pass_without_materiality(eviden
             audit,
             allow_insufficient=True,
         )
+
+
+def test_runtime_source_ids_require_applicability_audit(runtime):
+    raw_plan, content, rubric, root = runtime
+    plan = parse_plan(raw_plan)
+    rows = SourceObservations.model_validate(response_for(raw_plan))
+    with pytest.raises(ValueError, match="applicability audit"):
+        build_source_scoring_input(plan, content, rubric, root, rows, audit_for(raw_plan, rows))
+    result = build_source_scoring_input(
+        plan, content, rubric, root, rows, runtime_audit(runtime, rows)
+    )
+    assert result["runtime_records"]
+    assert source_scoring_request(result)["runtime_records"] == result["runtime_records"]
+
+
+def test_unresolved_runtime_outcome_cannot_be_supported(runtime):
+    def timeout(value):
+        value["cases"][0]["timeout"] = True
+
+    update_result(runtime, timeout)
+    raw_plan, content, rubric, root = runtime
+    plan = parse_plan(raw_plan)
+    rows = SourceObservations.model_validate(response_for(raw_plan))
+    with pytest.raises(ValueError, match="unresolved runtime outcome"):
+        inspect_source_observations(plan, content, rubric, root, rows)

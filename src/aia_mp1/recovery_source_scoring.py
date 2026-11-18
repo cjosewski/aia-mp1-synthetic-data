@@ -11,8 +11,15 @@ from typing import Literal
 from .evaluation_schemas import DIMENSIONS, Binary, Judgment
 from .evidence_judge import StrictModel
 from .factcheck import SHA, Dimension
-from .recovery_evidence import EvidencePlan
-from .recovery_scoring import Effect, EvidenceFactAudit, UncertaintyScoreAudit, fingerprint
+from .recovery_evidence import EvidencePlan, RuntimeEvidencePlan
+from .recovery_runtime import runtime_context
+from .recovery_scoring import (
+    Effect,
+    EvidenceFactAudit,
+    RuntimeFactAudit,
+    UncertaintyScoreAudit,
+    fingerprint,
+)
 from .recovery_source_refs import SourceObservations, inspect_source_observations
 from .schemas import NonBlank
 from .tracing import digest
@@ -52,6 +59,23 @@ def build_source_scoring_input(
     report = inspect_source_observations(plan, content, rubric, source_root, observations)
     if report["unresolved"] and not allow_insufficient:
         raise ValueError("unresolved facts prevent strict scoring")
+    if isinstance(plan, RuntimeEvidencePlan):
+        if not isinstance(fact_audit, RuntimeFactAudit):
+            raise ValueError("runtime evidence requires explicit applicability audit")
+        runtime_audits = {row.record_id: row for row in fact_audit.runtime_records}
+        if len(runtime_audits) != len(fact_audit.runtime_records) or set(runtime_audits) != {
+            row.record_id for row in plan.runtime_records
+        }:
+            raise ValueError("runtime audit must cover every record exactly once")
+        if not all(
+            row.accepted
+            and row.version_and_build_applicable
+            and row.scheduled_cases_complete
+            and row.script_matches_outputs
+            and row.qualifiers_and_limits_reviewed
+            for row in runtime_audits.values()
+        ):
+            raise ValueError("runtime audit has unresolved objections")
     if fact_audit.plan_sha256 != fingerprint(plan) or fact_audit.observations_sha256 != fingerprint(
         observations
     ):
@@ -72,7 +96,7 @@ def build_source_scoring_input(
         )
     ):
         raise ValueError("fact audit has unresolved objections")
-    return {
+    result = {
         "protocol": "recovery-source-scoring-v1",
         "plan": plan.model_dump(mode="json"),
         "content": content,
@@ -90,12 +114,15 @@ def build_source_scoring_input(
             for row in rubric["dimensions"]
         },
     }
+    if isinstance(plan, RuntimeEvidencePlan):
+        _, result["runtime_records"] = runtime_context(plan.runtime_records, source_root)
+    return result
 
 
 def source_scoring_request(scoring_input: dict) -> dict:
     """Omit audit comments and duplicate source-file bytes from model input."""
     content = scoring_input["content"]
-    return {
+    request = {
         "protocol": scoring_input["protocol"],
         "scoring_input_sha256": digest(scoring_input),
         "untrusted_item": content["untrusted_item"],
@@ -113,6 +140,9 @@ def source_scoring_request(scoring_input: dict) -> dict:
             for note in scoring_input["plan"]["reasoning_notes"]
         ],
     }
+    if "runtime_records" in scoring_input:
+        request["runtime_records"] = scoring_input["runtime_records"]
+    return request
 
 
 def inspect_source_scores(
