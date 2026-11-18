@@ -237,6 +237,11 @@ preflight must include sources, checklist, response schema and downstream memo.
 If it will not fit, revise and freeze the protocol **before** a request; do not
 silently drop claims. Changes to Herd services remain outside this project.
 
+The [November 18 draft sizing measurement](M4-TOKEN-SIZING.md) finds five compact
+verifier inputs larger than the previous 16,384-token context, with a maximum
+of 43,519 input tokens before instructions/schema/output. Compact JSON alone
+does not resolve the context constraint. No inference was attempted.
+
 Advance only with ten complete audited pairs, at least 8/10 agreement in every
 dimension, no D2/D3 false approvals, more total matches than paired saved V15,
 no dimension decrease, no increase in false approvals, and no unsupported
