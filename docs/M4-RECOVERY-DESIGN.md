@@ -255,6 +255,21 @@ no source gaps; `require_ready` correctly refuses it. Receipt:
 **699 tests passed in 127.63 seconds** in locked WSL, including nine new packet
 adversaries; Ruff lint/format and diff checks passed. No inference calls occurred.
 
+`recovery_requests.prepare_next` now joins the packet gate to deterministic
+request construction. It requires the manifest's exact packet fingerprint,
+case bindings/order, transport settings and both stage prompts. Verifier inputs
+are rebuilt from verified evidence; scorer inputs are reconstructed from the
+saved accepted fact response/audit and checked again against the source bundle.
+Review commentary is excluded from model input. Pending requests or outstanding
+audits cannot release a new prepared request. The output includes the actual
+Instructor wire receipt but remains execution-disabled until fresh runtime/model
+identity and token-fit checks are connected. No real recovery journal has been
+allocated or dispatched.
+Verification: **702 tests passed in 132.37 seconds** in locked WSL; the focused
+request/audit suite passed 20 tests. Ruff lint/format and diff checks passed.
+The new request tests cover both stages, pending/audit barriers, excluded audit
+commentary and preparation drift, using synthetic data only.
+
 Prepare ten previously exposed original-baseline cases, two per category. Include
 all three known human D2 failures and cases that distinguish missing obligations,
 invalid tips and valid API claims wrongly rejected. Publish the exact item list

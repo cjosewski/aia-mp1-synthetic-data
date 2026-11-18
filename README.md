@@ -11,7 +11,8 @@ frozen reviews and measured agreement are unchanged. The
 serialization, bounded durable scheduling, saved-response validation, accepting
 fact/score audits, durable rejection stops and transport-failure recording that
 preserves unknown outcomes, plus an internal single-request transport adapter.
-**699 locked WSL tests pass**. The packet-readiness gate replays all ten cases
+**702 locked WSL tests pass**. Frozen request construction now connects to the
+packet gate and accepted fact reviews. The packet-readiness gate replays all ten cases
 and reports the actual 16 holds; top-level orchestration remains.
 
 The [Mac capacity check](docs/M4-TOKEN-SIZING.md) fits all ten prior draft verifier

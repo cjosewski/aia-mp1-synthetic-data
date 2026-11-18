@@ -184,26 +184,19 @@ def accept_fact_audit(ledger, plan, content, rubric, source_root, audit):
     return {"state": state, "scoring_input": scoring_input, "execution_enabled": False}
 
 
-def accept_score_audit(ledger, plan, content, rubric, source_root, audit):
-    """Reconstruct facts and scores from the journal before accepting a score audit.
-
-    The scorer start must bind the exact scoring input released by the accepted
-    fact audit. Neither observations nor scores are supplied by the caller.
-    """
+def accepted_fact_material(ledger, item_id, plan, content, rubric, source_root):
+    """Revalidate the saved accepted facts for request construction or score audit."""
     manifest, records, state, _ = ledger.read()
-    waiting = state["awaiting_audit"]
-    if waiting is None or waiting["stage"] != "score":
-        raise ValueError("no scorer completion awaits a score audit")
+    if state["cases"].get(item_id, {}).get("facts") != "accepted":
+        raise ValueError("case has no accepted fact audit")
     binding = case_binding(plan, content, rubric)
-    if manifest["experiment"].get("case_bindings", {}).get(waiting["item_id"]) != binding:
+    if manifest["experiment"].get("case_bindings", {}).get(item_id) != binding:
         raise ValueError("case differs from frozen experiment")
     payloads = _payloads(ledger)
-    finish = next(r for r in records if digest(r) == waiting["finish_sha256"])
-    start = next(r for r in records if digest(r) == finish["start_sha256"])
     fact_start = next(
         r
         for r in records
-        if r["kind"] == "start" and r["item_id"] == waiting["item_id"] and r["stage"] == "facts"
+        if r["kind"] == "start" and r["item_id"] == item_id and r["stage"] == "facts"
     )
     fact_finish = next(
         r for r in records if r["kind"] == "finish" and r["start_sha256"] == digest(fact_start)
@@ -232,9 +225,27 @@ def accept_score_audit(ledger, plan, content, rubric, source_root, audit):
         fact_payload.get("case_binding") != binding
         or fact_payload.get("observations_sha256") != fingerprint(observations)
         or fact_payload.get("scoring_input_sha256") != digest(scoring_input)
-        or payloads[digest(start)].get("case_binding") != binding
-        or payloads[digest(start)].get("scoring_input_sha256") != digest(scoring_input)
     ):
+        raise ValueError("accepted fact audit lineage changed")
+    return scoring_input, observations, fact_audit
+
+
+def accept_score_audit(ledger, plan, content, rubric, source_root, audit):
+    """Reconstruct facts and scores from the journal before accepting a score audit."""
+    _, records, state, _ = ledger.read()
+    waiting = state["awaiting_audit"]
+    if waiting is None or waiting["stage"] != "score":
+        raise ValueError("no scorer completion awaits a score audit")
+    scoring_input, observations, fact_audit = accepted_fact_material(
+        ledger, waiting["item_id"], plan, content, rubric, source_root
+    )
+    binding = case_binding(plan, content, rubric)
+    payloads = _payloads(ledger)
+    finish = next(r for r in records if digest(r) == waiting["finish_sha256"])
+    start = next(r for r in records if digest(r) == finish["start_sha256"])
+    if payloads[digest(start)].get("case_binding") != binding or payloads[digest(start)].get(
+        "scoring_input_sha256"
+    ) != digest(scoring_input):
         raise ValueError("scorer lineage differs from accepted facts")
     scores = Scores.model_validate(completion_json(payloads[digest(finish)]))
     report = inspect_scores(

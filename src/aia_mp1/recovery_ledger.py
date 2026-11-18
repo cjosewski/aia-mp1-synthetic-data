@@ -20,6 +20,7 @@ def contract_hash():
                 "recovery_schedule.py",
                 "recovery_transport.py",
                 "recovery_packet.py",
+                "recovery_requests.py",
                 "recovery_wire.py",
                 "model_client.py",
                 "factcheck_transport.py",
