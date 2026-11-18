@@ -18,6 +18,12 @@ def contract_hash():
             for name in (
                 "recovery_ledger.py",
                 "recovery_schedule.py",
+                "recovery_audit_bridge.py",
+                "recovery_checks.py",
+                "recovery_evidence.py",
+                "recovery_runtime.py",
+                "recovery_scoring.py",
+                "factcheck.py",
                 "tracing.py",
                 "assessment.py",
                 "factcheck_stages.py",

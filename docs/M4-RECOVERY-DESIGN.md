@@ -162,6 +162,16 @@ payload mismatches and writer exclusion. This is storage, not semantic approval:
 the runner must still derive completion/audit statuses from the real validators
 and enforce source/runtime/token preflight. No live dispatch is connected.
 
+The accepting fact-audit adapter in `recovery_audit_bridge.py` now binds the
+waiting verifier completion to frozen plan/input/rubric hashes. It parses the
+retained raw chat completion and invokes `build_scoring_input`, including the
+version-specific source, reasoning and runtime-applicability audit checks. Only
+successful validation appends an accepting event. Invalid or stale artifacts
+leave the journal unchanged and scoring blocked. Six focused synthetic tests
+cover this path. Rejecting-audit handling, response finishing, score-audit
+integration and live request/runtime preflight remain runner work. An accepted
+technical audit is not an authentic human label or permission to dispatch.
+
 Prepare ten previously exposed original-baseline cases, two per category. Include
 all three known human D2 failures and cases that distinguish missing obligations,
 invalid tips and valid API claims wrongly rejected. Publish the exact item list
