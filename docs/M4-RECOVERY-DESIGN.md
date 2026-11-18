@@ -256,9 +256,21 @@ The adapter starts, signals and reconfigures no service; `kill -0` only checks
 that the recorded launcher exists. Remote paths with ambiguous whitespace in
 the observed command are rejected rather than guessed.
 
-This does not yet verify model weights or the SSH tunnel's endpoint mapping,
-nor does it authorize inference. Those checks, persisted receipts and the final
-dispatch boundary remain open. The proposed uncertainty policy is not enabled.
+The owned-process wrapper also hashes every frozen model shard and the executable.
+Split GGUF coverage must begin at shard one and include every named shard; omitted
+or duplicate files are rejected before remote reads. Captures retain size, mtime,
+inode and SHA-256; metadata must be unchanged during each hash and is checked
+again after HTTP preflight. Matching on-disk files are not a memory inspection
+or a hash of all dynamically linked runtime libraries.
+
+The SSH tunnel's endpoint mapping, persisted receipts and the final dispatch
+boundary remain open. These checks do not authorize inference. The proposed
+uncertainty policy is not enabled. Hashing uses read-only shell commands through
+the trusted SSH reader, with a 600-second limit per file and no automatic retry.
+File-check verification: **732 tests passed in 136.95 seconds** in locked WSL.
+After adding two post-preflight metadata assertions, all **38 focused runtime,
+process, file and journal tests passed in 5.60 seconds**. Lint, formatting and
+diff checks pass. Captures were synthetic; no Mac connection or inference ran.
 Process-check verification: **722 tests passed in 148.93 seconds** in locked
 WSL Ubuntu; 26 focused process/preflight/journal tests passed. Synthetic captures
 exercise wrong parent/listener, duplicate listeners, changed port/context/budget,

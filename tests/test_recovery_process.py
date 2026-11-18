@@ -97,6 +97,7 @@ def test_process_identity_is_bracketed_around_http_preflight(experiment, monkeyp
         return {"journal_head_sha256": "synthetic-head", "execution_enabled": False}
 
     monkeypatch.setattr("aia_mp1.recovery_process.preflight_next", http)
+    monkeypatch.setattr("aia_mp1.recovery_process.observe_files", lambda *a: [])
     if restarted:
         with pytest.raises(ValueError, match="changed across"):
             preflight_owned(Journal(), None, "synthetic-key", read)
