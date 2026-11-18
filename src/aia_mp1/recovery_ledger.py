@@ -23,7 +23,7 @@ def contract_hash():
             "recovery_preflight.py",
             "recovery_process.py",
             "recovery_tunnel.py",
-                "recovery_runner.py",
+            "recovery_runner.py",
             "recovery_wire.py",
             "model_client.py",
             "factcheck_transport.py",
@@ -40,7 +40,13 @@ def contract_hash():
         )
     }
     project = root.parents[1]
-    for name in ("tools/recovery_windows_tunnel.ps1", "uv.lock", "pyproject.toml"):
+    for name in (
+        "tools/recovery_windows_tunnel.ps1",
+        "tools/recovery_next.py",
+        "tools/v15_remote.py",
+        "uv.lock",
+        "pyproject.toml",
+    ):
         code[name] = digest((project / name).read_text("utf-8"))
     return digest(code)
 

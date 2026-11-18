@@ -307,6 +307,17 @@ policy remains pending. No live end-to-end request has used this runner.
 Runner verification: **747 tests passed in 145.82 seconds** in locked WSL,
 including 17 focused runner/request/journal tests. Ruff lint/format and diff
 checks pass. Synthetic dispatch mocks do not count as model starts.
+
+The WSL entry point `tools/recovery_next.py` connects the trusted Mac SSH
+reader and the native Windows tunnel reader to that one-request runner.
+`--journal` and `--packet` are required external paths. Without `--execute`,
+it only writes a new preflight receipt after all source and runtime gates pass.
+`--execute` can send one new, journaled development request; it does not create
+an allocation or bypass the technical audit barrier. CLI errors report only
+their type and tell the operator to inspect the journal, avoiding raw answers
+and credential-bearing exception text. The entry point and SSH adapter join
+the journal contract hash. No runnable real journal or source-ready packet
+exists yet, so the command has not been used for live inference.
 Windows-reader verification: **742 tests passed in 143.74 seconds** in locked
 WSL Ubuntu; 17 focused tunnel/journal tests passed. The script's absent-port
 path was observed on Windows. A successful live tunnel observation has not
