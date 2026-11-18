@@ -263,6 +263,30 @@ preserved and unqualified until M4 succeeds.
 
 ## Offline use and verification
 
+### November 18 simulation scope revision
+
+The separately archived `m4-simulation-scope-20261118/packet-simulation-scope`
+revises only the question for `baseline-001-b02-item-0040` K0016. The earlier
+preparation hold demanded evidence about every non-implicit result, while the
+candidate describes a stiffness-related failure scenario. The new question
+distinguishes that scenario from a universal assertion, still requires primary
+evidence, and explicitly forbids inferring a particular failed numerical run.
+It preserves the separate original-task/substituted-system comparison.
+
+All ten packets replayed successfully: **358 checks, 338 prepared questions,
+20 holds**. Candidate/reference/source inputs and human labels are unchanged;
+there are no new observations, accepted fact audits, scores or model calls.
+The four other simulation holds remain: unspecified convergence warnings,
+unqualified BDF preference, shape-related corruption/crashes, and claimed
+tolerance-induced instability. Prepared questions are not verified facts.
+
+The preceding unit-convention packet remains intact. The new revision is copied
+to NAS `Handoff/P1-03/operator/m4-simulation-scope-20261118`, with **175 files
+verified**, including its manifest. Manifest SHA-256:
+`cb2398927887588ee2acc0682295f58446b8fb64642e954810d07cd63da34545`.
+Its modified verifier request must be re-preflighted before execution; the earlier
+64k sizing result concerns the prior draft bytes.
+
 Run inside the repository's locked WSL Ubuntu environment:
 
 ```bash
