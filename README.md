@@ -11,7 +11,7 @@ frozen reviews and measured agreement are unchanged. The
 serialization, bounded durable scheduling, saved-response validation, accepting
 fact/score audits, durable rejection stops and transport-failure recording that
 preserves unknown outcomes, plus an internal single-request transport adapter.
-The **747-test locked WSL suite passes**. Frozen request construction connects to the
+The **750-test locked WSL suite passes**. Frozen request construction connects to the
 packet gate and accepted fact reviews. The packet-readiness gate replays all ten cases
 and reports the actual 16 holds; top-level orchestration remains.
 Returned completions with missing or different model names are retained and halt
@@ -23,8 +23,10 @@ arguments on both sides of preflight, hashes every frozen model shard and the
 executable, and rechecks file metadata afterward. Tunnel verification remains open.
 The tunnel ownership contract now has a read-only Windows process reader; live
 tunnel ownership and final dispatch still need an end-to-end receipt.
-The internal runner now connects these gates to one saved preflight and one
-bounded development attempt; the current 16-hold packet is still blocked.
+The internal runner connects these gates to one saved preflight and one bounded
+development attempt. A new versioned packet exposes 16 insufficient claims for
+audit; the original strict packet is preserved. No model scores have been
+measured under the new policy.
 
 The [Mac capacity check](docs/M4-TOKEN-SIZING.md) fits all ten prior draft verifier
 requests in 65,536 tokens, including schema/template and an 8,192-token output

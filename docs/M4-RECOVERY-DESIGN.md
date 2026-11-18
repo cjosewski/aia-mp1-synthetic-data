@@ -308,6 +308,26 @@ Runner verification: **747 tests passed in 145.82 seconds** in locked WSL,
 including 17 focused runner/request/journal tests. Ruff lint/format and diff
 checks pass. Synthetic dispatch mocks do not count as model starts.
 
+The version 2 preparation gate now keeps 16 explicitly insufficient technical
+claims visible in the cloned packet while retaining source bindings and all
+candidate/check text. The old strict gate remains unchanged. The verifier must
+report each prepared insufficient claim as insufficient. Scoring can proceed
+with those observations only under the frozen `audited-materiality-v1` policy;
+it cannot use an unknown as support or proof of a defect. A separate score
+audit must address materiality for every routed dimension. A pass with unresolved
+materiality fails; a fail despite unknown materiality requires another established
+decisive defect. Unresolved dimensions cannot qualify as binary judgments.
+
+The cloned packet replays ten cases and 358 checks: **16 insufficient claims,
+zero holds, zero source gaps, zero accepted facts and zero ratings**. Packet SHA-256
+`b2a4ac0e5a02fd2b8277dd53270a88e035a89d21c92600c9bf793aa5864ce080`.
+The NAS archive `Handoff/P1-03/operator/m4-uncertainty-packet-20261118` contains
+174 hash-verified files; its manifest SHA-256 is
+`3397f97438a82f501a7c0750515b57ace50cb0ea9882ccbfd5d5bf4dffbd2691`.
+The predecessor packet and frozen human review are unchanged. **750 locked WSL
+tests passed in 159.88 seconds**, including 60 focused packet/scoring/audit tests.
+No new inference started and the 80%-per-dimension threshold remains open.
+
 The WSL entry point `tools/recovery_next.py` connects the trusted Mac SSH
 reader and the native Windows tunnel reader to that one-request runner.
 `--journal` and `--packet` are required external paths. Without `--execute`,

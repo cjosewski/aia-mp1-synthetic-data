@@ -22,6 +22,16 @@ def prepare_next(ledger, packet_root):
     if not isinstance(expected, str) or len(expected) != 64:
         raise ValueError("frozen preparation identity is required")
     packet = require_ready(packet_root, expected)
+    expected_policy = (
+        "audited-materiality-v1" if packet["protocol"] == "recovery-preparation-v2" else None
+    )
+    if experiment.get("uncertainty_policy") != expected_policy:
+        raise ValueError("frozen uncertainty policy differs from preparation version")
+    if (
+        packet["protocol"] == "recovery-preparation-v2"
+        and experiment.get("prepared_insufficient") != packet["insufficient_claims"]
+    ):
+        raise ValueError("frozen insufficient claims differ from preparation")
     if experiment.get("case_bindings") != packet["case_bindings"]:
         raise ValueError("experiment case bindings differ from preparation")
     if manifest["case_ids"] != list(packet["case_bindings"]):

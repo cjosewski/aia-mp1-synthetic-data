@@ -73,13 +73,25 @@ Chad's November 18 instruction, “Proceed to close the rating gap. Stop when
 that's achieved and give a short report,” authorizes the bounded recovery work
 needed to close M4. This includes implementing the separately versioned
 uncertainty handling proposed above. The strict historical protocol and frozen
-ratings remain unchanged. **The policy is not implemented yet**; this records
-authorization to work, not a claim that any current unknown is immaterial or
-that calibration has passed.
+ratings remain unchanged. A version 2 preparation packet and audited materiality
+logic are now implemented, but **no model observation or audited score has been
+produced by that packet**. Implementation does not establish that any current
+unknown is immaterial or that calibration has passed.
 
 The ArcPy research probe was also run under that instruction. It failed at the
 ArcGIS license gate before importing ArcPy; see
 [the preserved outcome](M4-ARCPY-LICENSE-RESULTS.md). Its eleven GIS holds remain.
+
+The cloned version 2 packet at workspace
+`artifacts/evidence/P1-03/qualification/m4-uncertainty-packet-20261118/packet-v2/`
+retains all ten original candidate/task inputs, source records, check IDs and
+dimensions. Its preparation review carries 16 explicit insufficient claims,
+zero fact verdicts and zero human ratings. The predecessor packet is unchanged.
+The new gate requires every one of those claims to be reported as insufficient
+by the verifier. The score audit requires a candidate-specific materiality
+record per affected dimension; unresolved materiality cannot accompany a pass.
+An independently established decisive defect may support a fail despite an
+unrelated unknown. The original strict score path remains the default.
 
 ### Earlier pending decision text (historical)
 

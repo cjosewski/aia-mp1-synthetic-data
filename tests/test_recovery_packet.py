@@ -84,6 +84,38 @@ def test_explicit_hold_blocks_readiness(prepared):
         require_ready(prepared)
 
 
+def test_versioned_insufficient_claim_stays_visible_without_fact_verdict(prepared):
+    selection_path = prepared / "selection.json"
+    selection = json.loads(selection_path.read_text())
+    selection["protocol"] = "recovery-preparation-v2"
+    save(selection_path, selection)
+    for i in range(10):
+        path = prepared / f"synthetic-{i}/preparation-review.json"
+        review = json.loads(path.read_text())
+        review["insufficient_claims"] = []
+        if i == 0:
+            plan = json.loads((prepared / "synthetic-0/plan.json").read_text())
+            index = next(
+                j
+                for j, c in enumerate(plan["checks"])
+                if c["kind"] == "technical_claim" and c["sources"]
+            )
+            entry = review["entries"][index]
+            entry["status"] = "prepared_insufficient"
+            entry["reason"] = "Synthetic evidence does not establish the asserted behavior"
+            review["insufficient_claims"] = [entry["check_id"]]
+        save(path, review)
+    report = require_ready(prepared)
+    assert report["holds"] == [] and len(report["insufficient_claims"]) == 1
+    assert not report["calibration_eligible"]
+    path = prepared / "synthetic-0/preparation-review.json"
+    review = json.loads(path.read_text())
+    review["insufficient_claims"] = ["K9999"]
+    save(path, review)
+    with pytest.raises(ValueError, match="insufficient"):
+        require_ready(prepared)
+
+
 @pytest.mark.parametrize(
     "attack",
     ["hidden_hold", "omitted_check", "fact_acceptance", "draft", "source", "category", "path"],

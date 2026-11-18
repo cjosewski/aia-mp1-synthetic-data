@@ -12,6 +12,7 @@ from test_recovery_scoring import scoring as scoring
 
 from aia_mp1.recovery_audit_bridge import (
     AuditRejection,
+    _require_prepared_insufficient,
     accept_fact_audit,
     accept_score_audit,
     case_binding,
@@ -20,6 +21,28 @@ from aia_mp1.recovery_audit_bridge import (
 )
 from aia_mp1.recovery_ledger import RecoveryLedger
 from aia_mp1.tracing import digest
+
+
+def test_frozen_insufficient_claim_cannot_be_promoted(scoring):
+    args, _, _ = scoring
+    observations = args[4]
+    check_id = observations.observations[0].check_id
+    manifest = {
+        "experiment": {
+            "uncertainty_policy": "audited-materiality-v1",
+            "prepared_insufficient": [
+                {
+                    "item_id": "synthetic-0",
+                    "check_id": check_id,
+                    "reason": "Synthetic source limitation",
+                }
+            ],
+        }
+    }
+    with pytest.raises(ValueError, match="promoted"):
+        _require_prepared_insufficient(manifest, "synthetic-0", observations)
+    observations.observations[0].status = "insufficient"
+    _require_prepared_insufficient(manifest, "synthetic-0", observations)
 
 
 def prepared(tmp_path, args, raw=None, stale=False):

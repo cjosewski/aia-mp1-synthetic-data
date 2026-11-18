@@ -105,6 +105,17 @@ class ScoreAudit(StrictModel):
     dimensions: list[DimensionAudit]
 
 
+class MaterialityAudit(StrictModel):
+    check_id: CheckID
+    dimension: Dimension
+    finding: Literal["immaterial", "uncertain"]
+    explanation: NonBlank
+
+
+class UncertaintyScoreAudit(ScoreAudit):
+    materiality: list[MaterialityAudit]
+
+
 def fingerprint(model: StrictModel) -> str:
     return digest(model.model_dump(mode="json"))
 
@@ -116,6 +127,8 @@ def build_scoring_input(
     source_root: Path,
     observations: Observations,
     audit: FactAudit,
+    *,
+    allow_insufficient: bool = False,
 ) -> dict:
     """Recheck evidence before scoring; no unknown facts or unreviewed gaps."""
     if isinstance(plan, EvidencePlan):
@@ -145,7 +158,7 @@ def build_scoring_input(
         if type(audit) is not FactAudit:
             raise ValueError("v1 requires its original audit contract")
         report = inspect_offline(plan, content, rubric, source_root, observations)
-    if report["unresolved"] or report["source_gaps"]:
+    if (report["unresolved"] and not allow_insufficient) or report["source_gaps"]:
         raise ValueError("unresolved facts prevent scoring")
     if audit.plan_sha256 != fingerprint(plan) or audit.observations_sha256 != fingerprint(
         observations
@@ -183,6 +196,9 @@ def build_scoring_input(
             for row in rubric["dimensions"]
         },
     }
+    if allow_insufficient:
+        result["protocol"] = "recovery-scoring-uncertainty-v1"
+        result["uncertain_check_ids"] = report["unresolved"]
     if isinstance(plan, RuntimeEvidencePlan):
         _, result["runtime_records"] = runtime_context(plan.runtime_records, source_root)
     return result
@@ -208,13 +224,16 @@ def scoring_request(scoring_input: dict) -> dict:
             for i, row in enumerate(content["primary_excerpts"])
         ],
     }
-    if scoring_input["protocol"] in {"recovery-scoring-v2", "recovery-scoring-v3"}:
+    if scoring_input["protocol"] == "recovery-scoring-uncertainty-v1":
+        request["uncertain_check_ids"] = scoring_input["uncertain_check_ids"]
+        request["protocol"] = scoring_input["protocol"]
+    if "reasoning_notes" in scoring_input["plan"]:
         request["protocol"] = scoring_input["protocol"]
         request["reasoning_notes"] = [
             {"passage_id": f"E.{n['note_id']}", "version": digest(n), **n}
             for n in scoring_input["plan"]["reasoning_notes"]
         ]
-    if scoring_input["protocol"] == "recovery-scoring-v3":
+    if "runtime_records" in scoring_input:
         request["runtime_records"] = scoring_input["runtime_records"]
     return deepcopy(request)
 
@@ -228,9 +247,17 @@ def inspect_scores(
     fact_audit: FactAudit,
     scores: Scores,
     score_audit: ScoreAudit | None = None,
+    *,
+    allow_insufficient: bool = False,
 ) -> dict:
     scoring_input = build_scoring_input(
-        plan, content, rubric, source_root, observations, fact_audit
+        plan,
+        content,
+        rubric,
+        source_root,
+        observations,
+        fact_audit,
+        allow_insufficient=allow_insufficient,
     )
     if scores.scoring_input_sha256 != digest(scoring_input):
         raise ValueError("scores belong to a different scoring input")
@@ -259,6 +286,8 @@ def inspect_scores(
                 raise ValueError("duplicate candidate citation")
             seen.add(key)
         for effect in row.effects:
+            if facts[effect.check_id].status == "insufficient" and effect.effect != "not_decisive":
+                raise ValueError("uncertain evidence cannot support or prove a defect")
             if facts[effect.check_id].status == "contradicted" and effect.effect == "supports":
                 raise ValueError("scorer cannot reverse an audited contradiction")
             if effect.effect == "defect" and row.decision == 1:
@@ -294,6 +323,37 @@ def inspect_scores(
             raise ValueError("score audit must cover all six dimensions exactly once")
         accepted = all(row.accepted for row in score_audit.dimensions)
         rejected = [row.dimension for row in score_audit.dimensions if not row.accepted]
+        if allow_insufficient:
+            if not isinstance(score_audit, UncertaintyScoreAudit):
+                raise ValueError("versioned uncertainty materiality audit is required")
+            required_materiality = {
+                (check.check_id, dimension)
+                for check in plan.checks
+                if facts[check.check_id].status == "insufficient"
+                for dimension in check.dimensions
+            }
+            materiality = {(row.check_id, row.dimension): row for row in score_audit.materiality}
+            if (
+                len(materiality) != len(score_audit.materiality)
+                or set(materiality) != required_materiality
+            ):
+                raise ValueError("materiality must cover every uncertain dimension exactly once")
+            for (check_id, dimension), finding in materiality.items():
+                decision = getattr(scores, dimension).decision
+                if decision == 1 and finding.finding != "immaterial":
+                    raise ValueError("unresolved materiality cannot accompany a pass")
+                if (
+                    decision == 0
+                    and finding.finding == "uncertain"
+                    and not any(
+                        effect.effect == "defect"
+                        and facts[effect.check_id].status != "insufficient"
+                        for effect in getattr(scores, dimension).effects
+                    )
+                ):
+                    raise ValueError(
+                        "failure with uncertainty needs an independent decisive defect"
+                    )
     judgment = None
     if accepted and not unresolved:
         judgment = Judgment.model_validate(

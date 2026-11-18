@@ -15,6 +15,7 @@ from aia_mp1.recovery_scoring import (
     FactAudit,
     ScoreAudit,
     Scores,
+    UncertaintyScoreAudit,
     build_scoring_input,
     fingerprint,
     inspect_scores,
@@ -93,6 +94,54 @@ def test_unreviewed_scores_never_project_or_become_calibration(scoring):
         report["resolved_dimensions"]["D4"]["pass_anchor"]
         == args[2]["dimensions"][3]["pass_anchor"]
     )
+
+
+def test_versioned_uncertainty_requires_materiality_and_never_promotes_fact(scoring):
+    args, scores, audit = scoring
+    check_id = args[0].checks[0].check_id
+    next(row for row in args[4].observations if row.check_id == check_id).status = "insufficient"
+    args[5].observations_sha256 = fingerprint(args[4])
+    scoring_input = build_scoring_input(*args, allow_insufficient=True)
+    assert scoring_input["uncertain_check_ids"] == [check_id]
+    assert scoring_request(scoring_input)["uncertain_check_ids"] == [check_id]
+    scores.scoring_input_sha256 = digest(scoring_input)
+    for dimension in DIMENSIONS:
+        for effect in getattr(scores, dimension).effects:
+            if effect.check_id == check_id:
+                effect.effect = "not_decisive"
+    materiality = [
+        {
+            "check_id": check_id,
+            "dimension": dimension,
+            "finding": "immaterial",
+            "explanation": "Synthetic independent audit of this dimension.",
+        }
+        for dimension in args[0].checks[0].dimensions
+    ]
+    audited = UncertaintyScoreAudit.model_validate(
+        {
+            **audit.model_dump(mode="json"),
+            "scores_sha256": fingerprint(scores),
+            "materiality": materiality,
+        }
+    )
+    audit.scores_sha256 = fingerprint(scores)
+    with pytest.raises(ValueError, match="materiality audit"):
+        inspect_scores(*args, scores, audit, allow_insufficient=True)
+    report = inspect_scores(*args, scores, audited, allow_insufficient=True)
+    assert report["status"] == "audited_development" and not report["calibration_eligible"]
+    audited.materiality[0].finding = "uncertain"
+    with pytest.raises(ValueError, match="cannot accompany a pass"):
+        inspect_scores(*args, scores, audited, allow_insufficient=True)
+    audited.materiality.clear()
+    with pytest.raises(ValueError, match="cover every uncertain"):
+        inspect_scores(*args, scores, audited, allow_insufficient=True)
+    for dimension in DIMENSIONS:
+        for effect in getattr(scores, dimension).effects:
+            if effect.check_id == check_id:
+                effect.effect = "supports"
+    with pytest.raises(ValueError, match="uncertain evidence"):
+        inspect_scores(*args, scores, allow_insufficient=True)
 
 
 def test_scoring_view_preserves_source_text_and_ids_without_audit_commentary(scoring):

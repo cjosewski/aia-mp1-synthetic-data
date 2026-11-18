@@ -141,6 +141,19 @@ def _payloads(ledger):
     return {digest(row["record"]): row["payload"] for row in envelopes}
 
 
+def _require_prepared_insufficient(manifest, item_id, observations):
+    experiment = manifest["experiment"]
+    if experiment.get("uncertainty_policy") != "audited-materiality-v1":
+        return
+    frozen = experiment.get("prepared_insufficient")
+    if not isinstance(frozen, list):
+        raise ValueError("uncertain claims are not frozen")
+    required = {row["check_id"] for row in frozen if row["item_id"] == item_id}
+    found = {row.check_id for row in observations.observations if row.status == "insufficient"}
+    if not required <= found:
+        raise ValueError("verifier promoted an explicitly insufficient claim")
+
+
 def accept_fact_audit(ledger, plan, content, rubric, source_root, audit):
     """Accept only after revalidating the saved completion and every fact/audit gate.
 
@@ -167,7 +180,17 @@ def accept_fact_audit(ledger, plan, content, rubric, source_root, audit):
     if start_payload.get("case_binding") != binding:
         raise ValueError("verifier start belongs to different case inputs")
     observations = Observations.model_validate(completion_json(raw))
-    scoring_input = build_scoring_input(plan, content, rubric, source_root, observations, audit)
+    _require_prepared_insufficient(manifest, waiting["item_id"], observations)
+    scoring_input = build_scoring_input(
+        plan,
+        content,
+        rubric,
+        source_root,
+        observations,
+        audit,
+        allow_insufficient=manifest["experiment"].get("uncertainty_policy")
+        == "audited-materiality-v1",
+    )
     payload = {
         "audit": audit.model_dump(mode="json"),
         "case_binding": binding,
@@ -210,6 +233,7 @@ def accepted_fact_material(ledger, item_id, plan, content, rubric, source_root):
     if payloads[digest(fact_start)].get("case_binding") != binding:
         raise ValueError("verifier start belongs to different case inputs")
     observations = Observations.model_validate(completion_json(payloads[digest(fact_finish)]))
+    _require_prepared_insufficient(manifest, item_id, observations)
     audit_class = (
         RuntimeFactAudit
         if isinstance(plan, RuntimeEvidencePlan)
@@ -219,7 +243,14 @@ def accepted_fact_material(ledger, item_id, plan, content, rubric, source_root):
     )
     fact_audit = audit_class.model_validate(fact_payload["audit"])
     scoring_input = build_scoring_input(
-        plan, content, rubric, source_root, observations, fact_audit
+        plan,
+        content,
+        rubric,
+        source_root,
+        observations,
+        fact_audit,
+        allow_insufficient=manifest["experiment"].get("uncertainty_policy")
+        == "audited-materiality-v1",
     )
     if (
         fact_payload.get("case_binding") != binding
@@ -232,7 +263,7 @@ def accepted_fact_material(ledger, item_id, plan, content, rubric, source_root):
 
 def accept_score_audit(ledger, plan, content, rubric, source_root, audit):
     """Reconstruct facts and scores from the journal before accepting a score audit."""
-    _, records, state, _ = ledger.read()
+    manifest, records, state, _ = ledger.read()
     waiting = state["awaiting_audit"]
     if waiting is None or waiting["stage"] != "score":
         raise ValueError("no scorer completion awaits a score audit")
@@ -249,7 +280,16 @@ def accept_score_audit(ledger, plan, content, rubric, source_root, audit):
         raise ValueError("scorer lineage differs from accepted facts")
     scores = Scores.model_validate(completion_json(payloads[digest(finish)]))
     report = inspect_scores(
-        plan, content, rubric, source_root, observations, fact_audit, scores, audit
+        plan,
+        content,
+        rubric,
+        source_root,
+        observations,
+        fact_audit,
+        scores,
+        audit,
+        allow_insufficient=manifest["experiment"].get("uncertainty_policy")
+        == "audited-materiality-v1",
     )
     if report["status"] != "audited_development" or report["judgment"] is None:
         raise ValueError("score audit has unresolved objections")
