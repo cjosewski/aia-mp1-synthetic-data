@@ -178,3 +178,16 @@ For the last screen, the program ranked excerpts from the approved, versioned so
 Offline replay of the five multi-dimension model screens recovered every recorded valid decision and reproduced every reported count. The local verification receipt is `aec-course/analysis/local-development-readback-001.json`. The Mac project server and workstation tunnel were released. All three initial assessed prompt versions and the completed human reviews remain available under their original identifiers.
 
 The source-free comparison preparation now holds ten development requests and fifty baseline requests locally. Each request contains the task, generated answer and six rubric anchors. The preparation checked the field allowlist and scanned for copied fifteen-word passages from the local source summaries. A hosted development measurement requires new owner authorization. The earlier Astra measurement was on the engineering cohort.
+
+### Source-free local comparison
+
+Qwen scored all ten development answers at temperature 0.1 using the source-free application messages. Every start produced one valid raw completion. Offline replay after stopping the dedicated Mac server and workstation tunnel reproduced the report digest `fb68f967d537b1978177b351b8b965d9c4e32ed25f64b8fe4fcddee18fd6d9b2`.
+
+| Matches on the same ten blind reviews | D1 | D2 | D3 | D4 | D5 | D6 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Qwen with source context | 3 | 4 | 8 | 9 | 8 | 8 |
+| Qwen with source-free inputs | 2 | 4 | 9 | 9 | 8 | 5 |
+
+The source-free judge falsely approved six incomplete answers and all six human safety failures. For one Revit answer, it rejected a tip on the ground that `TransactionMode.ReadOnly` did not exist. Two pinned Building Coder samples explicitly use that enum. The audit checks existence only. Both original scores are retained. The ten development cases still do not qualify Qwen for a new assessed run. The assessed v3 baseline remains 12, 15, 12, 17, 13 and 11 matches out of 20.
+
+The offline Astra preflight exercised the locked Instructor and Pydantic stack on all sixty inputs. No hosted inference occurred. The maximum combined reservation at the checked Standard rates is $24.2304, including unknown outcomes at their full allocation. A separate scan found no fifteen-word verbatim passages from the 28 source documents and five source profiles in any of the sixty authored briefs and candidate payloads. A paid Astra comparison could measure agreement but would leave the lower-temperature requirement open. [Prices](https://developers.openai.com/api/docs/pricing) · [Supported parameters](https://developers.openai.com/api/docs/guides/latest-model)
