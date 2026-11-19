@@ -92,7 +92,7 @@ def output_directory(root: Path, report_id: str) -> Path:
     return run_directory(root / "analysis", report_id)
 
 
-def _sources(root: Path, parent: Path, cohort: dict, judge_dir: Path | None) -> dict:
+def snapshot_sources(root: Path, parent: Path, cohort: dict, judge_dir: Path | None) -> dict:
     paths = [
         parent / name
         for name in (
@@ -119,6 +119,26 @@ def _sources(root: Path, parent: Path, cohort: dict, judge_dir: Path | None) -> 
             for name in ("manifest.json", "events.jsonl", "attempts.jsonl", "prompt.md")
         ]
     return {p.relative_to(root).as_posix(): file_hash(p) for p in sorted(set(paths))}
+
+
+def category_distribution(summary: dict) -> dict:
+    distribution = {
+        category: {
+            "schema_valid_candidates": sum(d["category"] == category for d in summary["decisions"]),
+            "after_deduplication": sum(
+                d["category"] == category and d["duplicate_of"] is None
+                for d in summary["decisions"]
+            ),
+            "retained": summary["counts"][category],
+            "target": 10,
+        }
+        for category in CATEGORIES
+    }
+    for stage in ("schema_valid_candidates", "after_deduplication", "retained"):
+        total = sum(row[stage] for row in distribution.values())
+        for row in distribution.values():
+            row[f"{stage}_fraction"] = row[stage] / total if total else None
+    return distribution
 
 
 def cohort_snapshot(
@@ -148,7 +168,7 @@ def cohort_snapshot(
         for key in ("created_at", "report_id", "implementation"):
             calibration.pop(key)
     with exclusive(parent):
-        before = _sources(root, parent, cohort, judge_dir)
+        before = snapshot_sources(root, parent, cohort, judge_dir)
         current_labels = load_labels(parent, assessment, records)
         reference = (
             load_reference(parent, assessment, records, for_scoring=True)
@@ -174,22 +194,8 @@ def cohort_snapshot(
         human = {k: v["decisions"] for k, v in labels.items()}
         selected = [r for r in records if r["item_id"] in assessment["selected_ids"]]
         summary = cohort["summary"]
-        distributions = {
-            c: {
-                "schema_valid_candidates": sum(d["category"] == c for d in summary["decisions"]),
-                "after_deduplication": sum(
-                    d["category"] == c and d["duplicate_of"] is None for d in summary["decisions"]
-                ),
-                "retained": summary["counts"][c],
-                "target": 10,
-            }
-            for c in CATEGORIES
-        }
-        for stage in ("schema_valid_candidates", "after_deduplication", "retained"):
-            total = sum(row[stage] for row in distributions.values())
-            for row in distributions.values():
-                row[f"{stage}_fraction"] = row[stage] / total if total else None
-        after = _sources(root, parent, cohort, judge_dir)
+        distributions = category_distribution(summary)
+        after = snapshot_sources(root, parent, cohort, judge_dir)
         if before != after:
             raise ValueError("analysis inputs changed during reading")
     return {

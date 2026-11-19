@@ -2,8 +2,8 @@
 
 | Document control | Value |
 | --- | --- |
-| Revision | 0.54, November 18, 2026 |
-| Status | The 20-item AEC human reference is frozen. Chad confirmed that D3 assessed API correctness, so course calibration awaits replacement D3 tool-realism ratings on the same items. |
+| Revision | 0.55, November 18, 2026 |
+| Status | M4 is open. The active AEC baseline has 50 items and 20 frozen blind human reviews. D3 measures version-specific API correctness. Chad also completed ten blind development reviews on disjoint answers. The assessed gate requires 16/20 agreement in each of D1–D6. [AEC runbook](AEC-COURSE-RUNBOOK.md) |
 | Project | P1-03 / Mini Project 1, Synthetic Data and Evaluation on AEC data |
 | Implementation home | `aia-mp1-synthetic-data` |
 | Owner / human reviewer | Chad Josewski |

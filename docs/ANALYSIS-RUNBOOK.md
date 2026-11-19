@@ -24,6 +24,14 @@ uv sync --locked --extra analysis --group dev
 
 ## 2. Inspect the baseline without claiming missing judge measurements
 
+For the AEC baseline scored under Chad's version-specific API correctness criterion, use the AEC exporter after a judge revision is complete. It replays the frozen 50-item request packet, the 20 blind reviews, the judge ledger and the 200 generation attempts. It writes a local package once per completed revision.
+
+```bash
+AIA_MP1_DOMAIN=aec-course uv run --locked --extra analysis python tools/export_aec_api_baseline.py --revision v1
+```
+
+Use `--revision v3` for the third completed run. The package lives under `../artifacts/evidence/P1-03/aec-course/analysis/aec-api-baseline-<revision>-package/`. The agreement CSV uses 20 reviewed items per dimension. Judge quality rates use all 50. Corrected figures stay blank until a newly measured corrected cohort exists.
+
 Use a new report ID each time; reports cannot be overwritten:
 
 ```bash

@@ -18,13 +18,11 @@ from the course portal in this checkpoint.
 | At least 50 items, at least 20 human labels, six-dimension agreement >=80% each | Frozen engineering baseline has 50 retained items and 20 authentic reviews; Astra comparison reaches the numeric gate on those reviews | Numeric gate is measured; source-free comparison and course-conformity limitations remain separate |
 | Baseline/corrected comparison, >=80% overall corrected pass and >80% failure reduction | Corrected engineering cohort exists, but the final independent comparison remains pending | Do not claim project completion from Phase A alone |
 
-The [requirements record](requirements.md) already identified the D3/D4
-mapping and benchmark replacement as unresolved instructor decisions. The new
-customization text makes the constraint explicit: **a topic change alone does
-not authorize changing scoring criteria**. Chad has been asked whether a
-specific instructor decision approved those mappings. Until such evidence is
-recorded, describe the engineering rubric as an owner adaptation and keep
-course acceptance unresolved.
+Chad confirmed on November 18 that the instructor approved the AEC topic in general. The course D3 and D4 anchors govern submission. The API realism and engineering sign-off anchors document the earlier engineering adaptation.
+
+Chad also clarified that AEC tasks may use Model Context Protocol (MCP) tools as well as direct API calls. For D3, apply the course’s ownership, availability, cost and specialty-tool rules to every tool listed in the answer. If an MCP tool requires a professional AEC application, accessing it through MCP does not establish that the application meets D3.
+
+Chad confirmed that both blind D3 passes measured the same thing. He scored whether the code would compile, run and behave as claimed in the stated version. He considered nonexistent or obsolete members, call order and meaning, and incompatible tool versions. All 20 replacement D3 decisions match the originals. Neither pass supplies human ratings of homeowner tool availability, affordability or specialty status. A course D3 agreement score therefore remains unavailable. Both ledgers retain their original ratings and notes.
 
 The Astra experiment remains useful evidence of model behavior. Its
 per-dimension agreement does not by itself establish compliance with the

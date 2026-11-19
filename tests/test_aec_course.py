@@ -19,6 +19,17 @@ from aia_mp1.judge import JudgeConfig
 args = parser().parse_args(["assessment", "--assessment-id", "synthetic", "--cohort-id", "example"])
 rubric = json.loads(args.rubric.read_text())
 validate_rubric(rubric)
+api = dict(rubric, version="aec-api-correctness-v1", status="owner_defined_aec_d3")
+api["dimensions"] = list(rubric["dimensions"])
+api["dimensions"][2] = json.loads(Path("config/aec-course/api-correctness-d3.json").read_text())
+validate_rubric(api, diagnostic=True)
+for candidate, diagnostic in [(api, False), (dict(api, version="different"), True)]:
+    try:
+        validate_rubric(candidate, diagnostic=diagnostic)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("the development exception admitted a different purpose or rubric")
 assert CATEGORIES == ("gis_scripting", "aec_automation", "structural_analysis", "cad_apis", "simulation")
 assert POLICIES == (COURSE_POLICY,)
 assert "$50" in rubric["dimensions"][2]["pass_anchor"]

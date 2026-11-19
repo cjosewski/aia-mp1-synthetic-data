@@ -3,7 +3,9 @@
 Repository: [cjosewski/aia-mp1-synthetic-data](https://github.com/cjosewski/aia-mp1-synthetic-data) (private).
 Execution tracking: [P1-03 / issue #4](https://github.com/cjosewski/aia-plan/issues/4).
 
-**Current course submission — AEC data, original course criteria.** Review the frozen AEC baseline with the course D1–D6 rubric. [Active review runbook](docs/AEC-COURSE-RUNBOOK.md).
+**Current AEC evaluation.** The baseline contains 50 items, ten per category. Chad scored 20 items blind and defined D3 as version-specific API correctness. The AEC comparison uses that definition, the other five course dimensions, and the 16/20 agreement requirement separately in every dimension. Both original review ledgers are preserved. [Active runbook](docs/AEC-COURSE-RUNBOOK.md) · [Measured iterations](ITERATION_LOG.md)
+
+To reproduce the local baseline evidence package for a completed judge revision, activate the locked WSL environment, set `AIA_MP1_DOMAIN=aec-course`, and run `uv run --locked --extra analysis python tools/export_aec_api_baseline.py --revision v3`. Use `v1` for the first complete run. Each package is written once under `../artifacts/evidence/P1-03/aec-course/analysis/`. Its `baseline.jsonl`, `report.json`, chart CSVs, source evidence and checksum manifest let you verify each denominator. The separate corrected-cohort columns remain unmeasured until Phase B.
 
 **Engineering M4 checkpoint — November 18:** three exact-citation recovery trials
 and one [source-ID trial](docs/M4-SOURCE-ID-TRIAL-RESULT.md) stopped at technical

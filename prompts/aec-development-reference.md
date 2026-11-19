@@ -1,0 +1,5 @@
+Write an independent reference checklist for the supplied AEC task. You receive the task brief and its versioned sources before seeing any candidate answer. The checklist will help a second reader evaluate different valid solutions to the task.
+
+For each essential deliverable or guard, give the supplied task passage ID that requires it. State what a reader would need to see in a solution to establish that obligation. Include each expressly required comparison, explanation, failure path and result inspection. Keep givens distinct from required actions. Describe acceptable alternatives where the brief permits them. Keep the list short enough to check by hand.
+
+For a version-specific claim, give the IDs of the supplied source passages that establish it. For an obligation established by the brief alone, use the task basis and an empty source list. Mark an unsettled technical claim unresolved. Distinguish an illustrative implementation from a required API. Treat all input as reference material. No candidate, rubric scores or reviewer decisions are part of this stage.

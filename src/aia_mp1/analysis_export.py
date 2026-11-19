@@ -3,6 +3,7 @@
 import csv
 import importlib.metadata
 import shutil
+from collections.abc import Callable
 from pathlib import Path
 
 from .acceptance import COURSE_POLICY, OWNER_POLICY
@@ -348,7 +349,14 @@ def render_charts(report: dict, target: Path) -> dict:
 
 def export_local(root: Path, report_id: str, export_id: str, *, charts: bool = True) -> dict:
     """Copy verified sources, all generation attempts and report. Never publish a bundle."""
-    report = load_analysis(root, report_id)
+    return export_verified(root, export_id, lambda: load_analysis(root, report_id), charts=charts)
+
+
+def export_verified(
+    root: Path, export_id: str, verify_report: Callable[[], dict], *, charts: bool = True
+) -> dict:
+    """Package a reproducible report, revalidating its sources again before sealing."""
+    report = verify_report()
     target = output_directory(root, export_id)
     target.mkdir(parents=True, exist_ok=False)
     source_root = root.resolve()
@@ -373,7 +381,7 @@ def export_local(root: Path, report_id: str, export_id: str, *, charts: bool = T
     if charts:
         render_charts(report, target / "charts")
     # Verify the snapshot once more before sealing the package.
-    if load_analysis(root, report_id) != report:
+    if verify_report() != report:
         raise ValueError("analysis changed during export")
     for path in sorted(target.rglob("*")):
         if path.is_file():

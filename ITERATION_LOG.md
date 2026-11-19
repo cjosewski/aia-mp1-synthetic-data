@@ -105,3 +105,36 @@ Verification for this implementation: 185 offline tests passed, Ruff check/forma
 passed and all new CLI help paths passed. The diagnostic label/judge status commands
 still report five completed items. Receipt: workspace
 `artifacts/evidence/P1-03/assessed-implementation-20261110T163211Z/`.
+
+## November 18, 2026 — AEC API correctness calibration
+
+Chad defined D3 as whether the code compiles, runs and behaves as claimed in the stated versions. Both blind reviews used this definition. The AEC comparison pinned both frozen references and sent the local Qwen judge the 50 original items and source excerpts. The [first prompt](prompts/aec-api-correctness-judge-v1.md) asked it to trace the API operation. The hypothesis was that scoring the same D3 criterion would yield at least 16 matches out of 20.
+
+The judge returned 50 valid results in 50 starts. Replay reproduced these agreement counts against the 20 human reviews.
+
+| Dimension | Matches | Agreement |
+| --- | ---: | ---: |
+| D1 Answer completeness | 10/20 | 50% |
+| D2 Safety specificity | 14/20 | 70% |
+| D3 Version-specific API correctness | 15/20 | 75% |
+| D4 Scope appropriateness | 17/20 | 85% |
+| D5 Context clarity | 15/20 | 75% |
+| D6 Tip usefulness | 8/20 | 40% |
+
+All five D3 disagreements were judge passes on human failures. The judge sometimes recognized a real type without checking whether the proposed invocation could produce the claimed result. For D6, 11 tips received credit where the reviewer recorded a failure. On D4 the judge passed every reviewed item, including all three human failures.
+
+The six-dimension gate remains open and generator correction awaits calibration. The [second judge prompt](prompts/aec-api-correctness-judge-v2.md) asks for the deliverable, the decisive invocation and the additional usable action a tip provides. Its hypothesis is that checking those details against the task and reference will reduce false passes. Its performance is unmeasured.
+
+The evidence is in `artifacts/evidence/P1-03/aec-course/api-correctness-judge-v1/report.json`. The verified report digest is `8eabf5dc8ab3dd9e4f77d084cb6ebfa2503c32d3af1820bebed01d694df6b77c`.
+
+## November 18, 2026 — AEC judge revisions
+
+V2 used the same rubric, item messages, model settings and frozen human reference. The worker exited during request 15. Ledger replay verified 14 valid judgments, including seven reviewed items, and one request with an unknown outcome. The partial match counts were 2, 5, 5, 6, 7 and 3 out of seven for D1–D6. Even matching every remaining human D1 rating would yield 15/20. The run was closed to further inference. Its original ledger, lock and `api-correctness-judge-v2/interruption-review.json` are retained.
+
+The [third prompt](prompts/aec-api-correctness-judge-v3.md) asks the judge to identify the evidence for the least obvious required task, distinguish a missing operation from a local API defect and give a finding for each tip. V2 had accepted detailed workflows that omitted an expressly required check. The hypothesis is that requiring a justification tied to the actual operation will reduce unsupported passes. The v3 input packet was checked against v1 for the same 50 item messages, trace IDs, rubric and 20 selected reviews before inference.
+
+### Separate development comparison
+
+The first complete judge missed completeness on ten of twenty reviewed answers and tip usefulness on twelve. A different method will prepare a task checklist before seeing the candidate and require the scoring response to account for every checklist obligation and tip. The control uses the unchanged v3 method on the same ten development answers. Both arms use the same independent human reference, rubric, model and temperature. The protocol was frozen before model requests in `api-development-comparison-001/protocol.json`.
+
+Chad completed ten new blind reviews, two per category, drawn from answers excluded only because their category was full. Selection excluded the assessed AEC and historical engineering cohorts by question and payload. Replay verified ten complete six-dimensional labels. Their checkpoint SHA-256 is `64f0296b39c266dbf18f51a7fc375d27dab9b7adb88c338da4e5333407e829d3`. These reviews are development evidence. The assessed agreement denominator remains twenty.

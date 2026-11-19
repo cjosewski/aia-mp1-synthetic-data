@@ -94,9 +94,16 @@ def source_snapshot(root: Path, run_id: str) -> tuple[dict, list[dict], dict, di
     return manifest, records, gate, hashes
 
 
-def validate_rubric(rubric: dict) -> None:
-    if DOMAIN == "aec-course" and rubric != read_json(
-        Path(__file__).resolve().parents[2] / "config/aec-course/rubric.json"
+def validate_rubric(rubric: dict, *, diagnostic: bool = False) -> None:
+    # The owner's frozen November 18 API rubric can be used for development reviews.
+    api_development = diagnostic and digest(rubric) == (
+        "b3af6b6a1148c66794f42137e16bd3d000546d53ab95fa35057e1e6148b7680f"
+    )
+    if (
+        DOMAIN == "aec-course"
+        and not api_development
+        and rubric
+        != read_json(Path(__file__).resolve().parents[2] / "config/aec-course/rubric.json")
     ):
         raise ValueError("AEC course assessment requires the original course rubric")
     if DOMAIN == "home-diy" and rubric != read_json(
@@ -171,7 +178,7 @@ def create_assessment(
     source, all_records, gate, hashes = source_snapshot(root, run_id)
     rubric_text = read_text(rubric_path)
     rubric = json.loads(rubric_text)
-    validate_rubric(rubric)
+    validate_rubric(rubric, diagnostic=purpose == "diagnostic")
     population = population_for(source, all_records, gate, purpose, label_count)
     selected = select_items(population, label_count, seed)
     data = "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in population)
@@ -234,7 +241,7 @@ def load_assessment(root: Path, assessment_id: str) -> tuple[Path, dict, list[di
     if digest(data) != manifest["data_sha256"] or digest(rubric_text) != manifest["rubric_sha256"]:
         raise ValueError("assessment data or rubric changed")
     rubric = json.loads(rubric_text)
-    validate_rubric(rubric)
+    validate_rubric(rubric, diagnostic=manifest["purpose"] == "diagnostic")
     records = read_records(directory / "data.jsonl")
     by_id = {r["item_id"]: r for r in source_records}
     if records != [by_id[i] for i in manifest["population_ids"]]:

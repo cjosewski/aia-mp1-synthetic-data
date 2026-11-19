@@ -1,0 +1,7 @@
+{
+  "id": "D3",
+  "name": "Version-specific API correctness",
+  "pass_anchor": "The code can compile or run as applicable and behaves as claimed in the stated versions. Required calls, tools and members exist, their signatures, order and meanings are correct, and the required versions can be installed together.",
+  "fail_anchor": "A concrete incompatibility prevents the code from compiling, running or producing the claimed behavior. Examples include nonexistent or obsolete members that no longer work in the target version, invalid call order or meaning, and incompatible tool versions.",
+  "pass_rate_minimum": 0.95
+}
