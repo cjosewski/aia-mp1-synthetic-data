@@ -57,3 +57,19 @@ The supplied Unit 4 folder contains seven notebook files. The task and answer co
 The first Devstral comparison holds the model, temperature, ten targets and rubric fixed and adds two reviewed examples to v3. Each target's category is excluded when selecting demonstrations. That measures the incremental effect of examples on v3. The plain-prompt comparison, run-to-run spread and a fully independent confirmation set are separate measurements. The bank exercises' scores do not supply any of them.
 
 For every new layer, retain the plain prompt, the plain prompt with that layer alone, the previous combined prompt and the new combined prompt. Compare the same case IDs, the count of decisions corrected and broken, and latency. Keep the composed prompt only when the new evidence warrants it. The project advances a judge after ten valid development returns, at least eight matches per dimension and an explanation audit. Assessed calibration requires all 50 judgments and at least 16 matches on each of the six dimensions across the 20 frozen human reviews.
+
+### Does pooling five specialties explain the errors?
+
+All 50 retained generation requests specified one specialty and its task. All 50 original v3 judge requests supplied one candidate with its own task and reference context. The model saw each case in a separate request. Pooling affects how the results are summarized and how many examples represent each specialty.
+
+| Specialty | Human API-correctness passes out of 4 | Qwen v3 API-correctness matches out of 4 | Context-clarity matches out of 4 |
+| --- | ---: | ---: | ---: |
+| Revit | 0 | 3 | 4 |
+| FreeCAD | 0 | 2 | 3 |
+| ArcPy | 1 | 1 | 4 |
+| SciPy | 3 | 3 | 2 |
+| OpenSeesPy | 1 | 3 | 0 |
+
+API correctness and agreement measure different things. For example, the original judge approved all four ArcPy answers. The human reviewer approved one. On OpenSeesPy, the judge matched three of four API decisions but approved all four answers on context clarity while the reviewer rejected all four. Four human reviews per specialty can expose a recurring discrepancy but cannot identify its cause. The ten separate Devstral development cases have only two reviews per specialty.
+
+A controlled test of specialty guidance would retain all five categories and the same candidate answers. Give one judge the common rubric and the other the same rubric plus a checklist selected from the stated software and version. Select or write checklists from independent source material before scoring. Compare paired corrections and regressions by dimension and report each specialty's denominator. Testing whether specialization improves **generation** requires new answers to the same task briefs and independent review of those answers.

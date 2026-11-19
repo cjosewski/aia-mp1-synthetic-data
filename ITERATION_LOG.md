@@ -191,3 +191,18 @@ Qwen scored all ten development answers at temperature 0.1 using the source-free
 The source-free judge falsely approved six incomplete answers and all six human safety failures. For one Revit answer, it rejected a tip on the ground that `TransactionMode.ReadOnly` did not exist. Two pinned Building Coder samples explicitly use that enum. The audit checks existence only. Both original scores are retained. The ten development cases still do not qualify Qwen for a new assessed run. The assessed v3 baseline remains 12, 15, 12, 17, 13 and 11 matches out of 20.
 
 The offline Astra preflight exercised the locked Instructor and Pydantic stack on all sixty inputs. No hosted inference occurred. The maximum combined reservation at the checked Standard rates is $24.2304, including unknown outcomes at their full allocation. A separate scan found no fifteen-word verbatim passages from the 28 source documents and five source profiles in any of the sixty authored briefs and candidate payloads. A paid Astra comparison could measure agreement but would leave the lower-temperature requirement open. [Prices](https://developers.openai.com/api/docs/pricing) · [Supported parameters](https://developers.openai.com/api/docs/guides/latest-model)
+
+### November 19 · Devstral 2 and the Unit 4 prompt comparison
+
+The project Mac downloaded both Devstral 2 123B Q4_K_M shards to its external drive. Full-file SHA-256 checks matched the pinned distribution for all 74,897,653,312 bytes. The dedicated local service ran one request per development case per configuration at temperature 0.1. Each row below used the same ten target answers, source context, full rubric, response schema and frozen human ratings. Each scored two items per specialty.
+
+| Prompt | D1 | D2 | D3 | D4 | D5 | D6 | Approved decisions / 60 | Median seconds per call |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| Plain instruction and full rubric | 2 | 4 | 3 | 9 | 8 | 7 | 60 | 105 |
+| Plain plus two reviewed examples | 2 | 4 | 3 | 9 | 8 | 7 | 60 | 108 |
+| Detailed v3 | 3 | 4 | 3 | 9 | 7 | 7 | 58 | 128 |
+| Detailed v3 plus the same examples | 3 | 4 | 4 | 9 | 7 | 6 | 56 | 142 |
+
+Adding examples to the plain prompt changed zero decisions. Adding them to v3 corrected one SciPy API decision but broke the tip decision on the same answer. The general v3 judge also endorsed a Revit receiver contradicted by the pinned reference and attributed a precaution to the ArcPy safety field that appeared only in the steps. Every configuration fell short of the 8/10 per-dimension development requirement. The runs did not estimate repeat-to-repeat variation.
+
+Offline replay with the dedicated endpoint shut down reproduced all 40 valid judgments and the paired scoreboard. The local file is `aec-course/analysis/devstral-unit4-layer-scoreboard-001.json`, SHA-256 `a5f45c5d0e2faee7c85667a0b7709d7e17fc69882b62b13fa7eb1aba11dc44a4`. The verified weights remain on the external drive. Both project ports were released. The [Unit 4 review](docs/UNIT-4-ALIGNMENT.md) maps the 30 supplied exercises to AEC and gives the assessed results by specialty. Assessed v3 remains at 12, 15, 12, 17, 13 and 11 matches out of 20.
