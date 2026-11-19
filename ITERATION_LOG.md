@@ -123,6 +123,8 @@ The judge returned 50 valid results in 50 starts. Replay reproduced these agreem
 
 All five D3 disagreements were judge passes on human failures. The judge sometimes recognized a real type without checking whether the proposed invocation could produce the claimed result. For D6, 11 tips received credit where the reviewer recorded a failure. On D4 the judge passed every reviewed item, including all three human failures.
 
+All 200 initial generation attempts met the schema. Every one of the 20 human-reviewed answers failed at least one quality dimension. V1 gave seven of those same 20 answers a pass on all six. Across the entire retained 50, V1 gave 21 all-six passes. Only the 20 paired answers support a direct comparison with the human ratings.
+
 The six-dimension gate remains open and generator correction awaits calibration. The [second judge prompt](prompts/aec-api-correctness-judge-v2.md) asks for the deliverable, the decisive invocation and the additional usable action a tip provides. Its hypothesis is that checking those details against the task and reference will reduce false passes. Its performance is unmeasured.
 
 The evidence is in `artifacts/evidence/P1-03/aec-course/api-correctness-judge-v1/report.json`. The verified report digest is `8eabf5dc8ab3dd9e4f77d084cb6ebfa2503c32d3af1820bebed01d694df6b77c`.
@@ -133,6 +135,19 @@ V2 used the same rubric, item messages, model settings and frozen human referenc
 
 The [third prompt](prompts/aec-api-correctness-judge-v3.md) asks the judge to identify the evidence for the least obvious required task, distinguish a missing operation from a local API defect and give a finding for each tip. V2 had accepted detailed workflows that omitted an expressly required check. The hypothesis is that requiring a justification tied to the actual operation will reduce unsupported passes. The v3 input packet was checked against v1 for the same 50 item messages, trace IDs, rubric and 20 selected reviews before inference.
 
+V3 finished all 50 items in 51 starts. One recorded connection failure was followed by a successful retry. All 50 parsed judgments matched their raw model responses. Both the frozen input replay and the sealed chart package reproduced the agreement counts below.
+
+| Dimension | V1 matches out of 20 | V3 matches out of 20 | V3 false approvals | V3 false rejections |
+| --- | ---: | ---: | ---: | ---: |
+| D1 Answer completeness | 10 | 12 | 6 | 2 |
+| D2 Safety specificity | 14 | 15 | 4 | 1 |
+| D3 Version-specific API correctness | 15 | 12 | 8 | 0 |
+| D4 Scope appropriateness | 17 | 17 | 3 | 0 |
+| D5 Context clarity | 15 | 13 | 5 | 2 |
+| D6 Tip usefulness | 8 | 11 | 9 | 0 |
+
+Only D4 reached 16/20, and the judge passed all three human D4 failures. The third prompt improved agreement on completeness and tips but still approved six incomplete answers and nine unhelpful tip sets. API correctness agreement fell to 12/20. The three initial assessed prompt versions are exhausted. The V3 judge report digest is `c4da04a6a425c94bd88971ad2a65ac488df71737c001a62dd663790f1a517993`. The 76-file local chart and evidence package has report digest `f561c330f4410df323ee257d2d37b1c7b4bce7ec1ed534ccfb4acb114f3fe6d2`.
+
 ### Separate development comparison
 
 The first complete judge missed completeness on ten of twenty reviewed answers and tip usefulness on twelve. A different method will prepare a task checklist before seeing the candidate and require the scoring response to account for every checklist obligation and tip. The control uses the unchanged v3 method on the same ten development answers. Both arms use the same independent human reference, rubric, model and temperature. The protocol was frozen before model requests in `api-development-comparison-001/protocol.json`.
@@ -140,3 +155,11 @@ The first complete judge missed completeness on ten of twenty reviewed answers a
 Chad completed ten new blind reviews, two per category, drawn from answers excluded only because their category was full. Selection excluded the assessed AEC and historical engineering cohorts by question and payload. Replay verified ten complete six-dimensional labels. Their checkpoint SHA-256 is `64f0296b39c266dbf18f51a7fc375d27dab9b7adb88c338da4e5333407e829d3`. These reviews are development evidence. The assessed agreement denominator remains twenty.
 
 The first reference call produced six ArcPy checks. Three rows marked as task-only also cited source passages. The checklist added an output-location requirement to a task that permits an existing disposable feature class. The stage halted and produced no score. The alternative uses task-only technical notes saved at 20:20:38 Eastern, before the first reference request at 20:20:57. Its ten input messages were sealed before reviewing control scores. The source notes and technical audits contain no human decisions. The maximum request, including 8,192 reserved output tokens, fits in 12,649 of the server's 16,384 tokens. Each comparison case receives one attempt, and the same ten-case v3 control is reused.
+
+The development control scored all ten answers. It matched the human reference on 3, 4, 8, 9, 8 and 8 cases for D1–D6. It falsely approved six answers for completeness and six for safety. These ten development scores are reported separately from the assessed 20.
+
+The first task-note response returned five checklist findings and three tip findings. Five rating fields contained prose in place of a passage ID. It also treated allowing an existing input or creating one as a requirement to describe both. Validation rejected the response. One request was consumed and zero scores were admitted. The revised screen preserves that attempt, presents optional guidance separately and binds the rubric anchor in software from the judge's decision. Its ten request packets have SHA-256 `5b72f7f315e5fa2490622dd1405cdfacb1c026963d45dd7a16cc47cf85797b7a` and were frozen before the new run.
+
+The revised Qwen screen used eight slots. Seven judgments passed validation. The eighth omitted part of the required tip accounting, and the last two cases were never sent. The seven valid judgments matched 1, 3, 4, 7, 5 and 3 human decisions. In the ArcPy case the judge identified a missing field-order explanation and still approved completeness.
+
+GPT-OSS-120B then scored the same ten development answers using the original v3 messages. All ten raw returns validated. Matches on D1–D6 were 2, 3, 6, 9, 8 and 8. In the ArcPy judgment it claimed that safety guidance and tips were absent even though both appeared in the saved request. A follow-up exposed all seven fields as separate text sections and asked one rubric question per request, with a literal quotation checked against the named candidate field. GPT-OSS returned five valid completeness decisions and matched two. Its third disagreement made 8/10 impossible and ended the screen. The other dimensions received zero requests in the follow-up.

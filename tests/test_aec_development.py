@@ -1,5 +1,7 @@
 """A developer fixture cannot satisfy a missing task or tip with a plausible citation."""
 
+from pathlib import Path
+
 import pytest
 from test_compact_evidence import sample as sample
 from test_passage_evidence import case as case
@@ -11,6 +13,23 @@ from aia_mp1.aec_development import (
     checked_reference,
     reference_catalog,
 )
+from aia_mp1.aec_scoped_judge import ScopedJudgment, project
+
+
+def test_one_dimension_quote_must_come_from_its_candidate_field(monkeypatch):
+    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[1] / "tools"))
+    from screen_aec_dimensions import QuotedDecision, verify_quote
+
+    item = {"tips": ["Check units before comparing.", "Keep the copy."], "steps": ["Save it."]}
+    row = QuotedDecision(field="tips", quote="Check units", decision=1, justification="Synthetic")
+    verify_quote(row, item, "D6")
+    for changed in [
+        {"field": "steps", "quote": "Save it."},
+        {"field": "tips", "quote": "Check the units"},
+        {"field": "tips", "quote": "comparing. Keep"},
+    ]:
+        with pytest.raises(ValueError, match="required candidate field"):
+            verify_quote(row.model_copy(update=changed), item, "D6")
 
 
 def test_reference_requires_a_bound_source():
@@ -72,3 +91,29 @@ def test_missing_tip_and_unsupported_coverage_cannot_project_to_six_scores(case)
         validate([coverage | {"candidate_ids": []}], tips)
     with pytest.raises(ValueError, match="dependency"):
         validate([coverage], [tips[0] | {"dependency_ids": [tip_ids[0]]}, *tips[1:]])
+
+
+def test_scoped_ratings_preserve_model_decisions_and_require_candidate_ids(case):
+    content, rubric, _ = case
+    tips = [
+        {"tip_id": k, "status": "repeats", "dependency_ids": ["C.steps.0"], "reason": "Synthetic."}
+        for k in content["passage_index"]
+        if k.startswith("C.tips.")
+    ]
+    ratings = {
+        f"D{i}": {"decision": i % 2, "justification": "Synthetic.", "candidate_ids": ["C.answer"]}
+        for i in range(1, 7)
+    }
+    row = {
+        "check_id": "T1",
+        "status": "established",
+        "candidate_ids": ["C.steps.0"],
+        "reason": "Synthetic.",
+    }
+    parsed = ScopedJudgment(coverage=[row], tips=tips, ratings=ratings)
+    assert project(parsed, content, rubric, [{"id": "T1"}]).decisions() == {
+        key: value["decision"] for key, value in ratings.items()
+    }
+    parsed.ratings.D1.candidate_ids = ["invented"]
+    with pytest.raises(ValueError, match="unknown passage"):
+        project(parsed, content, rubric, [{"id": "T1"}])
