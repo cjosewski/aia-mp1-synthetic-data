@@ -16,6 +16,20 @@ from aia_mp1.aec_development import (
 from aia_mp1.aec_scoped_judge import ScopedJudgment, project
 
 
+def test_task_excerpts_are_relevant_nonoverlapping_original_ranges(monkeypatch):
+    monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[1] / "tools"))
+    from screen_aec_sources import rank
+
+    rows = [
+        {"path": "fixture", "first": 1, "last": 20, "text": "Read sensor pressure."},
+        {"path": "fixture", "first": 11, "last": 30, "text": "Read sensor pressure."},
+        {"path": "fixture", "first": 31, "last": 50, "text": "Check temperature."},
+        {"path": "fixture", "first": 51, "last": 70, "text": "End of index."},
+    ]
+    selected = rank("Read sensor pressure. Check temperature.", rows)
+    assert sorted(selected, key=lambda row: row["first"]) == [rows[0], rows[2]]
+
+
 def test_one_dimension_quote_must_come_from_its_candidate_field(monkeypatch):
     monkeypatch.syspath_prepend(str(Path(__file__).resolve().parents[1] / "tools"))
     from screen_aec_dimensions import QuotedDecision, verify_quote

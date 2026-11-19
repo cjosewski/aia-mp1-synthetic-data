@@ -10,7 +10,7 @@
 | Execution checklist | [aia-plan issue #4](https://github.com/cjosewski/aia-plan/issues/4) |
 | Purpose | Full-project software design and requirement-to-evidence traceability, requested by Chad November 9 |
 
-The [AEC runbook](AEC-COURSE-RUNBOOK.md) and [course rubric](../config/aec-course/rubric.json) govern the submission. The original AEC generation records supply the baseline. Historical evaluations and the separate DIY experiment retain their original provenance.
+The current AEC evaluation uses Chad's version-specific D3 anchor, the five other course anchors and the original per-dimension agreement threshold. The original AEC generation records supply the baseline. Historical evaluations and the separate DIY experiment retain their original provenance. [AEC runbook](AEC-COURSE-RUNBOOK.md) · [D3 anchor](../config/aec-course/api-correctness-d3.json) · [Original course rubric](../config/aec-course/rubric.json)
 
 This SDD describes all six assignment stages, including work beyond the current
 implementation plan. On November 9 Chad stated, "The assignment has been accepted.

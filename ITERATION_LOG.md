@@ -163,3 +163,18 @@ The first task-note response returned five checklist findings and three tip find
 The revised Qwen screen used eight slots. Seven judgments passed validation. The eighth omitted part of the required tip accounting, and the last two cases were never sent. The seven valid judgments matched 1, 3, 4, 7, 5 and 3 human decisions. In the ArcPy case the judge identified a missing field-order explanation and still approved completeness.
 
 GPT-OSS-120B then scored the same ten development answers using the original v3 messages. All ten raw returns validated. Matches on D1–D6 were 2, 3, 6, 9, 8 and 8. In the ArcPy judgment it claimed that safety guidance and tips were absent even though both appeared in the saved request. A follow-up exposed all seven fields as separate text sections and asked one rubric question per request, with a literal quotation checked against the named candidate field. GPT-OSS returned five valid completeness decisions and matched two. Its third disagreement made 8/10 impossible and ended the screen. The other dimensions received zero requests in the follow-up.
+
+Three more installed models received the frozen v3 development inputs in their original order. Each screen stopped on an unresolved return or as soon as a dimension could no longer reach 8/10.
+
+| Local model and method | Starts | Valid answers | D1–D6 matches on valid answers | Reason for ending |
+| --- | ---: | ---: | --- | --- |
+| Nemotron 3.5 Super VL 120B, v3 | 3 | 2 | 1, 1, 0, 2, 2, 1 | Third response reached the 8,192-token limit before returning a judgment |
+| GPT-OSS-20B, v3 | 4 | 4 | 3, 2, 1, 4, 2, 2 | Three API correctness disagreements |
+| Llama 3.3 70B, v3 | 3 | 3 | 1, 2, 0, 3, 2, 1 | Three API correctness disagreements |
+| GPT-OSS-20B with original source excerpts and task notes | 5 | 5 | 3, 2, 4, 5, 4, 4 | Three safety disagreements |
+
+For the last screen, the program ranked excerpts from the approved, versioned sources using each task brief. It froze references for all 50 tasks before scoring the ten development answers. On the four answers shared with its control, GPT-OSS-20B matched 3/4 API correctness decisions with the added context versus 1/4 on v3. Safety stayed at 2/4. On the fifth answer it accepted advice to make the numerical logic “unambiguous” as a specific precaution. The five-answer result falls short of the development gate. Each comparison keeps its own denominator.
+
+Offline replay of the five multi-dimension model screens recovered every recorded valid decision and reproduced every reported count. The local verification receipt is `aec-course/analysis/local-development-readback-001.json`. The Mac project server and workstation tunnel were released. All three initial assessed prompt versions and the completed human reviews remain available under their original identifiers.
+
+The source-free comparison preparation now holds ten development requests and fifty baseline requests locally. Each request contains the task, generated answer and six rubric anchors. The preparation checked the field allowlist and scanned for copied fifteen-word passages from the local source summaries. A hosted development measurement requires new owner authorization. The earlier Astra measurement was on the engineering cohort.

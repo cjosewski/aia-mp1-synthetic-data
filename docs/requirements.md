@@ -4,7 +4,7 @@ This is the technical requirements record for P1-03, Mini Project 1. The [live e
 
 ## Source verification and early start
 
-**Current submission decision.** Retain all five approved AEC categories. Apply the course criteria and six-stage method exactly. The active rubric is [course-brief-v1](../config/aec-course/rubric.json). Use a lower-temperature independent Instructor/Pydantic judge. [Operating instructions](AEC-COURSE-RUNBOOK.md)
+**Current AEC evaluation.** Retain all five approved AEC categories, all six dimensions, the six-stage course method and the independent lower-temperature Instructor/Pydantic judge. Chad confirmed that both blind baseline reviews scored D3 on whether the procedure runs and behaves as claimed in the stated versions. Apply that definition to direct API calls and MCP tools when they appear in an answer. The frozen AEC rubric combines this D3 anchor with the other five course anchors. The original course rubric remains the record of the assignment wording. [D3 anchor](../config/aec-course/api-correctness-d3.json) · [Original course rubric](../config/aec-course/rubric.json) · [Operating instructions](AEC-COURSE-RUNBOOK.md)
 
 **November 17 restoration:** Chad restored **at least 80% agreement in every
 individual dimension D1–D6**. The [decision record](ACCEPTANCE-RESTORED-80.md)
