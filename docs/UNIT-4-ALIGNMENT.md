@@ -1,6 +1,6 @@
 # Unit 4 exercises and AEC judge calibration
 
-The supplied Unit 4 folder contains seven notebook files. The task and answer copies share exercise instructions. There are 30 distinct exercises in four notebooks, including the optional optimizer. The supplied sequence goes from Notebook 3 to Notebook 5.
+The supplied Unit 4 folder contains five task notebooks and four companion answer notebooks. The five task notebooks contain 39 distinct exercises, including the optional optimizer. Notebook 4 is available as a task notebook. The Unit 2 backup file belongs to a different module.
 
 ## Notebook 1 · Build and measure a prompt in layers
 
@@ -41,6 +41,20 @@ The supplied Unit 4 folder contains seven notebook files. The task and answer co
 | 5. Planning | Compare a whole-job call with a bounded plan, independent groups and a final combination. Check complete coverage and false alarms. Repeat on a simple job. | Enforce coverage of all six dimensions if work is split. Only add calls when the accuracy or timing supports them. |
 | 6. Choose by workload | Compare accuracy, calls, cost and latency within each task. Make separate choices for interactive and overnight work. | Judge calibration runs offline. Preserve the time and compute cost of each candidate method alongside its agreement. |
 
+## Notebook 4 · Diagnose what the model sees in a single call
+
+| Exercise | What the exercise measures | How it applies to AEC |
+| --- | --- | --- |
+| 1. Assemble the context | Count tokens for instructions, documents, history and question. Score 20 questions with known answers. | Inspect each saved request for the intended task, candidate and software version. |
+| 2. Conversation length | Compare ten successive turns with ten independent calls and measure repeated input. | Check whether a previous specialty's conversation enters the next case. Each assessed v3 request starts fresh. |
+| 3. Cache order | Move changing content before or after a stable prefix and inspect reported cache use. | Keep timing and token savings separate from agreement. |
+| 4. History validation | Compare how often an incorrect prior statement recurs before and after checking it on entry. | A prior judge verdict can also contain a false premise. Trace whether a second review repeats or corrects it. |
+| 5. Select source sections | Compare full-document and section-level input costs. Verify the cited passages and their sections. | Check both the product/version and whether the excerpt establishes the disputed operation. |
+| 6. Select tools | Compare incorrect tool calls with 40 available tools and with three selected for the task. | For an agent executing a task, inspect which direct API or MCP operation was available and chosen. The text-only judge has no live tool selection. |
+| 7. Resolve conflicting sources | Compare an old FAQ and current policy, first with precedence instructions and then with the obsolete source removed. | Inspect version precedence when a genuine API member is unsuitable for the target version. |
+| 8. Check unusual answers | Compare memory alone, supplied policy, and policy plus a quotation instruction. Count verifiable quotations. | A matching quotation establishes where the words came from. Check separately whether they support the verdict. |
+| 9. Combine the fixes | Compare two context builders on the same 25 questions. Record correctness, input size, cost and the causes of errors. | Freeze the candidate and selected sources. Measure each change on the same cases before testing the combined procedure. |
+
 ## Notebook 5 · Measure what safeguards preserve
 
 | Exercise | What the exercise measures | How it applies to AEC |
@@ -62,6 +76,10 @@ For every new layer, retain the plain prompt, the plain prompt with that layer a
 
 All 50 retained generation requests specified one specialty and its task. All 50 original v3 judge requests supplied one candidate with its own task and reference context. The model saw each case in a separate request. Pooling affects how the results are summarized and how many examples represent each specialty.
 
+The full baseline contained 200 generation calls, 40 per specialty before retention. Every call carried its task's single assigned source. Every input and generated answer contained a distinctive name or API symbol from its own specialty. The screen found no explicit marker from a different specialty in any of the 200 inputs or answers. The per-item results and the marker definitions are in `aec-course/analysis/generation-specialty-context-audit-001.json`.
+
+A separate inspection of all 50 assessed v3 requests confirmed that each included exactly the source ID assigned to its task. A search for distinctive names and API symbols of the five specialties found a matching marker in every candidate answer and in 48 of 50 judge explanations. It found zero markers from another specialty in the candidate answers, explanations, or task and source blocks. This check detects explicit cross-specialty references. It cannot detect a plausible-looking but incorrect use of a member in the right API. The case-level evidence is in `aec-course/analysis/assessed-specialty-context-audit-001.json`.
+
 | Specialty | Human API-correctness passes out of 4 | Qwen v3 API-correctness matches out of 4 | Context-clarity matches out of 4 |
 | --- | ---: | ---: | ---: |
 | Revit | 0 | 3 | 4 |
@@ -71,6 +89,8 @@ All 50 retained generation requests specified one specialty and its task. All 50
 | OpenSeesPy | 1 | 3 | 0 |
 
 API correctness and agreement measure different things. For example, the original judge approved all four ArcPy answers. The human reviewer approved one. On OpenSeesPy, the judge matched three of four API decisions but approved all four answers on context clarity while the reviewer rejected all four. Four human reviews per specialty can expose a recurring discrepancy but cannot identify its cause. The ten separate Devstral development cases have only two reviews per specialty.
+
+Task diversity is smaller than the item counts suggest. The 50 assessed answers represent 34 distinct briefs, and the 20 blind reviews represent 17. The ten development answers have distinct item IDs and briefs within their set. Seven of those briefs also occur among the 50 assessed answers and four among the 20 blind reviews. The same ArcPy cursor brief, for example, received an API failure on two assessed answers and on its separate development answer. This limits what the scores establish about generalization to new tasks. The review denominator remains 20. See `aec-course/analysis/aec-task-overlap-001.json`.
 
 A controlled test of specialty guidance would retain all five categories and the same candidate answers. Give one judge the common rubric and the other the same rubric plus a checklist selected from the stated software and version. Select or write checklists from independent source material before scoring. Compare paired corrections and regressions by dimension and report each specialty's denominator. Testing whether specialization improves **generation** requires new answers to the same task briefs and independent review of those answers.
 
