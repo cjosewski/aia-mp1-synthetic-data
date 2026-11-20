@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../aia-plan"
+		},
+		{
+			"path": "../aia-herd"
+		},
+		{
+			"path": "../herd-enterprise-design"
+		},
+		{
+			"path": "."
+		}
+	]
+}
