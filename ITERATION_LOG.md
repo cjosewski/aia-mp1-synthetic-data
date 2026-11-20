@@ -538,3 +538,135 @@ truncation. No implementation, dependency or new protocol was introduced.
 - **Workspace.** That pull auto-stashed the uncommitted work. It was restored
   byte-identical from `stash@{0}` (kept as a backup), and the full suite passed
   1,118 tests with 1 skipped.
+
+### November 20 · Direction change: retrieval-grounded generator
+
+- **Owner assessment.** The adapted AEC project is a retrieval (RAG) use case
+  rather than a prompt-accuracy evaluation. Supporting evidence:
+  - The dominant human failure is knowledge-bound. D3 failed 15 of 20 assessed
+    answers, and most D1 failures are step-breaking API errors under the owner
+    rule.
+  - The generator's grounding is one static summary of about 1.8–2.3k
+    characters per library: 5 sources serve all 50 tasks.
+- **Refinement (assistant analysis).** Retrieval explains D3 and the API half
+  of D1, not D2, D5 or D6. Those reflect the DIY-worded anchors that the
+  frozen-criteria rule kept.
+- **Decision.** Build a local, retrieval-grounded corrected generator now, as
+  the course's "revise the generator on the weakest dimension" step for D3.
+  - The owner accepts the risk that the instructor may require a calibrated
+    judge first. No instructor disposition is inferred.
+  - The hosted-judge qualification approved earlier the same day (both arms,
+    $60 cap, 5 working days) is **on hold, not started**. No amendment was
+    written, no adapter built and nothing spent. Local judge iteration stays
+    closed.
+  - Any retrieval corpus must satisfy the licensing rules (licensed open
+    sources only, with provenance) and the owner's source-use decision.
+- **Rubric redesign (owner decision, same day).** The DIY-worded anchors do not
+  apply to AEC software work and are probably a primary cause of the continuing
+  disagreement.
+  - The owner will redesign the AEC rubric with dimensions chosen freely; the
+    owner drafts and the assistant reviews.
+  - The original course rubric (`config/aec-course/rubric.json`) and the
+    November 18 D3 anchor are preserved unchanged. The new rubric is a dated
+    owner amendment in new versioned files.
+  - Existing human labels stay valid as history under the old rubric. A fair
+    before/after needs a blind re-review of the 20 assessed baseline answers
+    under the new rubric.
+  - Departing from the course's six criteria needs instructor acceptance. That
+    question is deferred with the others.
+- **Instructor (owner-reported, November 20 at 12:07 EST).** Chad: "I have
+  messaged the instructor. The changes to MP1 are approved." The scope of the
+  approval is being confirmed with the owner. Until then, no requirement is
+  treated as waived, including the per-dimension judge-calibration gate.
+- **Approval scope (owner-confirmed, same day).** Chad confirmed the
+  instructor approved:
+  - the AEC rubric redesign;
+  - the retrieval-grounded generator as the correction step;
+  - completion without a calibrated judge (before/after measured on blind human
+    reviews, judge reported descriptively);
+  - a hosted judge, including one without temperature support.
+
+  M4 is recorded as not met under the 80% criterion, which no longer gates
+  completion. `AGENTS.md`, `docs/requirements.md` and
+  `docs/ACCEPTANCE-RESTORED-80.md` carry dated amendments; the original
+  criteria are preserved.
+
+- **Success target (owner decision, 12:13 EST).** "We will try to reach 80%. If
+  it fails I will reach out to the instructor."
+  - The relative overall-failure reduction target (>0.8) remains the goal.
+  - Integrity order: (1) freeze the AEC rubric before the baseline re-review or
+    any corrected generation; (2) pre-register the corrected generator before
+    any corrected answers exist; (3) never edit the rubric or generator after
+    seeing review results. A miss is reported as measured and goes to the
+    instructor.
+
+- **Corrected-generator decisions (owner, November 20).** The design is the
+  deterministic BM25 pinned-passage retrieval pack, with records in
+  `../artifacts/evidence/.rag-generator-design-20261120/`. The owner decided:
+  1. **Tier 1:** admit all five sources, each within its own terms and notices,
+     local only: ArcPy Esri repository and cheat sheet, Building Coder samples
+     re-pinned to the 2025 tag, OpenSeesPy docs, FreeCAD 1.0.2, SciPy 1.16.1.
+  2. **Tier 2:** same-pin additions, Esri's Pro-era Apache-2.0 samples (tagged
+     not pinned to 3.6), and the ADN-DevTech Revit 2025 member pages. For the
+     ADN pages, the owner judged that their MIT grant covers the content; the
+     README traces it to the Revit SDK, and that caveat is recorded.
+  3. **Prompt:** the original prompt plus a retrieval clause plus one general
+     guidance section written only from the frozen rubric v2.
+  4. **Baseline sample:** 20 never-reviewed retained baseline answers plus 20
+     corrected answers, in one shuffled, masked 40-item packet. The owner first
+     declares any judge-output exposure.
+- **Defaults adopted:**
+  - Fedora client host and the owned Mac generator server (pinned
+    Qwen3-30B-A3B `9f1a2470…`), with Herd untouched.
+  - Fixed run IDs, and only seven-field payloads exported.
+  - Decision rule: strict overall RFR > 0.8 decides, with API correctness
+    reported first.
+- **Expectation, pre-registered:** D3 failures about 7–9 of 20. The RFR > 0.8
+  target is unlikely to be met. Effort is 9–12 assistant days, which corrects
+  the earlier Nov 30–Dec 2 estimate to roughly Dec 3–10.
+
+### November 20 · Rubric v2 frozen
+
+- **Owner decisions.** Chad set the rubric in a one-by-one interview. He then
+  answered 13 review questions (Q1–Q13 and the Q5 follow-up), accepted
+  readings R1–R13, and answered four freeze-round questions (F1–F4). The
+  authoritative record is `docs/AEC-RUBRIC-V2-INTERVIEW.md`.
+- **Independent review.**
+  - A five-lens review produced 109 confirmed findings; its record is in
+    `../artifacts/evidence/.rubric-v2-review-20261120/`.
+  - Two verifiers then checked the assembled draft against the record. All 19
+    of their wording fixes were applied; two only in part, so as not to add a
+    failure no answer supports.
+  - A third verifier checked the freeze-round edits. All 6 of its fixes were
+    applied, removing three sentences that went beyond the owner's answers.
+- **Freeze round.**
+  - **F1.** The 47 briefs that state no version use the reference pack's
+    category target: ArcGIS Pro 3.6, Revit 2025, OpenSeesPy 3.5.1.3, FreeCAD
+    1.0.2 and SciPy 1.16.1.
+  - **F2.** The reviewer documentation list was accepted as proposed. The
+    FreeCAD wiki pages are pinned to revisions from on or before 2025-08-06.
+  - **F3.** No brief triggers the professional-boundary dimension. It stays in
+    the rubric and is reported as not exercised.
+  - **F4.** An answer that explicitly targets another version fails task
+    fidelity only, and its code is checked against the version it targets.
+- **Frozen.**
+  - `config/aec-course/rubric-v2.json`, status `frozen`, has sha256
+    `c366ecace6fd663405d8831019d7806b47f27b5ebd71a3d38eb15d2e323b078f`.
+  - It pins the decision record at sha256
+    `249aec517f8e25ce4a709d866913ce946b9416bc91318dba96bbefe5943532a7`. It
+    also pins the original course rubric and the November 18 D3 anchor, both
+    unchanged.
+  - Eight binary dimensions, and overall pass requires all eight. The
+    per-dimension minimums are: fidelity 0.90, completeness 0.85, API
+    correctness 0.95, verification 0.85, safety 0.90, professional boundary
+    0.95, tips 0.85 and clarity 0.85.
+  - The target is a relative overall-failure reduction strictly above 0.8, on
+    blind human labels only.
+- **Known consequence.** Professional boundary passes automatically on all 50
+  briefs, so it cannot move between baseline and corrected runs.
+- **Next.**
+  - Build the 8-dimension evaluation code in new modules; the D1–D6 records must
+    still load. Then confirm that the labeling tool and judge schema accept the
+    new keys and the per-dimension minimums map, and that they pin this hash.
+  - Then build the retrieval pack, get an independent review, and pre-register
+    the corrected generator before any corrected answer exists.

@@ -1,6 +1,6 @@
 # P1-03 handoff to the Linux session
 
-## Current handoff — November 20, 2026 (conformance trial failed; owner chose a new judge)
+## Current handoff — November 20, 2026 (rubric v2 frozen; retrieval-grounded build next)
 
 **The conformance trial ran and failed the development gate.** See the
 [result](docs/AEC-CONFORMANCE-DOCS-RESULTS.md).
@@ -32,7 +32,48 @@
 - The owner committed the five Unit 4 answer notebooks in `f86813a` ("Notebook
   sync") for review of accuracy techniques. That review is in progress.
 
-No next measurement is queued.
+**Later on November 20, superseding the hosted plan above:**
+
+- **Direction.** The owner judged the adapted project a RAG use case and chose
+  to build a local, retrieval-grounded corrected generator now.
+- **Hosted judge.** The hosted-judge qualification (both arms, $60, 5 days) was
+  approved and is now **on hold, not started**. Nothing was amended or spent.
+- **Instructor approval (owner-reported, 12:07 EST, scope confirmed).** The
+  instructor approved:
+  - the AEC rubric redesign;
+  - the retrieval-grounded generator;
+  - completion without a calibrated judge (blind human reviews measure
+    before/after; the judge is descriptive);
+  - a hosted judge.
+
+  M4 no longer gates completion. The hosted qualification attempt is
+  unnecessary as a gate.
+- **Rubric v2 is frozen.** `config/aec-course/rubric-v2.json` has sha256
+  `c366ecac…b078f` and pins the decision record
+  `docs/AEC-RUBRIC-V2-INTERVIEW.md` (`249aec51…32a7`).
+  - Eight binary dimensions; overall pass requires all eight.
+  - Professional boundary is not exercised: none of the 50 briefs trigger it.
+  - See ITERATION_LOG "Rubric v2 frozen". The original rubric is preserved.
+  - Never edit either file. A change is a new, dated version.
+  - Baseline answers must be reviewed blind under v2 before any before/after
+    comparison.
+- **Target.** Aim for a >80% relative overall-failure reduction. On a miss,
+  the owner contacts the instructor.
+  - The corrected generator therefore pairs retrieval (knowledge failures) with
+    generation guidance aligned to the new rubric (other dimensions).
+  - Freeze the rubric first and pre-register the generator. Never revise either
+    after seeing review results.
+- **Corrected generator.** The design and owner decisions are recorded in
+  ITERATION_LOG "Corrected-generator decisions". The owner's source-use
+  decisions (tier 1 and tier 2) are made.
+- **Next.**
+  1. Build the 8-dimension evaluation code in new modules; the D1–D6 records
+     must still load. Check that the labeling tool and judge schema accept the
+     v2 keys and pin its hash.
+  2. Build the BM25 retrieval pack and its build gates.
+  3. Get an independent review, then pre-register
+     `aec-course/preregistration/corrected-rag-001.json` before any corrected
+     generation.
 
 **Workspace incident, November 20 at 10:31.** The owner's pull of `f86813a`
 auto-stashed all uncommitted work into `stash@{0}` and never re-applied it.

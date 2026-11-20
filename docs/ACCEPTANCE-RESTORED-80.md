@@ -43,3 +43,7 @@ The saved results were reassessed without inference in new receipt
 `assessments/baseline-review-001/calibration/baseline-qwen35-v13-restored80-004/report.json`.
 It is `pending`, solely for `per_dimension_agreement_not_met`. Raw evidence remains
 outside Git; the prior receipt is not rewritten.
+
+## Superseded for completion: November 20, 2026
+
+Chad reported that the instructor approved completing MP1 without a calibrated judge. Before/after is measured on his blind human reviews under the new AEC rubric, and LLM judges are reported descriptively. The 80%-per-dimension criterion above therefore no longer gates completion. It and every measured result remain the historical record. M4 is recorded as not met under this criterion.

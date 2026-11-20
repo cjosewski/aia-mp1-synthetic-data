@@ -19,6 +19,14 @@ hosted result bundle may contain them or human ratings. This does not change
 the generation endpoint, frozen labels, original per-dimension 80% threshold,
 or historical judge receipts. See [comparison record](M4-FRONTIER-JUDGE-COMPARISON.md).
 
+**November 20 instructor approval (owner-reported):**
+- **Rubric:** an AEC-specific rubric, with dimensions chosen by Chad, replaces the DIY-worded criteria.
+- **Correction step:** a local retrieval-grounded generator.
+- **Judge:** no calibrated judge is required. Before/after is measured on Chad's blind reviews, and the judge is reported descriptively.
+- **Hosted judge:** permitted, including one without a temperature setting, when separately authorized.
+
+The original criteria and results above remain the historical record.
+
 On November 9, 2026, the live brief's schema, six quality dimensions and success metrics were read through the signed-in course portal. The lower visualization and example-log sections were not independently reread; their checklist below comes from issue #4, also read that day. This document summarizes those sources rather than reproducing the course post.
 
 Chad approved the first implementation slice on November 9 at 14:25 EST. He reported that Courses 1–4 are complete and that the instructor permits him to start MP1 now. He expects to finish Courses 5–8 within a week. This is an early-start decision, not evidence that Courses 5–8 or their exercises are complete. It does not resolve the benchmark adaptation or establish project acceptance.

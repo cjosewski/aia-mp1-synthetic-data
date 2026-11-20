@@ -1,0 +1,1058 @@
+{
+  "schema_version": "2",
+  "version": "aec-rubric-v2",
+  "status": "frozen",
+  "frozen_at": "2026-11-20",
+  "drafted_at": "2026-11-20",
+  "owner": "Chad Josewski",
+  "decision_record": "docs/AEC-RUBRIC-V2-INTERVIEW.md",
+  "review_record": {
+    "path": "../artifacts/evidence/.rubric-v2-review-20261120/synthesis.md",
+    "confirmed_findings": 109
+  },
+  "instructor_approval": "Owner-reported 2026-11-20; the instructor's own wording is not yet on file. An AEC-specific rubric, with dimensions chosen by Chad, replaces the DIY-worded criteria.",
+  "instructor_approval_record": "docs/requirements.md (November 20 instructor approval, owner-reported); AGENTS.md (Current boundary). ITERATION_LOG.md heads its entry 'Instructor (owner-reported, November 20 at 12:07 EST)'; what the time marks is not yet confirmed by the owner.",
+  "lineage": {
+    "original_course_rubric": {
+      "path": "config/aec-course/rubric.json",
+      "sha256": "d315225ce28ef0b250c94af2f0e21146e32be48aa60ad24c829f996ff74430ce",
+      "status": "preserved_record"
+    },
+    "api_correctness_base_anchor": {
+      "path": "config/aec-course/api-correctness-d3.json",
+      "sha256": "cc1e512662ed2ce2e1401e2079052ff770b480b927056f5ad2627bb2d034c59c",
+      "defined": "2026-11-18"
+    },
+    "decision_record": {
+      "path": "docs/AEC-RUBRIC-V2-INTERVIEW.md",
+      "sha256": "249aec517f8e25ce4a709d866913ce946b9416bc91318dba96bbefe5943532a7",
+      "note": "sha256 of the record's final text, computed at the freeze after its last entry (the Freeze section). Freeze prerequisites 1 and 2 were resolved in the freeze round, F1-F4."
+    },
+    "dimension_map": {
+      "D1 Answer Completeness": "completeness",
+      "D2 Safety Specificity": "safety (replaces)",
+      "D3, 2026-11-18 anchor": "api_correctness (base anchor retained)",
+      "course D3 Tool Realism": "no successor (already replaced in the AEC v1 rubric)",
+      "D4 Scope Appropriateness": "professional_boundary (replaces)",
+      "D5 Context Clarity": "fidelity (absorbs)",
+      "D6 Tip Usefulness": "tips (replaces)",
+      "new": [
+        "verification",
+        "clarity"
+      ],
+      "note": "Lineage map. Under Q5 the course per-dimension pass-rate minimums carry over along it to their successors (values in per_dimension_pass_rate_minimum; verification and clarity, which are new, take the owner's 0.85 from the Q5 follow-up). No other threshold carries over through this map, and v1 and v2 dimension scores are not comparable."
+    },
+    "carried_over_unchanged": [
+      "overall_pass.pass_rate_minimum",
+      "dataset",
+      "structural_validity_minimum",
+      "baseline_overall_failure_minimum",
+      "relative_failure_reduction.formula",
+      "relative_failure_reduction.conservative_target",
+      "relative_failure_reduction.zero_baseline",
+      "relative_failure_reduction.equality_boundary"
+    ],
+    "added_in_v2_to_carried_over_blocks": [
+      "relative_failure_reduction.baseline_failure",
+      "relative_failure_reduction.corrected_failure",
+      "relative_failure_reduction.measured_on",
+      "relative_failure_reduction.exact_boundary_rule"
+    ]
+  },
+  "reader": "An AEC professional with little coding experience: knows the engineering domain but rarely writes code, and needs every step, including environment setup and how to run the script.",
+  "evidence_standard": "Human reviewers and any LLM judge use the same evidence standard: judge by reading the answer against the version-pinned documentation, meaning the publisher's official reference for the brief's stated versions (target_version), plus the same publisher's release notes, changelogs and migration or deprecation guides, which are used only to show when a member was added, changed or removed (see reviewer_documentation). Running the code is not required.",
+  "target_version": {
+    "rule": "Owner, freeze round F1 (2026-11-20): 'the brief's stated version', 'the stated versions', 'the version the brief states', 'the brief's version' and 'the target version' mean the version the brief states; where the brief states none, they mean the reference pack's approved target for the brief's category (category_targets).",
+    "category_targets": {
+      "gis_scripting": "ArcGIS Pro 3.6 (ArcPy); the pack reads 'ArcGIS Pro 3.6+' and the documentation is pinned to 3.6",
+      "aec_automation": "Revit 2025 (.NET 8), every 2025.x update included (owner, F2; see reviewer_documentation)",
+      "structural_analysis": "OpenSeesPy 3.5.1.3",
+      "cad_apis": "FreeCAD 1.0.2",
+      "simulation": "SciPy 1.16.1"
+    },
+    "briefs_stating_a_version": {
+      "aec_automation-01": "Revit 2025",
+      "cad_apis-01": "FreeCAD 1.0.2",
+      "simulation-01": "SciPy 1.16.1"
+    },
+    "helper_software": "Software no category targets (for example NumPy in SciPy items, or Python itself) is checked at versions that work with the category target (owner, F1).",
+    "off_target_items": "An item that explicitly targets another version or software (task fidelity rule 1) fails task fidelity only, and its code is checked against the version it targets (owner, F4; tie-break 8).",
+    "source": {
+      "path": "../artifacts/evidence/P1-03/references/engineering-v1.json",
+      "sha256": "878854bc28a977256d203b16966ce5c1b334ba655622b0c7a5ddceb77be6e341",
+      "field": "sources[].version"
+    }
+  },
+  "review_inputs": "Each reviewer, human or judge, sees the seven fields and the task brief: the per-item task statement from the approved 50-task pack, worded identically for baseline and corrected items. The whole provenance envelope is hidden: every GeneratedItem field outside item in src/aia_mp1/schemas.py (schema_version, run_id, trace_id, item_id, attempt_id, parent_attempt_id, category, prompt_variant, prompt_hash, model, source_refs, reference_context). item_id embeds run_id, so each item carries an opaque review ID in its place.",
+  "task_brief": {
+    "definition": "The per-item task statement from the approved 50-task reference pack (tasks[].brief), shown to reviewers and any judge beside the seven fields.",
+    "wording": "Worded identically for baseline and corrected items.",
+    "meaning": "'The brief' means this task brief, never the course brief.",
+    "source": "../artifacts/evidence/P1-03/references/engineering-v1.json",
+    "decision": "Q1 (owner, 2026-11-20)"
+  },
+  "terms": "'The item' means all seven fields. `answer` means the answer field. In anchors, 'the answer' means the answer, tools_required, steps, safety_info and tips fields, except where a location rule restricts a dimension's evidence (fields_rule). 'The brief' means the task brief (task_brief), never the course brief.",
+  "fields_rule": "Each dimension's fields list is a pointer to where its evidence usually appears, not a binding limit. Evidence anywhere in answer, tools_required, steps, safety_info or tips counts, except where one of the three location rules restricts it: safety, safety_info only; verification, answer, steps or tips; API correctness, what the reader runs. question and equipment_problem are judged only by task fidelity's restatement test. (Q2, owner, 2026-11-20.)",
+  "anchor_reading": "Each pass anchor states every condition its dimension requires. A dimension scores 1 only when all of them are met, as qualified by that dimension's rules and the tie-breaks. The rules and tie-breaks take precedence where they apply, including tie-breaks where one defect fails two dimensions. Fail anchors list typical failures and are not exhaustive. Lists introduced by 'for example' illustrate and add no conditions. Exception: on whether an API member exists or behaves as used, API correctness passes unless it is shown wrong, by a concrete, documented incompatibility or by absence from a complete listing (documentation-gap and complete-listings rules, api_correctness rule 3).",
+  "label_values": [
+    0,
+    1
+  ],
+  "label_meaning": {
+    "1": "pass",
+    "0": "fail"
+  },
+  "label_rule": "Each dimension of each reviewed item is recorded as exactly one of label_values; there is no N/A value. An automatic pass (professional boundary when results feed no design or code-compliance decision) and a documentation-gap pass (API correctness) are recorded as 1.",
+  "missing_labels": "unresolved_not_pass",
+  "missing_label_rules": [
+    "A dimension with no current label (skipped, left by an interrupted session, or a judge output that is absent or fails validation) is unresolved: never a pass and never a failure. Unresolved is a gap to complete, not a final label.",
+    "An item with any unresolved dimension has an unresolved overall result, neither an overall pass nor an overall failure.",
+    "A run's overall pass and failure rates, its per-dimension pass rates, the baseline-failure minimum and the relative reduction are computed only when every item in that run's frozen review selection has all eight labels (for a per-dimension rate, that dimension's label); until then each is reported as incomplete with its count of unresolved items. Items are never dropped from or replaced in the selection to complete a figure.",
+    "A missing human label is never filled from the LLM judge or the structural gate. A missing or invalid judge label is reported as a count, is never counted as agreement, and gates nothing."
+  ],
+  "implementation_note": "Structural gate heuristics and the descriptive LLM judge do not provide human labels or course acceptance.",
+  "dimensions": [
+    {
+      "id": "fidelity",
+      "name": "Task fidelity",
+      "measures": "Whether the item solves the brief's specific problem and frames it accurately.",
+      "fields": [
+        "question",
+        "equipment_problem",
+        "answer",
+        "tools_required",
+        "steps"
+      ],
+      "pass_anchor": "The answer addresses the brief's specific problem (the same software, version, objects and intended result) and respects every explicit constraint in the brief. Read together, the question and equipment_problem fields restate the brief's problem accurately (environment, symptom, intended result), so the item stands on its own. When the brief asks for a task rather than describing a failure, the task to be done takes the place of the symptom.",
+      "fail_anchor": "The answer solves a different or broader problem, explicitly targets a different software or version, or ignores an explicit constraint in the brief (for example 'read-only' or 'use the supplied scratch database'); or the question or equipment_problem field misstates the problem, or the two fields together leave out its environment, symptom or intended result, so the item does not stand on its own.",
+      "rules": [
+        "Explicitly targets: the item presents its procedure as written for, or requiring, a software or version other than the brief's, as defined in target_version (for example it says it is written for that version, tells the reader to install or switch to it, or lists it as required in tools_required). Not targeting: naming no version (the answer is then taken to target the brief's), mentioning another version for context or as a warning, or a version range that includes the brief's version. An item that explicitly targets another version or software fails task fidelity only, and its code is checked against the version it targets (F4; tie-break 8).",
+        "An explicit constraint limits how the task is done (for example 'read-only' or 'use the supplied scratch database'). A value the brief requests for the result, such as dimensions, is part of the intended result, not such a constraint: code that silently produces a different value is scored under the completeness wrong-object-or-value rule (owner example: a default-size cone instead of the requested dimensions).",
+        "Version rule (owner, verbatim): using a member that exists only in another version than the brief states fails API correctness. Task fidelity fails only when the answer explicitly targets a different version or software."
+      ]
+    },
+    {
+      "id": "completeness",
+      "name": "Procedural completeness",
+      "measures": "Whether the reader can carry out the task end to end.",
+      "fields": [
+        "answer",
+        "tools_required",
+        "steps"
+      ],
+      "pass_anchor": "The answer says where and how to run the script (for example the ArcGIS Pro Python window or the FreeCAD console) and gives the exact commands, lists the prerequisites with a setup step for each one the reader must install or enable beyond the reader's starting point (the brief's host program or runtime installed and licensed at the stated version, Python for standalone scripts, and the ability to open a terminal and change folders), and gives every required step in order. The reader can finish the task without filling gaps.",
+      "fail_anchor": "The answer does not say where or how to run the script, omits a prerequisite or its setup step, omits a required stage or step, gives required steps out of order, gives a required step too vague to execute (for example 'set up the environment' with no specifics), leaves an unmarked placeholder in a required step, or a required step is broken: it cannot run, or it runs without error but produces the wrong object or value.",
+      "rules": [
+        "Owner rule, 2026-11-20 (verbatim): 'API errors only count against D1 when they break a step.' D1 is completeness (D1 in the original course rubric).",
+        "A required step belongs to the main procedure: without it the intended result is not produced (the brief's intended result, or for an off-target answer the result the answer sets out to produce; tie-break 8), or the reader cannot set up the environment, open the target model or data, or run the script. A save, commit or transaction is required when the change depends on it. An optional or ancillary step is one the reader could leave out while the main procedure still produces the intended result (for example an extra example or an optional check). A result check is ancillary for completeness wherever it appears.",
+        "A step is broken when it cannot run, or when it runs without error but produces an object or value other than the one the answer says it produces (for example a default-size cone instead of the requested dimensions). A broken required step fails completeness; when the cause is in code the reader runs, it also fails API correctness.",
+        "An API problem breaks a required step only when API correctness would fail it, documentation-gap rule included; judge each call on its own. Non-API reasons a step cannot run, such as a wrong run location or an input that no earlier step creates, are judged here.",
+        "A defect that breaks only an optional or ancillary step, while the main procedure works, leaves completeness passing; it is scored under API correctness (tie-break 4).",
+        "Missing or weak result verification is not a completeness failure; it is scored under Result verification only.",
+        "Naming a prerequisite in tools_required does not supply its setup step. A module bundled with the host program or runtime (for example arcpy in the ArcGIS Pro Python window) needs no install step; any other configuration it needs is still a step (Q6).",
+        "A value only the reader can know (their own file path, layer, field or element name) may appear as a placeholder in a required step if the item tells the reader to replace it and says what value goes there (for example '# replace with the full path to your project's file geodatabase'). An unmarked placeholder fails completeness, not clarity.",
+        "Reader's starting point (owner, Q6): the brief's host program or runtime is installed and licensed at the stated version (Python for standalone scripts), and the reader can open a terminal and change folders. Every other install or configuration is a step. The answer names where the code runs and gives the exact commands. Modules bundled with the host (for example arcpy) need no install step.",
+        "Complete listings (owner, Q4): completeness follows the same rule for a required step; a required step that calls a member shown wrong under api_correctness rule 3 is broken."
+      ]
+    },
+    {
+      "id": "api_correctness",
+      "name": "Version-specific API correctness",
+      "measures": "Whether everything the reader would run is correct for the stated versions.",
+      "fields": [
+        "answer",
+        "tools_required",
+        "steps",
+        "safety_info",
+        "tips"
+      ],
+      "pass_anchor": "The code can compile or run as applicable and behaves as claimed in the stated versions. Required calls, tools and members exist, their signatures, order and meanings are correct, and the required versions can be installed together.",
+      "fail_anchor": "A concrete incompatibility prevents the code from compiling, running or producing the claimed behavior. Examples include nonexistent or obsolete members that no longer work in the target version, invalid call order or meaning, and incompatible tool versions.",
+      "rules": [
+        "Scope (owner): everything the reader runs: the main steps, extra examples, and any code inside tips or safety_info. This includes install, environment and run commands, and anything the answer tells the reader to run, call, set or enter, whether written as a code block, inline code or plain words. Prose mentions of an API are not checked: text that only names, explains or compares an API without telling the reader to use it.",
+        "Declared requirements: the install-together check covers every library, tool and version the item lists as required, including tools_required. Other API names in tools_required are mentions, not code.",
+        "Documentation gap (owner): pass unless shown wrong. Only a concrete, documented incompatibility, or absence under the complete-listings rule that follows (Q4), fails; any other absence from the pinned documentation is not proof an API is wrong. Complete listings (owner, Q4): a member that is absent from the pinned page listing all of a class's or module's members (inherited included), and mentioned nowhere else in the pinned docs, is shown wrong and fails API correctness. Exceptions: members the answer's own code defines. Absence from guides, examples or partial pages is still not proof. The complete-listing pages per library are named in reviewer_documentation.",
+        "Defects visible in the code need no documentation: an error that stops code the reader runs from compiling, running or behaving as claimed in the stated versions fails API correctness whether or not an API member is involved (for example a syntax error, an undefined name, or a wrong formula or unit-conversion factor). So does omitting a call that the pinned documentation shows is needed for the claimed result (for example a save or commit).",
+        "Version rule (owner, verbatim): using a member that exists only in another version than the brief states fails API correctness. Task fidelity fails only when the answer explicitly targets a different version or software.",
+        "Target version (owner, F1 and F4): 'the stated versions', 'the version the brief states' and 'the target version' mean the version defined in target_version: the version the brief states, or, where the brief states none (47 of the 50 briefs), the reference pack's target for its category. An item that does not explicitly target another version is checked against the target version even when it mentions another (rule 5). An item that explicitly targets another version or software (task fidelity rule 1) fails task fidelity only, and its code is checked against the version it targets (tie-break 8).",
+        "Passing a value in units other than an API parameter's documented units is an error of meaning and fails API correctness."
+      ]
+    },
+    {
+      "id": "verification",
+      "name": "Result verification",
+      "measures": "Whether the reader can confirm the script did the right thing.",
+      "fields": [
+        "answer",
+        "steps",
+        "tips"
+      ],
+      "pass_anchor": "The answer gives a concrete check tied to the task's intended result (what to print, count or inspect, or where to look in the tool) and the expected outcome (an expected value, count or state), so the reader can tell success from failure. When the correct value comes from the reader's own data, a stated expected form is enough (for example one row per layer with its name and a whole-number count); for such results, telling success from failure means telling output of the expected form from output that is not. The check may appear in the answer, steps or tips fields.",
+      "fail_anchor": "No check is given; the check names nothing concrete to print, count or inspect for the intended result (for example 'check the result' or 'make sure it worked'); the expected outcome is not stated; or the check or its expected outcome is not tied to the task's intended result (for example it only confirms that the script finished, printed 'Done' or raised no error).",
+      "rules": [
+        "A call can run without error and still produce the wrong object or value, so finishing without errors, or a message that an intermediate step ran, does not by itself confirm the intended result."
+      ]
+    },
+    {
+      "id": "safety",
+      "name": "Data/model safety",
+      "measures": "Whether safety_info protects the reader's model or data from this specific operation.",
+      "fields": [
+        "safety_info"
+      ],
+      "pass_anchor": "safety_info names the specific risk of this operation to the model or data (for example an irreversible edit, the wrong target, excess scope or overwritten output) and a specific safeguard that addresses it (for example working on a copy, a transaction or rollback, a read-only first pass, or scoping to a selection). For a read-only task, safety_info states that nothing is modified and names any real residual risk (for example scanning the wrong database, file locks or slow full scans) with its safeguard; if there is genuinely no residual risk, an accurate read-only statement passes. A script that only writes new output files and changes nothing existing is read-only for safety; if its code could overwrite an existing file at the output path, that is a real residual risk to name with a safeguard (for example a new file name or an existence check). Adding to or changing something that already exists is a modifying task. A residual risk is real, and must be named, only when the brief or code gives it a concrete basis: several candidate datasets, or a live or production source (wrong target); a file or model others may have open (locks); data the brief describes as large (slow scans); or any hazard that makes computed or reported values wrong (for example a unit or coordinate-system mismatch). A reader-set path is not a basis on its own.",
+      "fail_anchor": "safety_info names no specific risk of this operation or offers only caution with no protective action (for example 'be careful' or 'follow best practices'); names a risk without a safeguard that addresses it, or a safeguard without the specific risk; misstates whether the answer's procedure modifies data; for a read-only task, omits a real residual risk or its safeguard; or the risk and safeguard appear only outside safety_info.",
+      "rules": [
+        "Only safety_info counts (owner rule, 2026-11-20). What the pass anchor requires must be stated in safety_info itself; a reference such as 'see step 1' does not state a risk or safeguard. A reference added to a risk and safeguard that safety_info already states is fine.",
+        "Whether the task modifies data is judged from what the answer's procedure would do, read against the pinned documentation, not from the brief's label. Whether the item respects a brief's read-only constraint is judged under task fidelity.",
+        "A listed safeguard type that addresses the named risk (for example 'work on a copy' for an irreversible overwrite) is specific; it need not name the file or object.",
+        "Generic sentences beside the required content do not fail safety_info."
+      ]
+    },
+    {
+      "id": "professional_boundary",
+      "name": "Professional boundary",
+      "measures": "Whether the answer keeps engineering decisions with a qualified engineer.",
+      "fields": [
+        "answer",
+        "steps",
+        "tools_required",
+        "safety_info",
+        "tips"
+      ],
+      "pass_anchor": "When the task's results feed design or code-compliance decisions (for example structural capacity, loads, code checks or issued drawings), the answer says the results need review by a qualified engineer, does not present the script's output as final, and never claims the script satisfies a code or standard or replaces engineering judgment. When results feed no such decision, the dimension passes automatically.",
+      "fail_anchor": "Results feed a design or code-compliance decision and the answer lacks a statement that they need review by a qualified engineer, presents the script's output as final, or claims the script satisfies a code or standard or replaces engineering judgment.",
+      "rules": [
+        "The no-overreach requirement is checked only when results feed design or code-compliance decisions (owner confirmation, 2026-11-20).",
+        "Whether results feed such a decision is a property of the task, decided from the brief before the item is read: it holds only when the brief says its results will be used for a design or code-compliance decision, and otherwise the dimension passes automatically (owner, Q12). Each brief is classified once, from the brief alone, and the list (professional_boundary_triggers) is frozen with the rubric. The item's own claims (for example 'this confirms code compliance') neither create nor remove the trigger, so answers to the same brief get the same trigger.",
+        "A qualifying review statement names the reviewer as a qualified, licensed, registered or chartered engineer, a professional engineer or the engineer of record. One that names no qualified engineer (for example 'someone', 'a colleague' or 'check your work') does not qualify."
+      ]
+    },
+    {
+      "id": "tips",
+      "name": "Tip usefulness",
+      "measures": "Whether every tip adds task-specific value beyond the steps.",
+      "fields": [
+        "tips"
+      ],
+      "pass_anchor": "Every tip is task-specific technical advice that goes beyond the steps and is non-obvious to the stated reader (for example a pitfall, a version gotcha, or a units or performance note), and no tip makes a claim that the brief or the pinned documentation contradicts.",
+      "fail_anchor": "Any tip is obvious to the stated reader, is generic advice, repeats a step, or makes a claim that the brief or the pinned documentation contradicts (pass unless shown wrong, as for API correctness). A tip with an API error in anything it tells the reader to run, in code or inline, fails both Tip usefulness and API correctness.",
+      "rules": [
+        "Each element of the tips list is one tip with one verdict; one failing tip fails the set (owner rule).",
+        "Non-obvious is judged against the stated reader: restating engineering knowledge the reader has is obvious; software or scripting behaviour specific to this task that the reader would not know can be non-obvious even if a programmer would find it routine.",
+        "A tip about the behaviour of a call, setting or version this item uses is task-specific even when it also holds for other tasks using that call (owner examples: a version gotcha, a performance note). Advice that names nothing particular to the item (for example 'back up your work' or 'read the documentation') is generic.",
+        "A tip repeats a step when everything it says is already in the steps. A tip that restates a step but adds information not in them (the error that follows if the step is skipped, a version gotcha, a units, threshold or performance note) goes beyond them, provided the addition is itself non-obvious, task-specific and technical.",
+        "Wrong tips (owner, Q11): a tip fails if the brief or the pinned documentation contradicts its claim (pass unless shown wrong, as for API correctness). 'Misleading' is not a ground for failure."
+      ]
+    },
+    {
+      "id": "clarity",
+      "name": "Clarity for non-coders",
+      "measures": "Whether the reader can follow the answer without coding background.",
+      "fields": [
+        "answer",
+        "steps"
+      ],
+      "pass_anchor": "The reader can follow the answer without coding background: programming and API terms (for example cursor, transaction, virtual environment) and the target application's data-model terms (for example feature class, document object, IFC entity) are explained on first use, the code is commented step by step, and each step says what it does and why. There are no unexplained leaps. Engineering terms need no explanation.",
+      "fail_anchor": "A programming, API or target-application data-model term is not explained on first use, a part of the code that carries out an action has no comment saying what it does, a step does not state what it does or why, or the answer makes an unexplained leap. A required step that is missing, or present but too vague to execute, is scored under completeness, not clarity.",
+      "rules": [
+        "Clarity judges only the readability of steps the reader can follow (owner), meaning steps specific enough to carry out.",
+        "Commented step by step: each part of the code that carries out one action (for example opening the model, selecting elements, changing them, saving the result) has a comment saying what it does; not every line needs its own comment. An answer with no code meets this condition."
+      ]
+    }
+  ],
+  "tie_breaks": [
+    "Ignoring an explicit constraint in the brief on how the task is done (for example 'read-only' or 'use the supplied scratch database') fails task fidelity, not completeness, even when it changes the object, value or output location a step produces, as long as the code does what the answer says.",
+    "Using a member that exists only in another version than the brief states fails API correctness; task fidelity fails only when the answer explicitly targets a different version or software. When the answer explicitly targets another version or software, it fails task fidelity only and its code is checked against the version it targets (owner, F4; tie-break 8).",
+    "In a required step, code the reader runs that cannot run, or a call that runs without error but produces an object or value other than the one the answer says it produces (for example a default-size cone instead of the requested dimensions), breaks the step and fails completeness and API correctness (owner: 'API errors only count against D1 when they break a step').",
+    "A defect that breaks only an optional or ancillary step while the main procedure works fails API correctness and no other dimension, except that code in a tip also fails tip usefulness.",
+    "A tip with an API error in anything it tells the reader to run, in code or inline, fails tip usefulness and API correctness.",
+    "A required step that is missing or present but too vague to execute, or an unmarked placeholder in a required step, fails completeness, not clarity.",
+    "Missing or weak result verification (no check, a generic check, or no stated expected outcome) fails result verification, not completeness, even when the check is written as a step.",
+    "Overlapping defects (owner, Q13): a defect that fails two dimensions with no tie-break covering the pair fails only the dimension it most directly concerns: one recorded failure per defect. An off-target answer fails task fidelity only, and the other dimensions judge it against what it sets out to do. The explicit tie-breaks above still apply: a required step broken by code the reader runs (it cannot run, or it produces a wrong result) fails completeness and API correctness (tie-break 3); and a tip with an API error fails tip usefulness and API correctness (tie-breaks 4 and 5). An item that explicitly targets another version or software is an off-target answer: it fails task fidelity only, and its code is checked against the publisher's documentation for the version it targets (owner, F4)."
+  ],
+  "per_dimension_pass_rate_minimum": {
+    "fidelity": 0.9,
+    "completeness": 0.85,
+    "api_correctness": 0.95,
+    "verification": 0.85,
+    "safety": 0.9,
+    "professional_boundary": 0.95,
+    "tips": 0.85,
+    "clarity": 0.85
+  },
+  "per_dimension_pass_rate_minimum_basis": "Q5 and its follow-up (owner, 2026-11-20): each value is a minimum (at least) pass rate on the corrected run's human labels. The course values carry over to their successors (fidelity from D5, completeness from D1, API correctness from D3, safety from D2, professional boundary from D4, tips from D6); the owner set verification and clarity at 0.85.",
+  "overall_pass": {
+    "rule": "all_eight_dimensions_pass",
+    "pass_rate_minimum": 0.8
+  },
+  "success_metric_scope": "overall_pass.rule applies to every reviewed item in both runs; overall_pass.pass_rate_minimum to the corrected run; baseline_overall_failure_minimum to the baseline run. structural_validity_minimum (initial generation attempts) and dataset.minimum_items_per_run (full runs) keep their own denominators. per_dimension_pass_rate_minimum applies to the corrected run's human labels (Q5).",
+  "human_judge_agreement": {
+    "status": "descriptive_only",
+    "gates_completion": false,
+    "basis": "Owner-reported 2026-11-20 instructor approval: completion does not require a calibrated judge; before/after is measured on Chad's blind reviews and any LLM judge is reported descriptively.",
+    "report": "For each of the eight dimensions: items where judge and human labels match / items with both labels, plus the count of human-labeled items with no valid judge label.",
+    "missing_labels": "unresolved_not_pass",
+    "historical_criterion": "Original course criterion (config/aec-course/rubric.json): at least 0.8 agreement in each of D1-D6. Not applied to v2 dimensions; not a v2 gate."
+  },
+  "dataset": {
+    "minimum_items_per_run": 50,
+    "minimum_human_labels_per_run": 20,
+    "human_labeled_runs": [
+      "baseline",
+      "corrected"
+    ],
+    "category_count": 5,
+    "target_fraction_per_category": 0.2
+  },
+  "structural_validity_minimum": 0.95,
+  "baseline_overall_failure_minimum": 0.15,
+  "relative_failure_reduction": {
+    "formula": "(baseline_failure - corrected_failure) / baseline_failure",
+    "conservative_target": {
+      "operator": ">",
+      "value": 0.8
+    },
+    "zero_baseline": "undefined",
+    "equality_boundary": "unresolved_portal_prose_and_numeric_criterion_disagree",
+    "baseline_failure": "Share of the baseline items in the frozen review selection that fail overall_pass (at least one dimension labeled 0).",
+    "corrected_failure": "The same share for the corrected items.",
+    "measured_on": "Only the owner's blind human labels under aec-rubric-v2 (owner-reported instructor approval, 2026-11-20: before/after is measured on Chad's blind reviews). Earlier six-dimension reviews are not used. LLM-judge labels are reported descriptively and never used for baseline_failure, corrected_failure or this target.",
+    "exact_boundary_rule": "Compute from integer failure counts as exact fractions. Exactly 0.80 does not meet the '>' target and is reported with the disclosure that the portal's numeric criterion (corrected failure at most 20% of baseline) and issue #4 (at least 0.80) would count it as met."
+  },
+  "reviewer_documentation": {
+    "status": "owner_confirmed",
+    "confirmed": "Owner, freeze round F2 (2026-11-20): accepted as proposed, including the complete-listing pages and the fallbacks for OpenSeesPy and FreeCAD.",
+    "basis": "Q3 and Q4 (owner, 2026-11-20); freeze prerequisite 1 in the decision record.",
+    "use": "Review only: human reviewers and any LLM judge read these pages as the version-pinned documentation. They never enter the dataset.",
+    "change_notes_use": "Release notes, changelogs and migration or deprecation guides are used only to show when a member was added, changed or removed (Q3).",
+    "link_check": "Every URL below returned HTTP 200 on 2026-11-20 (the SDK installers by header request only). Page contents were spot-checked only: titles, that the ArcGIS 3.6 paths stay pinned, and that the ArcPy Polyline page lists inherited Geometry members.",
+    "not_covered": "Only three briefs state a version: aec_automation-01 (Revit 2025), cad_apis-01 (FreeCAD 1.0.2) and simulation-01 (SciPy 1.16.1). For the other 47, the owner ruled (F1) that the target is the reference pack's approved target for the brief's category (target_version), which is the version listed here. The versions are not taken from brief text, and the pack's version field is not among the review inputs (review_inputs). The ArcPy target reads 'ArcGIS Pro 3.6+' and is pinned here to 3.6. Software no category targets, such as NumPy in SciPy items or Python itself, has no entry; it is checked at versions that work with the category target (F1).",
+    "libraries": [
+      {
+        "library": "ArcPy",
+        "version": "ArcGIS Pro 3.6",
+        "category": "gis_scripting",
+        "publisher": "Esri",
+        "reference": [
+          {
+            "title": "ArcPy reference, ArcGIS Pro 3.6",
+            "url": "https://pro.arcgis.com/en/pro-app/3.6/arcpy/main/arcgis-pro-arcpy-reference.htm",
+            "version": "3.6"
+          },
+          {
+            "title": "Geoprocessing tool reference, ArcGIS Pro 3.6 (tools run through ArcPy, for example Buffer)",
+            "url": "https://pro.arcgis.com/en/pro-app/3.6/tool-reference/main/arcgis-pro-tool-reference.htm",
+            "version": "3.6"
+          }
+        ],
+        "reference_scope": "Pages under https://pro.arcgis.com/en/pro-app/3.6/ (arcpy/, tool-reference/ and help/, for example the memory workspace topic https://pro.arcgis.com/en/pro-app/3.6/help/analysis/geoprocessing/basics/the-in-memory-workspace.htm). Pages under /latest/ are not pinned and are not used.",
+        "change_notes": [
+          {
+            "title": "What's new in ArcGIS Pro 3.6 (Python and ArcPy sections)",
+            "url": "https://pro.arcgis.com/en/pro-app/3.6/get-started/whats-new-in-arcgis-pro.htm",
+            "version": "3.6"
+          },
+          {
+            "title": "Release notes for ArcGIS Pro 3.6",
+            "url": "https://pro.arcgis.com/en/pro-app/3.6/get-started/release-notes.htm",
+            "version": "3.6"
+          }
+        ],
+        "change_notes_note": "No separate ArcPy changelog page exists under 3.6. The same two pages for other releases, at that release's path (for example https://pro.arcgis.com/en/pro-app/3.5/get-started/whats-new-in-arcgis-pro.htm), show members added, changed or removed in those releases.",
+        "complete_listing": {
+          "pages": [
+            {
+              "scope": "Functions of the arcpy module",
+              "url": "https://pro.arcgis.com/en/pro-app/3.6/arcpy/functions/alphabetical-list-of-arcpy-functions.htm"
+            },
+            {
+              "scope": "Classes of the arcpy module",
+              "url": "https://pro.arcgis.com/en/pro-app/3.6/arcpy/classes/alphabetical-list-of-arcpy-classes.htm"
+            },
+            {
+              "scope": "Classes and functions of arcpy.da (module overview)",
+              "url": "https://pro.arcgis.com/en/pro-app/3.6/arcpy/data-access/what-is-the-data-access-module-.htm"
+            },
+            {
+              "scope": "Members of one class: the Properties and Method Overview tables on the class's own page, which include inherited members (for example the Polyline page lists the Geometry members)",
+              "url": "https://pro.arcgis.com/en/pro-app/3.6/arcpy/classes/polyline.htm"
+            },
+            {
+              "scope": "Members of an arcpy.da class (for example SearchCursor), from its own page",
+              "url": "https://pro.arcgis.com/en/pro-app/3.6/arcpy/data-access/searchcursor-class.htm"
+            },
+            {
+              "scope": "Tools of a toolbox module (for example arcpy.analysis): the toolbox overview page; a tool's parameters: its own tool page",
+              "url": "https://pro.arcgis.com/en/pro-app/3.6/tool-reference/analysis/an-overview-of-the-analysis-toolbox.htm"
+            }
+          ],
+          "note": "Official version-pinned listings exist. The arcpy.da page is a module overview rather than an alphabetical index. The owner accepted it as the arcpy.da listing (F2); the Q4 rule applies to it unchanged."
+        }
+      },
+      {
+        "library": "Revit API",
+        "version": "Revit 2025 (.NET 8)",
+        "category": "aec_automation",
+        "publisher": "Autodesk",
+        "reference": [
+          {
+            "title": "Revit 2025 SDK (REVIT_2025_SDK.msi, dated March 26, 2024), which contains the API reference help file RevitAPI.chm; listed under 'Download past SDK versions' at https://aps.autodesk.com/developer/overview/revit-api",
+            "url": "https://autodesk-adn-transfer.s3.us-west-2.amazonaws.com/ADN+Extranet/Revit/REVIT_2025_SDK.msi",
+            "version": "2025"
+          },
+          {
+            "title": "Revit 2025 API Developer's Guide (online help)",
+            "url": "https://help.autodesk.com/view/RVT/2025/ENU/?guid=Revit_API_Revit_API_Developers_Guide_html",
+            "version": "2025"
+          },
+          {
+            "title": "Revit 2025 API reference (online)",
+            "url": "https://help.autodesk.com/cloudhelp/2025/ENU/Revit-API-MainReference/files/html/87546ba7-461b-c646-cbb1-2cb8f5bff8b2.htm",
+            "version": "2025"
+          }
+        ],
+        "change_notes": [
+          {
+            "title": "What's New in the Revit 2025 API: the section of RevitAPI.chm and the API changes-and-additions document, both in the Revit 2025 SDK",
+            "url": "https://autodesk-adn-transfer.s3.us-west-2.amazonaws.com/ADN+Extranet/Revit/REVIT_2025_SDK.msi",
+            "version": "2025"
+          },
+          {
+            "title": "Revit 2025.1 SDK update (REVIT_2025_1_SDK.msi, updated May 22, 2025; listed under 'Download past SDK versions' at https://aps.autodesk.com/developer/overview/revit-api), for API changes in 2025.1",
+            "url": "https://autodesk-adn-transfer.s3.us-west-2.amazonaws.com/ADN+Extranet/Revit/REVIT_2025_1_SDK.msi",
+            "version": "2025.1"
+          },
+          {
+            "title": "Revit 2025.3 SDK update (REVIT_2025_3_SDK.msi, updated May 22, 2025), for API changes in 2025.3",
+            "url": "https://autodesk-adn-transfer.s3.us-west-2.amazonaws.com/ADN+Extranet/Revit/REVIT_2025_3_SDK.msi",
+            "version": "2025.3"
+          },
+          {
+            "title": "What's New in the Revit 2025 API, online copy on Autodesk's developer blog (the SDK text governs if they differ)",
+            "url": "https://blog.autodesk.io/whats-new-in-the-revit-2025-api/",
+            "version": "2025"
+          }
+        ],
+        "complete_listing": {
+          "pages": [
+            {
+              "scope": "Types of a namespace: the namespace topic (for example Autodesk.Revit.DB)",
+              "url": "https://help.autodesk.com/cloudhelp/2025/ENU/Revit-API-MainReference/files/html/87546ba7-461b-c646-cbb1-2cb8f5bff8b2.htm"
+            },
+            {
+              "scope": "Members of one class, inherited included: the class topic's member tables ('The <class> type exposes the following members', with '(Inherited from ...)' rows), for example FilteredElementCollector",
+              "url": "https://help.autodesk.com/cloudhelp/2025/ENU/Revit-API-MainReference/files/html/263cf06b-98be-6f91-c4da-fb47d01688f3.htm"
+            },
+            {
+              "scope": "Offline copy of the same reference: the class's Members topic and the namespace topics in RevitAPI.chm",
+              "url": "RevitAPI.chm inside https://autodesk-adn-transfer.s3.us-west-2.amazonaws.com/ADN+Extranet/Revit/REVIT_2025_SDK.msi"
+            }
+          ],
+          "note": "Autodesk publishes the Revit 2025 API reference online under the version-pinned path https://help.autodesk.com/cloudhelp/2025/ENU/Revit-API-MainReference/ (page metadata release=2025; missing pages return 404). Its class topics list every member, inherited included. RevitAPI.chm in the 2025 SDK is the offline copy. Third-party mirrors (for example revitapidocs.com, rvtdocs.com or apidocs.co) are not official and are not used. Owner (F2): the online 2025 reference governs where it and the 2025.0 CHM differ, and 'Revit 2025' covers every 2025.x update, so a member added in a 2025.x update (see the 2025.1 and 2025.3 SDK change notes) counts as existing."
+        }
+      },
+      {
+        "library": "OpenSeesPy",
+        "version": "3.5.1.3",
+        "category": "structural_analysis",
+        "publisher": "OpenSeesPy project (OpenSeesPyDoc, Minjie Zhu)",
+        "reference": [
+          {
+            "title": "OpenSeesPy documentation source at commit ce0d8f1ded3c722119c44d5b3a2073c9dce47828 (conf.py reports 3.5.1.3; the reference pack's snapshot and the master head on 2026-11-20)",
+            "url": "https://github.com/zhuminjie/OpenSeesPyDoc/tree/ce0d8f1ded3c722119c44d5b3a2073c9dce47828",
+            "version": "commit ce0d8f1 (documentation master, 2026-05-20): conf.py states 3.5.1.3; src/sub.txt and the index page state 'Version 3.8.0.0 is released' and 'Python 3.12 is required'"
+          },
+          {
+            "title": "Rendered documentation, titled 'OpenSeesPy 3.5.1.3 documentation' on 2026-11-20",
+            "url": "https://openseespydoc.readthedocs.io/en/latest/",
+            "version": "follows master; title from conf.py (3.5.1.3), index page announces 3.8.0.0; the pinned commit governs"
+          }
+        ],
+        "change_notes": [
+          {
+            "title": "Change Log (chapter 3), at the pinned commit; rendered at https://openseespydoc.readthedocs.io/en/latest/src/changelog.html",
+            "url": "https://github.com/zhuminjie/OpenSeesPyDoc/blob/ce0d8f1ded3c722119c44d5b3a2073c9dce47828/src/changelog.rst",
+            "version": "entries 0.0.5 to 3.4.0.7 only; no entry for 3.5.0 to 3.8.x"
+          }
+        ],
+        "complete_listing": {
+          "pages": [
+            {
+              "scope": "Commands of openseespy.opensees: chapters 4 to 11 taken together (Model, Analysis, Output, Utility, FSI, Sensitivity, Reliability and Parallel Commands) at the pinned commit, for example src/modelcmds.rst; a command's documented types and options: its own page (for example the element and uniaxialMaterial type lists)",
+              "url": "https://github.com/zhuminjie/OpenSeesPyDoc/blob/ce0d8f1ded3c722119c44d5b3a2073c9dce47828/src/modelcmds.rst"
+            }
+          ],
+          "note": "No version-pinned build or generated member listing exists: Read the Docs has no 3.5.1.3 build (/en/3.5.1.3/ returns 404, and /en/stable/ is 3.2.2.9 and is not used), and the module is compiled, so its command pages are written by hand. Owner (F2): the command chapters at the pinned commit count as the complete listing. The pinned commit is not documentation of 3.5.1.3 alone: its index page announces 3.8.0.0 and its Change Log stops at 3.4.0.7, so no official change notes cover 3.5.0 to 3.8.x (the publisher's OpenSeesPy repository has tags from v3.5.0 to v3.8.0.4, v3.5.1.3 among them, but no published release notes). Owner (F1, F2): the target is 3.5.1.3, the reference pack's target, and this commit counts as its documentation. With no official change notes for 3.5.0 to 3.8.x, whether a command was added after 3.5.1.3 is judged under the documentation-gap rule (api_correctness rule 3): pass unless shown wrong."
+        }
+      },
+      {
+        "library": "FreeCAD (Part workbench and Python API)",
+        "version": "1.0.2",
+        "category": "cad_apis",
+        "publisher": "FreeCAD project",
+        "reference": [
+          {
+            "title": "FreeCAD wiki, the project's official documentation: Part Workbench, the Part Box, Cylinder, Cone, Sphere, Cut, Fuse, Common and Compound pages, Topological data scripting and Part scripting",
+            "url": "https://wiki.freecad.org/Part_Workbench",
+            "pages": [
+              "https://wiki.freecad.org/Part_Box",
+              "https://wiki.freecad.org/Part_Cylinder",
+              "https://wiki.freecad.org/Part_Cone",
+              "https://wiki.freecad.org/Part_Sphere",
+              "https://wiki.freecad.org/Part_Cut",
+              "https://wiki.freecad.org/Part_Fuse",
+              "https://wiki.freecad.org/Part_Common",
+              "https://wiki.freecad.org/Part_Compound",
+              "https://wiki.freecad.org/Topological_data_scripting",
+              "https://wiki.freecad.org/Part_scripting"
+            ],
+            "version": "unversioned (tracks the development version and marks version-specific changes)"
+          },
+          {
+            "title": "FreeCAD source, Part module, at tag 1.0.2 (commit 256fc7eff3379911ab5daf88e10182c509aa8052, the reference pack's snapshot)",
+            "url": "https://github.com/FreeCAD/FreeCAD/tree/1.0.2/src/Mod/Part",
+            "version": "1.0.2"
+          }
+        ],
+        "reference_note": "The wiki has no per-version copy. Owner (F2): each listed wiki page, and the Release notes 1.0 page, is pinned to its last revision on or before 2025-08-06, the 1.0.2 release date (wiki_revisions). Reviewers read those revisions.",
+        "wiki_revisions": {
+          "as_of": "2025-08-06T23:59:59Z",
+          "method": "MediaWiki API (https://wiki.freecad.org/api.php, prop=revisions, rvstart=2025-08-06T23:59:59Z, rvdir=older, rvlimit=1), looked up 2026-11-20; every permalink returned HTTP 200.",
+          "pages": [
+            {
+              "title": "Part Workbench",
+              "revision_id": 1500772,
+              "revision_timestamp": "2024-10-30T06:44:27Z",
+              "url": "https://wiki.freecad.org/index.php?oldid=1500772"
+            },
+            {
+              "title": "Part Box",
+              "revision_id": 1594510,
+              "revision_timestamp": "2025-06-21T21:06:08Z",
+              "url": "https://wiki.freecad.org/index.php?oldid=1594510"
+            },
+            {
+              "title": "Part Cylinder",
+              "revision_id": 1594689,
+              "revision_timestamp": "2025-06-21T22:20:46Z",
+              "url": "https://wiki.freecad.org/index.php?oldid=1594689"
+            },
+            {
+              "title": "Part Cone",
+              "revision_id": 1594517,
+              "revision_timestamp": "2025-06-21T21:30:16Z",
+              "url": "https://wiki.freecad.org/index.php?oldid=1594517"
+            },
+            {
+              "title": "Part Sphere",
+              "revision_id": 1594518,
+              "revision_timestamp": "2025-06-21T21:31:04Z",
+              "url": "https://wiki.freecad.org/index.php?oldid=1594518"
+            },
+            {
+              "title": "Part Cut",
+              "revision_id": 1600593,
+              "revision_timestamp": "2025-07-03T10:44:36Z",
+              "url": "https://wiki.freecad.org/index.php?oldid=1600593"
+            },
+            {
+              "title": "Part Fuse",
+              "revision_id": 1600610,
+              "revision_timestamp": "2025-07-03T10:46:07Z",
+              "url": "https://wiki.freecad.org/index.php?oldid=1600610"
+            },
+            {
+              "title": "Part Common",
+              "revision_id": 1600614,
+              "revision_timestamp": "2025-07-03T10:46:55Z",
+              "url": "https://wiki.freecad.org/index.php?oldid=1600614"
+            },
+            {
+              "title": "Part Compound",
+              "revision_id": 1600552,
+              "revision_timestamp": "2025-07-03T10:39:12Z",
+              "url": "https://wiki.freecad.org/index.php?oldid=1600552"
+            },
+            {
+              "title": "Topological data scripting",
+              "revision_id": 1605107,
+              "revision_timestamp": "2025-07-06T17:10:12Z",
+              "url": "https://wiki.freecad.org/index.php?oldid=1605107"
+            },
+            {
+              "title": "Part scripting",
+              "revision_id": 1605965,
+              "revision_timestamp": "2025-07-06T21:28:28Z",
+              "url": "https://wiki.freecad.org/index.php?oldid=1605965"
+            },
+            {
+              "title": "Release notes 1.0",
+              "revision_id": 1622061,
+              "revision_timestamp": "2025-07-29T16:35:44Z",
+              "url": "https://wiki.freecad.org/index.php?oldid=1622061"
+            }
+          ]
+        },
+        "change_notes": [
+          {
+            "title": "Release notes 1.0",
+            "url": "https://wiki.freecad.org/Release_notes_1.0",
+            "version": "1.0"
+          },
+          {
+            "title": "FreeCAD 1.0.2 release (published 2025-08-06)",
+            "url": "https://github.com/FreeCAD/FreeCAD/releases/tag/1.0.2",
+            "version": "1.0.2"
+          },
+          {
+            "title": "FreeCAD 1.0.1 release",
+            "url": "https://github.com/FreeCAD/FreeCAD/releases/tag/1.0.1",
+            "version": "1.0.1"
+          }
+        ],
+        "complete_listing": {
+          "pages": [
+            {
+              "scope": "Python members of a shape: the binding definition for its type, followed through its Father chain for inherited members (for example TopoShapeSolidPy.xml, then TopoShapePy.xml, then src/App/ComplexGeoDataPy.xml)",
+              "url": "https://github.com/FreeCAD/FreeCAD/blob/1.0.2/src/Mod/Part/App/TopoShapePy.xml"
+            },
+            {
+              "scope": "BoundBox members",
+              "url": "https://github.com/FreeCAD/FreeCAD/blob/1.0.2/src/Base/BoundBoxPy.xml"
+            },
+            {
+              "scope": "Document-object methods: PartFeaturePy.xml, then src/App/GeoFeaturePy.xml and src/App/DocumentObjectPy.xml",
+              "url": "https://github.com/FreeCAD/FreeCAD/blob/1.0.2/src/Mod/Part/App/PartFeaturePy.xml"
+            },
+            {
+              "scope": "Document-object properties (for example Length, Radius1, Base, Tool, Shapes, Links): the property declarations in the feature's source (FeaturePartBox.cpp, PrimitiveFeature.cpp, FeaturePartBoolean.cpp, FeaturePartCut.cpp, FeaturePartFuse.cpp, FeaturePartCommon.cpp, FeatureCompound.cpp), plus those of its base features (for example Placement from App::GeoFeature, Shape from Part::Feature)",
+              "url": "https://github.com/FreeCAD/FreeCAD/tree/1.0.2/src/Mod/Part/App"
+            },
+            {
+              "scope": "Methods and attributes of a document (App.Document, for example addObject, recompute, getObject): DocumentPy.xml, then src/App/PropertyContainerPy.xml. The document also exposes each object under its name as a custom attribute (for example doc.Box); such names are not listed members and are not shown wrong by absence.",
+              "url": "https://github.com/FreeCAD/FreeCAD/blob/1.0.2/src/App/DocumentPy.xml"
+            }
+          ],
+          "note": "No official version-pinned published member listing exists: the wiki API pages (for example https://wiki.freecad.org/TopoShape_API and https://wiki.freecad.org/Part_API) are unversioned and may lag the code, and the source documentation at https://freecad.github.io/SourceDoc/ states no version. Owner (F2): the 1.0.2 source definitions above count as the complete listing, as the publisher's own version-pinned record of what each class exposes. Module-level functions such as FreeCAD.newDocument have no named complete listing; only the documentation-gap rule applies to them."
+        }
+      },
+      {
+        "library": "SciPy",
+        "version": "1.16.1",
+        "category": "simulation",
+        "publisher": "SciPy developers",
+        "reference": [
+          {
+            "title": "SciPy 1.16.1 API reference",
+            "url": "https://docs.scipy.org/doc/scipy-1.16.1/reference/",
+            "version": "1.16.1"
+          },
+          {
+            "title": "scipy.integrate.solve_ivp, SciPy 1.16.1",
+            "url": "https://docs.scipy.org/doc/scipy-1.16.1/reference/generated/scipy.integrate.solve_ivp.html",
+            "version": "1.16.1"
+          }
+        ],
+        "change_notes": [
+          {
+            "title": "SciPy 1.16.1 release notes",
+            "url": "https://docs.scipy.org/doc/scipy-1.16.1/release/1.16.1-notes.html",
+            "version": "1.16.1"
+          },
+          {
+            "title": "SciPy 1.16.0 release notes (new features, deprecations and removals of the 1.16 series)",
+            "url": "https://docs.scipy.org/doc/scipy-1.16.1/release/1.16.0-notes.html",
+            "version": "1.16.0"
+          },
+          {
+            "title": "Release notes index, all releases up to 1.16.1",
+            "url": "https://docs.scipy.org/doc/scipy-1.16.1/release.html",
+            "version": "up to 1.16.1"
+          },
+          {
+            "title": "Release notes index of the current documentation, for releases after 1.16.1",
+            "url": "https://docs.scipy.org/doc/scipy/release.html",
+            "version": "current (unpinned index; each linked notes page is version-specific)"
+          }
+        ],
+        "complete_listing": {
+          "pages": [
+            {
+              "scope": "Public functions and classes of scipy.integrate",
+              "url": "https://docs.scipy.org/doc/scipy-1.16.1/reference/integrate.html"
+            },
+            {
+              "scope": "Members of one class: the Attributes and Methods on its own page (for example OdeSolution, RK45, DenseOutput)",
+              "url": "https://docs.scipy.org/doc/scipy-1.16.1/reference/generated/scipy.integrate.OdeSolution.html"
+            },
+            {
+              "scope": "Fields of the object solve_ivp returns: the Returns section of the solve_ivp page",
+              "url": "https://docs.scipy.org/doc/scipy-1.16.1/reference/generated/scipy.integrate.solve_ivp.html"
+            }
+          ],
+          "note": "Official version-pinned listings exist."
+        }
+      }
+    ]
+  },
+  "professional_boundary_triggers": {
+    "status": "owner_confirmed",
+    "rule": "Q12 (owner, 2026-11-20): professional boundary applies only when the brief says its results will be used for a design or code-compliance decision; otherwise it passes automatically. Each brief is classified once, from the brief text alone.",
+    "source": {
+      "path": "../artifacts/evidence/P1-03/references/engineering-v1.json",
+      "sha256": "878854bc28a977256d203b16966ce5c1b334ba655622b0c7a5ddceb77be6e341",
+      "field": "tasks[].brief"
+    },
+    "classified_at": "2026-11-20",
+    "task_count": 50,
+    "triggered_count": 0,
+    "summary": "No brief says its results will be used for a design or code-compliance decision, so no brief triggers the dimension and professional boundary passes automatically for every item.",
+    "reporting": "Owner, freeze round F3 (2026-11-20): classification confirmed, and the dimension stays in the rubric. With no brief triggered, it passes automatically on every item of this pack and is reported as not exercised. Overall pass still requires all eight dimensions.",
+    "closest_wording_not_triggering": [
+      {
+        "task_id": "aec_automation-09",
+        "phrase": "A drawing-sheet audit needs placed view IDs",
+        "reason": "An audit of the views placed on sheets; the brief does not say the results feed a decision on issued drawings."
+      },
+      {
+        "task_id": "structural_analysis-05",
+        "phrase": "still publishes displacements as verified",
+        "reason": "Concerns claiming solver success; no stated design or code-compliance use."
+      },
+      {
+        "task_id": "structural_analysis-07",
+        "phrase": "describe an independent balance check against the applied static load",
+        "reason": "An equilibrium check of the solver output, not a design or code check."
+      },
+      {
+        "task_id": "structural_analysis-09",
+        "phrase": "A truss study compares two positive cross-sectional areas",
+        "reason": "A parametric comparison; the brief does not say it decides a design."
+      },
+      {
+        "task_id": "structural_analysis-10",
+        "phrase": "why a successful linear analysis does not validate that assumption",
+        "reason": "A modelling limitation; no stated design use."
+      },
+      {
+        "task_id": "cad_apis-08",
+        "phrase": "A CAD check needs the shared volume of two boxes",
+        "reason": "A geometric check, not a code check."
+      },
+      {
+        "task_id": "simulation-02",
+        "phrase": "distinguish a numerical model from physical validation",
+        "reason": "A modelling caveat; no stated design use."
+      },
+      {
+        "task_id": "simulation-07",
+        "phrase": "do not claim that local tolerances guarantee global physical accuracy",
+        "reason": "A numerical-accuracy caveat; no stated design use."
+      }
+    ],
+    "tasks": [
+      {
+        "task_id": "gis_scripting-01",
+        "category": "gis_scripting",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "gis_scripting-02",
+        "category": "gis_scripting",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "gis_scripting-03",
+        "category": "gis_scripting",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "gis_scripting-04",
+        "category": "gis_scripting",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "gis_scripting-05",
+        "category": "gis_scripting",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "gis_scripting-06",
+        "category": "gis_scripting",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "gis_scripting-07",
+        "category": "gis_scripting",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "gis_scripting-08",
+        "category": "gis_scripting",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "gis_scripting-09",
+        "category": "gis_scripting",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "gis_scripting-10",
+        "category": "gis_scripting",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "aec_automation-01",
+        "category": "aec_automation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "aec_automation-02",
+        "category": "aec_automation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "aec_automation-03",
+        "category": "aec_automation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "aec_automation-04",
+        "category": "aec_automation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "aec_automation-05",
+        "category": "aec_automation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "aec_automation-06",
+        "category": "aec_automation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "aec_automation-07",
+        "category": "aec_automation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "aec_automation-08",
+        "category": "aec_automation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "aec_automation-09",
+        "category": "aec_automation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "aec_automation-10",
+        "category": "aec_automation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "structural_analysis-01",
+        "category": "structural_analysis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "structural_analysis-02",
+        "category": "structural_analysis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "structural_analysis-03",
+        "category": "structural_analysis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "structural_analysis-04",
+        "category": "structural_analysis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "structural_analysis-05",
+        "category": "structural_analysis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "structural_analysis-06",
+        "category": "structural_analysis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "structural_analysis-07",
+        "category": "structural_analysis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "structural_analysis-08",
+        "category": "structural_analysis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "structural_analysis-09",
+        "category": "structural_analysis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "structural_analysis-10",
+        "category": "structural_analysis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "cad_apis-01",
+        "category": "cad_apis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "cad_apis-02",
+        "category": "cad_apis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "cad_apis-03",
+        "category": "cad_apis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "cad_apis-04",
+        "category": "cad_apis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "cad_apis-05",
+        "category": "cad_apis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "cad_apis-06",
+        "category": "cad_apis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "cad_apis-07",
+        "category": "cad_apis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "cad_apis-08",
+        "category": "cad_apis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "cad_apis-09",
+        "category": "cad_apis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "cad_apis-10",
+        "category": "cad_apis",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "simulation-01",
+        "category": "simulation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "simulation-02",
+        "category": "simulation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "simulation-03",
+        "category": "simulation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "simulation-04",
+        "category": "simulation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "simulation-05",
+        "category": "simulation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "simulation-06",
+        "category": "simulation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "simulation-07",
+        "category": "simulation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "simulation-08",
+        "category": "simulation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "simulation-09",
+        "category": "simulation",
+        "triggered": false,
+        "trigger_phrase": null
+      },
+      {
+        "task_id": "simulation-10",
+        "category": "simulation",
+        "triggered": false,
+        "trigger_phrase": null
+      }
+    ]
+  },
+  "integrity": "Freeze before the baseline re-review or any corrected generation; never edit after seeing review results."
+}
