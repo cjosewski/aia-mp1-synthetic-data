@@ -199,8 +199,10 @@ def test_changed_owned_process_stops_before_recording_a_start(packaged, monkeypa
     assert not list((root / "results").glob("*-start.json"))
 
 
-def test_unfrozen_client_rejected_before_ledger_creation(packaged):
+def test_unfrozen_client_rejected_before_ledger_creation(packaged, monkeypatch):
     root, _ = packaged
+    monkeypatch.setattr(runner.platform, "system", lambda: "Linux")
+    monkeypatch.setattr(runner.platform, "release", lambda: "synthetic-microsoft")
     with pytest.raises(ValueError, match="frozen bundle project"):
         runner.execute(root, runner.verify(root), "candidate")
     assert not (root / "results").exists()

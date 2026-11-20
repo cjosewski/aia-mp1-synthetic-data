@@ -14,6 +14,28 @@ from aia_mp1.assessment import save_new
 from aia_mp1.tracing import now
 
 
+def review_font_root() -> Path:
+    names = ("DejaVuSans.ttf", "DejaVuSans-Bold.ttf")
+    for root in (
+        Path("/usr/share/fonts/truetype/dejavu"),
+        Path("/usr/share/fonts/dejavu-sans-fonts"),
+    ):
+        if all((root / name).is_file() for name in names):
+            return root
+    try:
+        from matplotlib import get_data_path
+    except ImportError:
+        pass
+    else:
+        root = Path(get_data_path()) / "fonts" / "ttf"
+        if all((root / name).is_file() for name in names):
+            return root
+    raise FileNotFoundError(
+        "DejaVu Sans regular and bold fonts are required; install the system DejaVu "
+        "fonts or run with --extra analysis to use Matplotlib's bundled fonts."
+    )
+
+
 def render(packet: Path) -> dict:
     from reportlab.lib import colors
     from reportlab.lib.pagesizes import A4
@@ -37,7 +59,7 @@ def render(packet: Path) -> dict:
     if [r["item_id"] for r in records] != manifest["selected_ids"] or len(records) != 20:
         raise ValueError("PDF selection differs from the frozen packet")
     rubric = json.loads((packet / "rubric.json").read_text())
-    font_root = Path("/usr/share/fonts/truetype/dejavu")
+    font_root = review_font_root()
     pdfmetrics.registerFont(TTFont("ReviewSans", str(font_root / "DejaVuSans.ttf")))
     pdfmetrics.registerFont(TTFont("ReviewBold", str(font_root / "DejaVuSans-Bold.ttf")))
     styles = getSampleStyleSheet()
