@@ -1,0 +1,151 @@
+{
+  "fee_table": "| Fee | Standard plan | Plus plan | Premium plan |\n|---|---|---|---|\n| Monthly account fee | $0 | $6, waived if the average daily balance is $1,500 or more | $15, waived if the average daily balance is $10,000 or more |\n| Withdrawal at another bank's ATM, inside the country | $3 each | first 3 per month free, then $3 each | free |\n| Withdrawal at an ATM in another country | $5 + 1.5% of the amount | $5 + 1.5% of the amount | 1.5% of the amount |\n| Card purchase in a foreign currency | 2% of the amount | 1% of the amount | free |\n| Instant domestic transfer | 1% of the amount, minimum $0.50, maximum $10 | same | same |\n| Outgoing international wire: wire fee | $25 up to $5,000; $40 above $5,000 | first wire of the month at half the wire fee, then as Standard | $15 flat |\n| Outgoing international wire: currency conversion fee | 0.75% of the amount, on every wire | same | same |\n| Incoming international wire | $10 | $10 | $10 |\n| Overdraft | $20 per item paid on a day that ends more than $50 overdrawn; at most 3 fees per day and $120 per month | same | same |\n| Replacement card | first in a calendar year free, then $8 each | same | same |\n| Express card delivery | $18 extra | same | same |\n| Paper statement | $4 per month | same | same |\n| Returned cheque | $12 | same | same |\n| Stop payment | $15 each | same | same |\n| Cash deposits | free up to $5,000 per month, then 0.5% of the part above $5,000 | same | same |\n| Inactivity fee | $5 for each full month after 18 months without a transaction | same | same |\n| Early closure (within 90 days of opening) | $25 | same | same |\n| Courtesy refund | one fee of $40 or less refunded once in any 12 months, on request | same | same |\n",
+  "calculations": [
+    {
+      "id": "C01",
+      "question": "A customer on the Standard plan made 4 withdrawals at another bank's ATM inside the country this month. On a trip abroad they also made 2 ATM withdrawals, one of $200 and one of $300. What do they pay in ATM fees for the month?",
+      "answer": 29.5,
+      "steps": [
+        "4 withdrawals at another bank's ATM: 4 x $3 = $12.00",
+        "Withdrawal abroad of $200: $5 + 1.5% of $200 = $8.00",
+        "Withdrawal abroad of $300: $5 + 1.5% of $300 = $9.50"
+      ]
+    },
+    {
+      "id": "C02",
+      "question": "A customer on the Plus plan had an average daily balance of $1,200 this month. They made 5 withdrawals at another bank's ATM inside the country and receive a paper statement by post. What are their total fees for the month?",
+      "answer": 16.0,
+      "steps": [
+        "Monthly fee: the balance is below $1,500, so it is not waived: $6.00",
+        "ATM: the first 3 are free, 2 x $3 = $6.00",
+        "Paper statement: $4.00"
+      ]
+    },
+    {
+      "id": "C03",
+      "question": "A customer on the Standard plan sent three instant domestic transfers today: $30, $400 and $2,500. What do they pay in transfer fees?",
+      "answer": 14.5,
+      "steps": [
+        "$30: 1% is $0.30, below the minimum, so $0.50",
+        "$400: 1% = $4.00",
+        "$2,500: 1% is $25, above the maximum, so $10.00"
+      ]
+    },
+    {
+      "id": "C04",
+      "question": "A customer on the Standard plan sends one outgoing international wire of $6,000. What is the total fee?",
+      "answer": 85.0,
+      "steps": [
+        "Wire fee: the amount is above $5,000, so $40.00",
+        "Currency conversion fee: 0.75% of $6,000 = $45.00"
+      ]
+    },
+    {
+      "id": "C05",
+      "question": "A customer on the Plus plan sends two outgoing international wires in the same month: first $1,000, then $8,000. What is the total fee for both wires?",
+      "answer": 120.0,
+      "steps": [
+        "First wire, $1,000: half of the $25 wire fee = $12.50, plus 0.75% of $1,000 = $7.50",
+        "Second wire, $8,000: full wire fee above $5,000 = $40.00, plus 0.75% of $8,000 = $60.00"
+      ]
+    },
+    {
+      "id": "C06",
+      "question": "A customer on the Premium plan had an average daily balance of $8,000 this month. Abroad, they made 3 ATM withdrawals of $400 each and paid $1,200 by card in a foreign currency. What are their total fees for the month?",
+      "answer": 33.0,
+      "steps": [
+        "Monthly fee: the balance is below $10,000, so it is not waived: $15.00",
+        "3 withdrawals abroad: the $5 is waived on Premium, 1.5% of $400 = $6.00 each, $18.00",
+        "Card purchases in a foreign currency: free on Premium, $0.00"
+      ]
+    },
+    {
+      "id": "C07",
+      "question": "A customer on the Standard plan paid $850 by card in a foreign currency on holiday and made one ATM withdrawal of $100 abroad. What do they pay in fees?",
+      "answer": 23.5,
+      "steps": [
+        "Card purchases: 2% of $850 = $17.00",
+        "Withdrawal abroad: $5 + 1.5% of $100 = $6.50"
+      ]
+    },
+    {
+      "id": "C08",
+      "question": "A customer's account ended Monday overdrawn by $300, and 5 items were paid that day. It ended Tuesday overdrawn by $180, and 2 items were paid that day. It ended Wednesday overdrawn by $35, and 1 item was paid that day. The customer did not bring the balance back to $0 in time on any day. What do they pay in overdraft fees for the three days?",
+      "answer": 100.0,
+      "steps": [
+        "Monday: 5 items, but at most 3 fees per day: 3 x $20 = $60.00",
+        "Tuesday: 2 x $20 = $40.00",
+        "Wednesday: overdrawn by $35, inside the $50 buffer: $0.00"
+      ]
+    },
+    {
+      "id": "C09",
+      "question": "In one month, a customer's account ended three different days more than $50 overdrawn, and 4 items were paid on each of those days. The customer never brought the balance back in time. In the same month, one cheque they paid in was returned unpaid. What are their total fees for the month?",
+      "answer": 132.0,
+      "steps": [
+        "Each day: at most 3 fees, 3 x $20 = $60.00; three days = $180.00",
+        "Monthly limit on overdraft fees: $120.00",
+        "Returned cheque: $12.00"
+      ]
+    },
+    {
+      "id": "C10",
+      "question": "A customer has already received two replacement cards this calendar year, and those were settled at the time. Today they order one more replacement card, by express delivery, and place one stop payment on a recurring payment. What do they pay for today's two requests in total?",
+      "answer": 41.0,
+      "steps": [
+        "Replacement card: only the first of the year is free, and this is the third, so $8.00",
+        "Express delivery: $18.00",
+        "Stop payment: $15.00"
+      ]
+    },
+    {
+      "id": "C11",
+      "question": "A customer on the Standard plan paid $7,400 in cash into their account this month, in several deposits. They also made 2 withdrawals at another bank's ATM inside the country. What are their total fees for the month?",
+      "answer": 18.0,
+      "steps": [
+        "Cash deposits: $7,400 - $5,000 = $2,400 above the free amount; 0.5% of $2,400 = $12.00",
+        "ATM: 2 x $3 = $6.00"
+      ]
+    },
+    {
+      "id": "C12",
+      "question": "A customer has made no transaction for 23 full months. For the last 3 of those months they also received a paper statement by post. The balance is large enough to pay every fee. How much has the bank charged them in inactivity fees and paper statement fees in total?",
+      "answer": 37.0,
+      "steps": [
+        "Inactivity fee: charged for each full month after the 18th: months 19 to 23 = 5 months x $5 = $25.00",
+        "Paper statements: 3 x $4 = $12.00"
+      ]
+    },
+    {
+      "id": "C13",
+      "question": "A customer on the Standard plan closes their account 60 days after opening it. Just before closing, they send one outgoing international wire of $500. What do they pay in total for the wire and the closure?",
+      "answer": 53.75,
+      "steps": [
+        "Wire fee: $25.00, plus 0.75% of $500 = $3.75",
+        "Early closure, within 90 days of opening: $25.00"
+      ]
+    },
+    {
+      "id": "C14",
+      "question": "A customer on the Plus plan travels this month. Abroad, they make 3 ATM withdrawals of $250 each and pay $640 by card in a foreign currency. Back home, they make 4 withdrawals at another bank's ATM. Their average daily balance is $2,000. What are their total fees for the month?",
+      "answer": 35.65,
+      "steps": [
+        "Monthly fee: the balance is $1,500 or more, so it is waived: $0.00",
+        "3 withdrawals abroad: $5 + 1.5% of $250 = $8.75 each, $26.25",
+        "Card purchases: 1% of $640 = $6.40",
+        "ATM at home: the first 3 are free, 1 x $3 = $3.00"
+      ]
+    },
+    {
+      "id": "C15",
+      "question": "A customer on the Standard plan sent two instant domestic transfers this month, $1,200 and $45, and received one incoming international wire. One day ended $90 overdrawn with 1 item paid, and the customer did not bring the balance back in time. They asked for their courtesy refund on the overdraft fee, their first request in 12 months, and it was approved. What do they pay in fees for the month, after the refund?",
+      "answer": 20.5,
+      "steps": [
+        "Instant transfer of $1,200: 1% is $12, above the maximum, so $10.00",
+        "Instant transfer of $45: 1% is $0.45, below the minimum, so $0.50",
+        "Incoming international wire: $10.00",
+        "Overdraft: 1 x $20 = $20.00, refunded as the courtesy refund: $0.00"
+      ]
+    }
+  ]
+}

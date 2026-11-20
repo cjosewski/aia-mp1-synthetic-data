@@ -1,0 +1,223 @@
+[
+  {
+    "id": "Q01",
+    "question": "On the Standard plan, what does one cash withdrawal at another bank's ATM inside the country cost?",
+    "answer": "$3 per withdrawal.",
+    "section": 3,
+    "check": [
+      "\\$\\s?3(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+    ],
+    "unusual": false
+  },
+  {
+    "id": "Q02",
+    "question": "What is the daily ATM withdrawal limit on the Standard plan?",
+    "answer": "$500 per day.",
+    "section": 3,
+    "check": [
+      "\\$\\s?500(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+    ],
+    "unusual": false
+  },
+  {
+    "id": "Q03",
+    "question": "How many days does a customer have to dispute a card charge, counted from the statement date?",
+    "answer": "45 days from the date of the statement on which the charge first appears.",
+    "section": 8,
+    "check": [
+      "\\b(?:45|forty-five)\\s*(?:\\(\\d+\\)\\s*)?(?:full\\s+|calendar\\s+|business\\s+|working\\s+|consecutive\\s+)?days?"
+    ],
+    "unusual": true,
+    "common_value": "60 days",
+    "common_value_check": [
+      "\\b(?:60|sixty)\\s*(?:\\(\\d+\\)\\s*)?(?:full\\s+|calendar\\s+|business\\s+|working\\s+|consecutive\\s+)?days?"
+    ]
+  },
+  {
+    "id": "Q04",
+    "question": "After a customer opens a dispute, within how many business days does the provisional credit arrive on the account?",
+    "answer": "Within 7 business days.",
+    "section": 8,
+    "check": [
+      "\\b(?:7|seven)\\s*(?:\\(\\d+\\)\\s*)?(?:full\\s+|calendar\\s+|business\\s+|working\\s+|consecutive\\s+)?days?"
+    ],
+    "unusual": true,
+    "common_value": "10 business days",
+    "common_value_check": [
+      "\\b(?:10|ten)\\s*(?:\\(\\d+\\)\\s*)?(?:full\\s+|calendar\\s+|business\\s+|working\\s+|consecutive\\s+)?days?"
+    ]
+  },
+  {
+    "id": "Q05",
+    "question": "What is the overdraft fee for one item that is paid while the account is overdrawn by more than the buffer?",
+    "answer": "$20 per item.",
+    "section": 6,
+    "check": [
+      "\\$\\s?20(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+    ],
+    "unusual": true,
+    "common_value": "$35",
+    "common_value_check": [
+      "\\$\\s?35(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+    ]
+  },
+  {
+    "id": "Q06",
+    "question": "On the Standard plan, what fee applies to a card purchase in a foreign currency?",
+    "answer": "2% of the purchase amount.",
+    "section": 4,
+    "check": [
+      "(?<![\\d.])2(?:\\.0+)?\\s?(?:%|percent)"
+    ],
+    "unusual": true,
+    "common_value": "3%",
+    "common_value_check": [
+      "(?<![\\d.])3(?:\\.0+)?\\s?(?:%|percent)"
+    ]
+  },
+  {
+    "id": "Q07",
+    "question": "After how many months without any transaction does an account become inactive?",
+    "answer": "After 18 months in a row without a transaction.",
+    "section": 10,
+    "check": [
+      "\\b(?:18|eighteen)\\s*(?:\\(\\d+\\)\\s*)?(?:full\\s+|calendar\\s+|business\\s+|working\\s+|consecutive\\s+)?months?"
+    ],
+    "unusual": true,
+    "common_value": "12 months",
+    "common_value_check": [
+      "\\b(?:12|twelve)\\s*(?:\\(\\d+\\)\\s*)?(?:full\\s+|calendar\\s+|business\\s+|working\\s+|consecutive\\s+)?months?"
+    ]
+  },
+  {
+    "id": "Q08",
+    "question": "How much is the inactivity fee per month?",
+    "answer": "$5 per month.",
+    "section": 10,
+    "check": [
+      "\\$\\s?5(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+    ],
+    "unusual": false
+  },
+  {
+    "id": "Q09",
+    "question": "What is the monthly fee of the Plus plan when it is not waived?",
+    "answer": "$6 per month.",
+    "section": 2,
+    "check": [
+      "\\$\\s?6(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+    ],
+    "unusual": false
+  },
+  {
+    "id": "Q10",
+    "question": "What average daily balance does a Plus customer need for the monthly fee to be waived?",
+    "answer": "$1,500 or more.",
+    "section": 2,
+    "check": [
+      "\\$\\s?1,?500(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+    ],
+    "unusual": false
+  },
+  {
+    "id": "Q11",
+    "question": "On the Standard plan, what is the wire fee for an outgoing international wire of $2,000, not counting the currency conversion fee?",
+    "answer": "$25.",
+    "section": 5,
+    "check": [
+      "\\$\\s?25(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+    ],
+    "unusual": false
+  },
+  {
+    "id": "Q12",
+    "question": "What is the highest fee the bank charges for one instant domestic transfer?",
+    "answer": "$10 (the fee is 1% of the amount, with a maximum of $10).",
+    "section": 5,
+    "check": [
+      "\\$\\s?10(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+    ],
+    "unusual": false
+  },
+  {
+    "id": "Q13",
+    "question": "What does a second replacement card in the same calendar year cost, with standard delivery?",
+    "answer": "$8.",
+    "section": 7,
+    "check": [
+      "\\$\\s?8(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+    ],
+    "unusual": false
+  },
+  {
+    "id": "Q14",
+    "question": "How much extra does express delivery of a card cost?",
+    "answer": "$18 extra.",
+    "section": 7,
+    "check": [
+      "\\$\\s?18(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+    ],
+    "unusual": false
+  },
+  {
+    "id": "Q15",
+    "question": "What does a paper statement sent by post cost per month?",
+    "answer": "$4 per month.",
+    "section": 9,
+    "check": [
+      "\\$\\s?4(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+    ],
+    "unusual": false
+  },
+  {
+    "id": "Q16",
+    "question": "What is the largest number of overdraft fees the bank charges in one day?",
+    "answer": "3 overdraft fees per day.",
+    "section": 6,
+    "check": [
+      "\\b(?:3|three)\\b"
+    ],
+    "unusual": false
+  },
+  {
+    "id": "Q17",
+    "question": "What is the fee when a cheque that a customer paid in is returned unpaid?",
+    "answer": "$12.",
+    "section": 9,
+    "check": [
+      "\\$\\s?12(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+    ],
+    "unusual": false
+  },
+  {
+    "id": "Q18",
+    "question": "What does one stop payment on a cheque cost?",
+    "answer": "$15 per stop payment.",
+    "section": 9,
+    "check": [
+      "\\$\\s?15(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+    ],
+    "unusual": false
+  },
+  {
+    "id": "Q19",
+    "question": "What is the fee for closing an account 60 days after it was opened?",
+    "answer": "$25 (the early closure fee, because the account is closed within 90 days of opening).",
+    "section": 11,
+    "check": [
+      "\\$\\s?25(?:\\.00)?(?!\\d|,\\d|\\.\\d)",
+      "^(?![\\s\\S]*\\b(?:there is no|no early closure|not charged an?|will not be charged)\\b)"
+    ],
+    "unusual": false
+  },
+  {
+    "id": "Q20",
+    "question": "On the Plus plan, how many withdrawals per month at another bank's ATM inside the country are free?",
+    "answer": "The first 3 withdrawals per month.",
+    "section": 3,
+    "check": [
+      "\\b(?:3|three)\\b"
+    ],
+    "unusual": false
+  }
+]

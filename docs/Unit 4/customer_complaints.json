@@ -1,0 +1,632 @@
+[
+  {
+    "id": "K01",
+    "tone": "formal",
+    "message": "I am writing on behalf of my mother, who has an account with you that she has not used in a long while. She has now noticed a small fee being taken from it every month. What is this fee, and how much is it? She says she never received any warning about it. Were you supposed to tell her beforehand? She does log in to the app now and then to look at the balance, so I do not see how the account can count as unused.",
+    "issues": [
+      {
+        "issue": "the fee taken every month from an unused account",
+        "section": 10,
+        "fact": "The inactivity fee is $5 per month.",
+        "check": [
+          "\\$\\s?5(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      },
+      {
+        "issue": "whether the bank had to warn her beforehand",
+        "section": 10,
+        "fact": "We write to the customer 60 days before an account becomes inactive.",
+        "check": [
+          "\\b(?:60|sixty)[\\s\\-]*(?:\\(\\d+\\)\\s*)?(?:full[\\s\\-]+|calendar[\\s\\-]+|business[\\s\\-]+|working[\\s\\-]+|consecutive[\\s\\-]+)?days?"
+        ]
+      },
+      {
+        "issue": "logging in to the app should count as using the account",
+        "section": 10,
+        "fact": "An account is inactive after 18 months in a row without a transaction, and logging in to the app does not count as activity.",
+        "check": [
+          "\\b(?:18|eighteen)[\\s\\-]*(?:\\(\\d+\\)\\s*)?(?:full[\\s\\-]+|calendar[\\s\\-]+|business[\\s\\-]+|working[\\s\\-]+|consecutive[\\s\\-]+)?months?"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K02",
+    "tone": "polite",
+    "message": "Hello, I lost my wallet on Saturday, for the second time this year I'm afraid, and I have ordered a new card in the app. Could you tell me whether there is a charge for the new card? My last replacement, in February, cost nothing. I leave for a work trip on Thursday, so I need the card quickly: is there a faster delivery option, and what does it cost? Also, the old card still shows as active in the app, should I be doing something about that?",
+    "issues": [
+      {
+        "issue": "the charge for a second replacement card this year",
+        "section": 7,
+        "fact": "Only the first replacement card in a calendar year costs nothing; each further replacement card in the same year costs $8.",
+        "check": [
+          "\\$\\s?8(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      },
+      {
+        "issue": "a faster delivery option and its cost",
+        "section": 7,
+        "fact": "Express delivery takes 2 business days and costs $18 extra.",
+        "check": [
+          "\\$\\s?18(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      },
+      {
+        "issue": "the lost card still shows as active",
+        "section": 7,
+        "fact": "A lost or stolen card must be frozen in the app or by phone as soon as you notice.",
+        "check": [
+          "\\bfr(?:eeze|eezing|ozen)\\b"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K03",
+    "tone": "annoyed",
+    "message": "I got back from Lisbon yesterday and my statement is a mess. Every time I took cash out of a machine over there I was charged an extra fee, and nobody told me how it is worked out. On top of that, my card stopped giving me cash on Friday after two withdrawals, as if there were some cap on what I can take out in a day. And why is there a separate fee line under each restaurant bill I paid by card? I'm on the Standard plan.",
+    "issues": [
+      {
+        "issue": "how the fee for cash withdrawals abroad is worked out",
+        "section": 3,
+        "fact": "A withdrawal at an ATM in another country costs $5 plus 1.5% of the amount withdrawn.",
+        "check": [
+          "\\$\\s?5(?:\\.00)?(?!\\d|,\\d|\\.\\d)",
+          "(?<![\\d.])1\\.5(?:\\.0+)?\\s?(?:%|percent)"
+        ]
+      },
+      {
+        "issue": "the cap on cash withdrawals in one day",
+        "section": 3,
+        "fact": "The daily ATM withdrawal limit is $500 on the Standard and Plus plans.",
+        "check": [
+          "\\$\\s?500(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      },
+      {
+        "issue": "the fee line under each card payment abroad",
+        "section": 4,
+        "fact": "On the Standard plan, a card purchase in a foreign currency carries a fee of 2% of the purchase amount.",
+        "check": [
+          "(?<![\\d.])2(?:\\.0+)?\\s?(?:%|percent)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K04",
+    "tone": "angry",
+    "message": "You took $60 in overdraft fees from me on Tuesday for being a bit short. Five small payments went through that day, so how many of these fees can you pile on in one day? I topped the account up the next morning, which apparently counts for nothing, and I want one of these fees refunded as a goodwill gesture.",
+    "issues": [
+      {
+        "issue": "how many overdraft fees can be charged in one day",
+        "section": 6,
+        "fact": "No more than 3 overdraft fees are charged per day.",
+        "check": [
+          "\\b(?:3|three)\\b[^.\\n]{0,60}\\b(?:per|a|each|in (?:one|a)(?: single)?|every)\\s+day|\\bdaily\\b[^.\\n]{0,40}\\b(?:3|three)\\b"
+        ]
+      },
+      {
+        "issue": "topping the account up the next morning did not cancel the fees",
+        "section": 6,
+        "fact": "If you bring the balance back to $0 or more by 10 p.m. on the next business day, the overdraft fees for that day are not charged.",
+        "check": [
+          "\\b10\\s*(?::00\\s*)?p\\.?\\s?m"
+        ]
+      },
+      {
+        "issue": "a goodwill refund of one fee",
+        "section": 12,
+        "fact": "Once in any 12 months you can ask for a courtesy refund of one fee, which an agent can approve when the fee is $40 or less.",
+        "check": [
+          "\\b(?:12|twelve)[\\s\\-]*(?:\\(\\d+\\)\\s*)?(?:full[\\s\\-]+|calendar[\\s\\-]+|business[\\s\\-]+|working[\\s\\-]+|consecutive[\\s\\-]+)?months?|\\b(?:once|one|1)\\b[^.\\n]{0,40}\\b(?:per|a|each|every)\\s+year|\\bonce\\s+yearly\\b|\\bannual"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K05",
+    "tone": "terse",
+    "message": "I need a copy of my statement from January 2023 for a mortgage application. How do I get one, and is there a cost? Also stop sending me paper statements, I never asked to pay for those. And your fee list changed again without anyone telling me.",
+    "issues": [
+      {
+        "issue": "the cost of a copy of an old statement",
+        "section": 9,
+        "fact": "A copy of a statement older than 24 months costs $5 per statement.",
+        "check": [
+          "\\$\\s?5(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      },
+      {
+        "issue": "paying for paper statements",
+        "section": 9,
+        "fact": "A paper statement sent by post costs $4 per month; electronic statements cost nothing.",
+        "check": [
+          "\\$\\s?4(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      },
+      {
+        "issue": "the fee list changed without notice",
+        "section": 12,
+        "fact": "We announce every change to the fee policy at least 30 days before it takes effect, by email and in the app.",
+        "check": [
+          "\\b(?:30|thirty)[\\s\\-]*(?:\\(\\d+\\)\\s*)?(?:full[\\s\\-]+|calendar[\\s\\-]+|business[\\s\\-]+|working[\\s\\-]+|consecutive[\\s\\-]+)?days?"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K06",
+    "tone": "businesslike",
+    "message": "I'm on the Standard plan. I sent $3,200 to my sister in Manila on Monday afternoon, around 4, and she still has nothing. When should it arrive? I was also charged two separate fees for that one wire, and I'd like to know what each one is. If I had sent it earlier in the day, would it have gone out sooner?",
+    "issues": [
+      {
+        "issue": "when the international wire should arrive",
+        "section": 5,
+        "fact": "International wires usually arrive in 2 to 4 business days.",
+        "check": [
+          "\\b(?:2|two)\\s*(?:to|[-\\u2013\\u2014]|or|and)\\s*(?:4|four)[\\s\\-]+(?:business[\\s\\-]+|working[\\s\\-]+)?days?"
+        ]
+      },
+      {
+        "issue": "the two fees charged for one wire",
+        "section": 5,
+        "fact": "An outgoing international wire of $5,000 or less costs $25, plus a currency conversion fee of 0.75% of the amount.",
+        "check": [
+          "\\$\\s?25(?:\\.00)?(?!\\d|,\\d|\\.\\d)",
+          "(?<![\\d.])0?\\.75(?:\\.0+)?\\s?(?:%|percent)"
+        ]
+      },
+      {
+        "issue": "whether sending earlier in the day makes the wire leave sooner",
+        "section": 5,
+        "fact": "An international wire sent before 2 p.m. on a business day leaves the same day.",
+        "check": [
+          "\\b2\\s*(?::00\\s*)?p\\.?\\s?m"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K07",
+    "tone": "indignant",
+    "message": "I upgraded to Premium before my trip to Japan precisely so that I would not pay fees abroad, and yet every cash withdrawal in Tokyo carries a charge. Please explain. My monthly Premium fee was also charged in June, although I was told it could be waived. Finally, the cash machines kept cutting me off, so what is my daily limit on this plan?",
+    "issues": [
+      {
+        "issue": "a charge on every cash withdrawal abroad on the Premium plan",
+        "section": 3,
+        "fact": "On the Premium plan the fixed part of the fee for a withdrawal abroad is waived, but 1.5% of the amount still applies.",
+        "check": [
+          "(?<![\\d.])1\\.5(?:\\.0+)?\\s?(?:%|percent)"
+        ]
+      },
+      {
+        "issue": "the Premium monthly fee was charged although it can be waived",
+        "section": 2,
+        "fact": "The Premium monthly fee is waived only in a month in which the average daily balance is $10,000 or more.",
+        "check": [
+          "\\$\\s?10,?000(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      },
+      {
+        "issue": "the daily ATM limit on the Premium plan",
+        "section": 3,
+        "fact": "The daily ATM withdrawal limit on the Premium plan is $2,000.",
+        "check": [
+          "\\$\\s?2,?000(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K08",
+    "tone": "matter-of-fact",
+    "message": "I paid in a cheque from a client last Wednesday and I still can't use the money. How long does that take? A different cheque from the same client bounced last month and I was charged for it, even though it wasn't my fault. What is that fee? I also pay my market stall takings in as cash every week, and there was a new percentage charge on the last deposit.",
+    "issues": [
+      {
+        "issue": "how long until a cheque that was paid in can be used",
+        "section": 9,
+        "fact": "A cheque paid into the account is available after 3 business days.",
+        "check": [
+          "\\b(?:3|three)[\\s\\-]*(?:\\(\\d+\\)\\s*)?(?:full[\\s\\-]+|calendar[\\s\\-]+|business[\\s\\-]+|working[\\s\\-]+|consecutive[\\s\\-]+)?days?"
+        ]
+      },
+      {
+        "issue": "the fee for a cheque that bounced",
+        "section": 9,
+        "fact": "When a cheque that you paid in is returned unpaid, the returned cheque fee is $12.",
+        "check": [
+          "\\$\\s?12(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      },
+      {
+        "issue": "the percentage charge on a cash deposit",
+        "section": 9,
+        "fact": "Cash deposits cost nothing up to $5,000 per month; on the part above $5,000 the fee is 0.5%.",
+        "check": [
+          "\\$\\s?5,?000(?:\\.00)?(?!\\d|,\\d|\\.\\d)",
+          "(?<![\\d.])0?\\.5(?:\\.0+)?\\s?(?:%|percent)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K09",
+    "tone": "disappointed",
+    "message": "I have been a customer for eleven years and I have never had to write a message like this. Last month my salary arrived late, through no fault of mine, and as a result my rent payment took the account below zero. I was charged for that, fine, but I put money in at lunchtime the following day and the charge is still there, and I'd like to know by when the money had to be in. Then my card was declined at the pharmacy the same evening, which was embarrassing, and I assume you charged me for that too. I have honestly started to think about moving my salary elsewhere, although a colleague told me you make people pay to close an account.",
+    "issues": [
+      {
+        "issue": "by when the money had to be in to cancel the overdraft fee",
+        "section": 6,
+        "fact": "If you bring the balance back to $0 or more by 10 p.m. on the next business day, the overdraft fees for that day are not charged.",
+        "check": [
+          "\\b10\\s*(?::00\\s*)?p\\.?\\s?m"
+        ]
+      },
+      {
+        "issue": "whether a declined card payment was charged",
+        "section": 6,
+        "fact": "We do not charge a fee for a payment that we decline because of missing funds.",
+        "check": [
+          "(?:\\bdeclin\\w*)[^.\\n]{0,80}(?:(?:\\bfree\\b|\\bno (?:fee|charge|cost)s?\\b|\\bnot charged?\\b|\\bnothing\\b|\\bat no (?:cost|charge)\\b|\\bwithout (?:a |any )?(?:fee|charge|cost)\\b|\\b(?:don't|do not|doesn't|does not|won't|will not|never) (?:charge|cost|pay)\\b))|(?:(?:\\bfree\\b|\\bno (?:fee|charge|cost)s?\\b|\\bnot charged?\\b|\\bnothing\\b|\\bat no (?:cost|charge)\\b|\\bwithout (?:a |any )?(?:fee|charge|cost)\\b|\\b(?:don't|do not|doesn't|does not|won't|will not|never) (?:charge|cost|pay)\\b))[^.\\n]{0,80}(?:\\bdeclin\\w*)"
+        ]
+      },
+      {
+        "issue": "whether closing an account costs money",
+        "section": 11,
+        "fact": "Closing an account is free once it has been open for more than 90 days.",
+        "check": [
+          "(?:\\bclos\\w*)[^.\\n]{0,80}(?:(?:\\bfree\\b|\\bno (?:fee|charge|cost)s?\\b|\\bnot charged?\\b|\\bnothing\\b|\\bat no (?:cost|charge)\\b|\\bwithout (?:a |any )?(?:fee|charge|cost)\\b|\\b(?:don't|do not|doesn't|does not|won't|will not|never) (?:charge|cost|pay)\\b))|(?:(?:\\bfree\\b|\\bno (?:fee|charge|cost)s?\\b|\\bnot charged?\\b|\\bnothing\\b|\\bat no (?:cost|charge)\\b|\\bwithout (?:a |any )?(?:fee|charge|cost)\\b|\\b(?:don't|do not|doesn't|does not|won't|will not|never) (?:charge|cost|pay)\\b))[^.\\n]{0,80}(?:\\bclos\\w*)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K10",
+    "tone": "irritated",
+    "message": "Why was I charged a monthly fee on my Plus account in May when I've never paid one before? My balance dipped for a couple of weeks because of a house deposit, but it's back up now. If this is how it works I'd rather move to the plan without a fee, so when would that kick in? And while you're at it, I was charged for taking cash out at a supermarket ATM, which I thought was part of the deal.",
+    "issues": [
+      {
+        "issue": "the monthly fee on the Plus plan",
+        "section": 2,
+        "fact": "The Plus plan costs $6 per month, and the fee is waived in any month in which the average daily balance is $1,500 or more.",
+        "check": [
+          "\\$\\s?6(?:\\.00)?(?!\\d|,\\d|\\.\\d)",
+          "\\$\\s?1,?500(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      },
+      {
+        "issue": "when a change to another plan takes effect",
+        "section": 2,
+        "fact": "You can change plan once per month without a charge, and the new plan starts on the first day of the next month.",
+        "check": [
+          "\\b(?:next|following)\\s+month"
+        ]
+      },
+      {
+        "issue": "the charge for cash from another bank's ATM on the Plus plan",
+        "section": 3,
+        "fact": "On the Plus plan, the first 3 withdrawals per month at another bank's ATM inside the country are free.",
+        "check": [
+          "(?:\\b(?:3|three)\\b)[^.\\n]{0,100}(?:\\bfree\\b|\\bno (?:fee|charge|cost)\\b|\\bincluded\\b)|(?:\\bfree\\b|\\bno (?:fee|charge|cost)\\b|\\bincluded\\b)[^.\\n]{0,100}(?:\\b(?:3|three)\\b)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K11",
+    "tone": "curt",
+    "message": "I want to close my account. I opened it at the start of last month and it has been nothing but trouble. Before I do: is there any charge for closing, what happens to the $340 that is still in there, and can you stop the gym's recurring payment so it doesn't bounce after I'm gone?",
+    "issues": [
+      {
+        "issue": "the charge for closing an account opened last month",
+        "section": 11,
+        "fact": "Closing an account within 90 days of the day it was opened costs an early closure fee of $25.",
+        "check": [
+          "\\$\\s?25(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      },
+      {
+        "issue": "what happens to the money still in the account",
+        "section": 11,
+        "fact": "When an account is closed, the remaining balance is sent by standard domestic transfer, free of charge, to an account you name.",
+        "check": [
+          "\\btransfer",
+          "(?:\\bfree\\b|\\bno (?:fee|charge|cost)s?\\b|\\bnot charged?\\b|\\bnothing\\b|\\bat no (?:cost|charge)\\b|\\bwithout (?:a |any )?(?:fee|charge|cost)\\b|\\b(?:don't|do not|doesn't|does not|won't|will not|never) (?:charge|cost|pay)\\b)"
+        ]
+      },
+      {
+        "issue": "stopping a recurring payment",
+        "section": 9,
+        "fact": "A stop payment on a cheque or on a recurring payment costs $15.",
+        "check": [
+          "\\$\\s?15(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K12",
+    "tone": "upset",
+    "message": "Three weeks ago I disputed a hotel charge and you put the money back on my account while you looked into it. Now I have a letter saying the dispute was decided against me and the money will be taken away again. How much notice do I get before that happens? There is a second wrong charge from the same hotel, on my March statement, that I have not reported yet. Am I still in time for that one? I am quite upset about how this was handled, and I would like the returned cheque fee from last week refunded as an apology.",
+    "issues": [
+      {
+        "issue": "how much notice before the provisional credit is taken back",
+        "section": 8,
+        "fact": "If a dispute is not decided in your favour, the provisional credit is taken back, and we tell you 5 business days in advance.",
+        "check": [
+          "\\b(?:5|five)[\\s\\-]*(?:\\(\\d+\\)\\s*)?(?:full[\\s\\-]+|calendar[\\s\\-]+|business[\\s\\-]+|working[\\s\\-]+|consecutive[\\s\\-]+)?days?"
+        ]
+      },
+      {
+        "issue": "whether a charge on the March statement can still be disputed",
+        "section": 8,
+        "fact": "A dispute must be opened within 45 days of the date of the statement on which the charge first appears.",
+        "check": [
+          "\\b(?:45|forty-five)[\\s\\-]*(?:\\(\\d+\\)\\s*)?(?:full[\\s\\-]+|calendar[\\s\\-]+|business[\\s\\-]+|working[\\s\\-]+|consecutive[\\s\\-]+)?days?"
+        ]
+      },
+      {
+        "issue": "a refund of one fee as an apology",
+        "section": 12,
+        "fact": "Once in any 12 months you can ask for a courtesy refund of one fee, which an agent can approve when the fee is $40 or less.",
+        "check": [
+          "\\b(?:12|twelve)[\\s\\-]*(?:\\(\\d+\\)\\s*)?(?:full[\\s\\-]+|calendar[\\s\\-]+|business[\\s\\-]+|working[\\s\\-]+|consecutive[\\s\\-]+)?months?|\\b(?:once|one|1)\\b[^.\\n]{0,40}\\b(?:per|a|each|every)\\s+year|\\bonce\\s+yearly\\b|\\bannual"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K13",
+    "tone": "confused",
+    "message": "I sent my flatmate $1,800 for rent with the instant option and got charged for it. I thought sending money inside the country didn't cost anything? How is that fee worked out, and is there a way to send money without paying, even if it's slower. Also my paper statements have started costing me something.",
+    "issues": [
+      {
+        "issue": "how the instant transfer fee is worked out",
+        "section": 5,
+        "fact": "An instant transfer costs 1% of the amount, with a maximum fee of $10.",
+        "check": [
+          "(?<![\\d.])1(?:\\.0+)?\\s?(?:%|percent)",
+          "\\$\\s?10(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      },
+      {
+        "issue": "a way to send money without paying, even if slower",
+        "section": 5,
+        "fact": "A standard domestic transfer costs nothing and arrives in 1 to 2 business days.",
+        "check": [
+          "\\b(?:1|one)\\s*(?:to|[-\\u2013\\u2014]|or|and)\\s*(?:2|two)[\\s\\-]+(?:business[\\s\\-]+|working[\\s\\-]+)?days?"
+        ]
+      },
+      {
+        "issue": "the cost of paper statements",
+        "section": 9,
+        "fact": "A paper statement sent by post costs $4 per month; electronic statements cost nothing.",
+        "check": [
+          "\\$\\s?4(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K14",
+    "tone": "puzzled",
+    "message": "I'm on Plus and I send money to my parents in Poland twice a month. The wire fee on the second transfer each month is always higher than on the first one. Is that a mistake? There is also a percentage taken on both that I don't understand. And my father sent me money back last week and I was charged for receiving it!",
+    "issues": [
+      {
+        "issue": "the second wire of the month costs more than the first",
+        "section": 5,
+        "fact": "On the Plus plan, the first outgoing international wire of each month is charged half of the wire fee, and later wires pay the full fee.",
+        "check": [
+          "\\bhalf\\b|\\b50\\s?%|\\$\\s?12\\.50"
+        ]
+      },
+      {
+        "issue": "the percentage taken on every wire",
+        "section": 5,
+        "fact": "A currency conversion fee of 0.75% of the amount applies to every outgoing international wire.",
+        "check": [
+          "(?<![\\d.])0?\\.75(?:\\.0+)?\\s?(?:%|percent)"
+        ]
+      },
+      {
+        "issue": "a charge for receiving money from abroad",
+        "section": 5,
+        "fact": "An incoming international wire costs $10 on every plan.",
+        "check": [
+          "\\$\\s?10(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K15",
+    "tone": "calm",
+    "message": "I'd like to understand the overdraft charges on my account this month. On the 3rd I was overdrawn by about $30 overnight and was not charged, but on the 11th I was overdrawn by $75 and was charged for two payments. Why the difference, and what is the charge per payment? It has now happened on several days and the total is getting large, so is there any upper limit for a month.",
+    "issues": [
+      {
+        "issue": "why a small overdraft was not charged and a larger one was",
+        "section": 6,
+        "fact": "There is a $50 buffer: when the account is overdrawn by $50 or less at the end of the day, no overdraft fee is charged for that day.",
+        "check": [
+          "\\$\\s?50(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      },
+      {
+        "issue": "the overdraft charge per payment",
+        "section": 6,
+        "fact": "Above the buffer, the overdraft fee is $20 for each item that was paid on that day while the account was overdrawn.",
+        "check": [
+          "\\$\\s?20(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      },
+      {
+        "issue": "an upper limit on overdraft fees in a month",
+        "section": 6,
+        "fact": "No more than $120 in overdraft fees is charged per month.",
+        "check": [
+          "\\$\\s?120(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K16",
+    "tone": "casual",
+    "message": "hey, so I'm 3 weeks into having this account and tbh I think I'm going to close it, does that cost anything?? also I got charged for a replacement card even though the original one never even arrived, that's clearly your mistake so I want that money back. and what's the fee for instant transfers btw",
+    "issues": [
+      {
+        "issue": "the cost of closing an account three weeks after opening it",
+        "section": 11,
+        "fact": "Closing an account within 90 days of the day it was opened costs an early closure fee of $25.",
+        "check": [
+          "\\$\\s?25(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      },
+      {
+        "issue": "a card fee that was charged by the bank's mistake",
+        "section": 12,
+        "fact": "A fee that we charged by mistake is always refunded in full and does not count as a courtesy refund.",
+        "check": [
+          "(?:\\bmistake\\w*|\\berror\\b|\\bwrongly\\b|\\bincorrectly\\b)[^.\\n]{0,80}(?:\\brefund\\w*|\\breturn\\w*|\\bcredit\\w*|\\brevers\\w*)|(?:\\brefund\\w*|\\breturn\\w*|\\bcredit\\w*|\\brevers\\w*)[^.\\n]{0,80}(?:\\bmistake\\w*|\\berror\\b|\\bwrongly\\b|\\bincorrectly\\b)"
+        ]
+      },
+      {
+        "issue": "the fee for instant transfers",
+        "section": 5,
+        "fact": "An instant transfer costs 1% of the amount, with a maximum fee of $10.",
+        "check": [
+          "(?<![\\d.])1(?:\\.0+)?\\s?(?:%|percent)",
+          "\\$\\s?10(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K17",
+    "tone": "brisk",
+    "message": "Three things. 1) What's the most I can take out of an ATM per day on Standard? 2) What does it cost to wire $8,000 to Germany? 3) what do I pay if a cheque I wrote needs to be stopped",
+    "issues": [
+      {
+        "issue": "the daily ATM limit on the Standard plan",
+        "section": 3,
+        "fact": "The daily ATM withdrawal limit is $500 on the Standard and Plus plans.",
+        "check": [
+          "\\$\\s?500(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      },
+      {
+        "issue": "the cost of an international wire of $8,000",
+        "section": 5,
+        "fact": "An outgoing international wire above $5,000 costs $40, plus a currency conversion fee of 0.75% of the amount.",
+        "check": [
+          "\\$\\s?40(?:\\.00)?(?!\\d|,\\d|\\.\\d)",
+          "(?<![\\d.])0?\\.75(?:\\.0+)?\\s?(?:%|percent)"
+        ]
+      },
+      {
+        "issue": "the cost of stopping a cheque",
+        "section": 9,
+        "fact": "A stop payment on a cheque or on a recurring payment costs $15.",
+        "check": [
+          "\\$\\s?15(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K18",
+    "tone": "friendly",
+    "message": "Hi! My card expires at the end of next month and I haven't received a new one yet, should I be worried? I've also moved house, so when you do send it, how long does normal delivery take? One more thing: I cracked my current card last week. Would a replacement for that cost me anything? It would be my first one this year.",
+    "issues": [
+      {
+        "issue": "the new card has not arrived before the old one expires",
+        "section": 7,
+        "fact": "A card that is replaced because it expires is sent 30 days before the expiry date.",
+        "check": [
+          "\\b(?:30|thirty)[\\s\\-]*(?:\\(\\d+\\)\\s*)?(?:full[\\s\\-]+|calendar[\\s\\-]+|business[\\s\\-]+|working[\\s\\-]+|consecutive[\\s\\-]+)?days?"
+        ]
+      },
+      {
+        "issue": "how long normal delivery takes",
+        "section": 7,
+        "fact": "Standard delivery of a card takes 5 to 7 business days.",
+        "check": [
+          "\\b(?:5|five)\\s*(?:to|[-\\u2013\\u2014]|or|and)\\s*(?:7|seven)[\\s\\-]+(?:business[\\s\\-]+|working[\\s\\-]+)?days?"
+        ]
+      },
+      {
+        "issue": "the cost of a first replacement card this year",
+        "section": 7,
+        "fact": "The first replacement card in a calendar year is free, whatever the reason.",
+        "check": [
+          "\\bfirst\\b",
+          "(?:\\bfree\\b|\\bno (?:fee|charge|cost)s?\\b|\\bnot charged?\\b|\\bnothing\\b|\\bat no (?:cost|charge)\\b|\\bwithout (?:a |any )?(?:fee|charge|cost)\\b|\\b(?:don't|do not|doesn't|does not|won't|will not|never) (?:charge|cost|pay)\\b)"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K19",
+    "tone": "mild",
+    "message": "Quick question about cash machines. I'm on Standard and I use the ATM at the petrol station near work, which belongs to another bank. I see a small charge from you each time, what is it exactly? Would the Plus plan make those withdrawals cheaper? And I need to take out $1,500 in cash on Saturday to buy a used bike, which the machine will probably refuse.",
+    "issues": [
+      {
+        "issue": "the charge for each withdrawal at another bank's ATM",
+        "section": 3,
+        "fact": "On the Standard plan, a withdrawal at another bank's ATM inside the country costs $3.",
+        "check": [
+          "\\$\\s?3(?:\\.00)?(?!\\d|,\\d|\\.\\d)"
+        ]
+      },
+      {
+        "issue": "whether the Plus plan makes those withdrawals cheaper",
+        "section": 3,
+        "fact": "On the Plus plan, the first 3 withdrawals per month at another bank's ATM inside the country are free.",
+        "check": [
+          "(?:\\b(?:3|three)\\b)[^.\\n]{0,100}(?:\\bfree\\b|\\bno (?:fee|charge|cost)\\b|\\bincluded\\b)|(?:\\bfree\\b|\\bno (?:fee|charge|cost)\\b|\\bincluded\\b)[^.\\n]{0,100}(?:\\b(?:3|three)\\b)"
+        ]
+      },
+      {
+        "issue": "taking out more cash in one day than the machine allows",
+        "section": 3,
+        "fact": "The daily ATM withdrawal limit is $500, and you can ask for a temporary higher limit for up to 7 days by calling support.",
+        "check": [
+          "\\$\\s?500(?:\\.00)?(?!\\d|,\\d|\\.\\d)",
+          "\\b(?:7|seven)[\\s\\-]*(?:\\(\\d+\\)\\s*)?(?:full[\\s\\-]+|calendar[\\s\\-]+|business[\\s\\-]+|working[\\s\\-]+|consecutive[\\s\\-]+)?days?"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "K20",
+    "tone": "worried",
+    "message": "There is a charge of $214.99 from an electronics shop on my April statement that I never made. How long do I have to dispute it? I only noticed it today. I can't afford to be out of that money for weeks, so when would I get it back while you look into it? And roughly how long does the whole investigation take?",
+    "issues": [
+      {
+        "issue": "the deadline for disputing a charge",
+        "section": 8,
+        "fact": "A dispute must be opened within 45 days of the date of the statement on which the charge first appears.",
+        "check": [
+          "\\b(?:45|forty-five)[\\s\\-]*(?:\\(\\d+\\)\\s*)?(?:full[\\s\\-]+|calendar[\\s\\-]+|business[\\s\\-]+|working[\\s\\-]+|consecutive[\\s\\-]+)?days?"
+        ]
+      },
+      {
+        "issue": "when the money comes back while the bank investigates",
+        "section": 8,
+        "fact": "When a dispute is opened, we put a provisional credit for the disputed amount on the account within 7 business days.",
+        "check": [
+          "\\b(?:7|seven)[\\s\\-]*(?:\\(\\d+\\)\\s*)?(?:full[\\s\\-]+|calendar[\\s\\-]+|business[\\s\\-]+|working[\\s\\-]+|consecutive[\\s\\-]+)?days?"
+        ]
+      },
+      {
+        "issue": "how long the investigation takes",
+        "section": 8,
+        "fact": "We finish the investigation of a dispute within 30 days.",
+        "check": [
+          "\\b(?:30|thirty)[\\s\\-]*(?:\\(\\d+\\)\\s*)?(?:full[\\s\\-]+|calendar[\\s\\-]+|business[\\s\\-]+|working[\\s\\-]+|consecutive[\\s\\-]+)?days?"
+        ]
+      }
+    ]
+  }
+]
