@@ -222,3 +222,319 @@ The local Qwen second review scored **7, 6, 8, 9, 8 and 8 of ten** in D1–D6, c
 The [Unit 4 exercise review](docs/UNIT-4-ALIGNMENT.md) now includes Notebook 4 and covers 39 exercises across all five notebooks. Its context inspection found one assigned specialty source per call across 200 generation requests and 50 assessed judge requests. No marker for a different specialty appeared in any of the 200 generated answers. Twenty blind reviews still contain 15 API-correctness failures.
 
 A focused explanation check found that the grounded D1 review correctly rejected a SciPy answer while reversing the brief's and candidate's numerical parameters. On a different case the five-example reviewer accepted the logic of a shared conditional at an ODE discontinuity. A locked SciPy 1.16.1 probe with a test initial value of 1 recorded 14 evaluations of the right-hand branch at the end of the first integration interval. These observations and the source hashes are in `aec-course/analysis/qwen-d1-second-review-audit-001.json`. No human decision was changed.
+
+### November 19 · Model-directed publisher documentation
+
+- **Change.** Added a model-directed page lookup before each original Qwen judgment
+  on the same ten development answers. The separately identified run 002 pins the
+  full interrupted run 001, preserving its ten starts and one unknown judgment
+  outcome. Fedora runs the reader/client; the verified Mac supplies inference.
+- **Hypothesis.** Direct versioned documentation would improve concrete API
+  verification while retaining task coverage and the six independent anchors.
+- **Result.** Twenty starts produced twenty valid returns, and all 29 requested
+  pages opened. Twelve nonempty search strings missed. D1–D6 agreement was
+  **2, 3, 9, 9, 8 and 8 of ten**, versus the matched control's **3, 4, 8, 9, 8 and
+  8**: three corrections and four regressions. D1/D2 remain below 8/10. All ten
+  explanation audits also found concerns, including omitted pattern-before-load
+  reasoning, success-versus-endpoint confusion, candidate-field misattribution
+  and an incorrect Revit API nonexistence claim. The audits preserve supported
+  findings and distinguish missing citation support from actual defects.
+- **Decision.** Do not promote the method. The original four-hour deployment
+  expired before any calls; a verified renewal was linked before scoring. The
+  dedicated service and tunnel stopped, and offline replay reproduced report
+  `67997b908f5df163d3200613bbce88ece91d873e134447cd438978ce6e90d867`.
+  All 16,634 original evidence files reverified unchanged. The assessed baseline
+  remains 12, 15, 12, 17, 13 and 11 of twenty, with only D4 at or above 16/20.
+- **Proposed next step.** Repair documentation selection/citation and task/field
+  evidence grounding before another predeclared development comparison. This
+  proposal has not begun; generator correction and assessed judging remain
+  downstream of calibration. [Complete result and verification](docs/AEC-ONLINE-DOCS-RESULTS.md).
+
+### November 20 · Documentation and field grounding preparation
+
+The new reader searches separate literal anchors within versioned publisher pages,
+shares the 2,300-character excerpt budget and records misses without substituting
+page openings. The new scorer references original candidate fields and shown
+passages, accounts for task/context checks and every tip, and confines safety
+evidence to `safety_info`. Optional quotes are checked verbatim. These checks
+establish provenance; they do not compute or certify the model's six decisions.
+
+The hypothesis is that explicit missing evidence and field attribution will reduce
+the previous method's unsupported explanations and task omissions. This combined
+revision will be compared with both the original control and completed online
+method; one run cannot isolate each change or estimate sampling variation.
+
+All 964 locked tests passed, including 81 new tests, and independent implementation
+review passed. The separate `api-development-qwen-grounded-docs-001` packet was
+prepared twice without changes: ten original cases, unchanged human reference,
+18 source pins and 132 predecessor-file pins. At that preparation checkpoint
+it had zero model starts and no deployment or agreement report. The previous runner still replays its original
+report; no human decisions or historical scores changed.
+
+The next task is the bounded twenty-start development comparison after fresh Mac
+deployment and schema-bearing context preflight. Invalid or unknown attempts
+remain consumed; the maximum is thirty page requests. The assessed baseline and
+M4 disposition remain unchanged. [Method, limits and commands](docs/AEC-GROUNDED-DOCS-PLAN.md).
+
+### November 20 · Grounded documentation attempt stopped at context guard
+
+The prepared grounded method was attempted with its frozen inputs and unchanged
+16,384-token context, 8,192-token output allowance and 1,200-token reserve. One
+lookup returned valid output and three requested pages opened. The first actual
+schema-bearing judgment prompt used 7,202 tokens, requiring 16,594 in total:
+210 over the context limit. Scoring exited 1 before a judgment start. The retained
+incomplete receipt records zero validated judgments across ten selected cases;
+there is no agreement report or measured improvement.
+
+A separate read-only tokenizer diagnostic removed display-only integrity and
+offset metadata while preserving excerpt text, IDs, URLs, editions, requested
+claims/anchors, search outcomes, counts, mappings and strategy. Its first-case
+prompt used 6,779 tokens, requiring 16,171 with the same output and reserve.
+The variant was not adopted or submitted for inference; no other case was
+measured. The result supports a separately frozen display revision and preflight,
+not a claim that the full cohort fits or the judge's decisions improved.
+
+Preserve grounded run 001 without resuming it under changed inputs or code.
+The next single task is the compact display projection in a separately frozen
+follow-up, then context preflight; it has not been implemented or executed.
+The 964-test preparation checkpoint, previous failed development scores and
+assessed baseline remain unchanged. [Result and evidence](docs/AEC-GROUNDED-DOCS-RESULTS.md).
+
+The owned Mac server and Fedora tunnel were then stopped, with ports 8082/18082
+confirmed closed. Partial offline replay verified the retained lookup/pages and
+exited 1 at the unstarted judgment as expected. All 46 run files were unchanged;
+this did not reproduce a completed report. Cleanup and partial replay receipts
+remain with the private run/execution evidence.
+
+### November 20 · Compact display prepared; broader context pressure remains
+
+The separate compact runner removes only approved display metadata and uses
+lossless JSON separators for the judgment user message. It preserves evidence
+text, IDs, search outcomes, prompts, schemas, rubric and budgets; lookup requests
+are unchanged. New run `api-development-qwen-compact-docs-001` was prepared twice
+without changes: three input files, 19 source pins, 48 stopped-parent file pins
+and 132 completed-baseline file pins. It has zero model starts and no report.
+
+All 977 locked tests passed, including 13 new tests, with independent review and
+lint/format checks. Actual native tokenizer preflight fit all ten lookup requests
+(maximum 12,032 required tokens) and the exact retained first judgment (15,982).
+That judgment saves 612 prompt tokens and leaves 402 tokens within the original
+16,384-token context, with 8,192 output and 1,200 reserve unchanged.
+
+The separate 22-check pressure diagnostic included ten historical-text synthetic
+envelopes and ten three-page stress inputs. Six historical envelopes failed, but
+three had duplicate legacy URLs inadmissible under the new lookup schema. Among
+the seven envelopes with admissible selections, three failed. All ten stress
+scenarios failed at 16,924–17,929 required tokens. Their repeated padding and
+synthetic metadata are not actual reader outputs or a universal token bound.
+These checks and the eleven CLI checks made no inference or new publisher calls.
+
+The method is not ready for live scoring. Preserve this packet and design a
+separate context-budget solution that retains the rubric, evidence and declared
+budgets, then test and preflight it. No such revision was implemented in this
+round. Previous development scores, human labels and the assessed baseline
+remain unchanged. [Compact preflight record](docs/AEC-COMPACT-DOCS-PREFLIGHT.md).
+
+The dedicated tokenizer runtime and tunnel were stopped after the checks; the launcher
+recorded exit 0 and ports 8082/18082 were confirmed closed. The native log recorded no
+processing-task lines. All 16,634 original transferred files rehashed unchanged;
+the new evidence consists only of the preserved 132-file online run, 48-file
+stopped grounded run and three compact preparation files.
+
+### November 20 · Reversible wire representation fits measured inputs
+
+The separate wire revision encodes page/search/excerpt tables reversibly,
+retaining all values, ordered arrays, passage IDs/text, errors, misses, nulls and
+missing fields. The displayed response schema factors identical properties and
+shortens local references while retaining every constraint and annotation under
+expanded-schema equality. Rubric JSON compaction changes whitespace outside
+values only. Original scoring prose, anchor strings, canonical Pydantic
+validation, lookup requests and model/page budgets remain unchanged.
+
+All 21 final native judgment diagnostics fit: the exact retained first case at
+14,703 required tokens, ten historical-text synthetic envelopes and ten unique
+three-page stress scenarios. Three historical envelopes still contain duplicate
+legacy URLs inadmissible under the new lookup schema; seven have admissible page
+selections. The largest stress input requires 16,374 tokens, ten below 16,384
+after retaining 8,192 output and the 1,200-token reserve. The actual runner's 21
+constructed wires match the native diagnostic wires. These synthetic envelopes
+are not observed future page selections or a universal token bound.
+
+No inference, new publisher calls, human labels or scores occurred. Software
+and packet verification passed; the next supported task is the bounded
+comparison using a fresh verified Mac runtime and exact checks on every actual
+request. Keep twenty starts, thirty pages, complete coverage and 8/10 in every
+dimension plus the explanation audit. Prior development failures and the
+assessed baseline remain unchanged. [Wire preflight record](docs/AEC-WIRE-DOCS-PREFLIGHT.md).
+
+All 1,031 locked tests passed (40 new helper and 14 new runner tests). Independent
+implementation and 21-wire review, Ruff and formatting checks passed. Wire run
+001 was prepared twice without changes and contains only three input files.
+Protocol `c1456135128ed96240325f84e000880430ddba8efc527bd9bdd62f85958efc08`
+pins 21 sources and the unchanged 3/48/132-file compact/grounded/online lineage.
+No previous attempt was adopted into the new allocation.
+
+Final CLI preflight exited 0: all ten unchanged lookups fit (maximum 12,032
+required tokens), and the retained first judgment reproduced its exact
+14,703-token wire. The tokenizer server and tunnel were then confirmed stopped;
+the launcher recorded exit 0 and ports 8082/18082 were closed. No native
+processing-task lines were logged. All 16,634 original files, the 3/48/132-file
+prior lineage and all 19 prior source hashes reverified unchanged. Wire run 001
+still contains only its three prepared inputs, with no attempts or report.
+
+### November 20 · Wire comparison stopped on first invalid judgment
+
+The authorized wire comparison made two model starts and retained both returns:
+one valid lookup and one judgment rejected by the canonical schema for extra
+`safety.note_detail`. Three pages opened with HTTP 200, three of five anchors
+matched, and 4,600 excerpt characters were retained. The actual judgment fit:
+5,355 prompt + 8,192 output + 1,200 reserve = 14,747 tokens. It returned with
+finish reason `stop`, 5,436 completion tokens and 10,791 total tokens through one
+transport call. Scoring exited 1 after 159.008 seconds, with no retry or unknown
+outcome and zero validated judgments across ten selected cases. No report exists.
+
+The pipeline stopped before grounding validation. An independent read of the
+untouched raw object also found four task_quote fields that were not exact
+original-task spans and three page-only documentation IDs that did not resolve
+to shown passages. No altered response was revalidated and no raw binary values
+were adopted as ratings.
+
+The owned server and tunnel were confirmed stopped; the launcher recorded exit 0
+and ports 8082/18082 were closed. Partial offline replay exited 1 at the retained
+response rejection and left all 44 run files unchanged. All 21 source hashes and
+the 3/48/132-file ancestor lineage matched. The 1,031-test result remains the
+preparation checkpoint; code was unchanged and no new full suite ran this round.
+
+Preserve the rejected return. The next single task is a separately frozen design
+addressing output-schema and evidence-reference conformance before another
+bounded trial, without weakening validators or repairing/rescoring this run.
+Prior development and assessed scores remain unchanged; no quality improvement
+was measured. [Stopped comparison result](docs/AEC-WIRE-DOCS-RESULTS.md).
+
+The subsequent original-evidence check rehashed all 16,634 transferred files
+(468,620,606 bytes) unchanged. At the replay checkpoint the 227 additions were
+132 online, 48 grounded, three compact and 44 wire files; later audit/completion
+receipts are additional records. Independent final execution review approved
+the retained partial history.
+
+The completed explanation audit also found one nonexact documentation quote,
+task/candidate conflation and incomplete API-chain/field-order reasoning. It
+preserved sound narrower context-manager, context/scope and cleanup observations.
+Safety evidence IDs were valid and closure inferable; the concern was an
+unsupported reconciliation consequence for the proposed memory dataset, not
+mechanical field borrowing. The audit supplied no replacement labels or ratings,
+executed no ArcPy code, and distinguished additional audit-only sources from the
+passages the judge actually saw.
+
+
+## November 20, 2026 — separate conformance revision design
+
+The stopped wire001 response fit its context but failed schema and evidence
+reference requirements. The new design proposes a canonical-shaped native schema
+overlay: closed objects, full-original-task constants, original candidate/shown
+passage ID enums and null optional documentation quotes. The original Pydantic
+model, grounding checks, six ratings and semantic explanations remain. This is a
+new response contract, not lossless formatting or a repair of the rejected return.
+
+Official source at native llama-server commit cd959bae99ff4bed22bef2604f45241c09bbb8c8
+supports the selected constraints. The Qwen-specific parser composes reasoning
+with final JSON constraints; /apply-template uses the same chat parser without
+inference. Installed Instructor 1.17.0 currently sends only json_object in JSON
+mode, so the proposed isolated one-shot adapter supplies the nested native schema
+while preserving Instructor, exact request capture and canonical validation.
+Unsupported schema conditionals/uniqueness are not substitutes for postchecks.
+These are source findings, not executed native grammar or model measurements.
+
+No code or frozen evidence changed, no runtime launched, and no inference or
+publisher calls occurred. The 1,031 tests remain the wire preparation checkpoint.
+Implementation, native grammar acceptance and live preflight are unperformed.
+The next single task is separate implementation and verification, preserving all
+21 frozen sources and the final 45-file stopped parent. The context/output/
+reserve/reasoning settings, twenty-start/thirty-page allocation, complete ten-case
+coverage, 8/10 per dimension and existing explanation audit remain unchanged.
+Earlier development and assessed scores are unaffected; M4 stays open.
+
+[Conformance design](docs/AEC-CONFORMANCE-DESIGN.md). Detailed source research and
+its manifests are outside Git in
+`../artifacts/evidence/.conformance-design-20261120/`.
+
+
+The external logical-schema proof subsequently derived 21 schemas, accepted one
+wholly synthetic valid response, rejected 16 independent schema faults and four
+stale bindings, and retained four cross-field faults for the unchanged grounding
+checks. The untouched failed wire return remained rejected. Tasks are 188–257
+characters. These checks used preinstalled system jsonschema and locked canonical
+Pydantic; they made no native, model or publisher call.
+
+Source review found a required native-normalization step: anyOf precedes sibling
+const/enum in this server, so quote and passage restrictions in the logical
+prototype cannot be sent unchanged. Normalize quote to null and passage_id to a
+direct actual-ID/null enum, prove acceptance equivalence, and validate the raw
+return against the exact logical overlay before canonical and grounding checks.
+Factored native schemas must match that new normalized schema. Native acceptance
+and token fit remain unmeasured; optional quote locality is explicitly removed,
+full-task constants do not prove entailment, and briefs over360 must fail without
+truncation. No implementation, dependency or new protocol was introduced.
+
+### November 20 · Conformance contract implementation
+
+- **Change.** Implemented the [conformance design](docs/AEC-CONFORMANCE-DESIGN.md)
+  as separate modules.
+  - Each case gets a logical overlay, a native-normalized view and a factored
+    transmitted schema, sent through nested `json_schema`.
+  - Validation order is the logical overlay on raw text, then the unchanged
+    canonical model, then unchanged grounding.
+  - The stopped 45-file wire parent is pinned, and ancestors resolve through
+    lineage.
+- **Hypothesis.** Native constraints will remove the extra-field, task-quote and
+  page-ID failures that stopped the wire trial. They do not address semantic
+  judgment quality.
+- **Result.** Offline only: 88 new synthetic tests, and the full suite passed
+  1,118 tests with 1 skipped. The real first-case request changes only its
+  schema text and `response_format`. Independent review found a false-rejection
+  gate (whitespace normalized by Pydantic), which was removed with a regression
+  test. The other findings were also fixed.
+- **Decision.** The owner chose to continue and count failures: a consumed
+  case without a validated judgment is a failed case, and the run continues.
+  Unconsumed failures and integrity faults still stop the run. Next is a
+  fresh-runtime native preflight. No protocol is frozen, no model start occurred, and agreement is
+  unmeasured. The assessed baseline remains 12, 15, 12, 17, 13 and 11 of twenty.
+
+### November 20 · Conformance documentation trial
+
+- **Change.** A fresh verified Mac runtime ran the bounded ten-case trial of the
+  conformance contract, with protocol `98ead1c0…`. The preflight first accepted
+  the native-schema request; the first case needed 15,003 of 16,384 tokens.
+- **Result.** Of 20 starts, 18 were used, and all 23 requested pages opened.
+  - Validity: 8 of 10 judgments validated. Every dispatched judgment passed the
+    overlay, the canonical model and grounding, and the wire-trial schema errors
+    did not recur.
+  - Both failures were lookups that broke the unchanged lookup schema: more than
+    three anchors on one page, and a duplicated anchor.
+  - D1–D6 agreement was **0, 3, 7, 8, 6 and 4 of ten**, against the control's
+    3, 4, 8, 9, 8 and 8.
+  - D1 (answer completeness) was lenient: the judge passed all seven answers
+    the reviewers failed. The offline audit found it rates whether stages are
+    present, not whether they work. In three cases it ignored its own
+    contradicted step evidence. The online method had the same pattern.
+  - Against the control there was one correction and four regressions.
+  - Offline replay was identical, and the runtime was stopped.
+- **Decision.** Do not promote. The conformance contract fixed response validity
+  but not judgment quality. The gate and M4 remain open. The assessed baseline
+  is still 12, 15, 12, 17, 13 and 11 of twenty.
+  [Result](docs/AEC-CONFORMANCE-DOCS-RESULTS.md).
+
+### November 20 · Owner decisions after the conformance trial
+
+- **Judge direction.** Switch the judge model or method; do not keep iterating
+  the Qwen prompt pipeline. Five consecutive revisions failed the development
+  gate.
+- **Lookup stage.** Constrain it later as a separate change, so that its effect
+  on coverage can be attributed.
+- **D1 boundary (owner's words):** "API errors only count against D1 when they break a step." This clarifies how the frozen D1
+  anchor applies. The rubric and thresholds are unchanged.
+- **Unit 4.** The owner committed the five answer notebooks (`f86813a`) for
+  review of accuracy techniques.
+- **Workspace.** That pull auto-stashed the uncommitted work. It was restored
+  byte-identical from `stash@{0}` (kept as a backup), and the full suite passed
+  1,118 tests with 1 skipped.

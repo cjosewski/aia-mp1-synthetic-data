@@ -102,11 +102,165 @@ The specialty comparison adds one checklist selected by the task's versioned sou
 
 ### Model-directed online documentation
 
-Use `uv run --locked python tools/screen_aec_online_docs.py prepare` in the assessed WSL environment to freeze the ten development requests. The comparison uses the existing source-aware Qwen control, temperature, rubric, item IDs and human reference. It adds one model call per item to select up to three pages and identify a claim and a search string within each page. The workstation opens those pages directly from the publisher and returns the passages to the judge. It sends the publisher the URL only. The second model call produces the six original decisions and their explanations.
+**Run 002 is complete and does not advance.** It matched **2, 3, 9, 9, 8 and 8 of
+ten** on D1–D6; D1/D2 and the explanation gate failed. All twenty returns and 29
+page opens are retained. The dedicated service/tunnel stopped, and offline replay
+reproduced the report. See [the measured result and proposed next step](AEC-ONLINE-DOCS-RESULTS.md).
+
+The ten development requests were frozen in the locked Linux environment with `AIA_MP1_DOMAIN=aec-course`. The November 19 migration uses native Fedora; [the handoff](../handoff.md) records that runtime choice and verification. The comparison uses the existing source-aware Qwen control, temperature, rubric, item IDs and human reference. It adds one model call per item to select up to three pages and identify a claim and a search string within each page. The workstation opens those pages directly from the publisher and returns the passages to the judge. It sends the publisher the URL only. The second model call produces the six original decisions and their explanations.
+
+Run `api-development-qwen-online-docs-001` was interrupted with five lookup returns,
+four judgment returns and one judgment start of unknown outcome. Its ten starts
+remain consumed. Preserve its `.writer.lock` and every recorded file. Run 002 was
+prepared separately without copying its attempts or deployment receipt. The
+preparation command used for run 002 was:
+
+```bash
+uv run --locked python tools/screen_aec_online_docs.py prepare \
+  --run-id api-development-qwen-online-docs-002 \
+  --predecessor api-development-qwen-online-docs-001
+```
+
+Use those same two flags with `replay` to verify completed run 002 offline.
+The current verification command is:
+
+```bash
+uv run --locked python tools/screen_aec_online_docs.py replay \
+  --run-id api-development-qwen-online-docs-002 \
+  --predecessor api-development-qwen-online-docs-001
+```
+
+The `score` stage with those flags records its original execution procedure;
+do not restart or overwrite this completed run. Preparation makes no model or
+publisher requests. The new protocol pins the predecessor's entire file set and
+hashes, including its interrupted start and lock, and verifies identical cases,
+lookup messages, judge settings, prompts, schemas, control and human reference.
+Later calls reject changed predecessor evidence. Each follow-up requires a
+distinct predecessor; unsafe IDs, symlink evidence and populated outputs without
+a frozen protocol are rejected. Unknown outcomes still consume their case/stage
+allocation. Run 002 has its own maximum of 20 model starts and 30 page requests;
+these do not erase run 001's ten starts.
+
+Both runs and the matched control use these same ten answers. Every suffix below
+has the prefix `baseline-001-b04-item-`; the protocol retains the exact order.
+
+| Specialty | Item suffixes |
+| --- | --- |
+| GIS scripting | `0006`, `0011` |
+| AEC automation | `0047`, `0007` |
+| Structural analysis | `0018`, `0028` |
+| CAD APIs | `0024`, `0014` |
+| Simulation | `0045`, `0005` |
+
+The new runner's source hash differs from run 001's frozen source. The original
+code is retained in Git at `3811da8` and in the migration receipt directory's
+`original-source-3811da8.tar`; use that original source when inspecting historical
+protocol compatibility. Do not rewrite run 001's protocol to accept new code.
 
 The reader accepts a menu entry or a URL under the relevant publisher and edition. FreeCAD's current manual is identified separately from its pinned 1.0.2 source examples. A failed page or unmatched search string is recorded in the trace. For an unmatched string the judge sees the start of the page. Raw page hashes, URLs, lookup times and the text actually shown stay in the local evaluation evidence. The online passages are evaluation context and are excluded from the generated dataset.
 
-With the verified local model serving the original configuration, place its deployment receipt in `api-development-qwen-online-docs-001/deployment.json` and run the same script with `score`. The `replay` command verifies the matched control, frozen reference, model returns and saved pages offline. Check which cited passages actually establish each claim, together with the six agreement counts. The report records observed page requests, successful opens and each decision corrected or broken.
+For a future authorized follow-up, use a new run ID and a fresh deployment receipt
+in that run directory. Reverify both model shard hashes, build, one slot,
+16,384-token context and 4,096-token reasoning budget; the recorded judge
+temperature stays 0.1. Direct `ssh hammerhead-mp1` reaches the Mac from Fedora;
+the local endpoint requires a loopback tunnel from 18082 to Mac loopback 8082.
+The working 5 GHz Wi-Fi profile is temporary, so recheck connectivity after a
+network restart. The `replay` command verifies the matched control, frozen
+reference, model returns and saved pages offline. Check which cited passages
+actually establish each claim, together with the six agreement counts. The report
+records observed page requests, successful opens and each decision corrected or
+broken. The failed run 002 result does not allocate another experiment.
+
+### Grounded documentation follow-up
+
+The separate `api-development-qwen-grounded-docs-001` attempt stopped at its
+context guard after one valid lookup and three page opens, before any judgment
+start. Its first schema-bearing judgment request required 16,594 tokens against
+16,384 available. It has zero validated judgments across ten selected cases and
+no agreement report. The owned server and tunnel are stopped. Partial offline
+replay verified the saved lookup/pages and exited 1 at the unstarted judgment,
+without changing any of the 46 run files. [Result and diagnostic limits](AEC-GROUNDED-DOCS-RESULTS.md).
+
+Preserve this frozen run; do not resume it with changed presentation or code.
+The [method and historical commands](AEC-GROUNDED-DOCS-PLAN.md#historical-operator-commands)
+record its preparation and execution requirements. The proposed compact display
+follow-up has since been prepared and preflighted as described below. Grounded
+run 001 remains unchanged and has no completed judgment.
+
+The method's evidence IDs establish attribution, not semantic truth. Its ten
+cases, human reference, rubric and Qwen settings remain fixed. The earlier online
+method's failed scores and the assessed baseline remain unchanged.
+
+### Compact documentation preflight
+
+`api-development-qwen-compact-docs-001` contains three frozen input files and no
+model starts or agreement report. Its lossless compact display makes the retained
+first judgment fit at 15,982 tokens under the unchanged 16,384-token context.
+All ten lookup requests fit, but broader synthetic pressure checks reveal
+remaining judgment-input failures. This is not readiness for a live comparison.
+
+See [the compact preflight record](AEC-COMPACT-DOCS-PREFLIGHT.md) for the exact
+measurements, admissibility limits, preserved lineage and completed `prepare`/
+read-only `preflight --preflight-receipt` commands. No inference or new publisher
+request occurred in this round. Do not proceed to `score` or revise a frozen
+protocol. The subsequent wire revision below addresses the measured pressure
+without changing this compact packet. The historical failed comparison and
+assessed baseline remain unchanged.
+
+### Documentation wire comparison
+
+`api-development-qwen-wire-docs-001` stopped on its first judgment return after
+one valid lookup and three publisher page opens. The actual request fit the
+unchanged context at 14,747 required tokens, but canonical validation rejected
+an extra `safety.note_detail` field. Two starts and two raw returns leave zero
+validated judgments across ten selected cases, with no report, unknown outcome
+or retry. [Result and retained evidence](AEC-WIRE-DOCS-RESULTS.md).
+
+The dedicated server and tunnel are stopped, with ports 8082/18082 closed.
+Partial offline replay exited 1 at the same retained-response rejection and
+left all 44 run files unchanged. Preserve this run; do not repair or adopt the
+raw output, weaken validators or resume scoring with changed inputs.
+
+The [wire preflight record](AEC-WIRE-DOCS-PREFLIGHT.md) retains the earlier
+21-input fit measurements and 1,031-test preparation checkpoint. Those checks did
+not establish output conformance or agreement. The subsequent
+[conformance design](AEC-CONFORMANCE-DESIGN.md) proposed native schema constraints
+with the original canonical models and validators. At that design checkpoint it
+was unimplemented; it was implemented and executed later the same day (below).
+Do not resume or repair wire001.
+
+### Conformance documentation comparison
+
+`api-development-qwen-conformance-docs-001` (protocol `98ead1c0…`) ran the
+case-specific native-schema contract on the same ten development answers. It
+accepts the stopped wire parent only in its reviewed 45-file state. The run
+validated 8 of 10 judgments and scored **0, 3, 7, 8, 6 and 4 of ten**, failing
+the development gate. Both failures were lookups that broke the unchanged lookup
+schema. It used 18 of 20 starts and 23 of 30 pages. Under the owner's
+continue-and-count policy, a consumed case without a validated judgment counts
+as a non-match against ten. [Result and D1 audit](AEC-CONFORMANCE-DOCS-RESULTS.md).
+
+The procedure that ran, from the repository root with `AIA_MP1_DOMAIN=aec-course`:
+
+1. `uv run --locked python tools/screen_aec_conformance_docs.py prepare` froze
+   the protocol with no model starts. The preflight reads that protocol, so
+   prepare comes first.
+2. On the Mac, the wire run's retained `mac-verify-weights.sh` rehashed both
+   shards and the binary, and `mac-server-launcher.sh` started the owned server
+   with a four-hour cap. Fedora opened the direct `ssh -L 18082:8082` control
+   tunnel, and the copied `runtime/verify-deployment.mjs` wrote
+   `deployment.json`.
+3. `… preflight --preflight-receipt <run>/deployment.json` is read-only. It
+   checks the ten lookups and the first judgment through `/apply-template` and
+   `/tokenize`.
+4. `… score` ran the bounded trial; then a STOP file and a tunnel exit shut down
+   the runtime.
+5. `… replay` reproduced the report offline with no changes.
+
+Do not rerun, rescore or resume this run; its starts are consumed. The owner has
+chosen to switch the judge model or method instead of iterating this pipeline
+further. The development gate, the explanation audit and the assessed criterion
+remain unchanged.
 
 ### Qwen second review
 

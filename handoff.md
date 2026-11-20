@@ -1,125 +1,139 @@
 # P1-03 handoff to the Linux session
 
-**November 19, 2026 · Paused during the first online-documentation comparison.** Start by transferring and verifying the checkout and evidence. The Linux host has not been provisioned or verified in this session. At the last process check the MP1 worker and workstation tunnel were stopped, and the dedicated model server on the Mac was down.
+## Current handoff — November 20, 2026 (conformance trial failed; owner chose a new judge)
 
-## What to move
+**The conformance trial ran and failed the development gate.** See the
+[result](docs/AEC-CONFORMANCE-DOCS-RESULTS.md).
 
-Run the MP1 session, Python environment, tests, documentation reader and evaluation runner on **Linux**. Keep **Herd on Windows** and use the **Mac for local model inference**. The two verified Qwen model shards are already on the Mac.
+- **Validity:** 8 of 10 judgments validated. The native-schema contract
+  eliminated the wire trial's response errors. Both failures were lookups that
+  broke the unchanged lookup schema.
+- **Agreement:** **0, 3, 7, 8, 6 and 4 of ten**, worse than the control's 3, 4,
+  8, 9, 8 and 8.
+- **D1 (answer completeness, not API correctness):** the judge passed all
+  seven answers the reviewers failed. The offline audit shows it rates D1 on
+  whether stages are present. In three of the seven, it did not let its own
+  "contradicted" step evidence affect the rating. The online method had the
+  same pattern, so this is not caused by the conformance contract.
+- **Usage:** 18 of 20 starts and 23 of 30 pages.
+- **Runtime:** the server and tunnel are stopped, and offline replay is
+  identical.
 
-| Material | Windows source | Linux destination |
-| --- | --- | --- |
-| Private implementation checkout | `D:\_Repos\_AIA\aia-mp1-synthetic-data` | A directory named `aia-mp1-synthetic-data` |
-| Private evidence, including runs, reference sources and frozen human labels | `D:\_Repos\_AIA\artifacts\evidence\P1-03` | `../artifacts/evidence/P1-03` relative to the checkout |
-| Unit 4 exercise review | `docs/UNIT-4-ALIGNMENT.md` in the checkout | Included with the repository. The current review covers 39 exercises in five notebooks. |
+**Owner decisions, November 20:**
 
-The private repository is `github.com/cjosewski/aia-mp1-synthetic-data`. The base is `main` at `2297ccf`. **A fresh clone alone misses the online-documentation experiment.** Copy the following working files byte-for-byte over that base. The experiment records hashes of its Python sources.
+- **Switch the judge model or method** instead of iterating this Qwen prompt
+  pipeline. Five consecutive revisions failed the development gate, and the
+  conformance contract fixed format, not quality. A judge redesign is being
+  researched. No model start occurs until the owner approves a design.
+- **Constrain the lookup stage later, as a separate change,** so its effect can
+  be attributed. It addresses only the two failed cases, not agreement.
+- **D1 boundary:** "API errors only count against D1 when they break a step." The result doc records how this applies to the
+  frozen D1 anchor. No threshold or rubric text changes.
+- The owner committed the five Unit 4 answer notebooks in `f86813a` ("Notebook
+  sync") for review of accuracy techniques. That review is in progress.
 
-- `tools/aec_online_docs.py` and `tools/screen_aec_online_docs.py`
-- `tests/test_aec_online_docs.py` and the modified `docs/AEC-COURSE-RUNBOOK.md`
-- `tools/screen_aec_single_specialty.py`, an earlier, separate experiment
-- This `handoff.md`
+No next measurement is queued.
 
-Transfer raw evidence privately, outside Git, and verify the copied files against their source checksums. Set up Linux's own authorized SSH connection to the Mac. Keep credentials out of the handoff. The Mac model path, shard hashes, build and launch settings are in the run's `deployment.json`. Its PID and verification timestamp describe the previous deployment.
+**Workspace incident, November 20 at 10:31.** The owner's pull of `f86813a`
+auto-stashed all uncommitted work into `stash@{0}` and never re-applied it.
+The 32 project files were restored byte-identical at about 10:44, and the full
+suite passed. The stash is kept as a backup: it also holds about 323 staged
+`.omc` session-state files, which must never be committed. Before any pull,
+commit or stash deliberately.
 
-## Where the experiment stopped
+Do not rerun or rescore the conformance or wire runs. Invalid and unknown starts
+remain consumed.
 
-Chad wants the models to consult official documentation directly. The current test changes the **judge** first to measure the effect on the same ten development answers. The local Qwen judge selects up to three publisher pages per case. The workstation reader opens them, the judge receives the returned passages, and a second call scores D1–D6. It uses no document index or vector database. The generator has not been changed.
+Runner and contract code: `tools/aec_conformance_docs.py`,
+`tools/screen_aec_conformance_docs.py`. 88 synthetic tests pass, and the full
+suite gives 1,118 passed and 1 skipped. Run the suite without `AIA_MP1_DOMAIN`
+exported. The procedure that ran, in order: `prepare`; Mac weight verification;
+owned launcher; direct tunnel; `runtime/verify-deployment.mjs` writing the
+receipt; `preflight --preflight-receipt <run>/deployment.json`; `score`; a STOP
+file and tunnel exit; `replay`.
 
-Let `RUN=../artifacts/evidence/P1-03/aec-course/api-development-qwen-online-docs-001` from the checkout. All item IDs below start with `baseline-001-b04-item-`.
+### Workspace, runtime and retained evidence
 
-| Case suffix | Saved state |
+Repository: `/home/chadjosewski/_Repos/aia-mp1-synthetic-data` on native Fedora 44.
+The scoped Fedora migration is authorized; preserve historical WSL guards.
+From the repository root:
+
+```bash
+git status --short --branch
+export AIA_MP1_TOOLS="$HOME/.local/share/aia-mp1-tools"
+source tools/environment.sh
+export AIA_MP1_DOMAIN=aec-course
+```
+
+Use the locked environment and `uv.lock`; Python is 3.12.16. The last full suite
+passed **1,118 tests, 1 skipped** after the conformance implementation. The
+implementation uses its own subset validator; it adds no dependency (the design
+proof's system jsonschema 4.23.0 is not used). No runtime is currently owned
+by this task: the dedicated server/tunnel were stopped and ports 8082/18082 closed
+at the last verified execution cleanup.
+
+Direct Mac access is `ssh hammerhead-mp1` as `chadjosewski`, using Fedora's
+dedicated key. Mac identity is `Hammerhead-Shark.local` / `192.168.0.216`.
+The prior direct tunnel forwarded Fedora `127.0.0.1:18082` to Mac
+`127.0.0.1:8082`; do not assume it is running. Connectivity used temporary
+`mp1-direct-wifi-test` on 5 GHz after 6 GHz routing failed; recheck connectivity
+if NetworkManager restarted. Do not change Herd services/settings. The frozen
+native build is `b12110-cd959bae9`; fresh runtime verification and exact
+schema-bearing `/apply-template` plus `/tokenize` checks precede model dispatch.
+
+Private evidence root: `../artifacts/evidence/P1-03/aec-course/`.
+Design/proof/source manifests: `../artifacts/evidence/.conformance-design-20261120/`.
+Conformance execution receipts: `../artifacts/evidence/.conformance-docs-execution-20261120/`
+(the preflight result, execution start, score and replay outputs, the completion
+receipt and the private D1 audit table). The earlier wire receipts remain in
+`../artifacts/evidence/.wire-docs-execution-20261120/`.
+
+| Frozen identity | SHA-256 / scope |
 | --- | --- |
-| `0006`, `0047`, `0018`, `0024` | Completed lookup, saved pages and returned six-dimensional judgment |
-| `0045` | Completed lookup and saved pages. A judgment start exists with no return. Its outcome is unknown. |
-| Remaining five | No lookup or judgment started |
+| Conformance protocol | `98ead1c0e6cfa43c1348b846528dc46f17fc8756f957b18454b2f4f0214b30da` |
+| Conformance deployment | `9ec0dafd745f84ad241c136cb5d44f485c6249a54d1687170f1e635f2314df78` |
+| Conformance report | `2ac50fb50761d27a3934834e21015d0e754f4d616ca31596a15e7109e2d1f586` |
+| Conformance execution completion | `1f935197ffbcc520242ea4361432b05a220fd074f2889202785f0dd5eb49d590` |
+| Wire protocol (stopped parent) | `c1456135128ed96240325f84e000880430ddba8efc527bd9bdd62f85958efc08` |
+| Wire execution completion | `40ccfbdc394b9a258c6b0afdd3902bb65914b2dcf1f5f7ec0a059aad4e10aaba` |
+| Logical-schema proof results | `b5194e90dd9332ae64e7bdb7e805d0971f5d72908e291d6b46eecad26f2d042d` |
+| Preserved ancestors | 3 compact / 48 grounded / 132 completed-online files; 21 wire source pins |
+| Original transfer | 16,634 files / 468,620,606 bytes rehashed unchanged at execution verification |
 
-There is a `.writer.lock` and no final `report.json`. Five lookups and four returned judgments are preserved. The interrupted judgment consumed its attempt. **Preserve run 001 intact.** Removing the lock alone cannot resume it because `capture()` also checks the unmatched start. After the migration is verified and work resumes, use a separately identified follow-up run and retain the link to run 001. The current runner hardcodes its run directory, so it needs an explicit new run ID before a clean rerun. Report which ten answers belong to each comparison.
+The wire replay checkpoint had 44 files; the later completion receipt makes the
+current stopped parent 45. Preserve the older 44-file replay claim. The original
+online001 unknown outcome/lock remains intact; never unlock or retry it.
 
-Two early results explain why the full comparison matters. On the Revit Mark-update item, an Autodesk example helped the judge identify a filter method attached to the wrong object. On the ArcPy cursor item, Esri's page helped it reject an incorrect field-order tip, but the judge still approved a procedure that never created the requested `NAME` field. Four returns cannot establish a ten-case agreement rate.
+### Remaining MP1 work and planning estimate
 
-## First checks on Linux
+M4 remains open. Current assessed D1–D6 agreement is **12, 15, 12, 17, 13, 11 /20**;
+only D4 reaches 16/20. The completed online development method remains
+**2, 3, 9, 9, 8, 8 /10**, versus control **3, 4, 8, 9, 8, 8 /10**.
+Development needs complete ten-case coverage, at least 8/10 in every dimension
+and the existing independent explanation audit. A passing development run does
+not replace the assessed criterion of at least 16/20 in every dimension.
 
-1. From the repository root, confirm `git rev-parse --short HEAD` returns `2297ccf` for the transferred base. Verify the working-file overlay, sibling evidence directory and the four source hashes recorded in `$RUN/protocol.json`.
-2. Check the following SHA-256 values against the Linux copy. These identify the frozen protocol, human reference checkpoint and unmatched start.
+After judge calibration, current AEC Phase B still needs corrected collection,
+authentic human reviews, paired evaluation/analysis, five charts, final evidence,
+demo and coaching approval. Historical engineering-rubric corrected001 is not a
+completed current-AEC correction. Courses 5–8 remain separately pending unless
+Chad supplies an updated completion record.
 
-   | Relative to `$RUN` | SHA-256 |
-   | --- | --- |
-   | `protocol.json` | `5c4e4f3bd49b072f62bf0e7d098d3190709bb7a983f8bd1eb75ff41e50a66c2a` |
-   | `review-checkpoint.json` | `64f0296b39c266dbf18f51a7fc375d27dab9b7adb88c338da4e5333407e829d3` |
-   | `documented/baseline-001-b04-item-0045/start.json` | `96d06e4aac8e30e2b750240e9a41e2fbaa22056f5bcb288d79d6d1806d901f9a` |
+**The earlier 3–5 working-day estimate no longer holds.** It was conditional on
+the conformance revision calibrating, and it did not. No completion date can be
+estimated until a judge method passes the development gate. The original
+estimate read: **3–5 working days if the next judge revision calibrates**, with human review and approval available. Confidence is low: this
+is not a measured completion forecast or a promised 100% date. Further judge
+iterations or review delays extend it. The conformance trial is complete and failed. The
+owner has chosen a new judge model or method; the next checkpoint is approving
+a judge design.
 
-3. Record the move from the repository's WSL2 Ubuntu convention to native Ubuntu. Recreate the environment from `uv.lock` on Linux. From the checkout run the verification below. The last WSL run passed **840 tests**, including the documentation-reader tests.
-
-   ```bash
-   export AIA_MP1_TOOLS="$HOME/.local/share/aia-mp1-tools"
-   source tools/environment.sh
-   env -u AIA_MP1_DOMAIN uv run --locked --extra analysis --with reportlab python -m pytest -q
-   export AIA_MP1_DOMAIN=aec-course
-   ```
-
-4. Before a new inference run, confirm that Linux can open publisher pages and reach the Mac over SSH. When Chad resumes model work, verify the original Qwen model, llama.cpp build, 16,384-token context, one slot, 4,096 reasoning budget and temperature 0.1. Forward Linux loopback port 18082 to Mac loopback port 8082 so the local judge configuration continues to work. Use the [AEC runbook](docs/AEC-COURSE-RUNBOOK.md) for the experiment and offline replay.
-
-## Success criteria
-
-Keep all five AEC specialties. D3 uses Chad's version-specific API correctness rule, including any API or MCP operation the answer relies on. The ten-case source-aware control matched **3, 4, 8, 9, 8, 8** times on D1–D6. Compare the documentation-enabled judge against those same answers, count both corrections and regressions, and inspect whether the cited passages support the decisions. Development requires at least 8/10 on every dimension and sound explanations.
-
-The assessed baseline is separate. Its 50 retained items and 20 blind human reviews yielded **12, 15, 12, 17, 13, 11** matches. The requirement is **16/20 on each dimension**. Only D4 qualified. Both original human review passes are complete. Generator correction, a fresh assessed cohort and the final comparison remain downstream of judge calibration. See the [iteration log](ITERATION_LOG.md) and [Unit 4 review](docs/UNIT-4-ALIGNMENT.md).
-
----
-
-## Historical handoff notes
-
-The entries below preserve earlier decisions and machine snapshots. Use the Linux checkpoint above for current status.
-
-**November 19 specialty comparison.** Ten local Devstral judgments with version-specific checklists scored 4, 5, 4, 9, 7 and 6 matches. The separate D2 safety-field pass approved all ten items. Nine had valid quotes and only four matched the blind review. Offline replay verified the reports and the project ports were released. The full assessed baseline is still below threshold in five dimensions. See the [iteration log](ITERATION_LOG.md) for the evidence and the next Qwen development comparison.
-
-**November 19 checkpoint.** The two Devstral 2 123B Q4_K_M shards are verified on the Mac external drive. Four matched ten-case prompt configurations completed locally. On v3 the D1–D6 counts were 3, 4, 3, 9, 7 and 7. Adding cross-category examples gave 3, 4, 4, 9, 7 and 6. The plain prompt with and without examples approved all 60 decisions. Offline replay verified all 40 judgments, and the Mac project server and tunnel are closed. The [Unit 4 exercise review](docs/UNIT-4-ALIGNMENT.md) covers all 30 exercises in the supplied folder and includes a specialty breakdown. The [iteration log](ITERATION_LOG.md) records the full comparison. The assessed 50-item baseline still qualifies only on D4.
-
-**Current checkpoint, November 18 evening.** Chad completed 20 independent baseline ratings using version-specific API correctness for D3, then ten separate blind development reviews. The final initial judge, v3, scored all 50 retained answers. It matched 12, 15, 12, 17, 13 and 11 of the 20 assessed reviews on D1–D6. Only D4 reached 16/20. The disjoint ten-case Qwen control scored 3, 4, 8, 9, 8 and 8. GPT-OSS-120B scored 2, 3, 6, 9, 8 and 8 on the same ten answers. Its follow-up quoting individual candidate fields stopped at two completeness matches out of five. No new manual baseline or development review is due. See the [iteration log](ITERATION_LOG.md) and [AEC runbook](docs/AEC-COURSE-RUNBOOK.md) for subsequent model screens. The afternoon snapshot below records the earlier handoff.
-
-**10:10 p.m. Eastern update.** Nemotron, GPT-OSS-20B and Llama-70B also fell short. Adding task-selected original source excerpts to GPT-OSS-20B yielded four API-correctness matches and two safety matches in five answers. The third safety disagreement ended that screen. The Mac and project tunnel are free. Ten source-free development requests and fifty baseline requests are prepared locally. The previous hosted authorization covered the separate engineering experiment. The assessed baseline still has only D4 above threshold, and the corrected AEC cohort awaits calibration.
-
-**10:45 p.m. Eastern update.** Qwen completed the source-free local control in ten starts. Matches were 2, 4, 9, 9, 8 and 5 of ten. Offline replay verified all ten raw judgments and the Mac is free. The Astra transport and price preflight passed offline, with a $24.2304 reservation for all 60 proposed requests and zero paid calls. Astra omits temperature. A potential alternative is the local Devstral 2 123B coding model. The two pinned quantized shards total 74,897,653,312 bytes. An owner decision on the download or hosted comparison is pending.
-
-**Owner:** Chad Josewski. **Snapshot:** November 18, 2026, around 3:02 p.m. Eastern.  
-**Workspace:** `D:\_Repos\_AIA\aia-mp1-synthetic-data`. **Implementation revision:** `792e11e` on `main`. [Project tracker](https://github.com/cjosewski/aia-plan/issues/4)
-
-## What Chad asked for
-
-> That is not correct. The original plan was correct - applied to AEC data. The evaluation criteria and the method defined in the project description need to be followed exactly.
-
-The project generates and evaluates Q&A across five AEC categories. The course requires a structured generation pipeline, a quality gate, human and independent model ratings, segment analysis, judge calibration, and then generator correction. Calibration requires at least 80% human/judge agreement in **each** of D1–D6. For the 20 reviewed items, that means at least 16 matches per dimension.
-
-Chad clarified how he scored the original manual review:
-
-> I scored D3 only on API correctness. Tool availability and affordability played no part in any score.
-
-## Where the interpretations diverged
-
-The approved engineering plan and its rubric are the starting point for understanding the AEC adaptation. The engineering rubric calls D3 **API Realism** and asks whether required APIs and libraries exist in the stated installation and version. The course brief calls D3 **Tool Realism** and uses homeowner availability, cost and specialty-tool restrictions. Both definitions exist in the checkout. [Implementation plan](docs/implementation-plan.md) · [Engineering rubric](config/rubric.json) · [Literal course rubric on AEC data](config/aec-course/rubric.json)
-
-The previous session applied the literal homeowner wording to AEC tool lists, withdrew the first reference from course scoring, and prepared a D3-only review. The current SDD, runbook and GitHub update reflect that implementation choice. Chad then asked for a clean handoff because the session was confusing the issue. His clarification establishes how he **scored** the first review. It does not by itself settle which rubric governs submission. [SDD](docs/SDD-P1-03.md) · [Review runbook](docs/AEC-COURSE-RUNBOOK.md)
-
-## Verified evidence at handoff
-
-The evidence root is `D:\_Repos\_AIA\artifacts\evidence\P1-03\aec-course\assessments\`.
-
-| Assessment or run | Verified state |
-| --- | --- |
-| `aec-course-baseline-review` | 50 AEC items, ten per category. Chad completed 20 blind reviews and personally confirmed independence. The original ratings and frozen reference are intact. A separate `human-reference-withdrawal.json` records the previous session's scoring decision. |
-| `aec-course-baseline-d3-review` | Same cohort and same 20 selected items. The CLI reports **20 of 20 complete**, with no frozen reference at handoff. The launcher was designed to collect a new D3 decision and carry forward the other five ratings. |
-| `aec-course-baseline-judge-v1` | Local Qwen3.5-122B-A10B on the Mac, using the literal course rubric. Its ledger showed 18 valid item judgments out of 50 and a running manifest at inspection. Check current status before starting any job. |
-
-The separate Home DIY dataset is a historical experiment. The active subject is AEC. Preserve both human ledgers and all existing judge attempts. A score comparison needs matching human and judge criteria.
-
-## November 18 follow-up
-
-Chad confirmed that instructor approval covered the AEC topic in general. Use the course D3 Tool Realism and D4 Scope Appropriateness anchors for submission. AEC tasks may use MCP tools as well as direct API calls. Apply D3 to the required tools listed in each answer regardless of how they are accessed. Both review queues are complete. The replacement ledger contains 20 blind D3 reviews with the other five decisions carried forward. [Decision record](docs/COURSE-BRIEF-RECONCILIATION-20261118.md)
-
-Chad subsequently confirmed that both D3 passes scored only version-specific API correctness, including whether the code compiles and behaves as claimed. The second 20-item reference is frozen, and its D3 scores match the first on every item. The reviews establish no course Tool Realism agreement. [Review disposition](docs/AEC-COURSE-RUNBOOK.md)
-
-## First action requested at handoff (completed)
-
-For the version-specific API correctness evaluation, use the [AEC runbook](docs/AEC-COURSE-RUNBOOK.md). The `aec-course/api-correctness-v1-inputs` packet pins both frozen reviews and the 50 label-free requests. The corresponding judge writes to `aec-course/api-correctness-judge-v1`. Read its manifest and report before allocating another run.
-
-Read the approved plan, the two D3 definitions above, and the original project's customization decision. Explain in plain language how the course criterion maps to the AEC project and identify any point the documents leave open for Chad. Both human queues already contain 20 completed items. Resolve the rubric question before asking for further review, freezing the second reference, or changing the judge prompt. Recheck the running job from local evidence first. Give Chad notice before taking control of a machine, and give concurrent Herd work priority.
+Historical migration/preparation checkpoints are archived outside Git in
+`../artifacts/evidence/.conformance-design-20261120/handoff-historical-checkpoints.md`.
+Use the current [AEC runbook](docs/AEC-COURSE-RUNBOOK.md),
+[conformance design](docs/AEC-CONFORMANCE-DESIGN.md),
+[conformance result](docs/AEC-CONFORMANCE-DOCS-RESULTS.md),
+[wire result](docs/AEC-WIRE-DOCS-RESULTS.md),
+[wire preflight](docs/AEC-WIRE-DOCS-PREFLIGHT.md) and
+[iteration log](ITERATION_LOG.md) for their reviewed records. Historical commands
+and unresolved questions in the archive are not current instructions.
