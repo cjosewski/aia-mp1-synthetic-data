@@ -18,7 +18,7 @@ from aia_mp1.canonical_development import QWEN_FILES, QWEN_MODEL_SHA, QWEN_SETTI
 from aia_mp1.evaluation_schemas import Judgment
 from aia_mp1.factcheck_transport import LocalServer
 from aia_mp1.judge import JudgeConfig
-from aia_mp1.tracing import digest
+from aia_mp1.tracing import digest, run_directory
 
 DIRECTORY = "api-development-qwen-online-docs-001"
 SELECT = (
@@ -62,11 +62,43 @@ def read_pages(directory, item_id, category, lookup, replay):
     return trace["pages"]
 
 
-def run(root, stage):
-    directory = root / DIRECTORY
-    directory.mkdir(exist_ok=True)
+def snapshot(directory):
+    if directory.is_symlink() or not directory.is_dir():
+        raise ValueError("Expected a nonsymlink run directory")
+    files = {}
+    for path in sorted(directory.rglob("*")):
+        if path.is_symlink():
+            raise ValueError("Symlink run evidence is not supported")
+        if path.is_file():
+            files[path.relative_to(directory).as_posix()] = file_hash(path)
+        elif not path.is_dir():
+            raise ValueError("Unsupported run evidence entry")
+    return files
+
+
+def run(root, stage, *, run_id=DIRECTORY, predecessor=None):
+    if stage not in {"prepare", "score", "replay"}:
+        raise ValueError("Unknown documentation comparison stage")
+    directory = run_directory(root, run_id)
+    prior = run_directory(root, predecessor) if predecessor is not None else None
+    if prior == directory:
+        raise ValueError("Output and predecessor must be different runs")
+    if run_id != DIRECTORY and prior is None:
+        raise ValueError("A follow-up run requires its predecessor")
+    lineage = {"run_id": predecessor, "files_sha256": snapshot(prior)} if prior else None
+    if directory.exists():
+        files = snapshot(directory)
+        if files and "protocol.json" not in files:
+            raise ValueError("Populated output has no frozen protocol; preserve and inspect it")
+        if (
+            "protocol.json" in files
+            and read_json(directory / "protocol.json").get("predecessor") != lineage
+        ):
+            raise ValueError("Frozen predecessor linkage differs")
     parent, assessment, records, _ = load_assessment(root, REVIEW)
     ids = assessment["selected_ids"]
+    if len(ids) != 10 or len(set(ids)) != 10:
+        raise ValueError("Exactly ten distinct development cases are required")
     cfg = JudgeConfig.model_validate(read_json(root / "judge-preparation-v1/judge.json"))
     if (
         cfg.model_sha256 != QWEN_MODEL_SHA
@@ -77,6 +109,17 @@ def run(root, stage):
     originals = read_json(root / SCREEN_MODEL / "requests.json")
     STAGES.update(lookup=Lookup, documented=Judgment)
     control = root / CONTROL
+    for k in ids:
+        target = control / "control" / k
+        for path in (
+            control,
+            control / "control",
+            target,
+            target / "start.json",
+            target / "return.json",
+        ):
+            if path.is_symlink() or not path.exists():
+                raise ValueError("Missing or symlink matched control evidence")
     before = {
         k: capture(control, k, "control", originals[k], cfg, replay_only=True).model_dump()
         for k in ids
@@ -90,42 +133,56 @@ def run(root, stage):
         requests[k] = wire(
             SELECT, {"permitted_urls": ROOTS[cat], "pages": PAGES[cat], "case": case}
         )
+    protocol = {
+        "development_only": True,
+        "cases": ids,
+        "judge": cfg.public_settings(),
+        "control_report": file_hash(control / "control-report.json"),
+        "reference": file_hash(control / "review-checkpoint.json"),
+        "lookup_inputs": digest(
+            json.dumps(requests, indent=2, ensure_ascii=False, allow_nan=False) + "\n"
+        ),
+        "selectors": SELECT,
+        "final_instruction": FINAL,
+        "source": {
+            p: file_hash(Path(p))
+            for p in (
+                "tools/aec_online_docs.py",
+                "tools/screen_aec_online_docs.py",
+                "tools/run_aec_development.py",
+                "src/aia_mp1/model_client.py",
+            )
+        },
+        "stages": {
+            "lookup": Lookup.model_json_schema(),
+            "documented": Judgment.model_json_schema(),
+        },
+        "max_model_starts": 20,
+        "max_page_requests": 30,
+        "promotion": "Ten complete judgments with usable online evidence, at least eight matches on each dimension, and sound explanations.",
+    }
+    if prior:
+        old = read_json(prior / "protocol.json")
+        if (
+            {k: v for k, v in old.items() if k not in {"source", "run_id", "predecessor"}}
+            != {k: v for k, v in protocol.items() if k != "source"}
+            or file_hash(prior / "review-checkpoint.json") != old["reference"]
+            or file_hash(prior / "lookup-requests.json") != old["lookup_inputs"]
+            or read_json(prior / "lookup-requests.json") != requests
+        ):
+            raise ValueError("Predecessor comparison inputs differ")
+        protocol.update(run_id=run_id, predecessor=lineage)
+        if snapshot(prior) != lineage["files_sha256"]:
+            raise ValueError("Predecessor changed during preparation")
+    directory.mkdir(exist_ok=True)
     with exclusive(directory):
         labels = freeze_development_labels(directory, parent, assessment, records)
-        if file_hash(directory / "review-checkpoint.json") != file_hash(
-            control / "review-checkpoint.json"
-        ):
+        if file_hash(directory / "review-checkpoint.json") != protocol["reference"]:
             raise ValueError("Human reference differs from matched control")
         pin(directory / "lookup-requests.json", requests)
-        pin(
-            directory / "protocol.json",
-            {
-                "development_only": True,
-                "cases": ids,
-                "judge": cfg.public_settings(),
-                "control_report": file_hash(control / "control-report.json"),
-                "reference": file_hash(directory / "review-checkpoint.json"),
-                "lookup_inputs": file_hash(directory / "lookup-requests.json"),
-                "selectors": SELECT,
-                "final_instruction": FINAL,
-                "source": {
-                    p: file_hash(Path(p))
-                    for p in (
-                        "tools/aec_online_docs.py",
-                        "tools/screen_aec_online_docs.py",
-                        "tools/run_aec_development.py",
-                        "src/aia_mp1/model_client.py",
-                    )
-                },
-                "stages": {
-                    "lookup": Lookup.model_json_schema(),
-                    "documented": Judgment.model_json_schema(),
-                },
-                "max_model_starts": 20,
-                "max_page_requests": 30,
-                "promotion": "Ten complete judgments with usable online evidence, at least eight matches on each dimension, and sound explanations.",
-            },
-        )
+        if file_hash(directory / "lookup-requests.json") != protocol["lookup_inputs"]:
+            raise ValueError("Lookup input serialization differs")
+        pin(directory / "protocol.json", protocol)
         if stage == "prepare":
             return {"prepared": len(ids)}
         replay = stage == "replay"
@@ -219,4 +276,12 @@ def run(root, stage):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("stage", choices=("prepare", "score", "replay"))
-    print(json.dumps(run(ROOT.resolve(), parser.parse_args().stage), indent=2))
+    parser.add_argument("--run-id", default=DIRECTORY)
+    parser.add_argument("--predecessor")
+    args = parser.parse_args()
+    print(
+        json.dumps(
+            run(ROOT.resolve(), args.stage, run_id=args.run_id, predecessor=args.predecessor),
+            indent=2,
+        )
+    )
