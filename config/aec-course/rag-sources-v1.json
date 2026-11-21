@@ -1,0 +1,1477 @@
+{
+  "schema_version": "rag-sources-v1",
+  "specification": "docs/AEC-RAG-PACK.md sections 3.2-3.4, 3.8 and 6.5; owner decisions OP-2 and OP-9 of 2026-11-20 applied",
+  "corpus_id": "engineering-v1-rag-corpus-v1",
+  "pack_id": "engineering-v1-rag-bm25-v1",
+  "allowed_uses": [
+    "assessed_generation",
+    "human_review",
+    "judge_context",
+    "local_evidence"
+  ],
+  "export_permission": "local_only",
+  "decision_record": {
+    "path": "ITERATION_LOG.md",
+    "entry": "Corrected-generator decisions (owner, November 20)"
+  },
+  "decision_basis": {
+    "default": "owner decisions 1-2, ITERATION_LOG.md, Corrected-generator decisions (owner, November 20)",
+    "op2": "owner decision 2026-11-20 (OP-2)"
+  },
+  "decisions": [
+    {
+      "id": "G1",
+      "scope": "Esri/arcpy: cheat-sheet text, LICENSE.txt, docs/arcgis-dist.json",
+      "tier": "T1 + same-pin T2",
+      "owner_record": "decisions 1, 2"
+    },
+    {
+      "id": "G2",
+      "scope": "Esri Pro-era Apache-2.0 samples, tagged \"not pinned to ArcGIS Pro 3.6\"",
+      "tier": "T2",
+      "owner_record": "decision 2"
+    },
+    {
+      "id": "A1",
+      "scope": "Building Coder samples re-pinned to tag 2025.0.153.0; csproj, .addin, other live samples",
+      "tier": "T1 + T2",
+      "owner_record": "decisions 1, 2"
+    },
+    {
+      "id": "A2",
+      "scope": "ADN-DevTech Revit 2025 member pages. The owner judged the MIT grant covers the content; the README traces it to the Revit SDK (caveat recorded)",
+      "tier": "T2",
+      "owner_record": "decision 2"
+    },
+    {
+      "id": "S1",
+      "scope": "OpenSeesPyDoc tier-1 pages and example, within the OpenSeesPy and Regents terms",
+      "tier": "T1",
+      "owner_record": "decision 1",
+      "additional_record": {
+        "path": "ITERATION_LOG.md",
+        "entry": "November 20 · Evaluation path and retrieval-pack specification (Owner decisions (Chad, November 20))"
+      }
+    },
+    {
+      "id": "S2",
+      "scope": "OpenSeesPyDoc same-pin pages in section 3.3",
+      "tier": "T2",
+      "owner_record": "decision 2",
+      "additional_record": {
+        "path": "ITERATION_LOG.md",
+        "entry": "November 20 · Evaluation path and retrieval-pack specification (Owner decisions (Chad, November 20))"
+      }
+    },
+    {
+      "id": "C1",
+      "scope": "FreeCAD 1.0.2 tier-1 tests and the same-pin Part sources in section 3.3, including the six feature-source pairs",
+      "tier": "T1 + T2",
+      "owner_record": "decisions 1, 2; owner decision 2026-11-20 (OP-2) for the feature sources",
+      "additional_record": {
+        "path": "ITERATION_LOG.md",
+        "entry": "November 20 · Evaluation path and retrieval-pack specification (Owner decisions (Chad, November 20))"
+      }
+    },
+    {
+      "id": "M1",
+      "scope": "SciPy 1.16.1 solve_ivp, other public _ivp docstrings, tutorial, release notes, pyproject.toml",
+      "tier": "T1 + T2",
+      "owner_record": "decisions 1, 2"
+    }
+  ],
+  "deny_lists": {
+    "excluded_hosts": [
+      "pro.arcgis.com",
+      "doc.esri.com",
+      "desktop.arcgis.com",
+      "community.esri.com",
+      "gis.stackexchange.com",
+      "help.autodesk.com",
+      "revitapidocs.com",
+      "www.revitapidocs.com",
+      "apidocs.co",
+      "wiki.freecad.org",
+      "docs.scipy.org",
+      "opensees.berkeley.edu",
+      "opensees.github.io",
+      "openseespydoc.readthedocs.io"
+    ],
+    "excluded_host_note": "The tier-1 Regents page from opensees.github.io is admitted only with role license, from its existing snapshot.",
+    "excluded_repos": [
+      "jeremytammik/RevitSdkSamples",
+      "FreeCAD/FreeCAD-documentation",
+      "OpenSees/OpenSeesDocumentation",
+      "Esri/developer-support",
+      "lookup-foundation/RevitLookup",
+      "Autodesk/revit-ifc",
+      "gtalarico/revit-api-chms"
+    ],
+    "excluded_repo_name_substrings": [
+      "stubs"
+    ],
+    "excluded_path_patterns": [
+      "(?i)\\.(chm|dll|exe|msi|zip|7z|pdb|lib)$"
+    ],
+    "excluded_path_segments": [
+      "RevitSdkSamples"
+    ],
+    "credential_name_pattern": "(?i)(credential|secret|password|token)",
+    "arcmap_era_pattern": "\\b(arcpy\\.mapping|arcgisscripting)\\b",
+    "never_inputs": "probe and execution outputs, labels, review notes, judge outputs, audit tables, baseline and M5 answers, and the design reports",
+    "available_later_not_admitted": [
+      "docs/ArcGIS-Pro-Python-Distribution-By-Release.pdf",
+      "OpenSeesPy source tag v3.5.1.3",
+      "scipy-stubs",
+      "NumPy docs",
+      "the FreeCAD AppImage",
+      "the Revit Developer's Guide"
+    ]
+  },
+  "tier1": {
+    "source_verification": {
+      "path": "aec-course/analysis/source-verification.json",
+      "sha256": "10f34f1a17d3fa2c09add31355f3b6172cb44b5921c9ce00184c537029435bd9"
+    },
+    "engineering_v1": {
+      "path": "references/engineering-v1.json",
+      "sha256": "878854bc28a977256d203b16966ce5c1b334ba655622b0c7a5ddceb77be6e341",
+      "digest": "98812ec4a222f9c3ce86cf6afe7467c5b1656f795ff9333ea3143e933c7de902"
+    },
+    "approval": {
+      "path": "references/engineering-v1-approval.json",
+      "sha256": "329a296c1f2cafee9dbfacf5d9a6cdc910b829dd61ed7ca623ee3e77b96d0dd4"
+    },
+    "provenance": {
+      "path": "references/preparation-20261110/provenance.json",
+      "sha256": "daca185d9df210d5fb49347b1caa2f26a661f78bede213ad41d51ff477dbe59a"
+    },
+    "snapshot_dir": "references/preparation-20261110",
+    "pdf": {
+      "path": "references/preparation-20261110/ArcPy-Cheatsheet.pdf",
+      "sha256": "64693a054ba0ae85874d97832f5b588963693916c90a92dee91245a5e1c501cf"
+    },
+    "cheat_sheet_text": {
+      "path": "qualification/m4-recovery-contract-followup-20261117/packet-final/sources/ArcPy-Cheatsheet.txt",
+      "sha256": "b084838ed593debee32beb5bdf0623a87cb749be8aef31c735e432b50fe93a03"
+    },
+    "extraction_receipt": {
+      "path": "qualification/m4-recovery-contract-followup-20261117/packet-final/sources/arcpy-extraction.json",
+      "sha256": "552cbfcdbe88100b0f39752e3b8cd7967cbbc708c1f071f2d9492d59a748fffc"
+    },
+    "extractor": {
+      "path": "tools/extract_reference_pdf.py",
+      "sha256": "01abc16125d68537ebcc349d8fb9bf7c995128b19c2cc57d21641f0f8d246d4b",
+      "version": "pypdf 6.21.4"
+    },
+    "superseded_cheat_sheet_text": {
+      "path": "references/preparation-20261110/ArcPy-Cheatsheet.txt",
+      "sha256": "7df2d315974f7bcf9c55b2687270d383f093adcb0403d39aa4f074602bd334f1",
+      "note": "differs by one space on line 294 and is not used"
+    },
+    "prepared_at": "2026-11-10T17:18:29.997502+00:00",
+    "commit_aliases": [
+      {
+        "repo_key": "tbc2025",
+        "commit": "cf3748045978bc35fcae88417c3024209be44fbe",
+        "tag": "2026.0.153.0",
+        "note": "engineering-v1 pin; the tier-1 Building Coder paths map to tag 2025.0.153.0, where their blobs are identical"
+      }
+    ]
+  },
+  "repositories": [
+    {
+      "repo_key": "arcpy",
+      "owner": "Esri",
+      "repo": "arcpy",
+      "url": "https://github.com/Esri/arcpy.git",
+      "commit": "b4332c5c46a59c80c50fcbd37689de7d3b5bee4a",
+      "ref": {
+        "kind": "head"
+      },
+      "category": "gis_scripting",
+      "tiers": [
+        "T1",
+        "T2"
+      ],
+      "decision_ids": [
+        "G1"
+      ],
+      "license_expression": "Apache-2.0",
+      "version_scope": "ArcGIS Pro 3.6 (cheat sheet 3R0 \"ArcGIS Pro 3.6+\"; distribution table entry 3.6)",
+      "attribution": {
+        "passage": "Esri (repository Esri/arcpy, Apache-2.0). Cheat sheet notice: {NOTICE}",
+        "environment": "Esri (repository Esri/arcpy, Apache-2.0); docs/arcgis-dist.json and the ArcPy cheat sheet (document G7408447, version 3R0). Cheat sheet notice: {NOTICE}"
+      },
+      "files": [
+        {
+          "path": "LICENSE.txt",
+          "roles": [
+            "license"
+          ],
+          "tier": "T1",
+          "decision_id": "G1",
+          "blob": "90899f3f2dd3c1762dea14b5946272d679bc0683"
+        },
+        {
+          "path": "docs/ArcPy-Cheatsheet.pdf",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "derived": "pdf_text",
+          "tier": "T1",
+          "decision_id": "G1",
+          "blob": "f79895eecf602f1f72adcf0eda60b35bdb91ca58",
+          "notice_block_lines": [
+            290,
+            293
+          ]
+        },
+        {
+          "path": "docs/arcgis-dist.json",
+          "roles": [
+            "environment"
+          ],
+          "tier": "T2",
+          "decision_id": "G1",
+          "blob": "f140790f7e9dc57ad4b7902ba013e34ffec0d5fd"
+        }
+      ],
+      "globs": []
+    },
+    {
+      "repo_key": "ptt",
+      "owner": "Esri",
+      "repo": "public-transit-tools",
+      "url": "https://github.com/Esri/public-transit-tools.git",
+      "commit": "48e394747faa78f4ef679b73fc510d8275c2fd19",
+      "ref": {
+        "kind": "head",
+        "recorded_branch": "master",
+        "note": "master on Nov 20 (OP-1)"
+      },
+      "category": "gis_scripting",
+      "tiers": [
+        "T2"
+      ],
+      "decision_ids": [
+        "G2"
+      ],
+      "license_expression": "Apache-2.0",
+      "version_scope": "Esri sample code for ArcGIS Pro; not pinned to ArcGIS Pro 3.6",
+      "attribution": {
+        "passage": "Esri, {owner}/{repo} (Apache-2.0); sample code not pinned to ArcGIS Pro 3.6.{HEADER}"
+      },
+      "files": [
+        {
+          "path": "License.txt",
+          "roles": [
+            "license"
+          ],
+          "tier": "T2",
+          "decision_id": "G2",
+          "blob": "f09a67ddec0c241ddcc0c0d65f7fef1dbba29d55"
+        },
+        {
+          "path": "README.md",
+          "roles": [
+            "evidence"
+          ],
+          "tier": "T2",
+          "decision_id": "G2",
+          "blob": "7e162465ef5712c574c518e270c0c45970ca8bc3"
+        }
+      ],
+      "globs": [
+        {
+          "patterns": [
+            "*.py",
+            "*.pyt"
+          ],
+          "any_depth": true,
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T2",
+          "decision_id": "G2",
+          "rules": [
+            "AR-3",
+            "AR-4"
+          ],
+          "listed_count": 32,
+          "note": "transit-network-analysis-tools/unittests/portal_credentials.py is refused by AR-4, leaving 31"
+        }
+      ]
+    },
+    {
+      "repo_key": "lnat",
+      "owner": "Esri",
+      "repo": "large-network-analysis-tools",
+      "url": "https://github.com/Esri/large-network-analysis-tools.git",
+      "commit": "b436c8f2de7ab30c36ca833804bed6ec256d1574",
+      "ref": {
+        "kind": "head",
+        "recorded_branch": "master",
+        "note": "master on Nov 20 (OP-1)"
+      },
+      "category": "gis_scripting",
+      "tiers": [
+        "T2"
+      ],
+      "decision_ids": [
+        "G2"
+      ],
+      "license_expression": "Apache-2.0",
+      "version_scope": "Esri sample code for ArcGIS Pro; not pinned to ArcGIS Pro 3.6",
+      "attribution": {
+        "passage": "Esri, {owner}/{repo} (Apache-2.0); sample code not pinned to ArcGIS Pro 3.6.{HEADER}"
+      },
+      "files": [
+        {
+          "path": "license.txt",
+          "roles": [
+            "license"
+          ],
+          "tier": "T2",
+          "decision_id": "G2",
+          "blob": "a95000b3764a464671170336c5ea5649be88b143"
+        },
+        {
+          "path": "README.md",
+          "roles": [
+            "evidence"
+          ],
+          "tier": "T2",
+          "decision_id": "G2",
+          "blob": "45e5eedf7685045db9dc89444f73ba7458763d07"
+        }
+      ],
+      "globs": [
+        {
+          "patterns": [
+            "*.py",
+            "*.pyt"
+          ],
+          "any_depth": true,
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T2",
+          "decision_id": "G2",
+          "rules": [
+            "AR-3",
+            "AR-4"
+          ],
+          "listed_count": 21,
+          "note": "unittests/portal_credentials.py refused by AR-4, leaving 20"
+        }
+      ]
+    },
+    {
+      "repo_key": "cbs",
+      "owner": "Esri",
+      "repo": "cad-bim-scripts",
+      "url": "https://github.com/Esri/cad-bim-scripts.git",
+      "commit": "10ba6b21726e82fc391ae486a066b1f912f99237",
+      "ref": {
+        "kind": "head",
+        "recorded_branch": "main",
+        "note": "main on Nov 20 (OP-1)"
+      },
+      "category": "gis_scripting",
+      "tiers": [
+        "T2"
+      ],
+      "decision_ids": [
+        "G2"
+      ],
+      "license_expression": "Apache-2.0",
+      "version_scope": "Esri sample code for ArcGIS Pro; not pinned to ArcGIS Pro 3.6",
+      "attribution": {
+        "passage": "Esri, {owner}/{repo} (Apache-2.0); sample code not pinned to ArcGIS Pro 3.6.{HEADER}"
+      },
+      "files": [
+        {
+          "path": "license.txt",
+          "roles": [
+            "license"
+          ],
+          "tier": "T2",
+          "decision_id": "G2",
+          "blob": "863d15091ebca6473a211f9d99a0051502f63d8b"
+        },
+        {
+          "path": "README.md",
+          "roles": [
+            "evidence"
+          ],
+          "tier": "T2",
+          "decision_id": "G2",
+          "blob": "d6d3e5215a807ab7ef67722aa377573a9c896382"
+        }
+      ],
+      "globs": [
+        {
+          "patterns": [
+            "*.py",
+            "*.pyt"
+          ],
+          "any_depth": true,
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T2",
+          "decision_id": "G2",
+          "rules": [
+            "AR-3",
+            "AR-4"
+          ],
+          "listed_count": 2
+        }
+      ]
+    },
+    {
+      "repo_key": "tbc2025",
+      "owner": "jeremytammik",
+      "repo": "the_building_coder_samples",
+      "url": "https://github.com/jeremytammik/the_building_coder_samples.git",
+      "commit": "b5c5addb3808560a7cdf0688a28996e58671e3f3",
+      "ref": {
+        "kind": "tag",
+        "name": "2025.0.153.0",
+        "annotated": false
+      },
+      "category": "aec_automation",
+      "tiers": [
+        "T1",
+        "T2"
+      ],
+      "decision_ids": [
+        "A1"
+      ],
+      "license_expression": "MIT",
+      "version_scope": "Revit 2025 API, .NET 8 (The Building Coder samples tag 2025.0.153.0)",
+      "attribution": {
+        "passage": "Jeremy Tammik, The Building Coder samples (MIT; License.md: Copyright (c) 2013-Current Jeremy Tammik).{HEADER}"
+      },
+      "files": [
+        {
+          "path": "License.md",
+          "roles": [
+            "license"
+          ],
+          "tier": "T1",
+          "decision_id": "A1",
+          "blob": "8cedc4b31d8a28b1cc0a1c5b07e08c47a811c453"
+        },
+        {
+          "path": "Readme.md",
+          "roles": [
+            "environment"
+          ],
+          "tier": "T1",
+          "decision_id": "A1",
+          "blob": "77a2c154754c80ab42e1951511ddd5923f522e98"
+        },
+        {
+          "path": "BuildingCoder/BuildingCoder.csproj",
+          "roles": [
+            "environment",
+            "index"
+          ],
+          "tier": "T2",
+          "decision_id": "A1",
+          "blob": "3a8d62026f06522d78330a96dbf56aebaa4aa20d",
+          "note": "CRLF; index for AR-5"
+        },
+        {
+          "path": "BuildingCoder/TheBuildingCoderSingleSample.addin",
+          "roles": [
+            "environment"
+          ],
+          "tier": "T2",
+          "decision_id": "A1",
+          "blob": "4313f20586c421bd54974d2138ddd6f535253064",
+          "note": "UTF-8 BOM"
+        },
+        {
+          "path": "BuildingCoder/CmdListWalls.cs",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T1",
+          "decision_id": "A1",
+          "blob": "9b2085553d7b3d1b3c33d301735593e3a16130db"
+        },
+        {
+          "path": "BuildingCoder/CmdListMarks.cs",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T1",
+          "decision_id": "A1",
+          "blob": "947ea70923a32dd85d1bbe57de74fa35a5ed9d51"
+        },
+        {
+          "path": "BuildingCoder/CmdSetWallType.cs",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T1",
+          "decision_id": "A1",
+          "blob": "4fef28e2374144da2d015369c42e14aa7d1bd9ac"
+        },
+        {
+          "path": "BuildingCoder/CmdBoundingBox.cs",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T1",
+          "decision_id": "A1",
+          "blob": "cd26e8bd83b54d1ecd8b8afaff564106bcc56c8d"
+        },
+        {
+          "path": "BuildingCoder/CmdListViews.cs",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T1",
+          "decision_id": "A1",
+          "blob": "edd169f0a53b166d9696491648d1fcef5bf6ca76"
+        }
+      ],
+      "globs": [
+        {
+          "patterns": [
+            "BuildingCoder/*.cs"
+          ],
+          "any_depth": false,
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T2",
+          "decision_id": "A1",
+          "rules": [
+            "AR-5"
+          ],
+          "listed_count": 170,
+          "note": "top level only; T1 for the five explicit samples, T2 for the rest; all 170 live under AR-5 at the pin"
+        }
+      ]
+    },
+    {
+      "repo_key": "adn2025",
+      "owner": "ADN-DevTech",
+      "repo": "revit-api-chms",
+      "url": "https://github.com/ADN-DevTech/revit-api-chms.git",
+      "commit": "e5347c6f0c2258b99e303548f3d12ea1e3a1ad15",
+      "ref": {
+        "kind": "head"
+      },
+      "category": "aec_automation",
+      "tiers": [
+        "T2"
+      ],
+      "decision_ids": [
+        "A2"
+      ],
+      "license_expression": "MIT",
+      "version_scope": "Revit 2025 API reference (RevitAPI 25.0.0.0)",
+      "attribution": {
+        "passage": "Revit 2025 API reference (RevitAPI 25.0.0.0) from the Revit SDK help files, via ADN-DevTech/revit-api-chms (MIT; LICENSE: Copyright (c) 2021 Forge Platform). Owner judgment of 2026-11-20: the MIT grant covers this content. Recorded caveat: the README says the files come from the Revit SDKs and that the content is provided free of charge for education and information purposes. Revit is a trademark of Autodesk, Inc."
+      },
+      "license_judgment": {
+        "by": "Chad Josewski",
+        "date": "2026-11-20",
+        "statement": "the MIT grant covers the content",
+        "caveat": "the README says the files come from the Revit SDKs and that the content is provided free of charge for education and information purposes"
+      },
+      "files": [
+        {
+          "path": "LICENSE",
+          "roles": [
+            "license"
+          ],
+          "tier": "T2",
+          "decision_id": "A2",
+          "blob": "6f40a6f9280e7f8e3233022284c988b683f2232b"
+        },
+        {
+          "path": "README.md",
+          "roles": [
+            "evidence"
+          ],
+          "tier": "T2",
+          "decision_id": "A2",
+          "blob": null,
+          "note": "license caveat evidence; blob recorded at fetch"
+        },
+        {
+          "path": "html/2025/RevitAPI.hhk",
+          "roles": [
+            "index"
+          ],
+          "tier": "T2",
+          "decision_id": "A2",
+          "blob": "32041c7dc4a9f34607904361b81b1224e3da8d12",
+          "size": 13930702,
+          "note": "index for rule ADN-1 (section 4.2)"
+        }
+      ],
+      "globs": [
+        {
+          "patterns": [
+            "html/2025/html/*.htm"
+          ],
+          "any_depth": false,
+          "selection": "adn-1",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "derived": "sandcastle_text",
+          "tier": "T2",
+          "decision_id": "A2",
+          "note": "pages selected by ADN-1 only; page list and blobs not verified in advance, recorded at fetch"
+        }
+      ]
+    },
+    {
+      "repo_key": "ospdoc",
+      "owner": "zhuminjie",
+      "repo": "OpenSeesPyDoc",
+      "url": "https://github.com/zhuminjie/OpenSeesPyDoc.git",
+      "commit": "ce0d8f1ded3c722119c44d5b3a2073c9dce47828",
+      "ref": {
+        "kind": "head"
+      },
+      "category": "structural_analysis",
+      "tiers": [
+        "T1",
+        "T2"
+      ],
+      "decision_ids": [
+        "S1",
+        "S2"
+      ],
+      "license_expression": "LicenseRef-OpenSeesPy-terms AND LicenseRef-Regents-OpenSees-doc",
+      "version_scope": "OpenSeesPy 3.5.1.3 (documentation conf.py version)",
+      "attribution": {
+        "passage": "OpenSeesPy documentation, zhuminjie/OpenSeesPyDoc (conf.py: 2019-2024, converted from OpenSees wiki and documentation originally developed by Silvia Mazzoni). Copyright @ 1999-2020 The Regents of the University of California (The Regents). All Rights Reserved. OpenSeesPy is free for research, education, and internal use. Full Regents notice: str-env-v1 attribution.",
+        "environment": "OpenSeesPy documentation, zhuminjie/OpenSeesPyDoc (conf.py: 2019-2024, converted from OpenSees wiki and documentation originally developed by Silvia Mazzoni). OpenSeesPy is free for research, education, and internal use. Regents notice, verbatim:\n{REGENTS_NOTICE}"
+      },
+      "regents_notice": {
+        "snapshot": "upstream/opensees-documentation-license.html",
+        "sha256": "fce68ea4c4527a6b1b878f26bc391e177aaf9e29eb7d3f40348adacb47f77588",
+        "url": "https://opensees.github.io/OpenSeesDocumentation/developer/license.html",
+        "roles": [
+          "license"
+        ],
+        "tier": "T1",
+        "starts_with": "Copyright @ 1999-2020 The Regents of the University of California",
+        "contains": "must appear in all copies",
+        "last_line_suffix": "TO BENEFIT THE END USER.",
+        "line_count": 29,
+        "placement": "full notice once per structural request, in str-env-v1 attribution; each passage carries the copyright line and a pointer (OP-9, resolved 2026-11-20)",
+        "note": "unpinned HTML; admitted only with role license from its tier-1 snapshot and never fetched again"
+      },
+      "files": [
+        {
+          "path": "LICENSE",
+          "roles": [
+            "license"
+          ],
+          "tier": "T1",
+          "decision_id": "S1",
+          "blob": "8ff35835342c63661c2daeb5c3b307eee6b78c27"
+        },
+        {
+          "path": "conf.py",
+          "roles": [
+            "environment"
+          ],
+          "tier": "T1",
+          "decision_id": "S1",
+          "blob": "10b9ea7c06df209c2e1342c78e73a969212bab24"
+        },
+        {
+          "path": "pyExamples/ElasticTruss.py",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T1",
+          "decision_id": "S1",
+          "blob": "63b45232b6b3e872033dacb6506d3d3c61d75e37"
+        },
+        {
+          "path": "src/model.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T1",
+          "decision_id": "S1",
+          "blob_prefix": "bcd8f6f0"
+        },
+        {
+          "path": "src/node.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T1",
+          "decision_id": "S1",
+          "blob_prefix": "deeaa1fd"
+        },
+        {
+          "path": "src/fix.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T1",
+          "decision_id": "S1",
+          "blob_prefix": "451440d8"
+        },
+        {
+          "path": "src/trussEle.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T1",
+          "decision_id": "S1",
+          "blob_prefix": "ec66a3e1"
+        },
+        {
+          "path": "src/analyze.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T1",
+          "decision_id": "S1",
+          "blob_prefix": "01ec0551"
+        },
+        {
+          "path": "src/reactions.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T1",
+          "decision_id": "S1",
+          "blob_prefix": "6b54e1ff"
+        },
+        {
+          "path": "src/nodeReaction.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T1",
+          "decision_id": "S1",
+          "blob_prefix": "ae0f0587"
+        },
+        {
+          "path": "src/nodeDisp.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T1",
+          "decision_id": "S1",
+          "blob_prefix": "3a0287c3"
+        },
+        {
+          "path": "src/ElasticUni.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T1",
+          "decision_id": "S1",
+          "blob_prefix": "04972540"
+        },
+        {
+          "path": "src/load.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T1",
+          "decision_id": "S1",
+          "blob_prefix": "d0738d6a"
+        },
+        {
+          "path": "src/wipe.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T2",
+          "decision_id": "S2",
+          "blob": "fd8b4afe408b372c5a9aaf776d2697e7bf70c898"
+        },
+        {
+          "path": "src/corotTruss.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T2",
+          "decision_id": "S2",
+          "blob": "da130e92cb444ebe1d1555f691ad2bae08bdd284"
+        },
+        {
+          "path": "src/linearTs.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T2",
+          "decision_id": "S2",
+          "blob": "1fa2f043a8a5370db089ded56907fc49ed25a0e6",
+          "note": "Linear timeSeries"
+        },
+        {
+          "path": "src/plainPattern.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T2",
+          "decision_id": "S2",
+          "blob": "da3badf6c05ef655b45e5e62691bd9e376cf7102",
+          "note": "Plain pattern"
+        },
+        {
+          "path": "src/system.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T2",
+          "decision_id": "S2",
+          "blob": "bb5659e2d09cc002e69b99e04fac0193c4fb7352"
+        },
+        {
+          "path": "src/numberer.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T2",
+          "decision_id": "S2",
+          "blob": "43b426acffdaa81dafdea708abd5dc27cb014075"
+        },
+        {
+          "path": "src/constraints.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T2",
+          "decision_id": "S2",
+          "blob": "6337a5b22383a704052f77bd0b9e656e0bc566a2"
+        },
+        {
+          "path": "src/loadControl.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T2",
+          "decision_id": "S2",
+          "blob": "633a5e4a0088cb43670d550daf320bf176a0624f",
+          "note": "LoadControl integrator"
+        },
+        {
+          "path": "src/linearAlgo.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T2",
+          "decision_id": "S2",
+          "blob": "cda6a00891da8f7ae1333e100b420f24f68df3a0",
+          "note": "Linear algorithm"
+        },
+        {
+          "path": "src/analysis.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T2",
+          "decision_id": "S2",
+          "blob": "f8e1d09ac2efd2b1d452ccb9da42f5f539127eaa",
+          "note": "Static analysis"
+        },
+        {
+          "path": "src/installation.rst",
+          "roles": [
+            "environment"
+          ],
+          "tier": "T2",
+          "decision_id": "S2",
+          "blob": "014a8305095a736e4dde3920c66b236b8808c7ff",
+          "note": "installation page chain"
+        },
+        {
+          "path": "src/pypi.rst",
+          "roles": [
+            "environment"
+          ],
+          "tier": "T2",
+          "decision_id": "S2",
+          "blob": "75cd448cb0fefa02c6ea172118df75f2b08400aa",
+          "note": "installation page chain"
+        },
+        {
+          "path": "src/pypilinux.rst",
+          "roles": [
+            "environment"
+          ],
+          "tier": "T2",
+          "decision_id": "S2",
+          "blob": "d4b54ba051fbf2cd5a5eeb447b52135b1dd5c068",
+          "note": "installation page chain"
+        }
+      ],
+      "globs": []
+    },
+    {
+      "repo_key": "freecad102",
+      "owner": "FreeCAD",
+      "repo": "FreeCAD",
+      "url": "https://github.com/FreeCAD/FreeCAD.git",
+      "commit": "256fc7eff3379911ab5daf88e10182c509aa8052",
+      "ref": {
+        "kind": "tag",
+        "name": "1.0.2",
+        "annotated": false
+      },
+      "category": "cad_apis",
+      "tiers": [
+        "T1",
+        "T2"
+      ],
+      "decision_ids": [
+        "C1"
+      ],
+      "license_expression": "LGPL-2.0-or-later",
+      "version_scope": "FreeCAD 1.0.2 (tag 1.0.2)",
+      "attribution": {
+        "passage": "FreeCAD contributors (LGPL-2.0-or-later; corresponding source FreeCAD/FreeCAD tag 1.0.2, 256fc7eff3379911ab5daf88e10182c509aa8052).{HEADER}"
+      },
+      "files": [
+        {
+          "path": "LICENSE",
+          "roles": [
+            "license"
+          ],
+          "tier": "T1",
+          "decision_id": "C1",
+          "blob": "5cc635a0461c04afcf34606a32ac7eceb867bf19",
+          "note": "CRLF"
+        },
+        {
+          "path": "src/Mod/Part/parttests/part_test_objects.py",
+          "roles": [
+            "passage",
+            "environment"
+          ],
+          "mode": "lines",
+          "tier": "T1",
+          "decision_id": "C1",
+          "blob": "dffebbc54098734d7dbd599bbcf7fcd55e291c82"
+        },
+        {
+          "path": "src/Mod/Part/parttests/TopoShapeTest.py",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T1",
+          "decision_id": "C1",
+          "blob": "214a06455733cfa68cba0e0ea9986ec2f8ca5491"
+        },
+        {
+          "path": "src/Mod/Part/App/PrimitiveFeature.cpp",
+          "roles": [
+            "passage"
+          ],
+          "mode": "freecad_cpp",
+          "tier": "T2",
+          "decision_id": "C1",
+          "blob": "095ce83a3cb46159d25bfd836e45461d1ab4d230",
+          "note": "CRLF"
+        },
+        {
+          "path": "src/Mod/Part/App/PrimitiveFeature.h",
+          "roles": [
+            "passage"
+          ],
+          "mode": "freecad_cpp",
+          "tier": "T2",
+          "decision_id": "C1",
+          "blob": "49dd4db8042b49d5074dce3ff29888bf947c22c4",
+          "note": "CRLF"
+        },
+        {
+          "path": "src/App/DocumentPy.xml",
+          "roles": [
+            "passage"
+          ],
+          "mode": "freecad_pyxml",
+          "tier": "T2",
+          "decision_id": "C1",
+          "blob": "9c69b0ce815bc3c289f3dfb1f6598d7b57ec0958"
+        },
+        {
+          "path": "src/App/DocumentObjectPy.xml",
+          "roles": [
+            "passage"
+          ],
+          "mode": "freecad_pyxml",
+          "tier": "T2",
+          "decision_id": "C1",
+          "blob": "f17ae7913cbbc3b68a9d117e4523e06392a85374"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "roles": [
+            "environment"
+          ],
+          "tier": "T2",
+          "decision_id": "C1",
+          "blob": "b793fc21fee2c8b65e62279386a8aae1761136e4",
+          "note": "open point OP-3, default include"
+        },
+        {
+          "path": "src/Mod/Part/App/FeaturePartBox.cpp",
+          "roles": [
+            "passage"
+          ],
+          "mode": "freecad_cpp",
+          "tier": "T2",
+          "decision_id": "C1",
+          "decision_basis": "op2",
+          "blob": "b3ee6fe9ef210fcd3bd9a1fd5303d853aeef4d26"
+        },
+        {
+          "path": "src/Mod/Part/App/FeaturePartBox.h",
+          "roles": [
+            "passage"
+          ],
+          "mode": "freecad_cpp",
+          "tier": "T2",
+          "decision_id": "C1",
+          "decision_basis": "op2",
+          "blob": "bc3e7c4a05da4e5c14107ace64a0ca7af45adcca"
+        },
+        {
+          "path": "src/Mod/Part/App/FeaturePartCut.cpp",
+          "roles": [
+            "passage"
+          ],
+          "mode": "freecad_cpp",
+          "tier": "T2",
+          "decision_id": "C1",
+          "decision_basis": "op2",
+          "blob": "8f5523131b2698f8d1638612b28f52277b114d75"
+        },
+        {
+          "path": "src/Mod/Part/App/FeaturePartCut.h",
+          "roles": [
+            "passage"
+          ],
+          "mode": "freecad_cpp",
+          "tier": "T2",
+          "decision_id": "C1",
+          "decision_basis": "op2",
+          "blob": "78562f68d5618eebeab122adbe1003030a24ab37"
+        },
+        {
+          "path": "src/Mod/Part/App/FeaturePartFuse.cpp",
+          "roles": [
+            "passage"
+          ],
+          "mode": "freecad_cpp",
+          "tier": "T2",
+          "decision_id": "C1",
+          "decision_basis": "op2",
+          "blob": "19f3091c4e6c0da7b8e9bb6fb898540db6eb2b4d"
+        },
+        {
+          "path": "src/Mod/Part/App/FeaturePartFuse.h",
+          "roles": [
+            "passage"
+          ],
+          "mode": "freecad_cpp",
+          "tier": "T2",
+          "decision_id": "C1",
+          "decision_basis": "op2",
+          "blob": "97ef64bde8c393276e391aa7f9c7650f6b0d1908"
+        },
+        {
+          "path": "src/Mod/Part/App/FeaturePartCommon.cpp",
+          "roles": [
+            "passage"
+          ],
+          "mode": "freecad_cpp",
+          "tier": "T2",
+          "decision_id": "C1",
+          "decision_basis": "op2",
+          "blob": "cd72d54b68583f8c9f1bfe0901d20d317bfe8542"
+        },
+        {
+          "path": "src/Mod/Part/App/FeaturePartCommon.h",
+          "roles": [
+            "passage"
+          ],
+          "mode": "freecad_cpp",
+          "tier": "T2",
+          "decision_id": "C1",
+          "decision_basis": "op2",
+          "blob": "5a30a1ee266ab80f9789a7dc87cde447000c8c62"
+        },
+        {
+          "path": "src/Mod/Part/App/FeaturePartBoolean.cpp",
+          "roles": [
+            "passage"
+          ],
+          "mode": "freecad_cpp",
+          "tier": "T2",
+          "decision_id": "C1",
+          "decision_basis": "op2",
+          "blob": "96a22f111550e221416527764a710e104992d445"
+        },
+        {
+          "path": "src/Mod/Part/App/FeaturePartBoolean.h",
+          "roles": [
+            "passage"
+          ],
+          "mode": "freecad_cpp",
+          "tier": "T2",
+          "decision_id": "C1",
+          "decision_basis": "op2",
+          "blob": "5c0d28950ea67be16c5f9bdc5bd2fd061888a83a"
+        },
+        {
+          "path": "src/Mod/Part/App/FeatureCompound.cpp",
+          "roles": [
+            "passage"
+          ],
+          "mode": "freecad_cpp",
+          "tier": "T2",
+          "decision_id": "C1",
+          "decision_basis": "op2",
+          "blob": "431ada08c8396f3e939d1a580cc95ca5a6652f09"
+        },
+        {
+          "path": "src/Mod/Part/App/FeatureCompound.h",
+          "roles": [
+            "passage"
+          ],
+          "mode": "freecad_cpp",
+          "tier": "T2",
+          "decision_id": "C1",
+          "decision_basis": "op2",
+          "blob": "8e3f8ec4b022008676736f2723e06c0f902e8d47"
+        }
+      ],
+      "globs": [
+        {
+          "patterns": [
+            "src/Mod/Part/App/*Py.xml"
+          ],
+          "any_depth": false,
+          "roles": [
+            "passage"
+          ],
+          "mode": "freecad_pyxml",
+          "tier": "T2",
+          "decision_id": "C1",
+          "listed_count": 55,
+          "note": "top level only; blobs per ls-tree"
+        }
+      ]
+    },
+    {
+      "repo_key": "scipy1161",
+      "owner": "scipy",
+      "repo": "scipy",
+      "url": "https://github.com/scipy/scipy.git",
+      "commit": "0cf8e9541b1a2457992bf4ec2c0c669da373e497",
+      "ref": {
+        "kind": "tag",
+        "name": "v1.16.1",
+        "annotated": true,
+        "tag_object": "18242f3b64239555a6b3845edfee80e09246b2dd"
+      },
+      "category": "simulation",
+      "tiers": [
+        "T1",
+        "T2"
+      ],
+      "decision_ids": [
+        "M1"
+      ],
+      "license_expression": "BSD-3-Clause",
+      "version_scope": "SciPy 1.16.1 (tag v1.16.1)",
+      "attribution": {
+        "passage": "SciPy (BSD-3-Clause; LICENSE.txt: Copyright (c) 2001-2002 Enthought, Inc. 2003, SciPy Developers. All rights reserved.)"
+      },
+      "public_names": {
+        "index": "scipy/integrate/_ivp/__init__.py",
+        "names": [
+          "solve_ivp",
+          "RK23",
+          "RK45",
+          "DOP853",
+          "Radau",
+          "BDF",
+          "LSODA",
+          "OdeSolution",
+          "DenseOutput",
+          "OdeSolver"
+        ]
+      },
+      "files": [
+        {
+          "path": "LICENSE.txt",
+          "roles": [
+            "license"
+          ],
+          "tier": "T1",
+          "decision_id": "M1",
+          "blob": "1032aece8a8109d67f238de6865d8b08e750a8c0"
+        },
+        {
+          "path": "scipy/integrate/_ivp/ivp.py",
+          "roles": [
+            "passage"
+          ],
+          "mode": "python_public_api",
+          "tier": "T1",
+          "decision_id": "M1",
+          "blob": "8186982e4fddbd8c1058b59c745ca66ab3a9c224",
+          "note": "solve_ivp unit only"
+        },
+        {
+          "path": "scipy/integrate/_ivp/__init__.py",
+          "roles": [
+            "index"
+          ],
+          "tier": "T2",
+          "decision_id": "M1",
+          "blob": "f3c8aaa36588651ae5e48b58fbb1d443bc71fc77",
+          "note": "index for public names"
+        },
+        {
+          "path": "scipy/integrate/_ivp/rk.py",
+          "roles": [
+            "passage"
+          ],
+          "mode": "python_public_api",
+          "tier": "T2",
+          "decision_id": "M1",
+          "blob_prefix": "62a5347f"
+        },
+        {
+          "path": "scipy/integrate/_ivp/radau.py",
+          "roles": [
+            "passage"
+          ],
+          "mode": "python_public_api",
+          "tier": "T2",
+          "decision_id": "M1",
+          "blob_prefix": "0d572b48"
+        },
+        {
+          "path": "scipy/integrate/_ivp/bdf.py",
+          "roles": [
+            "passage"
+          ],
+          "mode": "python_public_api",
+          "tier": "T2",
+          "decision_id": "M1",
+          "blob_prefix": "33b47a64"
+        },
+        {
+          "path": "scipy/integrate/_ivp/lsoda.py",
+          "roles": [
+            "passage"
+          ],
+          "mode": "python_public_api",
+          "tier": "T2",
+          "decision_id": "M1",
+          "blob_prefix": "2a5a7c53"
+        },
+        {
+          "path": "scipy/integrate/_ivp/common.py",
+          "roles": [
+            "passage"
+          ],
+          "mode": "python_public_api",
+          "tier": "T2",
+          "decision_id": "M1",
+          "blob_prefix": "0c820ad9"
+        },
+        {
+          "path": "scipy/integrate/_ivp/base.py",
+          "roles": [
+            "passage"
+          ],
+          "mode": "python_public_api",
+          "tier": "T2",
+          "decision_id": "M1",
+          "blob_prefix": "46db9a69"
+        },
+        {
+          "path": "doc/source/tutorial/integrate.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "lines",
+          "tier": "T2",
+          "decision_id": "M1",
+          "blob": "997168939cb6b2381941d9b10e36c0aa9b60b6e5"
+        },
+        {
+          "path": "doc/source/release/1.16.0-notes.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "rst_sections",
+          "tier": "T2",
+          "decision_id": "M1",
+          "blob": "d629818bc0a965c8cd771a33a71104f2d54aefcc",
+          "note": "contributes lines 62-66 at the pin"
+        },
+        {
+          "path": "doc/source/release/1.16.1-notes.rst",
+          "roles": [
+            "passage"
+          ],
+          "mode": "rst_sections",
+          "tier": "T2",
+          "decision_id": "M1",
+          "blob": "771523d338f5e4005e3a87bd33c42a3a5d1adb8b",
+          "note": "contributes nothing at the pin"
+        },
+        {
+          "path": "pyproject.toml",
+          "roles": [
+            "environment"
+          ],
+          "tier": "T2",
+          "decision_id": "M1",
+          "blob": "3c2cb475af9b3e088822a0cb41a772038d0b6649"
+        }
+      ],
+      "globs": []
+    }
+  ],
+  "rst_section_filter": "scipy.integrate",
+  "environment_passages": [
+    {
+      "id": "gis-env-v1",
+      "category": "gis_scripting",
+      "repo_key": "arcpy",
+      "target": "ArcGIS Pro 3.6 (ArcPy)",
+      "blocks": [
+        {
+          "file_key": "arcpy/docs/arcgis-dist.json",
+          "lines": "2862,2867,2869,2870,3026,3073"
+        },
+        {
+          "file_key": "arcpy/docs/ArcPy-Cheatsheet.pdf!text",
+          "lines": "260-263"
+        }
+      ],
+      "tokens_nov20": 236
+    },
+    {
+      "id": "aec-env-v1",
+      "category": "aec_automation",
+      "repo_key": "tbc2025",
+      "target": "Revit 2025 API (.NET 8)",
+      "blocks": [
+        {
+          "file_key": "tbc2025/BuildingCoder/BuildingCoder.csproj",
+          "lines": "6,15,47-49,56-58"
+        },
+        {
+          "file_key": "tbc2025/BuildingCoder/TheBuildingCoderSingleSample.addin",
+          "lines": "1-12"
+        },
+        {
+          "file_key": "tbc2025/Readme.md",
+          "lines": "16-23"
+        }
+      ],
+      "tokens_nov20": 568
+    },
+    {
+      "id": "str-env-v1",
+      "category": "structural_analysis",
+      "repo_key": "ospdoc",
+      "target": "OpenSeesPy 3.5.1.3",
+      "blocks": [
+        {
+          "file_key": "ospdoc/conf.py",
+          "lines": "72,74"
+        },
+        {
+          "file_key": "ospdoc/src/pypilinux.rst",
+          "lines": "16-39"
+        }
+      ],
+      "tokens_nov20": 214
+    },
+    {
+      "id": "cad-env-v1",
+      "category": "cad_apis",
+      "repo_key": "freecad102",
+      "target": "FreeCAD 1.0.2",
+      "blocks": [
+        {
+          "file_key": "freecad102/CMakeLists.txt",
+          "lines": "32-34"
+        },
+        {
+          "file_key": "freecad102/src/Mod/Part/parttests/part_test_objects.py",
+          "lines": "23-37,46-47"
+        }
+      ],
+      "tokens_nov20": 235
+    },
+    {
+      "id": "sim-env-v1",
+      "category": "simulation",
+      "repo_key": "scipy1161",
+      "target": "SciPy 1.16.1",
+      "blocks": [
+        {
+          "file_key": "scipy1161/pyproject.toml",
+          "lines": "46,57,58,61,62"
+        }
+      ],
+      "tokens_nov20": 139
+    }
+  ]
+}
