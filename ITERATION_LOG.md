@@ -670,3 +670,57 @@ truncation. No implementation, dependency or new protocol was introduced.
     new keys and the per-dimension minimums map, and that they pin this hash.
   - Then build the retrieval pack, get an independent review, and pre-register
     the corrected generator before any corrected answer exists.
+
+### November 20 · Evaluation path and retrieval-pack specification
+
+- **Evaluation path (design step 2).** The specification is in
+  `docs/AEC-V2-EVALUATION.md`.
+  - It is built in new modules only. Frozen evidence records pin every
+    existing evaluation module by hash.
+  - The modules cover:
+    - the 8-dimension assessments, with the eligibility rule
+      `exclude-human-labeled-v1`;
+    - labels with notes that may span lines;
+    - blind references;
+    - one masked 40-item packet with a sealed mapping;
+    - exact comparison statistics;
+    - a CLI.
+  - The evidence confirms the design's baseline sample: 30 baseline members
+    have never been labeled by a human, 6 per category.
+  - **Course-decision reading (assistant, for the owner's approval at
+    pre-registration).** The result is `pass` only when every rubric success
+    metric holds:
+    - RFR > 0.8;
+    - the baseline-failure minimum;
+    - the corrected overall and per-dimension minimums (Q5);
+    - the dataset and validity checks.
+    
+    A baseline below the minimum is `not_evaluable`. Each component is
+    reported separately.
+  - **Review status: certified.**
+    - The first code review found 8 issues. The high-severity one: a Unicode
+      line separator in a comment broke the label ledger.
+    - Its re-check found 5 more, the most important being labels bound to the
+      import only by ID, and an unchecked no-prior-reviews declaration.
+    - The verifier's mutation runs exposed untested checks and 5 low defects.
+    - All were fixed over three rounds, each with a test that failed before
+      its fix.
+    - The final re-check passed with 0 blockers: 27 of 28 mutants killed, and
+      the survivor's missing test has since been added and kills it.
+    - The suite gave 1,595 passed, 1 skipped, with ruff clean.
+    - Labels are now bound to the reviewer's preserved answer sheet by
+      content.
+- **Retrieval-pack specification (design steps 3–7).**
+  - `docs/AEC-RAG-PACK.md` was written in a blind lane, with no review,
+    label, judge or failure-analysis inputs. It verifies every pin.
+  - The retrieval-metric gate (G7) uses the designer's own metric
+    definitions, on which the floors were calibrated.
+- **Owner decisions (Chad, November 20).**
+  - **OP-2:** admit FreeCAD's FeaturePartBox, FeaturePartCut,
+    FeaturePartFuse, FeaturePartCommon, FeaturePartBoolean and FeatureCompound
+    sources under decision C1. They share PrimitiveFeature's pin, licence,
+    role and mode, and 7 of the 10 CAD briefs use these objects.
+  - **OP-9:** the full Regents notice appears once in each structural request,
+    with the copyright line and a pointer on each excerpt. The owner confirmed
+    this satisfies "must appear in all copies".
+  - Every other open point takes the specification's recommended default.

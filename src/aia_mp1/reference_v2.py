@@ -1,0 +1,97 @@
+"""Freeze v2 blind labels before model feedback; later amendments never replace them."""
+
+from pathlib import Path
+
+from .assessment import exclusive, read_json, read_text, save_new
+from .assessment_v2 import SCHEMA_VERSION, load_assessment_v2
+from .labels_v2 import load_labels_v2
+from .review_packet_v2 import packet_label_records
+from .tracing import digest, now, read_records
+
+
+def _packet_ids(labels: dict) -> list[str]:
+    return sorted({label["packet_id"] for label in labels.values() if "packet_id" in label})
+
+
+def freeze_reference_v2(
+    root: Path, assessment_id: str, reviewer: str, *, declare_blind: bool
+) -> dict:
+    directory, assessment, records, _ = load_assessment_v2(root, assessment_id)
+    if not declare_blind or not reviewer.strip():
+        raise ValueError("reviewer must explicitly declare no judge output was consulted")
+    with exclusive(directory):
+        if (directory / "judges").exists() and any((directory / "judges").iterdir()):
+            raise ValueError("cannot freeze blind labels after judge evidence exists")
+        labels = load_labels_v2(directory, assessment, records)
+        if set(labels) != set(assessment["selected_ids"]) or len(labels) < 20:
+            raise ValueError("complete all 20 selected human reviews before freezing")
+        if any(
+            label["review_stage"] != "blind" or label.get("consulted_report_ids")
+            for label in labels.values()
+        ):
+            raise ValueError("reference requires explicitly blind reviews")
+        if any(label["reviewer"] != reviewer.strip() for label in labels.values()):
+            raise ValueError("reference declaration must match the human reviewer")
+        packet_label_records(root, assessment_id, labels)  # Finished, matching imports only.
+        text = read_text(directory / "human-labels.jsonl")
+        reference = {
+            "schema_version": SCHEMA_VERSION,
+            "assessment_id": assessment_id,
+            "assessment_sha256": assessment["manifest_sha256"],
+            "created_at": now(),
+            "reviewer": reviewer.strip(),
+            "declared_blind": True,
+            "ledger_prefix_sha256": digest(text),
+            "ledger_prefix_lines": len(text.splitlines()),
+            "labels": labels,
+            "packet_ids": _packet_ids(labels),
+            "selected_ids": assessment["selected_ids"],
+            "rubric_sha256": assessment["rubric_sha256"],
+            "reference_pack_sha256": assessment["reference_pack_sha256"],
+        }
+        reference["sha256"] = digest(reference)
+        save_new(directory / "human-reference.json", reference)
+        return reference
+
+
+def load_reference_v2(
+    directory: Path, manifest: dict, records: list[dict], *, for_scoring: bool = False
+) -> dict:
+    reference = read_json(directory / "human-reference.json")
+    load_labels_v2(directory, manifest, records)
+    text = read_text(directory / "human-labels.jsonl")
+    lines = text.splitlines(keepends=True)
+    n = reference["ledger_prefix_lines"]
+    if type(n) is not int or not 20 <= n <= len(lines):
+        raise ValueError("invalid frozen human ledger prefix")
+    prefix_labels = {}
+    for envelope in read_records(directory / "human-labels.jsonl")[:n]:
+        prefix_labels[envelope["label"]["item_id"]] = envelope["label"]
+    if (
+        reference["sha256"] != digest({k: v for k, v in reference.items() if k != "sha256"})
+        or reference["schema_version"] != SCHEMA_VERSION
+        or reference["assessment_id"] != manifest["assessment_id"]
+        or reference["assessment_sha256"] != manifest["manifest_sha256"]
+        or reference["selected_ids"] != manifest["selected_ids"]
+        or reference["rubric_sha256"] != manifest["rubric_sha256"]
+        or reference["reference_pack_sha256"] != manifest["reference_pack_sha256"]
+        or reference["declared_blind"] is not True
+        or reference["ledger_prefix_sha256"] != digest("".join(lines[:n]))
+        or reference["labels"] != prefix_labels
+        or reference["packet_ids"] != _packet_ids(prefix_labels)
+        or set(prefix_labels) != set(manifest["selected_ids"])
+        or any(
+            label["review_stage"] != "blind"
+            or label.get("consulted_report_ids")
+            or label["reviewer"] != reference["reviewer"]
+            for label in prefix_labels.values()
+        )
+    ):
+        raise ValueError("frozen human reference differs from its independent ledger prefix")
+    withdrawal = directory / "human-reference-withdrawal.json"
+    if for_scoring and (withdrawal.exists() or withdrawal.is_symlink()):
+        notice = read_json(withdrawal)
+        if notice["human_reference_sha256"] != reference["sha256"]:
+            raise ValueError("withdrawal does not match the frozen human reference")
+        raise ValueError(f"Human reference withdrawn from scoring: {notice['reason']}")
+    return reference
